@@ -1,0 +1,339 @@
+import { createUseStyles } from "react-jss";
+import { Theme } from "../../../theme /themeType";
+
+export const useStyle = createUseStyles((theme: Theme) => ({
+  mainContainer: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+  },
+  headerSection: {
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: theme.spacing.s1200,
+    gap: theme.spacing.s250,
+  },
+  contentOne: {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing.s200,
+  },
+  lightColor: {
+    color: theme.light.neutral.onSurface.dark,
+    cursor: "pointer",
+    "&:hover": {
+      color: theme.light.negative.onSurface.medium,
+    },
+  },
+  dotStyle: {
+    width: "3px",
+    height: "3px",
+    backgroundColor: theme.light.neutral.onSurface.dark,
+    borderRadius: "50%",
+  },
+  offerDiv: {
+    width: "50%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: theme.spacing.s400,
+    backgroundColor: theme.light.negative.surface.lighter,
+    borderRadius: theme.spacing.s600,
+    border: `1px dashed ${theme.light.neutral.border.light}`,
+    borderColor: theme.light.negative.onSurface.medium,
+  },
+  outerDiv: {
+    display: "flex",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: theme.spacing.s1000,
+  },
+  mainProductContainer: {
+    width: "100%",
+    display: "flex",
+    gap: theme.spacing.s500,
+    marginTop: theme.spacing.s600,
+    padding: `${theme.spacing.s0} ${theme.spacing.s2000}`,
+  },
+  leftContainer: {
+    width: "60%",
+  },
+  tableContent: {
+    width: "100%",
+    padding: theme.spacing.s200,
+  },
+  tableContainer: {
+    width: "100%",
+    borderCollapse: "collapse",
+    marginBottom: theme.spacing.s1600,
+  },
+  tableHeader: {
+    display: "flex",
+    width: "100%",
+    alignItems: "flex-start",
+    padding: theme.spacing.s300,
+    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+  },
+  tableBody: {
+    width: "100%",
+    padding: `${theme.spacing.s500} ${theme.spacing.s0}`,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  imageContentContainer: {
+    display: "flex",
+    gap: theme.spacing.s250,
+  },
+  imageDiv: {
+    width: "30%",
+    height: "100px",
+  },
+  fashionImage: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    borderRadius: theme.spacing.s200,
+  },
+  contents: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+  },
+  priceTags: {
+    width: "100%",
+    display: "flex",
+    padding: `${theme.spacing.s800} ${theme.spacing.s0}`,
+    borderTop: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    alignItems: "center",
+    gap: theme.spacing.s250,
+  },
+  reviewCardsContainer: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing.s400,
+    justifyContent: "space-between",
+    marginTop: theme.spacing.s1200,
+    marginBottom: theme.spacing.s1200,
+  },
+  cardStyle: {
+    width: "fit-content",
+    backgroundColor: theme.light.neutral.surface.light,
+    height: "fit-content",
+    padding: theme.spacing.s800,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    textAlign: "center",
+    borderRadius: theme.borderRadius.b300,
+  },
+  rightContainer: {
+    width: "40%",
+    height: "550px",
+    gap: theme.spacing.s800,
+    // backgroundColor: theme.light.neutral.surface.light,
+    padding: theme.spacing.s800,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    borderRadius: theme.borderRadius.b300,
+    overflow: "auto",
+    overflowY: "scroll",
+
+    /* Hide scrollbar for WebKit-based browsers */
+    scrollbarWidth: "none" /* Firefox */,
+    msOverflowStyle: "none" /* IE and Edge */,
+  },
+
+  // Add this in a global CSS file or a <style> tag
+  "::-webkit-scrollbar": {
+    display: "none",
+  },
+
+  freeShipingDiv: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.spacing.s500,
+    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+  },
+  greenDivider: {
+    width: "100%",
+    height: "6px",
+    borderRadius: theme.borderRadius.b150,
+    backgroundColor: theme.light.positive.surface.medium,
+  },
+  textContents: {
+    width: "100%",
+    marginBottom: theme.spacing.s500,
+  },
+  ordernoteeDiv: {
+    width: "100%",
+    marginTop: theme.spacing.s600,
+    display: "flex",
+    gap: theme.spacing.s150,
+    flexDirection: "column",
+    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    paddingBottom: theme.spacing.s800,
+  },
+  formContainer: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.spacing.s500,
+    marginTop: theme.spacing.s400,
+  },
+  buttonContainer: {
+    width: "100%",
+  },
+  buttonStyle: {
+    width: "100%",
+  },
+  inputFeilds: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.spacing.s150,
+  },
+  subTotalDiv: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.spacing.s400,
+    paddingTop: theme.spacing.s500,
+    paddingBottom: theme.spacing.s500,
+    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderTop: `1px solid ${theme.light.neutral.border.light}`,
+    marginTop: theme.spacing.s600,
+  },
+  subTotal: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  blackColor: {
+    color: theme.light.neutral.onSurface.title,
+  },
+  termsAndConditionsDiv: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: theme.spacing.s250,
+    padding: `${theme.spacing.s500} ${theme.spacing.s0} ${theme.spacing.s500} ${theme.spacing.s0}`,
+  },
+  checkBoxContainer: {
+    display: "flex",
+    width: "100%",
+    alignItems: "center",
+    gap: theme.spacing.s150,
+  },
+  checkoutContainer: {
+    width: "100%",
+  },
+  deliveryInformations: {
+    width: "100%",
+    height: "30px",
+    backgroundColor: theme.light.neutral.surface.light,
+    padding: theme.spacing.s800,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    borderRadius: theme.borderRadius.b300,
+  },
+  contentsDiv: {
+    width: "100%",
+    backgroundColor: theme.light.neutral.surface.light,
+    padding: theme.spacing.s800,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    borderRadius: theme.borderRadius.b300,
+  },
+  informationsDiv: {
+    width: "100%",
+    backgroundColor: theme.light.neutral.surface.light,
+    padding: theme.spacing.s800,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    borderRadius: theme.borderRadius.b300,
+    gap: theme.spacing.s400,
+  },
+  conditionDiv: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.spacing.s200,
+  },
+  imgDiv: {
+    width: "90%",
+  },
+  paymentstyle: {
+    width: "100%",
+    height: "100%",
+  },
+  suggestionProduct: {
+    width: "100%",
+    display: "flex",
+    alignItems: "flex-start",
+    gap: theme.spacing.s400,
+    flexDirection: "column",
+    
+  },
+  productCard: {
+    border: `1px solid ${theme.light.neutral.border.light}`,
+    width: "fit-content",
+    padding: theme.spacing.s400,
+    display: "flex",
+    gap: theme.spacing.s250,
+    alignItems: "center",
+    borderRadius: theme.spacing.s200,
+  },
+  fashionImageDiv: {
+    width: "10%",
+  },
+  fashionIme: {
+    width: "100%",
+    height: "100%",
+    objectFit: "100%",
+    borderRadius: theme.spacing.s200,
+  },
+  td: {
+    padding: theme.spacing.s400,
+    width: "200px",
+  },
+  tdone: {
+    padding: theme.spacing.s400,
+    width: "500px",
+  },
+  th:{
+    display:'flex',
+    justifyContent:'flex-start'
+  },
+  btnStyle: {
+    backgroundColor: `${theme.light.neutral.surface.light} !important`,
+    color: `${theme.light.neutral.onSurface.title} !important`,
+  },
+  svgAdd: {
+    "& path": {
+      fill: theme.light.neutral.onSurface.title,
+    },
+  },
+  sugesstionproducts:{
+    display:'flex',
+    width:'100%',
+    overflow: "auto",
+    overflowX: "scroll",
+    scrollbarWidth:'thin  ',
+    maxHeight:'300px',
+    gap:theme.spacing.s400
+  }
+}));

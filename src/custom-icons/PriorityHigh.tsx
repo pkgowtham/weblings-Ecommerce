@@ -1,0 +1,16 @@
+import * as React from "react";
+import type { SVGProps } from "react";
+const SvgPriorityHigh = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={24}
+    height={24}
+    fill="none"
+    {...props}
+  >
+    <g fill="#000">
+      <path d="M12 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4M10 3h4v12h-4z" />
+    </g>
+  </svg>
+);
+export default SvgPriorityHigh;
