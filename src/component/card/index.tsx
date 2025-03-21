@@ -163,7 +163,7 @@ const Card: React.FC<any> = (props): JSX.Element => {
     const scrollContainer = ScroolContainerRef.current;
 
     if (scrollContainer) {
-      const scrollAmount = direction === "left" ? -300 : 300;
+      const scrollAmount = direction === "left" ? -770 : 770;
       scrollContainer.scrollBy({ left: scrollAmount, behavior: "smooth" });
 
       // Delay state update slightly to allow smooth scrolling to complete

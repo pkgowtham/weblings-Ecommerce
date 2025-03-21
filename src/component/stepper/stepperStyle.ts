@@ -1,6 +1,6 @@
 import { createUseStyles } from "react-jss";
-import { Theme } from "../../../theme /themeType";
-import { theme } from "../../../theme /theme";
+import { Theme } from "../../../theme/themeType";
+import { theme } from "../../../theme/theme";
 
 export const useStyle = createUseStyles((theme:Theme)=>({
     stepper: {

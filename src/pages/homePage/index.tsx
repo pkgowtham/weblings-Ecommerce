@@ -9,7 +9,6 @@ import Shop from "../../component/shop";
 import Support from "../../component/support";
 import Slider from "../../component/slider";
 import { useStyle } from "./indexstyle";
-import Footer from "../../component/footer";
 
 const topcollections = {
   card: [
@@ -127,22 +126,6 @@ const reviewdata = {
       subtext: "Slim Fit Basic Unpatterned T-shirt",
       amount: "$75.00",
     },
-    // { logo:fashion,
-    //   title: "Cotton Long-Sleeve Striped T-shirt",
-    //   description: "$115.00",
-    // },
-    // { logo:fashion,
-    //   title: "Cotton Long-Sleeve Striped T-shirt",
-    //   description: "$115.00",
-    // },
-    // { logo:fashion,
-    //   title: "Cotton Long-Sleeve Striped T-shirt",
-    //   description: "$115.00",
-    // },
-    // { logo:fashion,
-    //   title: "Cotton Long-Sleeve Striped T-shirt",
-    //   description: "$115.00",
-    // },
   ],
 };
 const slider = {
@@ -154,16 +137,22 @@ const slider = {
       logo: fashion,
       title: "Cotton Long-Sleeve Striped T-shirt",
       description: "$115.00",
+      sliderimage:
+        "https://images.pexels.com/photos/7179506/pexels-photo-7179506.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     },
     {
       logo: fashion,
       title: "Cotton Long-Sleeve Striped T-shirt",
       description: "$115.00",
+      sliderimage:
+        "https://images.pexels.com/photos/3473085/pexels-photo-3473085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     },
     {
       logo: fashion,
       title: "Cotton Long-Sleeve Striped T-shirt",
       description: "$115.00",
+      sliderimage:
+        "https://images.pexels.com/photos/425241/pexels-photo-425241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     },
   ],
 };
@@ -210,7 +199,7 @@ const shop = {
 };
 
 const HomePage = () => {
-    const classes = useStyle();
+  const classes = useStyle();
   return (
     <div className={classes.mainContainer}>
       <Slider SliderData={slider} />

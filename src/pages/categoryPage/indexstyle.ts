@@ -1,5 +1,5 @@
 import { createUseStyles } from "react-jss";
-import { Theme } from "../../../theme /themeType";
+import { Theme } from "../../../theme/themeType";
 
 export const useStyle = createUseStyles((theme: Theme) => ({
   mainContainer: {
@@ -9,6 +9,11 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     justifyContent: "center",
     padding: theme.spacing.s400,
     margin: `${theme.spacing.s0} ${theme.spacing.s1000}`,
+    flexDirection:'column'
+  },
+  filterContents:{
+    display:'flex',
+    gap:theme.spacing.s1000
   },
   filterDiv: {
     width: "20%",

@@ -3,10 +3,12 @@ import { useStyle } from "./indexstyle";
 import Typography from "../../../src/component/typography/component";
 import SvgChevronRight from "../../../../my-app/src/custom-icons/ChevronRight";
 import SvgChevronLeft from "../../../../my-app/src/custom-icons/ChevronLeft";
+import SvgStarPurple500 from "../../custom-icons/StarPurple500";
 
 const Review: React.FC<any> = (props): JSX.Element => {
   const classes = useStyle();
   const { ReviewsData } = props;
+  const ratings = 4;
 
   const ScroolContainerRef = useRef<HTMLDivElement>(null);
 
@@ -18,7 +20,7 @@ const Review: React.FC<any> = (props): JSX.Element => {
     const scrollContainer = ScroolContainerRef.current;
 
     if (scrollContainer) {
-      const scrollAmount = direction === "left" ? -300 : 300;
+      const scrollAmount = direction === "left" ? -1400 : 1400;
       scrollContainer.scrollBy({ left: scrollAmount, behavior: "smooth" });
 
       // Delay state update slightly to allow smooth scrolling to complete
@@ -57,55 +59,75 @@ const Review: React.FC<any> = (props): JSX.Element => {
   return (
     <div className={classes.MainContainer}>
       <Typography variant="HM" className={classes.Title}>
-        {ReviewsData .title}
+        {ReviewsData.title}
       </Typography>
       <Typography variant="BM" className={classes.SubTitle}>
-        {ReviewsData .subtitle}
+        {ReviewsData.subtitle}
       </Typography>
       <div className={classes.CardContainer}>
-        <SvgChevronLeft
-          className={classes.ScroolLeftButton}
+        <div
           onClick={() => handlescrool("left")}
+          className={classes.leftArrow}
           style={{
             opacity: isAtStart ? 0 : 1,
             pointerEvents: isAtStart ? "none" : "auto",
           }}
-        />
+        >
+          <SvgChevronLeft className={classes.ScroolLeftButton} />
+        </div>
         <div className={classes.ScrollContainer} ref={ScroolContainerRef}>
-          {ReviewsData .cards.map((card: any, index: number) => (
+          {ReviewsData.cards.map((card: any, index: number) => (
             <div key={index} className={classes.CardWrapper}>
               <div className={classes.Card}>
-                <img src={card.logo} className={classes.CardLogo}/>
+                <img src={card.logo} className={classes.CardLogo} />
               </div>
               <div className={classes.CardContent}>
                 <div className={classes.CardDiv}>
-                <Typography variant="TS" className={classes.CardTitle}>
-                  {card.title}
-                </Typography>
-                <Typography variant="BS">{card.description}</Typography>
+                  <div>
+                    {Array.from({ length: ratings }).map((_, index) => (
+                      <SvgStarPurple500
+                        viewBox="0 0 20 25"
+                        width={20}
+                        height={20}
+                        className={classes.starColor}
+                        key={index}
+                      />
+                    ))}
+                  </div>
+                  <Typography variant="TS" className={classes.CardTitle}>
+                    {card.title}
+                  </Typography>
+                  <Typography variant="BM">{card.description}</Typography>
                 </div>
                 <div className={classes.SubDiv}>
                   <div className={classes.SubImgDiv}>
-                    <img src={card.subimg} alt=""className={classes.SubImg}/>
+                    <img src={card.subimg} alt="" className={classes.SubImg} />
                   </div>
                   <div>
-                  <Typography variant="bS">{card.subtext}</Typography>
-                  <Typography variant="TS">{card.amount}</Typography>
+                    <Typography variant="BS">{card.subtext}</Typography>
+                    <Typography variant="TS">{card.amount}</Typography>
                   </div>
-
                 </div>
               </div>
             </div>
           ))}
         </div>
-        <SvgChevronRight
-          onClick={() => handlescrool("right")}
-          className={classes.ScroolRightButton}
+        <div
           style={{
             opacity: isAtEnd ? 0 : 1,
             pointerEvents: isAtEnd ? "none" : "auto",
           }}
-        />
+          className={classes.rightArrow}
+          onClick={() => handlescrool("right")}
+        >
+          <SvgChevronRight
+            className={classes.ScroolRightButton}
+            style={{
+              opacity: isAtEnd ? 0 : 1,
+              pointerEvents: isAtEnd ? "none" : "auto",
+            }}
+          />
+        </div>
       </div>
     </div>
   );

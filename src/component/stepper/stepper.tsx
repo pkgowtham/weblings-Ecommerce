@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useStyle } from "./stepperStyle";
 import clsx from "clsx";
 import Typography from "../typography/component";
-import { theme } from "../../../theme /theme";
+import { theme } from "../../../theme/theme";
 import SvgPriorityHigh from "../../../src/assets/icons/priority_high.svg";
 import SvgDone from "../../../src/assets/icons/done.svg";
 

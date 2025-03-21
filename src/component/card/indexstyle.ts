@@ -1,5 +1,5 @@
 import { createUseStyles } from "react-jss";
-import { Theme } from "../../../theme /themeType";
+import { Theme } from "../../../theme/themeType";
 
 export const useStyle = createUseStyles((theme: Theme) => ({
   MainContainer: {
@@ -11,14 +11,20 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   Title: {
     color:theme.light.neutral.onSurface.title,
     width: "100%",
-    maxWidth: "705px",
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
     marginBottom: theme.spacing.s150,
   },
   SubTitle: {
     marginBottom: theme.spacing.s600,
+    display:'flex',
+    justifyContent:'center'
   },
   CardContainer: {
     display: "flex",
+    width:'90%',
+    margin:'0 auto',
     justifyContent: "space-between",
     gap: theme.spacing.s500,
     position: "relative",
@@ -93,6 +99,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems:'center',
     justifyContent:'center',
     border: `1px solid ${theme.light.neutral.border.light}`,
+    backgroundColor:theme.light.neutral.surface.light,
     cursor: "pointer",
     position: "absolute",
     top: 190,
@@ -111,5 +118,6 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems:'center',
     justifyContent:'center',
     border: `1px solid ${theme.light.neutral.border.light}`,
+    backgroundColor:theme.light.neutral.surface.light
   }
 }));

@@ -6,7 +6,7 @@ import fashion from "../../assets/images/fashion.jpg";
 import Button from "../button";
 import SvgAdd from "../../custom-icons/Add";
 import { useState } from "react";
-import { theme } from "../../../theme /theme";
+import { theme } from "../../../theme/theme";
 import clsx from "clsx";
 
 interface CartEditModuleProps {

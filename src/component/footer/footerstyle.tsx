@@ -1,6 +1,6 @@
 import { createUseStyles } from "react-jss";
-import { theme } from "../../../theme /theme";
-import { Theme } from "../../../theme /themeType";
+import { theme } from "../../../theme/theme";
+import { Theme } from "../../../theme/themeType";
 
 export const usestyles= createUseStyles((theme:Theme)=>({
     Footer:{
@@ -9,7 +9,8 @@ export const usestyles= createUseStyles((theme:Theme)=>({
         borderTop: `1px solid ${theme.light.neutral.border.light}`,
         alignItems:'center',
         width:'100%',
-        height:'400px'
+        height:'400px',
+        marginTop:theme.spacing.s1600
     },
     FooterContent:{
         display:'flex',

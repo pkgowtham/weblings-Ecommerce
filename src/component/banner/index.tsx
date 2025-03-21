@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useStyle } from "./indexstyle";
-import SvgChevronRight from "../../../../my-app/src/custom-icons/ChevronRight";
-import SvgChevronLeft from "../../../../my-app/src/custom-icons/ChevronLeft";
+import SvgChevronRight from "../../custom-icons/ChevronRight";
+import SvgChevronLeft from "../../custom-icons/ChevronLeft";
 
-const Slider: React.FC<any> = ({SliderData}): JSX.Element => {
+const Banner: React.FC<any> = ({BannerData,...props}): JSX.Element => {
   const classes = useStyle();
   
 
@@ -18,7 +18,7 @@ const Slider: React.FC<any> = ({SliderData}): JSX.Element => {
     const scrollContainer = ScroolContainerRef.current;
 
     if (scrollContainer) {
-      const scrollAmount = direction === "left" ? -1540 : 1540;
+      const scrollAmount = direction === "left" ? -1450 : 1450;
       scrollContainer.scrollBy({ left: scrollAmount, behavior: "smooth" });
 
       // Delay state update slightly to allow smooth scrolling to complete
@@ -55,12 +55,15 @@ const Slider: React.FC<any> = ({SliderData}): JSX.Element => {
   }, []);
 
   return (
-    <div className={classes.MainContainer}>
+    <div className={classes.MainContainer}
+    onMouseEnter={()=> setIsHovered(true)}
+    onMouseLeave={()=> setIsHovered(false)}
+    >
       <div className={classes.CardContainer}>
         <div
           onClick={() => handlescrool("left")}
           style={{
-            opacity: isAtStart ? 0 : 1,
+            opacity: isHovered && !isAtStart ? 1 : 0,
             pointerEvents: isAtStart ? "none" : "auto",
           }}
           className={classes.leftArrow}
@@ -68,9 +71,9 @@ const Slider: React.FC<any> = ({SliderData}): JSX.Element => {
           <SvgChevronLeft className={classes.ScroolLeftButton} />
         </div>
         <div className={classes.ScrollContainer} ref={ScroolContainerRef}>
-          {SliderData?.cards?.map((card: any, index: number) => (
+          {BannerData?.cards?.map((card: any, index: number) => (
             <div key={index} className={classes.CardWrapper}>
-              <div className={classes.Card}>
+              <div className={classes.Card}{...props}>
                 <img
                   src={card.sliderimage}
                   alt=""
@@ -85,7 +88,7 @@ const Slider: React.FC<any> = ({SliderData}): JSX.Element => {
         <div
           onClick={() => handlescrool("right")}
           style={{
-            opacity: isAtEnd ? 0 : 1,
+            opacity: isHovered && ! isAtEnd ? 1 : 0,
             pointerEvents: isAtEnd ? "none" : "auto",
           }}
           className={classes.rightArrow}
@@ -97,4 +100,4 @@ const Slider: React.FC<any> = ({SliderData}): JSX.Element => {
   );
 };
 
-export default Slider;
+export default Banner;

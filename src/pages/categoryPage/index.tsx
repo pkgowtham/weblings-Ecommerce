@@ -8,10 +8,12 @@ import VerticalProductCard from "../../component/verticalProductCard";
 import clsx from "clsx";
 import HorizotalProductCard from "../../component/horizontalProductCard";
 import SvgViewComfyAlt from "../../custom-icons/ViewComfyAlt";
-import { theme } from "../../../theme /theme";
+import { theme } from "../../../theme/theme";
 import fashionblack from "../../assets/images/fashionblack.jpg";
 import fashionwhite from "../../assets/images/fashionwhite.jpg";
 import fashiongrey from "../../assets/images/fashion.jpg";
+import Slider from "../../component/slider";
+import Banner from "../../component/banner";
 
 const productData = {
   //   productcategory: "Product Category",
@@ -258,6 +260,34 @@ const productData = {
     },
   ],
 };
+const bannerData = {
+  title: "Best Selling",
+  subtitle:
+    "Unmatched design—superior performance and customer satisfaction in one.",
+  cards: [
+    {
+      logo: fashionwhite,
+      title: "Cotton Long-Sleeve Striped T-shirt",
+      description: "$115.00",
+      sliderimage:
+        "https://images.pexels.com/photos/7179506/pexels-photo-7179506.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
+    {
+      logo: fashionwhite,
+      title: "Cotton Long-Sleeve Striped T-shirt",
+      description: "$115.00",
+      sliderimage:
+        "https://images.pexels.com/photos/3473085/pexels-photo-3473085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
+    {
+      logo: fashionwhite,
+      title: "Cotton Long-Sleeve Striped T-shirt",
+      description: "$115.00",
+      sliderimage:
+        "https://images.pexels.com/photos/425241/pexels-photo-425241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    },
+  ],
+};
 
 const CategoryPage = () => {
   const classes = useStyle();
@@ -291,7 +321,10 @@ const CategoryPage = () => {
   };
   return (
     <div className={classes.mainContainer}>
+      {/* banner sections */}
+      <Banner style={{height:'450px'}} BannerData={bannerData}/>
       {/* filter contents */}
+      <div className={classes.filterContents}>
       <div className={classes.filterDiv}>
         {productData.filteroptions.map((data: any) => (
           <div key={data.id} className={classes.filterHead}>
@@ -527,6 +560,8 @@ const CategoryPage = () => {
             ))}
           </div>
         )}
+      </div>
+
       </div>
     </div>
   );

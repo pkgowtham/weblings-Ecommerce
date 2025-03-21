@@ -42,7 +42,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   Card: {
     height: "636px",
-    width: "1520px",
+    width: "1421px",
     borderRadius: theme.borderRadius.b100,
     border: `1px solid ${theme.light.brand.border.light}`,
     backgroundColor: theme.light.brand.surface.lighter,
@@ -82,7 +82,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   rightArrow:{
     cursor: "pointer",
     position: "absolute",
-    top: 300,
+    top: 210,
     right: 50,
     width:'48px',
     height:'48px',
@@ -103,7 +103,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     border: `1px solid ${theme.light.neutral.border.light}`,
     cursor: "pointer",
     position: "absolute",
-    top: 300,
+    top: 210,
     left: 50,
     zIndex:30,
     backgroundColor:theme.light.neutral.surface.light

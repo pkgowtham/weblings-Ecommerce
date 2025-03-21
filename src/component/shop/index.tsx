@@ -40,6 +40,7 @@ const Shop: React.FC<any> = (props): JSX.Element => {
           <img src={fashion} alt="" className={classes.FashionImg} />
         </div>
       </div>
+      {/* module for shop by gram */}
      {isModuleOpen && <CommonModel className={classes.Model}>
         <div className={classes.RightDiv}>
           <div className={classes.ModelDiv}>

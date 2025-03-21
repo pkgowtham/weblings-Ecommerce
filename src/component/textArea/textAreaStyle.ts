@@ -1,5 +1,5 @@
 import { createUseStyles } from "react-jss";
-import { Theme } from "../../../theme /themeType";
+import { Theme } from "../../../theme/themeType";
 
 export const useStyle = createUseStyles((theme:Theme)=>({
     textarea: {
