@@ -63,6 +63,12 @@ export const useStyle = createUseStyles((theme:Theme)=>({
     },
     RightDiv:{
         display:'flex',
+        position:'relative'
+    },
+    closeSvg:{
+        position:'absolute',
+        right:0,
+        top:'1%'
     },
     Logo:{
         width:'100%',

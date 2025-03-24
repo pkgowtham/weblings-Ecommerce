@@ -10,6 +10,7 @@ import ShopingCartPage from "../pages/shoppingCartViewPage";
 import MyAccountPage from "../pages/myAccountPage";
 import AccountDetails from "../pages/myAccountPage/accountDetails";
 import AddressDetails from "../pages/myAccountPage/addressDetails";
+import PaymentFailed from "../component/paymentFailed";
 
 function Navigations() {
   return (
@@ -21,6 +22,7 @@ function Navigations() {
           <Route path="paymentpage" element={<PaymentPage />} />
           <Route path="categorypage" element={<CategoryPage/>} />
           <Route path="sucesspage" element={<SucessPage />} />
+          <Route path="paymentfailed" element={<PaymentFailed/>} />
           <Route path="wishlistpage" element={<WishListProductPage/>} />
           <Route path="shopingcartviewpage" element={<ShopingCartPage/>} />
           <Route path="myaccountpage" element={<MyAccountPage/>} >

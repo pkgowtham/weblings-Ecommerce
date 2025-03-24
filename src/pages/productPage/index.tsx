@@ -18,6 +18,8 @@ import SvgUserRound from "../../custom-icons/UserRound";
 import Button from "../../component/button";
 import SvgAdd from "../../custom-icons/Add";
 import SvgHeart from "../../custom-icons/Heart";
+import ShoppingCart from "../../component/shoppingCartModule";
+import ProductImage from "../../component/productImage";
 
 const ProductData = {
   logo: [
@@ -283,6 +285,7 @@ const review = {
 
 const ProductPage: React.FC<any> = (): JSX.Element => {
   const classes = useStyle();
+  const [isAddToCart,setIsAddToCart] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState(false);
   const [count, setCount] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(
@@ -373,12 +376,13 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
                 })}
               >
                 <img src={product.logo} className={classes.Image} alt="" />
+               
               </div>
             ))}
-            -
           </div>
           <div className={classes.ImgDiv}>
-            <img src={currentImageIndex} alt="" className={classes.Img} />
+            {/* <img src={currentImageIndex} alt="" className={classes.Img} /> */}
+            <ProductImage imageUrl={currentImageIndex}/>
           </div>
         </div>
         <div className={classes.RightDiv}>
@@ -517,6 +521,7 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
                   className={classes.buttonStyle}
                 ></Button>
                 <Button
+                  onClick={()=>setIsAddToCart(!isAddToCart)}
                   className={classes.btnStyle}
                   text="Add to Cart"
                 ></Button>
@@ -636,6 +641,8 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
       </div>
       {/* reviev section */}
       <Ratings ReviewData={review} />
+      {/* add to cart */}
+      {isAddToCart && <ShoppingCart onClose={setIsAddToCart}/>}
     </div>
   );
 };

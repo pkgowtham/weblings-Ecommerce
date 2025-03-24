@@ -4,6 +4,7 @@ import Typography from "../typography/component";
 import fashion from "../../assets/images/fashion.jpg";
 import CommonModel from "../commonModal";
 import model from "../../assets/images/model.jpg";
+import SvgClose from "../../custom-icons/Close";
 
 const Shop: React.FC<any> = (props): JSX.Element => {
   const classes = useStyle();
@@ -43,6 +44,14 @@ const Shop: React.FC<any> = (props): JSX.Element => {
       {/* module for shop by gram */}
      {isModuleOpen && <CommonModel className={classes.Model}>
         <div className={classes.RightDiv}>
+        <SvgClose
+          className={classes.closeSvg}
+          cursor={"pointer"}
+          onClick={() => setIsModuleOpen(false)}
+          viewBox="0 0 30 30"
+          width={30}
+          height={30}
+        />
           <div className={classes.ModelDiv}>
             <img src={model} className={classes.ModelImg} alt="" />
           </div>

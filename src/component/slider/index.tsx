@@ -55,12 +55,15 @@ const Slider: React.FC<any> = ({SliderData}): JSX.Element => {
   }, []);
 
   return (
-    <div className={classes.MainContainer}>
+    <div className={classes.MainContainer}
+    onMouseEnter={()=> setIsHovered(true)}
+    onMouseLeave={()=> setIsHovered(false)}
+    >
       <div className={classes.CardContainer}>
         <div
           onClick={() => handlescrool("left")}
           style={{
-            opacity: isAtStart ? 0 : 1,
+            opacity: isHovered && !isAtStart ? 1 : 0,
             pointerEvents: isAtStart ? "none" : "auto",
           }}
           className={classes.leftArrow}
@@ -85,7 +88,7 @@ const Slider: React.FC<any> = ({SliderData}): JSX.Element => {
         <div
           onClick={() => handlescrool("right")}
           style={{
-            opacity: isAtEnd ? 0 : 1,
+            opacity: isHovered && ! isAtEnd ? 1 : 0,
             pointerEvents: isAtEnd ? "none" : "auto",
           }}
           className={classes.rightArrow}

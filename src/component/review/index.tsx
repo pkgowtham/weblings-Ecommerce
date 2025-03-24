@@ -14,6 +14,7 @@ const Review: React.FC<any> = (props): JSX.Element => {
 
   const [isAtStart, setIsAtStart] = useState(true); // Track start state
   const [isAtEnd, setIsAtEnd] = useState(false); // Track end state
+  const [isHovered, setIsHovered] = useState(false);
 
   // Function to handle scrolling
   const handlescrool = (direction: "left" | "right") => {
@@ -57,7 +58,10 @@ const Review: React.FC<any> = (props): JSX.Element => {
   }, []);
 
   return (
-    <div className={classes.MainContainer}>
+    <div className={classes.MainContainer}
+    onMouseEnter={()=> setIsHovered(true)}
+    onMouseLeave={()=> setIsHovered(false)}
+    >
       <Typography variant="HM" className={classes.Title}>
         {ReviewsData.title}
       </Typography>
@@ -69,7 +73,7 @@ const Review: React.FC<any> = (props): JSX.Element => {
           onClick={() => handlescrool("left")}
           className={classes.leftArrow}
           style={{
-            opacity: isAtStart ? 0 : 1,
+            opacity: isHovered && !isAtStart ? 1 : 0,
             pointerEvents: isAtStart ? "none" : "auto",
           }}
         >
@@ -114,7 +118,7 @@ const Review: React.FC<any> = (props): JSX.Element => {
         </div>
         <div
           style={{
-            opacity: isAtEnd ? 0 : 1,
+            opacity: isHovered && ! isAtEnd ? 1 : 0,
             pointerEvents: isAtEnd ? "none" : "auto",
           }}
           className={classes.rightArrow}
@@ -122,10 +126,6 @@ const Review: React.FC<any> = (props): JSX.Element => {
         >
           <SvgChevronRight
             className={classes.ScroolRightButton}
-            style={{
-              opacity: isAtEnd ? 0 : 1,
-              pointerEvents: isAtEnd ? "none" : "auto",
-            }}
           />
         </div>
       </div>

@@ -154,6 +154,7 @@ const Card: React.FC<any> = (props): JSX.Element => {
   const { CardData } = props;
 
   const ScroolContainerRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   const [isAtStart, setIsAtStart] = useState(true); // Track start state
   const [isAtEnd, setIsAtEnd] = useState(false); // Track end state
@@ -200,7 +201,10 @@ const Card: React.FC<any> = (props): JSX.Element => {
   }, []);
 
   return (
-    <div className={classes.MainContainer}>
+    <div className={classes.MainContainer}
+    onMouseEnter={()=> setIsHovered(true)}
+    onMouseLeave={()=> setIsHovered(false)}
+    >
       <Typography variant="HM" className={classes.Title}>
         {CardData?.title}
       </Typography>
@@ -212,7 +216,8 @@ const Card: React.FC<any> = (props): JSX.Element => {
           onClick={() => handlescrool("left")}
           className={classes.leftArrow}
           style={{
-            opacity: isAtStart ? 0 : 1,
+            // opacity: isAtStart ? 0 : 1,
+            opacity: isHovered && !isAtStart ? 1 : 0,
             pointerEvents: isAtStart ? "none" : "auto",
           }}
         >
@@ -236,7 +241,8 @@ const Card: React.FC<any> = (props): JSX.Element => {
         </div>
         <div
           style={{
-            opacity: isAtEnd ? 0 : 1,
+            // opacity: isAtEnd ? 0 : 1,
+            opacity: isHovered && ! isAtEnd ? 1 : 0,
             pointerEvents: isAtEnd ? "none" : "auto",
           }}
           onClick={() => handlescrool("right")}
