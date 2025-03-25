@@ -311,7 +311,6 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
   const hasDispatched = useRef(false);
   const [currentImage, setCurrentImage] = useState("");
   const [thumbnailAttachments, setThumbnailAttachments] = useState<any[]>([]);
-  console.log("thumbnail", thumbnailAttachments);
 
   // Filtered sizes based on selected color
   const filteredSizes = selectedColor
@@ -361,7 +360,6 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
 
   useEffect(() => {
     if (Object.keys(store.product.dataGet || {}).length > 0) {
-      console.log("Hello i have data");
       setSelectedColor(store.product.dataGet?.colors[0]);
       setSelectedSize(store.product.dataGet?.sizes[0]);
       const thumbnails = store.product.dataGet.colors.flatMap((dat: any) =>

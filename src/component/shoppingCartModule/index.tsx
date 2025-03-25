@@ -12,6 +12,7 @@ import { useEffect, useRef, useState } from "react";
 import CartEditModule from "../cartEditModule";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { useStore } from "../../store";
+import { deepGet } from "../../util/util";
 
 interface ShoppingCartProps {
   onClose: (value: boolean) => void;
@@ -40,6 +41,26 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
     }
   }, []);
 
+  //getlist after delete and update
+  useEffect(() => {
+    if(store.productAddToCart.isSuccessUpdate || store.productAddToCart.isSuccessDestroy){
+      dispatch({
+        type: "PRODUCT_ADD_TO_CART_GETLIST_API_REQUEST",
+        payload: {
+          url: "/addToCart",
+          method: "GET",
+        },
+      });
+      setIsEditModule(false)
+      dispatch({
+        type:"PRODUCT_ADD_TO_CART_UPDATE_API_CLEAR"
+      })
+      dispatch({
+        type:"PRODUCT_ADD_TO_CART_DESTROY_API_CLEAR"
+      })
+    }
+  }, [deepGet(store,"productAddToCart.isSuccessUpdate"), deepGet(store,"productAddToCart.isSuccessDestroy")])
+  
   //   handle quantity
   const handleQuantityChange = (type: "increase" | "decrease") => {
     setQuantity((prev: any) =>
@@ -64,6 +85,19 @@ const handleEdit = (data:any) => {
       }
     })
     setIsEditModule(!isEditModule)
+}
+
+const handleDelete = (id:string) => {
+  dispatch({
+    type:"PRODUCT_ADD_TO_CART_DESTROY_API_REQUEST",
+    payload:{
+      url: "/addToCart",
+      method: "DELETE",
+      query:{
+        id:id
+      }
+    }
+  })
 }
 
   return (
@@ -103,11 +137,17 @@ const handleEdit = (data:any) => {
       <div style={{display:'grid', gridTemplateColumns:'1fr', width:'100%', height:'55%', overflow:'auto'}}>
       {store.productAddToCart.dataGetList?.data?.map(
         (item: any, idx: number) => {
+          const selectedPrice = item?.addToCartWithDetail.find(
+            (variant: any) =>
+              variant.color.id === item?.color.id &&
+              variant.size.id === item?.size?.id
+          );
+        
           // const attachment = item.products.attachments.map((item:any)=>item.thumbnail === false)
           return(
           <div key={item?.id} className={classes.cartItems}>
             <div className={classes.imageContainer}>
-              {/* <img src={item.products[0]?.attachments[0]?.fileUrl} alt="" className={classes.imageStyle} /> */}
+              <img src={item.color?.attachments[0]?.fileUrl} alt="" className={classes.imageStyle} />
             </div>
             {/* contents */}
             <div className={classes.contentsContainer}>
@@ -120,7 +160,7 @@ const handleEdit = (data:any) => {
                 </Typography>
               </div>
               <div>
-                <Typography variant="BM">{item.price}</Typography>
+                <Typography variant="BM">{selectedPrice?.price}</Typography>
               </div>
               <div className={classes.countContaier}>
                 <div className={classes.buttonContainer}>
@@ -145,7 +185,7 @@ const handleEdit = (data:any) => {
             </div>
             {/* edit delete options */}
             <div>
-              <SvgDelete cursor={"pointer"} />
+              <SvgDelete cursor={"pointer"} onClick={()=>handleDelete(item.id)}/>
               <SvgEdit
                 cursor={"pointer"}
                 onClick={()=>handleEdit(item)}

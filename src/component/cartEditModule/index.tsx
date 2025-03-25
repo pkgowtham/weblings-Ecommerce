@@ -37,6 +37,9 @@ const CartEditModule: React.FC<CartEditModuleProps> = ({ onClose, data }) => {
   const { store } = useStore();
   const [selectedColor, setSelectedColor] = useState<any>(null);
   const [selectedSize, setSelectedSize] = useState<any>(null);
+  const [initialSelectedColor, setInitialSelectedColor] = useState<any>(null);
+  const [initialSelectedSize, setInitialSelectedSize] = useState<any>(null);
+  const [initialQuantity, setInitialQuantity] = useState<any>(null);
   const [price, setPrice] = useState<any>(null);
   const [currentImage, setCurrentImage] = useState("");
   const [thumbnailAttachments, setThumbnailAttachments] = useState<any[]>([]);
@@ -61,8 +64,18 @@ const CartEditModule: React.FC<CartEditModuleProps> = ({ onClose, data }) => {
           variant.color.id === store.addToCartInternal.selectedProduct?.color.id
       );
 
+      const selectedQuantity = store.addToCartInternal.selectedProduct?.addToCartWithDetail.find(
+        (variant: any) =>
+          variant.color.id === store.addToCartInternal.selectedProduct?.color.id &&
+        variant.size.id === store.addToCartInternal.selectedProduct?.size?.id
+      );
+
       setSelectedColor(selectedCol);
+      setInitialSelectedColor(selectedCol);
       setSelectedSize(store.addToCartInternal.selectedProduct?.size);
+      setInitialSelectedSize(store.addToCartInternal.selectedProduct?.size)
+      setQuantity(selectedQuantity?.quantity)
+      setInitialQuantity(selectedQuantity)
     }
   }, [deepGet(store, "addToCartInternal.selectedProduct")]);
 
@@ -81,10 +94,10 @@ const CartEditModule: React.FC<CartEditModuleProps> = ({ onClose, data }) => {
       // Set the first attachment as the current image
       if (selectedColorAttachments.length > 0) {
         setCurrentImage(selectedColorAttachments[0].fileUrl);
-        // setActiveIndex(0);
       }
     }
   }, [selectedColor, selectedSize]);
+
 
   // Handle color selection
   const handleColorChange = (data: any) => {
@@ -128,6 +141,28 @@ const CartEditModule: React.FC<CartEditModuleProps> = ({ onClose, data }) => {
 
 const handleSubmit = () => {
 
+  const body:any = {};
+  
+  // Always include these fields
+  if ((selectedSize !== initialSelectedSize && selectedColor !== initialSelectedColor) || quantity !== initialQuantity) {
+      body.addToCartWithDetailId = price?.id;
+  }
+
+  // Include quantity if it has changed from initial value
+  if (quantity !== initialQuantity) {
+    body.quantity = quantity;
+  }
+  
+  // Include size if it has changed from initial value
+  if (selectedSize !== initialSelectedSize) {
+    body.sizeId = selectedSize?.id;
+  }
+  
+  // Include color if it has changed from initial value
+  if (selectedColor !== initialSelectedColor) {
+    body.colorId = selectedColor?.color?.id;
+  }
+
   dispatch({
     type:"PRODUCT_ADD_TO_CART_UPDATE_API_REQUEST",
     payload:{
@@ -136,11 +171,7 @@ const handleSubmit = () => {
       query:{
         id:store.addToCartInternal.selectedProduct?.id
       },
-      body:{
-        // productId:rowDataId,
-        quantity:quantity,
-        addToCartWithDetailId:price?.id
-      }
+      body:body
     }
   })
 }
@@ -179,7 +210,7 @@ const handleSubmit = () => {
           </div>
           <div className={classes.contentsDiv}>
             <Typography variant="TS">{store.addToCartInternal.selectedProduct?.products[0]?.name}</Typography>
-            <Typography variant="BM">{price?.price * quantity}</Typography>
+            <Typography variant="BM">{price?.price}</Typography>
             <div className={classes.buttonContainer}>
               <Button
                 className={classes.buttonStyle}
