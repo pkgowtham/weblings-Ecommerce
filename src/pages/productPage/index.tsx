@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useStyle } from "./indexstyle";
 import SvgChevronLeft from "../../custom-icons/ChevronLeft";
 import SvgChevronRight from "../../custom-icons/ChevronRight";
@@ -12,7 +12,7 @@ import clsx from "clsx";
 import Typography from "../../component/typography/component";
 import SvgStarPurple500 from "../../custom-icons/StarPurple500";
 import SvgViewComfyAlt from "../../custom-icons/ViewComfyAlt";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Ratings from "../../component/customerReview";
 import SvgUserRound from "../../custom-icons/UserRound";
 import Button from "../../component/button";
@@ -20,6 +20,9 @@ import SvgAdd from "../../custom-icons/Add";
 import SvgHeart from "../../custom-icons/Heart";
 import ShoppingCart from "../../component/shoppingCartModule";
 import ProductImage from "../../component/productImage";
+import { useStore } from "../../store";
+import { useMiddlewareDispatch } from "../../store/apiMiddleware";
+import { deepGet } from "../../util/util";
 
 const ProductData = {
   logo: [
@@ -285,7 +288,9 @@ const review = {
 
 const ProductPage: React.FC<any> = (): JSX.Element => {
   const classes = useStyle();
-  const [isAddToCart,setIsAddToCart] = useState<boolean>(false);
+  const [isAddToCart, setIsAddToCart] = useState<boolean>(false);
+  const { store } = useStore();
+  const dispatch = useMiddlewareDispatch();
   const [isChecked, setIsChecked] = useState(false);
   const [count, setCount] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(
@@ -293,13 +298,129 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
   );
   // State to track the currently active product index
   const [activeProductIndex, setActiveProductIndex] = useState(0);
-  const [selectedColor, setSelectedColor] = useState<string>("Grey");
   // State to track the currently active index
   const [activeIndex, setActiveIndex] = useState(0);
   // State to hold the currently selected size
-  const [selectedSize, setSelectedSize] = useState("S");
+  const [selectedColor, setSelectedColor] = useState<any>(null);
+  const [selectedSize, setSelectedSize] = useState<any>(null);
+  const [price, setPrice] = useState<any>(null);
   const [selectedAmount, setSelectedAmount] = useState<string>("$115.00");
   const navigate = useNavigate();
+  const location = useLocation();
+  const { rowDataId } = location?.state || {};
+  const hasDispatched = useRef(false);
+  const [currentImage, setCurrentImage] = useState("");
+  const [thumbnailAttachments, setThumbnailAttachments] = useState<any[]>([]);
+  console.log("thumbnail", thumbnailAttachments);
+
+  // Filtered sizes based on selected color
+  const filteredSizes = selectedColor
+    ? store.product.dataGet?.variants
+        .filter((variant: any) => variant.color.id === selectedColor?.id)
+        .map((variant: any) => variant.size)
+    : [];
+
+  // Get attachments for the selected color
+  const selectedColorAttachments =
+    store.product.dataGet?.colors.find(
+      (color: any) => color.id === selectedColor?.id
+    )?.attachments || [];
+
+  //product get
+  useEffect(() => {
+    // if (!hasDispatched.current && rowDataId) {
+    if (!hasDispatched.current) {
+      dispatch({
+        type: "PRODUCT_GET_API_REQUEST",
+        payload: {
+          url: "/product",
+          method: "GET",
+          // params: rowDataId,
+          params: "2df8af0e-4710-4523-b285-9d97617ce6ef",
+        },
+      });
+      hasDispatched.current = true;
+    }
+  }, []);
+
+  //open modal after creating the add to cart
+  useEffect(() => {
+    if(store.productAddToCart.isSuccessCreate){
+      dispatch({
+        type: "OPEN_ADD_TO_CART_MODAL",
+        payload: {
+          isAddToCart: true,
+        },
+      })
+      dispatch({
+        type:"PRODUCT_ADD_TO_CART_CREATE_API_CLEAR"
+      })
+    }
+  }, [deepGet(store,"productAddToCart.isSuccessCreate")])
+  
+
+  useEffect(() => {
+    if (Object.keys(store.product.dataGet || {}).length > 0) {
+      console.log("Hello i have data");
+      setSelectedColor(store.product.dataGet?.colors[0]);
+      setSelectedSize(store.product.dataGet?.sizes[0]);
+      const thumbnails = store.product.dataGet.colors.flatMap((dat: any) =>
+        dat.attachments.filter(
+          (attachment: any) => attachment.thumbnail === true
+        )
+      );
+      setThumbnailAttachments(thumbnails);
+    }
+  }, [deepGet(store, "product.dataGet")]);
+
+  useEffect(() => {
+    if (selectedColor && selectedSize) {
+      const selectedVariant = store.product.dataGet?.variants.find(
+        (variant: any) =>
+          variant.color.id === selectedColor?.id &&
+          variant.size.id === selectedSize?.id
+      );
+      if (selectedVariant) {
+        setPrice(selectedVariant);
+      }
+
+      // Set the first attachment as the current image
+      if (selectedColorAttachments.length > 0) {
+        setCurrentImage(selectedColorAttachments[0].fileUrl);
+        setActiveIndex(0);
+      }
+    }
+  }, [selectedColor, selectedSize]);
+
+  // Handle color selection
+  const handleColorChange = (data: any) => {
+    const colorId = data.id;
+    setSelectedColor(data);
+
+    // Reset size to the first available size for the selected color
+    const firstSizeForColor = store.product.dataGet?.variants.find(
+      (variant: any) => variant.color.id === colorId
+    )?.size;
+    setSelectedSize(firstSizeForColor || null);
+  };
+
+  // Handle size selection
+  const handleSizeChange = (data: any) => {
+    const sizeId = data.id;
+    setSelectedSize(data);
+
+    // Find the corresponding price
+    const selectedVariant = store.product.dataGet?.variants.find(
+      (variant: any) =>
+        variant.color.id === selectedColor?.id && variant.size.id === sizeId
+    );
+
+    if (selectedVariant) {
+      setPrice(selectedVariant);
+    } else {
+      setPrice(null);
+    }
+  };
 
   // navigate
   const handleNavigate = (type: string) => {
@@ -327,11 +448,12 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
     setActiveProductIndex(index);
     setSelectedColor(color);
   };
-  // Function to change the image when clicked
-  const handleImageClick = (newimg: string, index: number) => {
-    setCurrentImageIndex(newimg);
+  // Handle thumbnail click
+  const handleImageClick = (image: string, index: number) => {
+    setCurrentImage(image);
     setActiveIndex(index);
   };
+
   // count state
   const increaseCount = () => setCount((prevcount) => prevcount + 1);
   const decreaseCount = () => {
@@ -343,16 +465,40 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
   const handleCheckboxChange = (e: any) => {
     setIsChecked(e.target.checked);
   };
+
+
+const handleAddToCartSubmit = () => {
+  dispatch({
+    type:"PRODUCT_ADD_TO_CART_CREATE_API_REQUEST",
+    payload:{
+      url: "/addToCart",
+      method: "POST",
+      body:{
+        // productId:rowDataId,
+        productId:'2df8af0e-4710-4523-b285-9d97617ce6ef',
+        userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
+        colorId:selectedColor?.id,
+        sizeId:selectedSize?.id
+      }
+    }
+  })
+}
+
   return (
     <div className={classes.MainContainer}>
       <nav className={classes.Nav}>
         <div className={classes.navContent}>
-        <Typography onClick={handleNavigate} className={classes.lightColor} variant="BS">
+          <Typography
+            onClick={handleNavigate}
+            className={classes.lightColor}
+            variant="BS"
+          >
             Home
           </Typography>
           <div className={classes.dotStyle}></div>
           <Typography variant="BM">
-            Cotton Long-Sleeve Striped T-shirt
+            {/* Cotton Long-Sleeve Striped T-shirt */}
+            {store.product.dataGet?.name}
           </Typography>
         </div>
         <div>
@@ -367,31 +513,34 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
       <div className={classes.ProductContainer}>
         <div className={classes.LeftDiv}>
           <div className={classes.LeftDivSmall}>
-            {ProductData?.logo?.map((product: any, idx: number) => (
+            {selectedColorAttachments.map((product: any, idx: number) => (
               <div
-                onClick={() => handleImageClick(product.logo, idx)}
+                onClick={() => handleImageClick(product.fileUrl, idx)}
                 key={idx}
                 className={clsx(classes.ImageDiv, {
                   [classes.Boder]: activeIndex === idx,
                 })}
               >
-                <img src={product.logo} className={classes.Image} alt="" />
-               
+                <img src={product?.fileUrl} className={classes.Image} alt="" />
               </div>
             ))}
           </div>
           <div className={classes.ImgDiv}>
-            {/* <img src={currentImageIndex} alt="" className={classes.Img} /> */}
-            <ProductImage imageUrl={currentImageIndex}/>
+            <img src={currentImage} alt="" className={classes.Img} />
+            {/* <ProductImage imageUrl={currentImage}/> */}
           </div>
         </div>
         <div className={classes.RightDiv}>
           <div>
-            <Typography variant="BS">Adidas</Typography>
+            <Typography variant="BS">
+              {/* Adidas */}
+              {store.product.dataGet?.brand?.name}
+            </Typography>
           </div>
           <div>
             <Typography variant="TS">
-              Cotton Long-Sleeve Striped T-shirt
+              {/* Cotton Long-Sleeve Striped T-shirt */}
+              {store.product.dataGet?.name}
             </Typography>
           </div>
           <div className={classes.StarContent}>
@@ -403,20 +552,21 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
               ))}
             </div>
             <div>
-              <Typography variant="BS">3 reviews</Typography>
+              <Typography variant="BS">{`${store.product.dataGet?.aggregateReviewValue?.totalReviews} Reviews`}</Typography>
             </div>
             <div>
               <Typography variant="BS">17 sold in last 18 hours</Typography>
             </div>
           </div>
           <div>
-            <Typography variant="TS">{selectedAmount}</Typography>
+            <Typography variant="TS">{price?.mrp}</Typography>
           </div>
           <div>
             <Typography variant="BS">
-              The cotton long-sleeved striped t-shirt features a classic crew
+              {/* The cotton long-sleeved striped t-shirt features a classic crew
               neckline, easy short sleeves, a slightly cropped length and a
-              relaxed fit for a truly timeless look.
+              relaxed fit for a truly timeless look. */}
+              {store.product.dataGet?.shortdesc}
             </Typography>
           </div>
           <div className={classes.Table}>
@@ -448,10 +598,10 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
           </div>
           <div className={classes.ColorSection}>
             <div className={classes.Gray}>
-              <Typography variant="BS">Color: {selectedColor}</Typography>
+              <Typography variant="BS">Color: {selectedColor?.name}</Typography>
             </div>
             <div className={classes.Product}>
-              {ProductData?.productimg?.map((dat: any, index: number) => (
+              {/* {ProductData?.productimg?.map((dat: any, index: number) => (
                 <div
                   onClick={() =>
                     handleProductImageClick(dat.black, dat.color, index)
@@ -463,31 +613,52 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
                 >
                   <img src={dat.black} alt="" className={classes.ProductImg} />
                 </div>
-              ))}
+              ))} */}
+              {store.product.dataGet?.colors?.map((dat: any, index: number) => {
+                const thumbnailAttachments = dat.attachments.filter(
+                  (attachment: any) => attachment.thumbnail === true
+                );
+                return (
+                  <div
+                    onClick={() => handleColorChange(dat)}
+                    key={index}
+                    className={clsx(classes.ProductImgDiv, {
+                      [classes.ProductBoder]: dat.name === selectedColor?.name,
+                    })}
+                  >
+                    <img
+                      src={thumbnailAttachments[0].fileUrl}
+                      alt=""
+                      className={classes.ProductImg}
+                    />
+                  </div>
+                );
+              })}
             </div>
             <div className={classes.SizeSection}>
               <div className={classes.SizeNav}>
                 <div>
-                  <Typography variant="BS">Size: {selectedSize}</Typography>
+                  <Typography variant="BS">
+                    Size: {selectedSize?.sizeVariant}
+                  </Typography>
                 </div>
                 <div>
                   <Typography variant="BS">Size guide</Typography>
                 </div>
               </div>
               <div className={classes.SizeChart}>
-                {ProductData?.sizechart?.chart?.map(
-                  (chart: any, idx: number) => (
-                    <div
-                      onClick={() => handleSizeClick(chart.size, chart.amount)}
-                      key={idx}
-                      className={clsx(classes.Chart, {
-                        [classes.ChartStyle]: selectedSize === chart.size,
-                      })}
-                    >
-                      {chart.size}
-                    </div>
-                  )
-                )}
+                {filteredSizes?.map((chart: any, idx: number) => (
+                  <div
+                    onClick={() => handleSizeChange(chart)}
+                    key={idx}
+                    className={clsx(classes.Chart, {
+                      [classes.ChartStyle]:
+                        selectedSize?.sizeVariant === chart.sizeVariant,
+                    })}
+                  >
+                    {chart.sizeVariant}
+                  </div>
+                ))}
               </div>
               <div className={classes.Compare}>
                 <div className={classes.Color}>
@@ -521,7 +692,7 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
                   className={classes.buttonStyle}
                 ></Button>
                 <Button
-                  onClick={()=>setIsAddToCart(!isAddToCart)}
+                  onClick={handleAddToCartSubmit}
                   className={classes.btnStyle}
                   text="Add to Cart"
                 ></Button>
@@ -563,7 +734,8 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
               <div className={classes.Sizes}>
                 <div className={classes.ImgContainer}>
                   <img
-                    src={ProductData?.sizedetails?.img}
+                    // src={ProductData?.sizedetails?.img}
+                    src={thumbnailAttachments[0]?.fileUrl}
                     alt=""
                     className={classes.ImgStyle}
                   />
@@ -581,8 +753,8 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
                           </div>
                           <div>
                             <Typography variant="BS">
-                              {size.height}
-                              {size.cm}
+                              Height:
+                              {/* {store.product.dataGet?.} */}
                             </Typography>
                           </div>
                           <div>
@@ -622,7 +794,12 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
                     </Typography>
                     <Typography variant="BS">
                       {avai.collection}
-                      {avai.collections}
+                      {/* {avai.collections} */}
+                      {store.product.dataGet?.tags.map((item: any) => (
+                        <Typography variant="BS" component={"span"}>
+                          {item.name},
+                        </Typography>
+                      ))}
                     </Typography>
                   </div>
                 ))}
@@ -640,9 +817,11 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
         </div>
       </div>
       {/* reviev section */}
-      <Ratings ReviewData={review} />
+      <Ratings ReviewData={review} productId={rowDataId} />
       {/* add to cart */}
-      {isAddToCart && <ShoppingCart onClose={setIsAddToCart}/>}
+      {store.commonInternal.isAddToCart && (
+        <ShoppingCart onClose={setIsAddToCart} />
+      )}
     </div>
   );
 };

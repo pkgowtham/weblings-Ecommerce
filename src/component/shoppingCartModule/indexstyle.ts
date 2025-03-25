@@ -43,8 +43,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "center",
     padding: theme.spacing.s800,
     gap: theme.spacing.s400,
-    overflow:'auto',
-    overflowY:'scroll',
+    // overflow:'auto',
+    // overflowY:'scroll',
     height:'200px',
     scrollbarWidth:'thin'
     // marginBottom: theme.spacing.s500,

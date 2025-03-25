@@ -8,8 +8,10 @@ import SvgEdit from "../../custom-icons/Edit";
 import SvgDelete from "../../custom-icons/Delete";
 import SvgApps from "../../custom-icons/Apps";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CartEditModule from "../cartEditModule";
+import { useMiddlewareDispatch } from "../../store/apiMiddleware";
+import { useStore } from "../../store";
 
 interface ShoppingCartProps {
   onClose: (value: boolean) => void;
@@ -18,8 +20,25 @@ interface ShoppingCartProps {
 const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
   const classes = useStyle();
   const navigate = useNavigate();
-  const [isEditModule,setIsEditModule] = useState<boolean>(false)
+  const dispatch = useMiddlewareDispatch();
+  const { store } = useStore();
+  const [isEditModule, setIsEditModule] = useState<boolean>(false);
   const [quantity, setQuantity] = useState<any>(1);
+  const hasDispatched = useRef(false);
+
+  //Add to cart getlist
+  useEffect(() => {
+    if (!hasDispatched.current) {
+      dispatch({
+        type: "PRODUCT_ADD_TO_CART_GETLIST_API_REQUEST",
+        payload: {
+          url: "/addToCart",
+          method: "GET",
+        },
+      });
+      hasDispatched.current = true;
+    }
+  }, []);
 
   //   handle quantity
   const handleQuantityChange = (type: "increase" | "decrease") => {
@@ -29,13 +48,24 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
   };
 
   // navigate
-  const handleNavigate = (type:string) =>{
-    if(type === "viewcart"){
-      navigate("/mainlayout/shopingcartviewpage")
-    } else if (type === "checkout"){
-      navigate("/mainlayout/paymentpage")
+  const handleNavigate = (type: string) => {
+    if (type === "viewcart") {
+      navigate("/mainlayout/shopingcartviewpage");
+    } else if (type === "checkout") {
+      navigate("/mainlayout/paymentpage");
     }
-  }
+  };
+
+const handleEdit = (data:any) => {
+    dispatch({
+      type:"UPDATE_ADD_TO_CART_DATA",
+      payload:{
+        selectedProduct:data
+      }
+    })
+    setIsEditModule(!isEditModule)
+}
+
   return (
     <div className={classes.cartContainer}>
       {/* header */}
@@ -46,7 +76,14 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
           cursor={"pointer"}
           width={30}
           height={30}
-          onClick={() => onClose(false)}
+          onClick={() =>
+            dispatch({
+              type: "OPEN_ADD_TO_CART_MODAL",
+              payload: {
+                isAddToCart: false,
+              },
+            })
+          }
         />
       </div>
       {/* shipping div */}
@@ -63,50 +100,62 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
         </Typography>
       </div>
       {/* cartitems details */}
-      <div className={classes.cartItems}>
-        <div className={classes.imageContainer}>
-          <img src={fashion} alt="" className={classes.imageStyle} />
-        </div>
-        {/* contents */}
-        <div className={classes.contentsContainer}>
-          <div>
-            <Typography variant="TS">
-              white Basic Unpatterned T-shirt
-            </Typography>
-          </div>
-          <div>
-            <Typography variant="BS">Color: white / Size: S</Typography>
-          </div>
-          <div>
-            <Typography variant="BM">$80.00</Typography>
-          </div>
-          <div className={classes.countContaier}>
-            <div className={classes.buttonContainer}>
-            <Button
-                className={classes.buttonStyle}
-                leftIcon={
-                  <SvgAdd
-                    className={classes.addColor}
-                    onClick={() => handleQuantityChange("decrease")}
-                  />
-                }
-                rightIcon={
-                  <SvgAdd
-                    className={classes.addColor}
-                    onClick={() => handleQuantityChange("increase")}
-                  />
-                }
-                text={quantity}
-              ></Button>
+      <div style={{display:'grid', gridTemplateColumns:'1fr', width:'100%', height:'55%', overflow:'auto'}}>
+      {store.productAddToCart.dataGetList?.data?.map(
+        (item: any, idx: number) => {
+          // const attachment = item.products.attachments.map((item:any)=>item.thumbnail === false)
+          return(
+          <div key={item?.id} className={classes.cartItems}>
+            <div className={classes.imageContainer}>
+              {/* <img src={item.products[0]?.attachments[0]?.fileUrl} alt="" className={classes.imageStyle} /> */}
+            </div>
+            {/* contents */}
+            <div className={classes.contentsContainer}>
+              <div>
+                <Typography variant="TS">{item.products[0]?.name}</Typography>
+              </div>
+              <div>
+                <Typography variant="BS">
+                  Color: {item.color?.name} / Size: {item.size?.sizeVariant}
+                </Typography>
+              </div>
+              <div>
+                <Typography variant="BM">{item.price}</Typography>
+              </div>
+              <div className={classes.countContaier}>
+                <div className={classes.buttonContainer}>
+                  <Button
+                    className={classes.buttonStyle}
+                    leftIcon={
+                      <SvgAdd
+                        className={classes.addColor}
+                        onClick={() => handleQuantityChange("decrease")}
+                      />
+                    }
+                    rightIcon={
+                      <SvgAdd
+                        className={classes.addColor}
+                        onClick={() => handleQuantityChange("increase")}
+                      />
+                    }
+                    text={quantity}
+                  ></Button>
+                </div>
+              </div>
+            </div>
+            {/* edit delete options */}
+            <div>
+              <SvgDelete cursor={"pointer"} />
+              <SvgEdit
+                cursor={"pointer"}
+                onClick={()=>handleEdit(item)}
+              />
             </div>
           </div>
-        </div>
-        {/* edit delete options */}
-        <div>
-          <SvgDelete cursor={'pointer'} />
-          <SvgEdit cursor={'pointer'} onClick={()=>setIsEditModule(!isEditModule)} />
-        </div>
-      </div>
+          )
+        }
+      )}
+     </div>
       {/* cart icons */}
       <div className={classes.cartIcons}>
         <div className={classes.leftDiv}>
@@ -136,12 +185,20 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
           </Typography>
         </div>
         <div className={classes.btnDiv}>
-          <Button onClick={()=>handleNavigate("viewcart")} className={classes.cartStyle} text="View Cart"></Button>
-          <Button onClick={()=>handleNavigate("checkout")} className={classes.viewStyle} text="CheckOut"></Button>
+          <Button
+            onClick={() => handleNavigate("viewcart")}
+            className={classes.cartStyle}
+            text="View Cart"
+          ></Button>
+          <Button
+            onClick={() => handleNavigate("checkout")}
+            className={classes.viewStyle}
+            text="CheckOut"
+          ></Button>
         </div>
       </div>
       {/* cart edit module */}
-      {isEditModule && <CartEditModule onClose={setIsEditModule}/>}
+      {isEditModule && <CartEditModule onClose={setIsEditModule} />}
     </div>
   );
 };

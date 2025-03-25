@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Header from "../component/header";
 import { useStyle } from "./indexstyle";
-import right from "../../../my-app/src/assets/icons/chevron_right.svg";
+import right from "../assets/icons/chevron_right.svg";
 import Footer from "../component/footer";
 
 const data = {

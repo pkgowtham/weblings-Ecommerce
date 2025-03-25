@@ -142,5 +142,31 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     '& path':{
         fill:theme.light.neutral.onSurface.dark
     }
-  }
+  },
+
+  ProductImgDiv: {
+    width: "100%",
+    maxWidth: "40px",
+    height: "40px",
+    border: `1px solid ${theme.light.neutral.border.light}`,
+    borderColor: theme.light.neutral.border.light,
+    borderRadius: "50%",
+    padding: theme.spacing.s100,
+    cursor: "pointer",
+    "&:hover": {
+      borderColor: theme.light.neutral.onSurface.title,
+      transition: "color 0.3s",
+    },
+  },
+
+  ProductBoder: {
+    border: `1px solid ${theme.light.neutral.border.light}`,
+    borderColor: theme.light.neutral.onSurface.title,
+  },
+  ProductImg: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    borderRadius: "50%",
+  },
 }));

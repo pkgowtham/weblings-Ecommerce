@@ -5,7 +5,7 @@ import Typography from "../typography/component";
 import clsx from "clsx";
 
 const Button: React.FC<ButtonProps> = ({
-  onClick,
+  onClick = () => {},
   text,
   leftIcon,
   rightIcon,

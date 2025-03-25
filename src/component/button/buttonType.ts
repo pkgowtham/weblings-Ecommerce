@@ -1,5 +1,5 @@
 export interface ButtonProps {
-    onClick?: () => void; 
+    onClick?: any; 
     text: any; 
     leftIcon?: React.ReactNode; 
     rightIcon?: React.ReactNode; 

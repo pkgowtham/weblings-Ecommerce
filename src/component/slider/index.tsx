@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useStyle } from "./indexstyle";
-import SvgChevronRight from "../../../../my-app/src/custom-icons/ChevronRight";
-import SvgChevronLeft from "../../../../my-app/src/custom-icons/ChevronLeft";
+import SvgChevronRight from "../../custom-icons/ChevronRight";
+import SvgChevronLeft from "../../custom-icons/ChevronLeft";
 
 const Slider: React.FC<any> = ({SliderData}): JSX.Element => {
   const classes = useStyle();

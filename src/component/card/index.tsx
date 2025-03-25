@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useStyle } from "./indexstyle";
 import Typography from "../../../src/component/typography/component";
-import SvgChevronRight from "../../../../my-app/src/custom-icons/ChevronRight";
-import SvgChevronLeft from "../../../../my-app/src/custom-icons/ChevronLeft";
+import SvgChevronRight from "../../custom-icons/ChevronRight";
+import SvgChevronLeft from "../../custom-icons/ChevronLeft";
 import VerticalProductCard from "../verticalProductCard";
 import fashionwhite from "../../assets/images/fashionwhite.jpg";
 import fashionblack from "../../assets/images/fashionblack.jpg";

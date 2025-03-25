@@ -5,6 +5,9 @@ import fashionblack from "../../assets/images/fashionblack.jpg";
 import fashiongrey from "../../assets/images/fashion.jpg";
 import { useStyle } from "./indexstyle";
 import VerticalProductCard from "../../component/verticalProductCard";
+import { useMiddlewareDispatch } from "../../store/apiMiddleware";
+import { useStore } from "../../store";
+import { useEffect, useRef } from "react";
 
 const products = [
   { id:1,
@@ -100,6 +103,24 @@ const products = [
 const WishListProductPage = () => {
   const classes = useStyle();
   const navigate = useNavigate();
+  const dispatch = useMiddlewareDispatch();
+  const { store } = useStore();
+  const hasDispatched = useRef(false);
+
+
+    //whishlist getlist
+    useEffect(() => {
+      if (!hasDispatched.current) {
+        dispatch({
+          type: "PRODUCT_WHISHLIST_GETLIST_API_REQUEST",
+          payload: {
+            url: "/wishList",
+            method: "GET",
+          },
+        });
+        hasDispatched.current = true;
+      }
+    }, []);
 
 //   navigate 
 const handleNavigate = () =>{

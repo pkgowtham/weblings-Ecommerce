@@ -5,12 +5,16 @@ import { useStyle } from "./indexstyle";
 import fashion from "../../assets/images/fashion.jpg";
 import Button from "../button";
 import SvgAdd from "../../custom-icons/Add";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { theme } from "../../../theme/theme";
 import clsx from "clsx";
+import { useMiddlewareDispatch } from "../../store/apiMiddleware";
+import { useStore } from "../../store";
+import { deepGet } from "../../util/util";
 
 interface CartEditModuleProps {
   onClose: any;
+  data?: any;
 }
 
 const colorcode = [
@@ -26,11 +30,94 @@ const colorcode = [
   },
 ];
 
-const CartEditModule: React.FC<CartEditModuleProps> = ({ onClose }) => {
+const CartEditModule: React.FC<CartEditModuleProps> = ({ onClose, data }) => {
   const classes = useStyle();
-  const [selectedColor, setSelectedColor] = useState<string>("#E00028");
-  const [selectedSize, setSelectedSize] = useState<string>("M");
   const [quantity, setQuantity] = useState<any>(1);
+  const dispatch = useMiddlewareDispatch();
+  const { store } = useStore();
+  const [selectedColor, setSelectedColor] = useState<any>(null);
+  const [selectedSize, setSelectedSize] = useState<any>(null);
+  const [price, setPrice] = useState<any>(null);
+  const [currentImage, setCurrentImage] = useState("");
+  const [thumbnailAttachments, setThumbnailAttachments] = useState<any[]>([]);
+
+  // Filtered sizes based on selected color
+  const filteredSizes = selectedColor
+    ? store.addToCartInternal.selectedProduct?.addToCartWithDetail
+        .filter((variant: any) => variant.color.id === selectedColor?.color?.id)
+        .map((variant: any) => variant.size)
+    : [];
+
+  // Get attachments for the selected color
+  const selectedColorAttachments =
+    store.addToCartInternal.selectedProduct?.colors.find(
+      (col: any) => col.color.id === selectedColor?.color?.id
+    )?.color?.attachments || [];
+
+  useEffect(() => {
+    if (Object.keys(store.addToCartInternal.selectedProduct || {}).length > 0) {
+      const selectedCol = store.addToCartInternal.selectedProduct?.colors.find(
+        (variant: any) =>
+          variant.color.id === store.addToCartInternal.selectedProduct?.color.id
+      );
+
+      setSelectedColor(selectedCol);
+      setSelectedSize(store.addToCartInternal.selectedProduct?.size);
+    }
+  }, [deepGet(store, "addToCartInternal.selectedProduct")]);
+
+  useEffect(() => {
+    if (selectedColor && selectedSize) {
+      const selectedVariant =
+        store.addToCartInternal.selectedProduct?.addToCartWithDetail.find(
+          (variant: any) =>
+            variant.color.id === selectedColor?.color.id &&
+            variant.size.id === selectedSize?.id
+        );
+      if (selectedVariant) {
+        setPrice(selectedVariant);
+      }
+
+      // Set the first attachment as the current image
+      if (selectedColorAttachments.length > 0) {
+        setCurrentImage(selectedColorAttachments[0].fileUrl);
+        // setActiveIndex(0);
+      }
+    }
+  }, [selectedColor, selectedSize]);
+
+  // Handle color selection
+  const handleColorChange = (data: any) => {
+
+    const colorId = data.color?.id;
+    setSelectedColor(data);
+
+    // Reset size to the first available size for the selected color
+    const firstSizeForColor =
+      store.addToCartInternal.selectedProduct?.addToCartWithDetail.find(
+        (variant: any) => variant.color.id === colorId
+      )?.size;
+    setSelectedSize(firstSizeForColor || null);
+  };
+
+  // Handle size selection
+  const handleSizeChange = (data: any) => {
+    const sizeId = data.id;
+    setSelectedSize(data);
+
+    // Find the corresponding price
+    const selectedVariant =
+      store.addToCartInternal.selectedProduct?.addToCartWithDetail.find(
+        (variant: any) =>
+          variant.color.id === selectedColor?.id && variant.size.id === sizeId
+      );
+
+    if (selectedVariant) {
+      setPrice(selectedVariant);
+    } else {
+      setPrice(null);
+    }
+  };
 
   //   handle quantity
   const handleQuantityChange = (type: "increase" | "decrease") => {
@@ -38,6 +125,26 @@ const CartEditModule: React.FC<CartEditModuleProps> = ({ onClose }) => {
       type === "increase" ? prev + 1 : prev > 1 ? prev - 1 : prev
     );
   };
+
+const handleSubmit = () => {
+
+  dispatch({
+    type:"PRODUCT_ADD_TO_CART_UPDATE_API_REQUEST",
+    payload:{
+      url: "/addToCart",
+      method: "PUT",
+      query:{
+        id:store.addToCartInternal.selectedProduct?.id
+      },
+      body:{
+        // productId:rowDataId,
+        quantity:quantity,
+        addToCartWithDetailId:price?.id
+      }
+    }
+  })
+}
+
   return (
     <CommonModel className={classes.cartContainer}>
       {/* header */}
@@ -45,7 +152,15 @@ const CartEditModule: React.FC<CartEditModuleProps> = ({ onClose }) => {
         <Typography variant="TS">Edit Option</Typography>
         <SvgClose
           cursor={"pointer"}
-          onClick={() => onClose(false)}
+          onClick={() => {
+            onClose(false),
+              dispatch({
+                type: "UPDATE_ADD_TO_CART_DATA",
+                payload: {
+                  selectedProduct: null,
+                },
+              });
+          }}
           viewBox="0 0 30 30"
           width={30}
           height={30}
@@ -56,11 +171,15 @@ const CartEditModule: React.FC<CartEditModuleProps> = ({ onClose }) => {
         {/* product details */}
         <div className={classes.productDiv}>
           <div className={classes.imageContainer}>
-            <img className={classes.fashionStyle} src={fashion} alt="" />
+            <img
+              className={classes.fashionStyle}
+              src={currentImage || ""}
+              alt=""
+            />
           </div>
           <div className={classes.contentsDiv}>
-            <Typography variant="TS">Short Dress With Knotted Skirt</Typography>
-            <Typography variant="BM">$168.00</Typography>
+            <Typography variant="TS">{store.addToCartInternal.selectedProduct?.products[0]?.name}</Typography>
+            <Typography variant="BM">{price?.price * quantity}</Typography>
             <div className={classes.buttonContainer}>
               <Button
                 className={classes.buttonStyle}
@@ -88,41 +207,35 @@ const CartEditModule: React.FC<CartEditModuleProps> = ({ onClose }) => {
               Color:
             </Typography>
             <Typography className={classes.blackColor} variant="BM">
-              Green
+              {selectedColor?.name || selectedColor?.color?.name}
             </Typography>
           </div>
           {/* color options */}
           <div className={classes.colorDiv}>
-            {colorcode[0]?.color?.map((color: string, index: number) => (
-              <div
-                key={index}
-                style={{
-                  border:
-                    selectedColor === color
-                      ? `1px solid ${theme.light.neutral.onSurface.title}`
-                      : "2px solid transparent",
-                  width: "35px",
-                  height: "35px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: "50%",
-                  cursor: "pointer",
-                }}
-              >
-                <div
-                  className={clsx(classes.ColorStyle, {
-                    [classes.Red]: color === "#E00028",
-                    [classes.war]: color === "#B15600",
-                    [classes.green]: color === "#36A040",
-                    [classes.blue]: color === "#0072C4",
-                    [classes.purple]: color === "#9E29FE",
-                    [classes.gray]: color === "#6F6F6F",
-                  })}
-                  onClick={() => setSelectedColor(color)}
-                />
-              </div>
-            )) ?? []}{" "}
+            {store.addToCartInternal.selectedProduct?.colors?.map(
+              (dat: any, index: number) => {
+                const thumbnailAttachments =
+                  dat?.color?.attachments?.filter(
+                    (attachment: any) => attachment.thumbnail === true
+                  ) || "";
+                return (
+                  <div
+                    onClick={() => handleColorChange(dat)}
+                    key={index}
+                    className={clsx(classes.ProductImgDiv, {
+                      [classes.ProductBoder]:
+                        dat.color?.name === selectedColor?.color?.name,
+                    })}
+                  >
+                    <img
+                      src={thumbnailAttachments[0]?.fileUrl}
+                      alt=""
+                      className={classes.ProductImg}
+                    />
+                  </div>
+                );
+              }
+            )}
           </div>
 
           {/* sizes  */}
@@ -131,19 +244,21 @@ const CartEditModule: React.FC<CartEditModuleProps> = ({ onClose }) => {
               Size:
             </Typography>
             <Typography className={classes.blackColor} variant="BM">
-              {selectedSize}
+              {selectedSize?.sizeVariant}
             </Typography>
           </div>
           {/* Sizes Section */}
           <div className={classes.sizedDiv}>
-            {colorcode[1]?.size?.map((size: any) => (
+            {filteredSizes?.map((size: any) => (
               <div
-                onClick={() => setSelectedSize(size)}
+                key={size?.id}
+                onClick={() => handleSizeChange(size)}
                 className={clsx(classes.sizeStyle, {
-                  [classes.activeStatus]: selectedSize === size,
+                  [classes.activeStatus]:
+                    selectedSize?.sizeVariant === size?.sizeVariant,
                 })}
               >
-                <Typography variant="BM">{size}</Typography>
+                <Typography variant="BM">{size?.sizeVariant}</Typography>
               </div>
             ))}
           </div>
@@ -151,7 +266,7 @@ const CartEditModule: React.FC<CartEditModuleProps> = ({ onClose }) => {
       </div>
       {/* add to cart button */}
       <div className={classes.btnCont}>
-        <Button className={classes.btnStyle} text={"Add to Cart"}></Button>
+        <Button className={classes.btnStyle} onClick={handleSubmit} text={"Add to Cart"}></Button>
       </div>
     </CommonModel>
   );

@@ -7,6 +7,8 @@ import SvgHeart from "../../custom-icons/Heart";
 import ShoppingCart from "../shoppingCartModule";
 import SignInModule from "../signInModule";
 import Badge from "../badge";
+import { useMiddlewareDispatch } from "../../store/apiMiddleware";
+import { useStore } from "../../store";
 
 const Header: React.FC<any> = (props): JSX.Element => {
   const classes = useStyle();
@@ -17,6 +19,8 @@ const Header: React.FC<any> = (props): JSX.Element => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [shoppingCart, setShoppingCart] = useState<boolean>(false);
   const [isSignInModule, setIsSignInModule] = useState<boolean>(false);
+  const dispatch = useMiddlewareDispatch();
+  const { store } = useStore();
 
   // navigate
   const handleNavigate = () => {
@@ -69,7 +73,12 @@ const Header: React.FC<any> = (props): JSX.Element => {
               width={30}
               height={25}
               cursor={"pointer"}
-              onClick={() => setShoppingCart(!shoppingCart)}
+              onClick={() => dispatch({
+                type:"OPEN_ADD_TO_CART_MODAL",
+                payload:{
+                  isAddToCart:true
+                }
+              })}
             />
                 <Badge
               style={{
@@ -117,7 +126,7 @@ const Header: React.FC<any> = (props): JSX.Element => {
         ))}
       </div>
       {/* module for shopping cart */}
-      {shoppingCart && <ShoppingCart onClose={setShoppingCart} />}
+      {store.commonInternal.isAddToCart && <ShoppingCart onClose={setShoppingCart} />}
       {/* signin module */}
       {isSignInModule && <SignInModule onClose={setIsSignInModule} />}
     </header>

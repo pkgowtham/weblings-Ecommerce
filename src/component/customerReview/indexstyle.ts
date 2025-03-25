@@ -4,6 +4,7 @@ import { Theme } from "../../../theme/themeType";
 
 export const useStyle = createUseStyles((theme: Theme) => ({
   ReviewContainer: {
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     marginTop: theme.spacing.s800,
@@ -110,6 +111,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     borderBottom: `1px solid ${theme.light.neutral.border.light}`,
   },
   FeedBack: {
+    width:'100%',
     display: "flex",
     flexDirection: "column",
     gap: theme.spacing.s500,
@@ -329,5 +331,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     "& path": {
       fill: theme.light.warning.onSurface.medium,
     },
+  },
+
+  description:{
+    color:theme.light.neutral.onSurface.dark
   },
 }));
