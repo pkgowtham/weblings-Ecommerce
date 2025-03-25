@@ -1,0 +1,105 @@
+import React from "react";
+import { createUseStyles } from "react-jss";
+
+const breakpoints = {
+  desktop: 1024,
+  tablet: 768,
+  mobile: 0,
+};
+
+type ResponsiveProps = {
+  children: React.ReactNode;
+  hideOn?: "mobile" | "tablet" | "desktop";
+  showOnlyOn?: "mobile" | "tablet" | "desktop";
+  className?: string;
+  style?: React.CSSProperties;
+};
+
+const useStyles = createUseStyles({
+  responsive: {
+    display: "block",
+  },
+  hideOnMobile: {
+    [`@media (max-width: ${breakpoints.tablet - 1}px)`]: {
+      display: "none !important",
+    },
+  },
+  hideOnTablet: {
+    [`@media (min-width: ${breakpoints.tablet}px) and (max-width: ${
+      breakpoints.desktop - 1
+    }px)`]: {
+      display: "none !important",
+    },
+  },
+  hideOnDesktop: {
+    [`@media (min-width: ${breakpoints.desktop}px)`]: {
+      display: "none !important",
+    },
+  },
+  showOnlyOnMobile: {
+    display: "none !important",
+    [`@media (max-width: ${breakpoints.tablet - 1}px)`]: {
+      display: "block !important",
+    },
+  },
+  showOnlyOnTablet: {
+    display: "none !important",
+    [`@media (min-width: ${breakpoints.tablet}px) and (max-width: ${
+      breakpoints.desktop - 1
+    }px)`]: {
+      display: "block !important",
+    },
+  },
+  showOnlyOnDesktop: {
+    display: "none !important",
+    [`@media (min-width: ${breakpoints.desktop}px)`]: {
+      display: "block !important",
+    },
+  },
+});
+
+export const HideComponents: React.FC<ResponsiveProps> = ({
+  children,
+  hideOn,
+  showOnlyOn,
+  className = "",
+  style,
+}) => {
+  const classes = useStyles();
+  let responsiveClass = "";
+
+  switch (hideOn) {
+    case "mobile":
+      responsiveClass = classes.hideOnMobile;
+      break;
+    case "tablet":
+      responsiveClass = classes.hideOnTablet;
+      break;
+    case "desktop":
+      responsiveClass = classes.hideOnDesktop;
+      break;
+    default:
+      switch (showOnlyOn) {
+        case "mobile":
+          responsiveClass = classes.showOnlyOnMobile;
+          break;
+        case "tablet":
+          responsiveClass = classes.showOnlyOnTablet;
+          break;
+        case "desktop":
+          responsiveClass = classes.showOnlyOnDesktop;
+          break;
+        default:
+          responsiveClass = "";
+      }
+  }
+
+  return (
+    <div
+      className={`${classes.responsive} ${responsiveClass} ${className}`}
+      style={style}
+    >
+      {children}
+    </div>
+  );
+};

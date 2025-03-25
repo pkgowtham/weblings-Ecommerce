@@ -35,7 +35,7 @@ const Header: React.FC<any> = (props): JSX.Element => {
           <span>info@fashionwomen.com</span>
         </div>
         <div className={classes.Logo}>
-          <h1>glozin</h1>
+          <Typography variant="TM">glozin</Typography>
         </div>
         <div></div>
         {/* icons */}
