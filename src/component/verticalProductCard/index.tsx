@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import SvgHeart from "../../custom-icons/Heart";
 import Button from "../button";
 import ProductModule from "../productModule";
+import SvgEye from "../../custom-icons/Eye";
 
 interface VerticalProductCardProps {
   products: any;
@@ -18,6 +19,7 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
 }) => {
   console.log("data", products);
   const classes = useStyle();
+  const [viewModule, setViewModule] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState(false);
   const [selectOption, setSelectOption] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState(
@@ -49,9 +51,22 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
             src={selectedImage}
             alt="Product"
           />
-          <div className={classes.favourite}>
-            <SvgHeart viewBox="0 0 40 40" width={30} height={25} />
-          </div>
+          {isHovered && (
+            <div>
+              <div className={classes.favourite}>
+                <SvgHeart className={classes.eyeColor} viewBox="0 0 40 40" width={30} height={25} />
+              </div>
+              <div className={classes.favouriteOne}>
+                <SvgHeart className={classes.eyeColor} viewBox="0 0 40 40" width={30} height={25} />
+              </div>
+              <div
+                onClick={() => setViewModule(!viewModule)}
+                className={classes.favouriteTwo}
+              >
+                <SvgEye className={classes.eyeColor} />
+              </div>
+            </div>
+          )}
           {isHovered && (
             <div className={classes.buttonContainer}>
               <Button
@@ -109,6 +124,8 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
         </div>
         {/* selection card */}
         {selectOption && <ProductModule onClose={setSelectOption} />}
+        {/* view module */}
+        {viewModule && <ProductModule onClose={setViewModule} />}
       </div>
     </div>
   );

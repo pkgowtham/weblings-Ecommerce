@@ -12,7 +12,6 @@ import { theme } from "../../../theme/theme";
 import fashionblack from "../../assets/images/fashionblack.jpg";
 import fashionwhite from "../../assets/images/fashionwhite.jpg";
 import fashiongrey from "../../assets/images/fashion.jpg";
-import Slider from "../../component/slider";
 import Banner from "../../component/banner";
 
 const productData = {
@@ -237,6 +236,94 @@ const productData = {
         "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
     },
     { id:4,
+      name: "White Slim Fit Basic Unpatterned T-shirt",
+      price: "$115.00",
+      rating: 5,
+      image: fashionwhite,
+      variants: [
+        {
+          color: "Black",
+          image: fashionblack,
+        },
+        {
+          color: "White",
+          image: fashionwhite,
+        },
+        {
+          color: "Grey",
+          image: fashiongrey,
+        },
+      ],
+      description:
+        "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
+    },
+    { id:5,
+      name: "White Slim Fit Basic Unpatterned T-shirt",
+      price: "$115.00",
+      rating: 5,
+      image: fashionwhite,
+      variants: [
+        {
+          color: "Black",
+          image: fashionblack,
+        },
+        {
+          color: "White",
+          image: fashionwhite,
+        },
+        {
+          color: "Grey",
+          image: fashiongrey,
+        },
+      ],
+      description:
+        "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
+    },
+    { id:6,
+      name: "White Slim Fit Basic Unpatterned T-shirt",
+      price: "$115.00",
+      rating: 5,
+      image: fashionwhite,
+      variants: [
+        {
+          color: "Black",
+          image: fashionblack,
+        },
+        {
+          color: "White",
+          image: fashionwhite,
+        },
+        {
+          color: "Grey",
+          image: fashiongrey,
+        },
+      ],
+      description:
+        "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
+    },
+    { id:7,
+      name: "White Slim Fit Basic Unpatterned T-shirt",
+      price: "$115.00",
+      rating: 5,
+      image: fashionwhite,
+      variants: [
+        {
+          color: "Black",
+          image: fashionblack,
+        },
+        {
+          color: "White",
+          image: fashionwhite,
+        },
+        {
+          color: "Grey",
+          image: fashiongrey,
+        },
+      ],
+      description:
+        "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
+    },
+    { id:8,
       name: "White Slim Fit Basic Unpatterned T-shirt",
       price: "$115.00",
       rating: 5,

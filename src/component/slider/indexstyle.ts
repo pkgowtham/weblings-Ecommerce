@@ -5,7 +5,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   MainContainer: {
     display: "flex",
     flexDirection: "column",
-    padding:`${theme.spacing.s0} ${theme.spacing.s800}` ,
+    // padding:`${theme.spacing.s0} ${theme.spacing.s800}` ,
   },
   Title: {
     color: theme.light.brand.onSurface.default,
@@ -42,7 +42,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   Card: {
     height: "636px",
-    width: "1520px",
+    width: "1600px",
     borderRadius: theme.borderRadius.b100,
     border: `1px solid ${theme.light.brand.border.light}`,
     backgroundColor: theme.light.brand.surface.lighter,

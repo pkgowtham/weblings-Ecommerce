@@ -9,6 +9,7 @@ import Shop from "../../component/shop";
 import Support from "../../component/support";
 import Slider from "../../component/slider";
 import { useStyle } from "./indexstyle";
+import Marquee from "../../component/marquee";
 
 const topcollections = {
   card: [
@@ -197,6 +198,59 @@ const shop = {
     },
   ],
 };
+const marqueeData = [
+  { id: 1, name: "Exclusive Seasonal Picks", logo: fashion },
+  { id: 2, name: "Exclusive Seasonal Picks", logo: fashion },
+  { id: 3, name: "Exclusive Seasonal Picks", logo: fashion },
+  { id: 4, name: "Exclusive Seasonal Picks", logo: fashion },
+];
+const trendingData = {
+  title: "Trending Outfits",
+  subtitle:
+    "Unmatched design—superior performance and customer satisfaction in one.",
+  cards: [
+    {
+      logo: fashion,
+      title: "Cotton Long-Sleeve Striped T-shirt",
+      description: "$115.00",
+    },
+    {
+      logo: fashion,
+      title: "Cotton Long-Sleeve Striped T-shirt",
+      description: "$115.00",
+    },
+    {
+      logo: fashion,
+      title: "Cotton Long-Sleeve Striped T-shirt",
+      description: "$115.00",
+    },
+    {
+      logo: fashion,
+      title: "Cotton Long-Sleeve Striped T-shirt",
+      description: "$115.00",
+    },
+    {
+      logo: fashion,
+      title: "Cotton Long-Sleeve Striped T-shirt",
+      description: "$115.00",
+    },
+    {
+      logo: fashion,
+      title: "Cotton Long-Sleeve Striped T-shirt",
+      description: "$115.00",
+    },
+    {
+      logo: fashion,
+      title: "Cotton Long-Sleeve Striped T-shirt",
+      description: "$115.00",
+    },
+    {
+      logo: fashion,
+      title: "Cotton Long-Sleeve Striped T-shirt",
+      description: "$115.00",
+    },
+  ],
+};
 
 const HomePage = () => {
   const classes = useStyle();
@@ -205,6 +259,8 @@ const HomePage = () => {
       <Slider SliderData={slider} />
       <TopCollection TopData={topcollections} />
       <Card CardData={card} />
+      <Marquee marqueeData={marqueeData} />
+      <Card CardData={trendingData} />
       <Review ReviewsData={reviewdata} />
       <Shop ShopData={shop} />
       <Support SupportData={support} />

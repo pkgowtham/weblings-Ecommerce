@@ -1,6 +1,4 @@
-import React from "react";
 import ReactImageMagnify from 'react-image-magnify';
-import fashion from '../../assets/images/fashion.jpg'
 
 const ProductImage = ({imageUrl}:any) => {
   return (
@@ -10,7 +8,7 @@ const ProductImage = ({imageUrl}:any) => {
           smallImage: {
             alt:imageUrl,
             isFluidWidth: true,
-            src: fashion,
+            src:imageUrl,
           },
           largeImage: {
             src: imageUrl,

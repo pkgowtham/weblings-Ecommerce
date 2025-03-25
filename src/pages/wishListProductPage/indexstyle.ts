@@ -36,12 +36,20 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   wishListContainer: {
     width: "100%",
-    display: "flex",
+    display: "grid",
     padding: theme.spacing.s2000,
     alignItems: "center",
     gap: theme.spacing.s600,
     justifyContent: "center",
     borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    gridTemplateColumns: "repeat(4, 1fr)",
+    gridTemplateRows: "repeat(3, auto)",
+    "@media (max-width: 1024px)": {
+      gridTemplateColumns: "repeat(2, 1fr)",
+    },
+    "@media (max-width: 767px)": {
+      gridTemplateColumns: "repeat(1, 1fr)",
+    },
   },
   viewedProductContainer: {
     width: "100%",
@@ -63,10 +71,18 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   recentlyViewed:{
     width: "100%",
-    display: "flex",
+    display: "grid",
     padding: theme.spacing.s2000,
     alignItems: "center",
     gap: theme.spacing.s600,
     justifyContent: "center",
+    gridTemplateColumns: "repeat(4, 1fr)",
+    gridTemplateRows: "repeat(3, auto)",
+    "@media (max-width: 1024px)": {
+      gridTemplateColumns: "repeat(2, 1fr)",
+    },
+    "@media (max-width: 767px)": {
+      gridTemplateColumns: "repeat(1, 1fr)",
+    }
   },
 }));

@@ -11,6 +11,7 @@ import MyAccountPage from "../pages/myAccountPage";
 import AccountDetails from "../pages/myAccountPage/accountDetails";
 import AddressDetails from "../pages/myAccountPage/addressDetails";
 import PaymentFailed from "../component/paymentFailed";
+import CollectionList from "../pages/collectionList";
 
 function Navigations() {
   return (
@@ -25,6 +26,7 @@ function Navigations() {
           <Route path="paymentfailed" element={<PaymentFailed/>} />
           <Route path="wishlistpage" element={<WishListProductPage/>} />
           <Route path="shopingcartviewpage" element={<ShopingCartPage/>} />
+          <Route path="collectionlist" element={<CollectionList/>} />
           <Route path="myaccountpage" element={<MyAccountPage/>} >
             <Route path="accountdetails" element={<AccountDetails/>} />
             <Route path="addressdetails" element={<AddressDetails/>} />

@@ -68,12 +68,12 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   lightColor: {
     color: theme.light.neutral.onSurface.dark,
-    textDecoration:"line-through" 
+    textDecoration: "line-through",
   },
-  imageContainer:{
-    position:'relative'
+  imageContainer: {
+    position: "relative",
   },
-  favourite:{
+  favourite: {
     height: "48px",
     width: "100%",
     maxWidth: "48px",
@@ -81,33 +81,76 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     border: `1px solid ${theme.light.neutral.border.light}`,
     padding: theme.spacing.s300,
     cursor: "pointer",
-    position:'absolute',
-    backgroundColor:theme.light.neutral.surface.lighter,
-    top:'5%',
-    right:'5%',
-    display:'flex',
-    alignItems:'center',
-    justifyContent:'center',
-    '&:hover':{
-      backgroundColor:theme.light.neutral.onSurface.title,
-    }
+    position: "absolute",
+    backgroundColor: theme.light.neutral.surface.lighter,
+    top: "5%",
+    right: "5%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    "&:hover": {
+      backgroundColor: theme.light.neutral.onSurface.title,
+    },
   },
-  buttonContainer:{
-    width:'100%',
-    display:'flex',
-    alignItems:'center',
-    justifyContent:'center',
+  favouriteOne: {
+    height: "48px",
+    width: "100%",
+    maxWidth: "48px",
+    borderRadius: "50%",
+    border: `1px solid ${theme.light.neutral.border.light}`,
+    padding: theme.spacing.s300,
+    cursor: "pointer",
+    position: "absolute",
+    backgroundColor: theme.light.neutral.surface.lighter,
+    top: "18%",
+    right: "5%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    "&:hover": {
+      backgroundColor: theme.light.neutral.onSurface.title,
+    },
   },
-  buttonStyle:{
-    width:'80% !important',
-    backgroundColor:`${theme.light.neutral.surface.lighter} !important`,
-    color:`${theme.light.neutral.onSurface.title} !important`,
-    position:'absolute',
-    top:'80%',
-    height:'45px !important',
-    '&:hover':{
-      backgroundColor:`${theme.light.neutral.onSurface.title} !important`,
-      color:`${theme.light.neutral.surface.light} !important`
-    }
-  }
+  favouriteTwo: {
+    height: "48px",
+    width: "100%",
+    maxWidth: "48px",
+    borderRadius: "50%",
+    border: `1px solid ${theme.light.neutral.border.light}`,
+    padding: theme.spacing.s300,
+    cursor: "pointer",
+    position: "absolute",
+    backgroundColor: theme.light.neutral.surface.lighter,
+    top: "31%",
+    right: "5%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    "&:hover": {
+      backgroundColor: theme.light.neutral.onSurface.title,
+    },
+  },
+  buttonContainer: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonStyle: {
+    width: "80% !important",
+    backgroundColor: `${theme.light.neutral.surface.lighter} !important`,
+    color: `${theme.light.neutral.onSurface.title} !important`,
+    position: "absolute",
+    top: "80%",
+    height: "45px !important",
+    "&:hover": {
+      backgroundColor: `${theme.light.neutral.onSurface.title} !important`,
+      color: `${theme.light.neutral.surface.light} !important`,
+    },
+  },
+  eyeColor: {
+    "& path": {
+      fill: theme.light.neutral.onSurface.dark,
+    },
+  },
 }));

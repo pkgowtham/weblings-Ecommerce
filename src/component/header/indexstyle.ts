@@ -4,7 +4,11 @@ import { Theme } from "../../../theme/themeType";
 export const useStyle = createUseStyles((theme: Theme) => ({
   NavBar: {
     width:'100%',
-    
+    position:'sticky',
+    top:0,
+    left:0,
+    zIndex:30,
+    backgroundColor:theme.light.neutral.surface.lighter,
   },
   NavTop: {
     display: "flex",
@@ -12,6 +16,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     justifyContent: "space-between",
     padding: theme.spacing.s300,
     borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+   
   },
   ContactInfo: {
     display: "flex",

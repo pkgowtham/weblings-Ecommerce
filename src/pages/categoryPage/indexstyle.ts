@@ -115,6 +115,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     right: "8%",
     borderRadius: theme.borderRadius.b200,
     padding: theme.spacing.s500,
+    zIndex:30
   },
   contentDiv: {
     width: "100%",
@@ -152,6 +153,12 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   fourColumns: {
     gridTemplateColumns: "repeat(4, 1fr)",
+    "@media (max-width: 1024px)": {
+      gridTemplateColumns: "repeat(2, 1fr)",
+    },
+    "@media (max-width: 767px)": {
+      gridTemplateColumns: "repeat(1, 1fr)",
+    },
   },
   twoColumns: {
     gridTemplateColumns: "repeat(2, 1fr)",
