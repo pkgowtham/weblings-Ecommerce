@@ -8,6 +8,7 @@ import VerticalProductCard from "../../component/verticalProductCard";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { useStore } from "../../store";
 import { useEffect, useRef } from "react";
+import { deepGet } from "../../util/util";
 
 const products = [
   { id:1,
@@ -122,10 +123,41 @@ const WishListProductPage = () => {
       }
     }, []);
 
+    //getlist after removing the wishlist
+    useEffect(() => {
+     if(store.productWishlist.isSuccessDestroy){
+      dispatch({
+        type: "PRODUCT_WHISHLIST_GETLIST_API_REQUEST",
+        payload: {
+          url: "/wishList",
+          method: "GET",
+        },
+      });
+      dispatch({
+        type:"PRODUCT_WHISHLIST_DESTROY_API_CLEAR"
+      })
+     }
+    }, [deepGet(store,"productWishlist.isSuccessDestroy")])
+    
+
 //   navigate 
 const handleNavigate = () =>{
     navigate("/mainlayout/home")
 }
+
+const handleRemoveWishList = (id:string) => {
+  dispatch({
+    type:"PRODUCT_WHISHLIST_DESTROY_API_REQUEST",
+    payload: {
+      url: "/wishList",
+      method: "DELETE",
+      query:{
+        id:id
+      }
+    },
+  })
+}
+
   return (
     <div className={classes.mainContainer}>
       {/* header section */}
@@ -145,8 +177,8 @@ const handleNavigate = () =>{
       </div>
       {/* wistlist items */}
       <div className={classes.wishListContainer}>
-        {products.map((data: any) => (
-          <VerticalProductCard products={data}  />
+        {store.productWishlist.dataGetList && store.productWishlist.dataGetList?.data?.map((data: any) => (
+          <VerticalProductCard products={data}  close onClose={handleRemoveWishList}/>
         ))}
       </div>
       {/* recently viewed */}
@@ -159,9 +191,9 @@ const handleNavigate = () =>{
           </Typography>
         </div>
         <div className={classes.recentlyViewed}>
-        {products.map((data:any)=>(
+        {/* {products.map((data:any)=>(
             <VerticalProductCard products={data} />
-        ))}
+        ))} */}
         </div>
       </div>
     </div>

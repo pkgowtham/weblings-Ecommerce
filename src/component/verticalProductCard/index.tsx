@@ -10,13 +10,18 @@ import Button from "../button";
 import ProductModule from "../productModule";
 import SvgEye from "../../custom-icons/Eye";
 import { deepGet } from "../../util/util";
+import SvgClose from "../../custom-icons/Close";
 
 interface VerticalProductCardProps {
   products: any;
+  close?:any
+  onClose?:any
 }
 
 const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
   products,
+  close,
+  onClose = () => {}
 }) => {
   console.log("data", products);
   const classes = useStyle();
@@ -31,6 +36,7 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
   const [selectedColor, setSelectedColor] = useState<any>(null);
   const [selectedSize, setSelectedSize] = useState<any>(null);
   const [price, setPrice] = useState<any>(null);
+  console.log('price',price)
   const [currentImage, setCurrentImage] = useState("");
 
   const RatingStar = (rating: any) => {
@@ -85,13 +91,6 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
     }
   };
 
-  // Filtered sizes based on selected color
-  const filteredSizes = selectedColor
-    ? products?.variants
-        .filter((variant: any) => variant.color.id === selectedColor?.id)
-        .map((variant: any) => variant.size)
-    : [];
-
   // Get attachments for the selected color
   const selectedColorAttachments =
     products?.colors?.find((color: any) => color.id === selectedColor?.id)
@@ -111,6 +110,7 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
           variant.color.id === selectedColor?.id &&
           variant.size.id === selectedSize?.id
       );
+      console.log('selected variant',selectedVariant)
       if (selectedVariant) {
         setPrice(selectedVariant);
       }
@@ -159,14 +159,23 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
           />
           {isHovered && (
             <div>
-              <div className={classes.favourite}>
+              {close ? (
+                <div className={classes.favourite} onClick={()=>onClose(products?.id)}>
+                <SvgClose
+                  className={classes.eyeColor}
+                  viewBox="0 0 20 20"
+                  width={15}
+                  height={15}
+                />
+              </div>) :
+              (<div className={classes.favourite}>
                 <SvgHeart
                   className={classes.eyeColor}
                   viewBox="0 0 40 40"
                   width={30}
                   height={25}
                 />
-              </div>
+              </div>)}
               <div className={classes.favouriteOne}>
                 <SvgHeart
                   className={classes.eyeColor}
@@ -195,7 +204,7 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
         </div>
         <div className={classes.cardContents}>
           <div>
-            <Typography variant="BM">{products.name}</Typography>
+            <Typography variant="BM">{products.name || products?.products[0]?.name}</Typography>
           </div>
           {/* Star Rating Mapping */}
           <div className={classes.starContainer}>
