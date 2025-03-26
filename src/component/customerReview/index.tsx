@@ -191,8 +191,8 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
     formDataApi.append("content", formData.content);
     formDataApi.append("name", formData.name);
     formDataApi.append("email", formData.email);
-    formDataApi.append("productId", '2df8af0e-4710-4523-b285-9d97617ce6ef');
-    // formDataApi.append("productId", productId);
+    // formDataApi.append("productId", '2df8af0e-4710-4523-b285-9d97617ce6ef');
+    formDataApi.append("productId", productId);
     formDataApi.append("userId", "001a0ab1-14a1-4016-b2ed-2e9dfa414245");
     dispatch({
       type: "PRODUCT_COMMENT_CREATE_API_REQUEST",

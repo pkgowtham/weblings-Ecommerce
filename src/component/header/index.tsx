@@ -44,9 +44,9 @@ const Header: React.FC<any> = (props): JSX.Element => {
           </HideComponents>
         </div>
         {/* Main Navigation */}
+          <HideComponents  showOnlyOn="desktop">
         <div className={classes.NavBarMain}>
           {/* Navigation Links */}
-          <HideComponents className={classes.navContainer} showOnlyOn="desktop">
             {HeaderData?.links?.map((data: any, idx: number) => (
               <nav className="nav-links">
                 <ul key={idx}>
@@ -76,11 +76,11 @@ const Header: React.FC<any> = (props): JSX.Element => {
                 </ul>
               </nav>
             ))}
+        </div>
           </HideComponents>
           <HideComponents hideOn="desktop">
             <Typography variant="TM">glozin</Typography>
           </HideComponents>
-        </div>
         {/* icons */}
         <div className={classes.Icons}>
           <HideComponents hideOn="mobile">
@@ -93,7 +93,8 @@ const Header: React.FC<any> = (props): JSX.Element => {
           <HideComponents showOnlyOn="mobile">
             <SvgSearch className={classes.leftIconColor} />
           </HideComponents>
-          <HideComponents className={classes.iconDiv} showOnlyOn="desktop">
+          <HideComponents showOnlyOn="desktop">
+            <div style={{display:'flex', alignItems:'center',gap:"10px"}}>
             <div>
               <SvgUserRound
                 onClick={() => setIsSignInModule(!isSignInModule)}
@@ -120,6 +121,7 @@ const Header: React.FC<any> = (props): JSX.Element => {
                 count={"0"}
                 className={classes.badgeStyle}
               />
+            </div>
             </div>
           </HideComponents>
           <div className={classes.wishList}>

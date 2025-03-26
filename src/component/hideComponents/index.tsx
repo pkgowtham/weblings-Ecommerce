@@ -1,5 +1,6 @@
 import React from "react";
 import { createUseStyles } from "react-jss";
+import { Theme } from "../../../theme/themeType";
 
 const breakpoints = {
   desktop: 1024,
@@ -13,12 +14,17 @@ type ResponsiveProps = {
   showOnlyOn?: "mobile" | "tablet" | "desktop";
   className?: string;
   style?: React.CSSProperties;
+  flexContainer?:boolean;
 };
 
 const useStyles = createUseStyles({
   responsive: {
+    display: "block",
+  },
+  flexContainer: { // New style for flex containers
     display: "flex",
-    alignItems:'center',
+    alignItems: "center",
+    gap: "10px", // Use your theme
   },
   hideOnMobile: {
     [`@media (max-width: ${breakpoints.tablet - 1}px)`]: {
@@ -65,6 +71,7 @@ export const HideComponents: React.FC<ResponsiveProps> = ({
   showOnlyOn,
   className = "",
   style,
+  flexContainer = false,
 }) => {
   const classes = useStyles();
   let responsiveClass = "";
@@ -97,7 +104,7 @@ export const HideComponents: React.FC<ResponsiveProps> = ({
 
   return (
     <div
-      className={`${classes.responsive} ${responsiveClass} ${className}`}
+      className={`${classes.responsive}  ${flexContainer ? classes.flexContainer : ''}  ${responsiveClass} ${className}`}
       style={style}
     >
       {children}
