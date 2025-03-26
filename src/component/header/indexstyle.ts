@@ -40,6 +40,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   Icons: {
     display: "flex",
     gap: theme.spacing.s400,
+    alignItems:'center'
   },
   List:{
     listStyle:'none',
@@ -94,5 +95,20 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   badgeStyle:{
     
+  },
+  leftIconColor:{
+    '& path':{
+      fill:theme.light.neutral.onSurface.dark
+    }
+  },
+  iconDiv:{
+    // display:'flex !important',
+    // alignItems:'center',
+    // gap:theme.spacing.s400
+  },
+  navContainer:{
+    // display:'flex !important',
+    // alignItems:'center',
+    // gap:theme.spacing.s400
   }
 }));

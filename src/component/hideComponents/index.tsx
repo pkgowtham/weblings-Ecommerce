@@ -17,7 +17,8 @@ type ResponsiveProps = {
 
 const useStyles = createUseStyles({
   responsive: {
-    display: "block",
+    display: "flex",
+    alignItems:'center',
   },
   hideOnMobile: {
     [`@media (max-width: ${breakpoints.tablet - 1}px)`]: {

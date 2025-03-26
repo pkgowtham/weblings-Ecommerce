@@ -9,6 +9,11 @@ import SignInModule from "../signInModule";
 import Badge from "../badge";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { useStore } from "../../store";
+import Input from "../input";
+import SvgSearch from "../../custom-icons/Search";
+import SvgMenu from "../../custom-icons/Menu";
+import { HideComponents } from "../hideComponents";
+import SvgChevronRight from "../../custom-icons/ChevronRight";
 
 const Header: React.FC<any> = (props): JSX.Element => {
   const classes = useStyle();
@@ -31,31 +36,106 @@ const Header: React.FC<any> = (props): JSX.Element => {
       {/* Top Bar with Contact Info */}
       <div className={classes.NavTop}>
         <div className={classes.ContactInfo}>
-          <span>+1 (973) 435-3638</span>
-          <span>info@fashionwomen.com</span>
+          <HideComponents showOnlyOn="desktop">
+            <Typography variant="TM">glozin</Typography>
+          </HideComponents>
+          <HideComponents hideOn="desktop">
+            <SvgMenu />
+          </HideComponents>
         </div>
-        <div className={classes.Logo}>
-          <Typography variant="TM">glozin</Typography>
+        {/* Main Navigation */}
+        <div className={classes.NavBarMain}>
+          {/* Navigation Links */}
+          <HideComponents className={classes.navContainer} showOnlyOn="desktop">
+            {HeaderData?.links?.map((data: any, idx: number) => (
+              <nav className="nav-links">
+                <ul key={idx}>
+                  <li
+                    className={classes.List}
+                    onMouseEnter={() => setHoveredIndex(idx)}
+                    onMouseLeave={() => setHoveredIndex(null)}
+                  >
+                    <Link to={data.path} className={classes.List}>
+                      {data.link}
+                      <SvgChevronRight />
+                    </Link>
+
+                    {/* dropdown */}
+                    {hoveredIndex === idx && (
+                      <div className={classes.Dropdown}>
+                        {data.dropdownItems?.map(
+                          (item: string, itemIdx: number) => (
+                            <div className={classes.datas}>
+                              <Typography variant="BS">{item}</Typography>
+                            </div>
+                          )
+                        )}
+                      </div>
+                    )}
+                  </li>
+                </ul>
+              </nav>
+            ))}
+          </HideComponents>
+          <HideComponents hideOn="desktop">
+            <Typography variant="TM">glozin</Typography>
+          </HideComponents>
         </div>
-        <div></div>
         {/* icons */}
         <div className={classes.Icons}>
-          <div>
-            <SvgUserRound
-              onClick={() => setIsSignInModule(!isSignInModule)}
-              cursor={"pointer"}
-              width={25}
-              viewBox="0 0 25 30"
-              height={20}
+          <HideComponents hideOn="mobile">
+            <Input
+              type="text"
+              placeholder="I'am looking for.."
+              leftIcon={<SvgSearch className={classes.leftIconColor} />}
             />
-          </div>
+          </HideComponents>
+          <HideComponents showOnlyOn="mobile">
+            <SvgSearch className={classes.leftIconColor} />
+          </HideComponents>
+          <HideComponents className={classes.iconDiv} showOnlyOn="desktop">
+            <div>
+              <SvgUserRound
+                onClick={() => setIsSignInModule(!isSignInModule)}
+                cursor={"pointer"}
+                width={25}
+                viewBox="0 0 25 30"
+                height={20}
+              />
+            </div>
+            <div className={classes.wishList}>
+              <SvgHeart
+                onClick={handleNavigate}
+                cursor={"pointer"}
+                viewBox="0 0 40 40"
+                width={30}
+                height={25}
+              />
+              <Badge
+                style={{
+                  width: "18px",
+                  height: "18px",
+                  right: -5,
+                }}
+                count={"0"}
+                className={classes.badgeStyle}
+              />
+            </div>
+          </HideComponents>
           <div className={classes.wishList}>
             <SvgHeart
-              onClick={handleNavigate}
-              cursor={"pointer"}
               viewBox="0 0 40 40"
               width={30}
               height={25}
+              cursor={"pointer"}
+              onClick={() =>
+                dispatch({
+                  type: "OPEN_ADD_TO_CART_MODAL",
+                  payload: {
+                    isAddToCart: true,
+                  },
+                })
+              }
             />
             <Badge
               style={{
@@ -67,66 +147,13 @@ const Header: React.FC<any> = (props): JSX.Element => {
               className={classes.badgeStyle}
             />
           </div>
-          <div className={classes.wishList}>
-            <SvgHeart
-              viewBox="0 0 40 40"
-              width={30}
-              height={25}
-              cursor={"pointer"}
-              onClick={() => dispatch({
-                type:"OPEN_ADD_TO_CART_MODAL",
-                payload:{
-                  isAddToCart:true
-                }
-              })}
-            />
-                <Badge
-              style={{
-                width: "18px",
-                height: "18px",
-                right: -5,
-              }}
-              count={"0"}
-              className={classes.badgeStyle}
-            />
-          </div>
         </div>
       </div>
-      {/* Main Navigation */}
-      <div className={classes.NavBarMain}>
-        {/* Navigation Links */}
-        {HeaderData?.links?.map((data: any, idx: number) => (
-          <nav className="nav-links">
-            <ul key={idx}>
-              <li
-                className={classes.List}
-                onMouseEnter={() => setHoveredIndex(idx)}
-                onMouseLeave={() => setHoveredIndex(null)}
-              >
-                <Link to={data.path} className={classes.List}>
-                  {data.link}
-                  <img className={classes.RightLogo} src={data.logo} alt="" />
-                </Link>
 
-                {/* dropdown */}
-                {hoveredIndex === idx && (
-                  <div className={classes.Dropdown}>
-                    {data.dropdownItems?.map(
-                      (item: string, itemIdx: number) => (
-                        <div className={classes.datas}>
-                          <Typography variant="BS">{item}</Typography>
-                        </div>
-                      )
-                    )}
-                  </div>
-                )}
-              </li>
-            </ul>
-          </nav>
-        ))}
-      </div>
       {/* module for shopping cart */}
-      {store.commonInternal.isAddToCart && <ShoppingCart onClose={setShoppingCart} />}
+      {store.commonInternal.isAddToCart && (
+        <ShoppingCart onClose={setShoppingCart} />
+      )}
       {/* signin module */}
       {isSignInModule && <SignInModule onClose={setIsSignInModule} />}
     </header>
