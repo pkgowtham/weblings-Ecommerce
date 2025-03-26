@@ -347,7 +347,7 @@ export interface Store {
     isLoadingGetList: boolean;
     isSuccessGetList: boolean;
     isErrorGetList: boolean;
-    dataGetList: string | null;
+    dataGetList: any;
     errorGetList: string | null;
 
     //Basic getlist

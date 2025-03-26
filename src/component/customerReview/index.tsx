@@ -46,12 +46,12 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
   //comments getlist
   useEffect(() => {
     // if (!hasCommentDispatched.current && rowDataId) {
-      if (!hasCommentDispatched.current && '2df8af0e-4710-4523-b285-9d97617ce6ef') {
+      if (!hasCommentDispatched.current && productId) {
       dispatch({
         type: "PRODUCT_COMMENT_GETLIST_API_REQUEST",
         payload: { url: "/comments", method: "GET", query: {
-          // id: rowDataId,
-          id: '2df8af0e-4710-4523-b285-9d97617ce6ef',
+          productId,
+          // id: '2df8af0e-4710-4523-b285-9d97617ce6ef',
         },
       },
       });

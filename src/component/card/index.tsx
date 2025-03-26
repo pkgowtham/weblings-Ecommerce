@@ -7,151 +7,153 @@ import VerticalProductCard from "../verticalProductCard";
 import fashionwhite from "../../assets/images/fashionwhite.jpg";
 import fashionblack from "../../assets/images/fashionblack.jpg";
 import fashiongrey from "../../assets/images/fashion.jpg";
+import { useStore } from "../../store";
+import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 
-const products = [
-  {
-    id: 1,
-    name: "White Slim Fit Basic Unpatterned T-shirt",
-    price: "$115.00",
-    rating: 5,
-    image: fashionwhite,
-    variants: [
-      {
-        color: "Black",
-        image: fashionblack,
-      },
-      {
-        color: "White",
-        image: fashionwhite,
-      },
-      {
-        color: "Grey",
-        image: fashiongrey,
-      },
-    ],
-    description:
-      "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
-  },
-  {
-    id: 2,
-    name: "White Slim Fit Basic Unpatterned T-shirt",
-    price: "$115.00",
-    rating: 5,
-    image: fashionwhite,
-    variants: [
-      {
-        color: "Black",
-        image: fashionblack,
-      },
-      {
-        color: "White",
-        image: fashionwhite,
-      },
-      {
-        color: "Grey",
-        image: fashiongrey,
-      },
-    ],
-    description:
-      "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
-  },
-  {
-    id: 3,
-    name: "White Slim Fit Basic Unpatterned T-shirt",
-    price: "$115.00",
-    rating: 5,
-    image: fashionwhite,
-    variants: [
-      {
-        color: "Black",
-        image: fashionblack,
-      },
-      {
-        color: "White",
-        image: fashionwhite,
-      },
-      {
-        color: "Grey",
-        image: fashiongrey,
-      },
-    ],
-    description:
-      "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
-  },
-  {
-    id: 4,
-    name: "White Slim Fit Basic Unpatterned T-shirt",
-    price: "$115.00",
-    rating: 5,
-    image: fashionwhite,
-    variants: [
-      {
-        color: "Black",
-        image: fashionblack,
-      },
-      {
-        color: "White",
-        image: fashionwhite,
-      },
-      {
-        color: "Grey",
-        image: fashiongrey,
-      },
-    ],
-    description:
-      "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
-  },
-  {
-    id: 5,
-    name: "White Slim Fit Basic Unpatterned T-shirt",
-    price: "$115.00",
-    rating: 5,
-    image: fashionwhite,
-    variants: [
-      {
-        color: "Black",
-        image: fashionblack,
-      },
-      {
-        color: "White",
-        image: fashionwhite,
-      },
-      {
-        color: "Grey",
-        image: fashiongrey,
-      },
-    ],
-    description:
-      "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
-  },
-  {
-    id: 6,
-    name: "White Slim Fit Basic Unpatterned T-shirt",
-    price: "$115.00",
-    rating: 5,
-    image: fashionwhite,
-    variants: [
-      {
-        color: "Black",
-        image: fashionblack,
-      },
-      {
-        color: "White",
-        image: fashionwhite,
-      },
-      {
-        color: "Grey",
-        image: fashiongrey,
-      },
-    ],
-    description:
-      "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
-  },
-];
+// const products = [
+//   {
+//     id: 1,
+//     name: "White Slim Fit Basic Unpatterned T-shirt",
+//     price: "$115.00",
+//     rating: 5,
+//     image: fashionwhite,
+//     variants: [
+//       {
+//         color: "Black",
+//         image: fashionblack,
+//       },
+//       {
+//         color: "White",
+//         image: fashionwhite,
+//       },
+//       {
+//         color: "Grey",
+//         image: fashiongrey,
+//       },
+//     ],
+//     description:
+//       "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
+//   },
+//   {
+//     id: 2,
+//     name: "White Slim Fit Basic Unpatterned T-shirt",
+//     price: "$115.00",
+//     rating: 5,
+//     image: fashionwhite,
+//     variants: [
+//       {
+//         color: "Black",
+//         image: fashionblack,
+//       },
+//       {
+//         color: "White",
+//         image: fashionwhite,
+//       },
+//       {
+//         color: "Grey",
+//         image: fashiongrey,
+//       },
+//     ],
+//     description:
+//       "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
+//   },
+//   {
+//     id: 3,
+//     name: "White Slim Fit Basic Unpatterned T-shirt",
+//     price: "$115.00",
+//     rating: 5,
+//     image: fashionwhite,
+//     variants: [
+//       {
+//         color: "Black",
+//         image: fashionblack,
+//       },
+//       {
+//         color: "White",
+//         image: fashionwhite,
+//       },
+//       {
+//         color: "Grey",
+//         image: fashiongrey,
+//       },
+//     ],
+//     description:
+//       "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
+//   },
+//   {
+//     id: 4,
+//     name: "White Slim Fit Basic Unpatterned T-shirt",
+//     price: "$115.00",
+//     rating: 5,
+//     image: fashionwhite,
+//     variants: [
+//       {
+//         color: "Black",
+//         image: fashionblack,
+//       },
+//       {
+//         color: "White",
+//         image: fashionwhite,
+//       },
+//       {
+//         color: "Grey",
+//         image: fashiongrey,
+//       },
+//     ],
+//     description:
+//       "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
+//   },
+//   {
+//     id: 5,
+//     name: "White Slim Fit Basic Unpatterned T-shirt",
+//     price: "$115.00",
+//     rating: 5,
+//     image: fashionwhite,
+//     variants: [
+//       {
+//         color: "Black",
+//         image: fashionblack,
+//       },
+//       {
+//         color: "White",
+//         image: fashionwhite,
+//       },
+//       {
+//         color: "Grey",
+//         image: fashiongrey,
+//       },
+//     ],
+//     description:
+//       "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
+//   },
+//   {
+//     id: 6,
+//     name: "White Slim Fit Basic Unpatterned T-shirt",
+//     price: "$115.00",
+//     rating: 5,
+//     image: fashionwhite,
+//     variants: [
+//       {
+//         color: "Black",
+//         image: fashionblack,
+//       },
+//       {
+//         color: "White",
+//         image: fashionwhite,
+//       },
+//       {
+//         color: "Grey",
+//         image: fashiongrey,
+//       },
+//     ],
+//     description:
+//       "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
+//   },
+// ];
 
 const Card: React.FC<any> = (props): JSX.Element => {
   const classes = useStyle();
-  const { CardData } = props;
+  const { CardData, title, subTitle } = props;
 
   const ScroolContainerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -206,10 +208,10 @@ const Card: React.FC<any> = (props): JSX.Element => {
     onMouseLeave={()=> setIsHovered(false)}
     >
       <Typography variant="HM" className={classes.Title}>
-        {CardData?.title}
+        {title}
       </Typography>
       <Typography variant="BM" className={classes.SubTitle}>
-        {CardData?.subtitle}
+        {subTitle}
       </Typography>
       <div className={classes.CardContainer}>
         <div
@@ -224,7 +226,7 @@ const Card: React.FC<any> = (props): JSX.Element => {
           <SvgChevronLeft className={classes.ScroolLeftButton} />
         </div>
         <div className={classes.ScrollContainer} ref={ScroolContainerRef}>
-          {products?.map((card: any, index: number) => (
+          {CardData?.map((card: any, index: number) => (
             <div key={index} className={classes.CardWrapper}>
               {/* <div className={classes.Card}>
                 <img src={card.logo} className={classes.CardLogo} />

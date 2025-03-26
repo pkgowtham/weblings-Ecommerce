@@ -2,13 +2,14 @@ import { useStyle } from "./indexstyle";
 import Typography from "../typography/component";
 import SvgStarPurple500 from "../../custom-icons/StarPurple500";
 import fashionwhite from "../../assets/images/fashionwhite.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
 import SvgHeart from "../../custom-icons/Heart";
 import Button from "../button";
 import ProductModule from "../productModule";
 import SvgEye from "../../custom-icons/Eye";
+import { deepGet } from "../../util/util";
 
 interface VerticalProductCardProps {
   products: any;
@@ -27,6 +28,111 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
   );
   const rating = 4;
   const navigate = useNavigate();
+  const [selectedColor, setSelectedColor] = useState<any>(null);
+  const [selectedSize, setSelectedSize] = useState<any>(null);
+  const [price, setPrice] = useState<any>(null);
+  const [currentImage, setCurrentImage] = useState("");
+
+  const RatingStar = (rating: any) => {
+    switch (rating) {
+      case 1:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
+      case 2:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
+      case 3:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
+      case 4:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
+      case 5:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
+      default:
+        return (
+            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              <SvgStarPurple500 className={classes.starColor} />
+            </div>
+          );
+        break;
+    }
+  };
+
+  // Filtered sizes based on selected color
+  const filteredSizes = selectedColor
+    ? products?.variants
+        .filter((variant: any) => variant.color.id === selectedColor?.id)
+        .map((variant: any) => variant.size)
+    : [];
+
+  // Get attachments for the selected color
+  const selectedColorAttachments =
+    products?.colors?.find((color: any) => color.id === selectedColor?.id)
+      ?.attachments || [];
+
+  useEffect(() => {
+    if (Object.keys(products || {}).length > 0) {
+      setSelectedColor(products?.colors?.[0]);
+      setSelectedSize(products?.sizes?.[0]);
+    }
+  }, [products]);
+
+  useEffect(() => {
+    if (selectedColor && selectedSize) {
+      const selectedVariant = products?.variants.find(
+        (variant: any) =>
+          variant.color.id === selectedColor?.id &&
+          variant.size.id === selectedSize?.id
+      );
+      if (selectedVariant) {
+        setPrice(selectedVariant);
+      }
+
+      // Set the first attachment as the current image
+      if (selectedColorAttachments.length > 0) {
+        setCurrentImage(selectedColorAttachments[0].fileUrl);
+      }
+    }
+  }, [selectedColor, selectedSize]);
+
+  // Handle color selection
+  const handleColorChange = (data: any) => {
+    const colorId = data.id;
+    setSelectedColor(data);
+
+    // Reset size to the first available size for the selected color
+    const firstSizeForColor = products?.variants.find(
+      (variant: any) => variant.color.id === colorId
+    )?.size;
+    setSelectedSize(firstSizeForColor || null);
+  };
 
   // selected images in card
   const handleClickProductImage = (image: any) => {
@@ -34,7 +140,7 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
   };
   // navigate
   const handleNavigate = () => {
-    navigate("/mainLayout/productpage");
+    navigate("/mainLayout/productpage",{state:{rowDataId:products?.id}});
   };
 
   return (
@@ -48,16 +154,26 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
           <img
             onClick={handleNavigate}
             className={classes.itemStyle}
-            src={selectedImage}
+            src={currentImage}
             alt="Product"
           />
           {isHovered && (
             <div>
               <div className={classes.favourite}>
-                <SvgHeart className={classes.eyeColor} viewBox="0 0 40 40" width={30} height={25} />
+                <SvgHeart
+                  className={classes.eyeColor}
+                  viewBox="0 0 40 40"
+                  width={30}
+                  height={25}
+                />
               </div>
               <div className={classes.favouriteOne}>
-                <SvgHeart className={classes.eyeColor} viewBox="0 0 40 40" width={30} height={25} />
+                <SvgHeart
+                  className={classes.eyeColor}
+                  viewBox="0 0 40 40"
+                  width={30}
+                  height={25}
+                />
               </div>
               <div
                 onClick={() => setViewModule(!viewModule)}
@@ -83,7 +199,7 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
           </div>
           {/* Star Rating Mapping */}
           <div className={classes.starContainer}>
-            {Array.from({ length: rating }).map((_, index) => (
+            {/* {Array.from({ length: rating }).map((_, index) => (
               <SvgStarPurple500
                 viewBox="0 0 20 25"
                 width={20}
@@ -91,35 +207,43 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
                 className={classes.starColor}
                 key={index}
               />
-            ))}
+            ))} */}
+            {RatingStar(products?.totalReviews)}
           </div>
           {/* price */}
           <div className={classes.priceContainer}>
             <Typography className={classes.redColor} variant="BM">
-              {products.price}
+              {`$${price?.sellingPrice}`}
             </Typography>
             <Typography className={classes.lightColor} variant="BM">
-              {products.price}
+              {`$${price?.mrp}`}
             </Typography>
           </div>
           {/* product image */}
           <div className={classes.productImage}>
-            {(Array.isArray(products.variants) ? products.variants : []).map(
-              (image: any) => (
+            {products?.colors?.map((dat: any, index: number) => {
+              const thumbnailAttachments = dat.attachments.filter(
+                (attachment: any) => attachment.thumbnail === true
+              );
+              return (
                 <div
-                  onClick={() => handleClickProductImage(image.image)}
+                  onClick={() => handleColorChange(dat)}
+                  key={index}
+                  // className={clsx(classes.ProductImgDiv, {
+                  //   [classes.ProductBoder]: dat.name === selectedColor?.name,
+                  // })}
                   className={clsx(classes.imageDiv, {
-                    [classes.activeStatus]: selectedImage === image.image,
+                    [classes.activeStatus]: dat.name === selectedColor?.name,
                   })}
                 >
                   <img
+                    src={thumbnailAttachments[0]?.fileUrl}
+                    alt=""
                     className={classes.itemDiv}
-                    src={image.image}
-                    alt="Product"
                   />
                 </div>
-              )
-            )}
+              );
+            })}
           </div>
         </div>
         {/* selection card */}

@@ -308,6 +308,7 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
   const navigate = useNavigate();
   const location = useLocation();
   const { rowDataId } = location?.state || {};
+  console.log('rowData',rowDataId)
   const hasDispatched = useRef(false);
   const [currentImage, setCurrentImage] = useState("");
   const [thumbnailAttachments, setThumbnailAttachments] = useState<any[]>([]);
@@ -334,8 +335,8 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
         payload: {
           url: "/product",
           method: "GET",
-          // params: rowDataId,
-          params: "2df8af0e-4710-4523-b285-9d97617ce6ef",
+          params: rowDataId,
+          // params: "2df8af0e-4710-4523-b285-9d97617ce6ef",
         },
       });
       hasDispatched.current = true;
@@ -625,7 +626,7 @@ const handleAddToCartSubmit = () => {
                     })}
                   >
                     <img
-                      src={thumbnailAttachments[0].fileUrl}
+                      src={thumbnailAttachments[0]?.fileUrl}
                       alt=""
                       className={classes.ProductImg}
                     />

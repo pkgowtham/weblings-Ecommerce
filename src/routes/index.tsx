@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import MainLayout from "../mainLayout";
 import HomePage from "../pages/homePage";
 import ProductPage from "../pages/productPage";
@@ -17,6 +17,9 @@ function Navigations() {
   return (
     <Router>
       <Routes>
+
+      <Route path="/" element={<Navigate to="/mainLayout/home" replace />} />
+
         <Route path="mainLayout" element={<MainLayout />}>
           <Route path="home" element={<HomePage />} />
           <Route path="productpage" element={<ProductPage />} />

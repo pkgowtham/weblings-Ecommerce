@@ -37,7 +37,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   CardWrapper: {
     display: "flex",
     flexDirection: "column",
-    minWidth: '300px',
+    flex:'0 0 calc(25% - 10px)',
+    minWidth:"calc(25% - 10px)",
+    // aspectRatio:1,
+    overflow:'hidden'
   },
   CardContent: {
     display: "flex",
