@@ -20,6 +20,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "40%",
     alignItems: "center",
     textAlign: "center",
+    padding:`${theme.spacing.s0} ${theme.spacing.s250}`,
+    "@media (max-width: 1024px)": {
+      width:'100%'
+    },
   },
   gridContainer: {
     display: "grid",
@@ -30,10 +34,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     margin: "auto",
     marginTop: theme.spacing.s800,
     "@media (max-width: 1024px)": {
-      gridTemplateColumns: "repeat(2, 1fr)",
+      gridTemplateColumns: "repeat(3, 1fr)",
     },
     "@media (max-width: 767px)": {
-      gridTemplateColumns: "repeat(1, 1fr)",
+      gridTemplateColumns: "repeat(2, 1fr)",
     },
   },
   gridItem: {

@@ -109,6 +109,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     alignItems: "center",
     gap: theme.spacing.s500,
+    borderTop: `1px solid ${theme.light.neutral.border.light}`,
+    paddingTop:theme.spacing.s500
   },
   CardDiv: {
     display:'flex',

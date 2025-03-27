@@ -7,8 +7,6 @@ import VerticalProductCard from "../verticalProductCard";
 import fashionwhite from "../../assets/images/fashionwhite.jpg";
 import fashionblack from "../../assets/images/fashionblack.jpg";
 import fashiongrey from "../../assets/images/fashion.jpg";
-import { useStore } from "../../store";
-import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 
 // const products = [
 //   {
@@ -154,10 +152,8 @@ import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 const Card: React.FC<any> = (props): JSX.Element => {
   const classes = useStyle();
   const { CardData, title, subTitle } = props;
-
   const ScroolContainerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-
   const [isAtStart, setIsAtStart] = useState(true); // Track start state
   const [isAtEnd, setIsAtEnd] = useState(false); // Track end state
 

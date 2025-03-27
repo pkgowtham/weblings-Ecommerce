@@ -20,6 +20,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   productsDiv: {
     width: "80%",
+    "@media (max-width: 1024px)": {
+      width:'100%'
+    },
   },
   blackColor: {
     color: theme.light.neutral.onSurface.title,
@@ -221,4 +224,17 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     gap: theme.spacing.s200,
     padding: `${theme.spacing.s300} ${theme.spacing.s0}`,
   },
+  buttonStyle:{
+    height:'33px !important',
+    padding:`${theme.spacing.s250}  !important`,
+    borderRadius:`${theme.borderRadius.b0} !important`
+  },
+  buttonStyleDrop:{
+    height:'33px !important',
+    padding:`${theme.spacing.s250}  !important`,
+    borderRadius:`${theme.borderRadius.b0} !important`,
+    backgroundColor:`${theme.light.neutral.surface.lighter} !important`,
+    color:`${theme.light.neutral.onSurface.title} !important`,
+    border: `1px solid ${theme.light.neutral.border.light}`,
+  }
 }));

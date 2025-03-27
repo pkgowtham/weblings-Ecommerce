@@ -8,15 +8,24 @@ const TopCollection: React.FC<any> = (props): JSX.Element => {
   const classes = useStyle();
   const { TopData } = props;
   const [activeIndex, setActiveIndex] = useState(0);
+  const [mobileIndex, setMobileIndex] = useState(0);
   const itemsPerPage = 4;
+  const itemsPerPageMobile = 3;
   const scrollRef = useRef<HTMLDivElement>(null);
+  const mobilescrollRef = useRef<HTMLDivElement>(null);
 
   const totalPages = Math.ceil(TopData?.card?.length / itemsPerPage);
+  const moblePage = Math.ceil(TopData?.card?.length / itemsPerPageMobile);
 
-  const handleDotClick = (index: number) => {
-    const scrollAmount = index * (itemsPerPage * 150); // Adjust based on item width
+  const handleDotClickMobile = (index: number) => {
+    const scrollAmount = index * (itemsPerPageMobile * 150); // Adjust based on item width
     scrollRef.current?.scrollTo({ left: scrollAmount, behavior: "smooth" });
     setActiveIndex(index);
+  };
+  const handleDotClick = (index: number) => {
+    const scrollAmount = index * (itemsPerPage * 150); // Adjust based on item width
+    mobilescrollRef.current?.scrollTo({ left: scrollAmount, behavior: "smooth" });
+    setMobileIndex(index);
   };
   return (
     <div className={classes.MainContainer}>
@@ -49,7 +58,7 @@ const TopCollection: React.FC<any> = (props): JSX.Element => {
         </div>
       </HideComponents>
       {/* scrool for tablet */}
-      <HideComponents className={classes.tabletContainer} hideOn="desktop">
+      <HideComponents className={classes.tabletContainer} showOnlyOn="tablet">
         <div className={classes.tabletScroolContainer}>
           <div className={classes.wraperTablet} ref={scrollRef}>
             {TopData?.card?.map((data: any, idx: number) => (
@@ -69,22 +78,56 @@ const TopCollection: React.FC<any> = (props): JSX.Element => {
           </div>
         </div>
       </HideComponents>
-      {/* dotes navigation tablet */}
-      <HideComponents hideOn="desktop">
-        <div className={classes.DotsContainer}>
-          {Array.from({ length: totalPages }).map((_, index) => {
-            const isActive = index === activeIndex;
-            return (
-              <span
-                key={index}
-                className={`${classes.Dot} ${
-                  isActive ? classes.ActiveDot : ""
-                }`}
-                onClick={() => handleDotClick(index)}
-              ></span>
-            );
-          })}
+      {/* scrool for mobile */}
+      <HideComponents className={classes.mobileContainer} showOnlyOn="mobile">
+        <div className={classes.mobileScroolContainer}>
+          <div className={classes.wraperMobile} ref={mobilescrollRef}>
+            {TopData?.card?.map((data: any, idx: number) => (
+              <div key={idx} className={classes.collectionWrapper}>
+                <div className={classes.CollectionDiv}>
+                  <img
+                    src={data.logo}
+                    className={classes.CollectionLogo}
+                    alt=""
+                  />
+                </div>
+                <div>
+                  <Typography variant="TS">{data.subtitle}</Typography>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+      </HideComponents>
+      {/* dotes navigation tablet */}
+      <HideComponents showOnlyOn="tablet">
+      <div className={classes.DotsContainer}>
+        {Array.from({ length: totalPages }).map((_, index) => {
+          const isActive = index === activeIndex;
+          return (
+            <span
+              key={index}
+              className={`${classes.Dot} ${isActive ? classes.ActiveDot : ""}`}
+              onClick={() => handleDotClick(index)}
+            ></span>
+          );
+        })}
+      </div>
+      </HideComponents>
+       {/* dotes navigation  mobile */}
+       <HideComponents showOnlyOn="mobile">
+      <div className={classes.DotsContainer}>
+        {Array.from({ length: moblePage }).map((_, index) => {
+          const isActive = index === mobileIndex;
+          return (
+            <span
+              key={index}
+              className={`${classes.Dot} ${isActive ? classes.ActiveDot : ""}`}
+              onClick={() => handleDotClickMobile(index)}
+            ></span>
+          );
+        })}
+      </div>
       </HideComponents>
     </div>
   );

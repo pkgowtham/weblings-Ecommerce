@@ -12,6 +12,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     marginBottom: theme.spacing.s300,
     color: theme.light.neutral.onSurface.title,
+    textAlign:'center'
   },
   Wrapper: {
     display: "flex",
@@ -22,7 +23,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   CollectionDiv: {
     borderRadius: "50%",
     width: "100%",
-    height: "180px",
+    // height: "180px",
     // borderRadius:'50%',
     // width:'100%',
     // aspectRatio:1/1,
@@ -57,14 +58,34 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     overflowX: "scroll",
     scrollBehavior: "smooth",
     whiteSpace: "nowrap",
-    width: "80%",
-    padding: "10px 0",
+    // width: "100%",
+    padding:`${theme.spacing.s250} ${theme.spacing.s0}`,
     scrollbarWidth: "none",
+    '@media (max-width : 768px)':{
+        width:'50%'
+    }
   },
   collectionWrapper: {
-    minWidth: "150px",
-    marginRight: "20px",
+    // minWidth: "150px",
+    marginRight:theme.spacing.s500,
     textAlign: "center",
   },
   tabletContainer: {},
+  DotsContainer: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop:theme.spacing.s250,
+  },
+  Dot: {
+    height: "8px",
+    width: "8px",
+    margin:theme.spacing.s100,
+    backgroundColor:theme.light.neutral.onSurface.dark,
+    borderRadius: "50%",
+    display: "inline-block",
+    cursor: "pointer",
+  },
+  ActiveDot: {
+    backgroundColor:theme.light.neutral.onSurface.title,
+  },
 }));

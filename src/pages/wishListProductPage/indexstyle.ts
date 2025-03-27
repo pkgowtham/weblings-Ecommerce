@@ -47,8 +47,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     "@media (max-width: 1024px)": {
       gridTemplateColumns: "repeat(2, 1fr)",
     },
-    "@media (max-width: 767px)": {
+    "@media (max-width: 768px)": {
       gridTemplateColumns: "repeat(1, 1fr)",
+      padding:theme.spacing.s300
     },
   },
   viewedProductContainer: {
@@ -59,6 +60,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "center",
     gap: theme.spacing.s600,
     justifyContent: "center",
+    "@media (max-width: 768px)": {
+      padding:theme.spacing.s300
+    },
   },
   viewHeader: {
     display: "flex",
@@ -81,8 +85,16 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     "@media (max-width: 1024px)": {
       gridTemplateColumns: "repeat(2, 1fr)",
     },
-    "@media (max-width: 767px)": {
+    "@media (max-width: 768px)": {
       gridTemplateColumns: "repeat(1, 1fr)",
+      padding:theme.spacing.s300
     }
   },
+  para:{
+    width:'100%',
+    display:'flex',
+    alignItems:'center',
+    textAlign:'center',
+    justifyContent:'center'
+  }
 }));

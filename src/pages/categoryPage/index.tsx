@@ -13,6 +13,8 @@ import fashionblack from "../../assets/images/fashionblack.jpg";
 import fashionwhite from "../../assets/images/fashionwhite.jpg";
 import fashiongrey from "../../assets/images/fashion.jpg";
 import Banner from "../../component/banner";
+import { HideComponents } from "../../component/hideComponents";
+import Button from "../../component/button";
 
 const productData = {
   //   productcategory: "Product Category",
@@ -412,6 +414,7 @@ const CategoryPage = () => {
       <Banner style={{height:'450px'}} BannerData={bannerData}/>
       {/* filter contents */}
       <div className={classes.filterContents}>
+        <HideComponents showOnlyOn="desktop">
       <div className={classes.filterDiv}>
         {productData.filteroptions.map((data: any) => (
           <div key={data.id} className={classes.filterHead}>
@@ -547,23 +550,25 @@ const CategoryPage = () => {
           </div>
         ))}
       </div>
+        </HideComponents>
 
       {/* product details */}
       <div className={classes.productsDiv}>
         {/* toolbar */}
         <div className={classes.toolBar}>
+          <HideComponents showOnlyOn="desktop">
           <div className={classes.resultsDiv}>
             <Typography className={classes.lightColor} variant="BM">
               There are 5 results in total
             </Typography>
           </div>
+          </HideComponents>
+          <HideComponents hideOn="desktop">
+            <div>
+              <Button className={classes.buttonStyle} leftIcon={<SvgAdd/>} text={"Filter"}></Button>
+            </div>
+          </HideComponents>
           <div>
-            {/* <SvgApps
-              className={clsx(classes.icon, {
-                [classes.activeIcon]: layout === "twoColumns",
-              })}
-              onClick={() => setLayout("twoColumns")}
-            /> */}
             <SvgViewComfyAlt
               className={clsx(classes.icon, {
                 [classes.activeIcon]: layout === "fourColumns",
@@ -577,6 +582,7 @@ const CategoryPage = () => {
               onClick={() => setLayout("list")}
             />
           </div>
+          <HideComponents showOnlyOn="desktop">
           <div className={classes.shortCont}>
             <Typography className={classes.sortColor} variant="BM">
               Sort by:
@@ -612,19 +618,17 @@ const CategoryPage = () => {
               )}
             </div>
           </div>
+          </HideComponents>
+          <HideComponents hideOn="desktop">
+            <div>
+              <Button className={classes.buttonStyleDrop} text={"Short By"} rightIcon={<SvgChevronRight/>}>
+
+              </Button>
+            </div>
+          </HideComponents>
         </div>
+
         {/* grid layouts */}
-        {/* {layout === "twoColumns" && (
-          <div
-            className={clsx(classes.gridContainer, {
-              [classes.twoColumns]: layout === "twoColumns",
-            })}
-          >
-            {productData.products.map((card: any) => (
-              <VerticalProductCard />
-            ))}
-          </div>
-        )} */}
         {layout === "fourColumns" && (
           <div
             className={clsx(classes.gridContainer, {

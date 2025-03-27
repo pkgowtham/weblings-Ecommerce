@@ -102,13 +102,13 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     }
   },
   iconDiv:{
-    // display:'flex !important',
-    // alignItems:'center',
-    // gap:theme.spacing.s400
+    display:'flex !important',
+    alignItems:'center',
+    gap:theme.spacing.s400
   },
   navContainer:{
-    // display:'flex !important',
-    // alignItems:'center',
-    // gap:theme.spacing.s400
+    display:'flex !important',
+    alignItems:'center',
+    gap:theme.spacing.s400
   }
 }));

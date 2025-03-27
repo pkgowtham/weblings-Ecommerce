@@ -44,6 +44,13 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     borderRadius: theme.spacing.s600,
     border: `1px dashed ${theme.light.neutral.border.light}`,
     borderColor: theme.light.negative.onSurface.medium,
+    "@media (max-width: 768px)": {
+      width:'100%',
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      textAlign:'center',
+    },
   },
   outerDiv: {
     display: "flex",
@@ -58,9 +65,23 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     gap: theme.spacing.s500,
     marginTop: theme.spacing.s600,
     padding: `${theme.spacing.s0} ${theme.spacing.s2000}`,
+    "@media (max-width: 1024px)": {
+      width:'100%',
+      display:'flex',
+      flexDirection:'column'
+    },
+    "@media (max-width: 768px)": {
+      width:'100%',
+      display:'flex',
+      flexDirection:'column',
+      padding: `${theme.spacing.s0} ${theme.spacing.s300}`,
+    },
   },
   leftContainer: {
     width: "60%",
+    "@media (max-width: 1024px)": {
+      width:'100%',
+    },
   },
   tableContent: {
     width: "100%",
@@ -137,7 +158,6 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "40%",
     height: "550px",
     gap: theme.spacing.s800,
-    // backgroundColor: theme.light.neutral.surface.light,
     padding: theme.spacing.s800,
     display: "flex",
     flexDirection: "column",
@@ -145,10 +165,13 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     borderRadius: theme.borderRadius.b300,
     overflow: "auto",
     overflowY: "scroll",
-
     /* Hide scrollbar for WebKit-based browsers */
     scrollbarWidth: "none" /* Firefox */,
     msOverflowStyle: "none" /* IE and Edge */,
+    "@media (max-width: 1024px)": {
+      width:'100%',
+      height:'fit-content'
+    },
   },
 
   // Add this in a global CSS file or a <style> tag

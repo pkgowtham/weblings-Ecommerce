@@ -170,7 +170,7 @@ const handleRemoveWishList = (id:string) => {
           <Typography variant="BM">Wishlist Product</Typography>
         </div>
         <Typography variant="HS">Wishlist Product</Typography>
-        <Typography variant="BM">
+        <Typography className={classes.para} variant="BM">
           Explore the items you've marked as favorites, ready to be added to
           your cart and enjoyed.
         </Typography>
@@ -185,7 +185,7 @@ const handleRemoveWishList = (id:string) => {
       <div className={classes.viewedProductContainer}>
         <div className={classes.viewHeader}>
           <Typography variant="HS">Recently Viewed</Typography>
-          <Typography variant="BM">
+          <Typography className={classes.para} variant="BM">
             Explore your recently viewed items, blending quality and style for a
             refined living experience.
           </Typography>

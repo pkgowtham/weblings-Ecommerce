@@ -1,6 +1,5 @@
 import React from "react";
 import { createUseStyles } from "react-jss";
-import { Theme } from "../../../theme/themeType";
 
 const breakpoints = {
   desktop: 1024,
