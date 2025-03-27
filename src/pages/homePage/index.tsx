@@ -261,8 +261,8 @@ const HomePage = () => {
   const hasDispatched = useRef(false);
   const { store } = useStore();
     const dispatch = useMiddlewareDispatch();
-    const [bestSelling, setBestSelling] = useState<any>([])
-    console.log('bestSelling',bestSelling)
+    const [bestSelling, setBestSelling] = useState<any>([]);
+    const [topCollection, setTopCollection] = useState<any>([]);
 
   //product getlist
   useEffect(() => {
@@ -285,13 +285,23 @@ const HomePage = () => {
       setBestSelling(bestSellingProducts)
     }
   }, [deepGet(store,"product.dataGetList")])
+
+
+  //filter data for Top Collection
+  useEffect(() => {
+    if(store.product.dataGetList){
+      const topCollection = store.product.dataGetList?.data?.filter((product:any) => product.trendingOutfits === true);
+      setTopCollection(topCollection)
+    }
+  }, [deepGet(store,"product.dataGetList")])
+
   return (
     <div className={classes.mainContainer}>
       <Slider SliderData={slider} />
       <TopCollection TopData={topcollections} />
       <Card CardData={bestSelling || []} title="Best Selling" subTitle="Unmatched design—superior performance and customer satisfaction in one."/>
       <Marquee marqueeData={marqueeData} />
-      {/* <Card CardData={trendingData} title="Trending Outfits" subTitle="Unmatched design—superior performance and customer satisfaction in one."/> */}
+      <Card CardData={topCollection} title="Trending Outfits" subTitle="Unmatched design—superior performance and customer satisfaction in one."/>
       <Review ReviewsData={reviewdata} />
       <Shop ShopData={shop} />
       <Support SupportData={support} />
