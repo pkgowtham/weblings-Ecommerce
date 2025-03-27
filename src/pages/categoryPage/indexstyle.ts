@@ -9,14 +9,17 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     justifyContent: "center",
     padding: theme.spacing.s400,
     margin: `${theme.spacing.s0} ${theme.spacing.s1000}`,
-    flexDirection:'column'
+    flexDirection:'column',
+    '@media (max-width : 768px)':{
+      margin:theme.spacing.s0
+    }
   },
   filterContents:{
     display:'flex',
     gap:theme.spacing.s1000
   },
   filterDiv: {
-    width: "20%",
+    width: "100%",
   },
   productsDiv: {
     width: "80%",
@@ -236,5 +239,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     backgroundColor:`${theme.light.neutral.surface.lighter} !important`,
     color:`${theme.light.neutral.onSurface.title} !important`,
     border: `1px solid ${theme.light.neutral.border.light}`,
+  },
+  filterCont:{
+    display:'flex',
+    alignItems:'center',
+    gap:theme.spacing.s300
   }
 }));

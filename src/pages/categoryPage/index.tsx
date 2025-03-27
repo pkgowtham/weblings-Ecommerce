@@ -81,7 +81,8 @@ const productData = {
     { id: 6, name: "Date,new to old" },
   ],
   products: [
-    { id:1,
+    {
+      id: 1,
       name: "White Slim Fit Basic Unpatterned T-shirt",
       price: "$115.00",
       rating: 5,
@@ -103,7 +104,8 @@ const productData = {
       description:
         "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
     },
-    { id:2,
+    {
+      id: 2,
       name: "White Slim Fit Basic Unpatterned T-shirt",
       price: "$115.00",
       rating: 5,
@@ -125,7 +127,8 @@ const productData = {
       description:
         "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
     },
-    { id:3,
+    {
+      id: 3,
       name: "White Slim Fit Basic Unpatterned T-shirt",
       price: "$115.00",
       rating: 5,
@@ -147,7 +150,8 @@ const productData = {
       description:
         "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
     },
-    { id:4,
+    {
+      id: 4,
       name: "White Slim Fit Basic Unpatterned T-shirt",
       price: "$115.00",
       rating: 5,
@@ -171,7 +175,8 @@ const productData = {
     },
   ],
   productsdata: [
-    { id:1,
+    {
+      id: 1,
       name: "White Slim Fit Basic Unpatterned T-shirt",
       price: "$115.00",
       rating: 5,
@@ -193,7 +198,8 @@ const productData = {
       description:
         "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
     },
-    { id:2,
+    {
+      id: 2,
       name: "White Slim Fit Basic Unpatterned T-shirt",
       price: "$115.00",
       rating: 5,
@@ -215,7 +221,8 @@ const productData = {
       description:
         "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
     },
-    { id:3,
+    {
+      id: 3,
       name: "White Slim Fit Basic Unpatterned T-shirt",
       price: "$115.00",
       rating: 5,
@@ -237,7 +244,8 @@ const productData = {
       description:
         "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
     },
-    { id:4,
+    {
+      id: 4,
       name: "White Slim Fit Basic Unpatterned T-shirt",
       price: "$115.00",
       rating: 5,
@@ -259,7 +267,8 @@ const productData = {
       description:
         "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
     },
-    { id:5,
+    {
+      id: 5,
       name: "White Slim Fit Basic Unpatterned T-shirt",
       price: "$115.00",
       rating: 5,
@@ -281,7 +290,8 @@ const productData = {
       description:
         "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
     },
-    { id:6,
+    {
+      id: 6,
       name: "White Slim Fit Basic Unpatterned T-shirt",
       price: "$115.00",
       rating: 5,
@@ -303,7 +313,8 @@ const productData = {
       description:
         "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
     },
-    { id:7,
+    {
+      id: 7,
       name: "White Slim Fit Basic Unpatterned T-shirt",
       price: "$115.00",
       rating: 5,
@@ -325,7 +336,8 @@ const productData = {
       description:
         "The cotton long-sleeved striped t-shirt features a classic crew neckline, easy short sleeves, a slightly cropped length and a relaxed fit for a truly timeless look.",
     },
-    { id:8,
+    {
+      id: 8,
       name: "White Slim Fit Basic Unpatterned T-shirt",
       price: "$115.00",
       rating: 5,
@@ -411,248 +423,263 @@ const CategoryPage = () => {
   return (
     <div className={classes.mainContainer}>
       {/* banner sections */}
-      <Banner style={{height:'450px'}} BannerData={bannerData}/>
+      <Banner style={{ height: "450px" }} BannerData={bannerData} />
       {/* filter contents */}
       <div className={classes.filterContents}>
-        <HideComponents showOnlyOn="desktop">
-      <div className={classes.filterDiv}>
-        {productData.filteroptions.map((data: any) => (
-          <div key={data.id} className={classes.filterHead}>
-            {/* head content */}
-            <div className={classes.headContent}>
-              <Typography variant="BM">{data.name}</Typography>
-              <SvgAdd
-                onClick={() => toogleSection(data.id)}
-                cursor={"pointer"}
-                className={classes.svgColor}
-              />
-            </div>
-            {/* dropdown for category */}
-            {isDropDownopen === data.id && data.name === "Product" && (
-              <div className={classes.expandDiv}>
-                {data?.categories?.map((item: any) => (
-                  <div className={classes.itemDiv}>
-                    <Typography className={classes.lightColor} variant="BS">
-                      {item}
-                    </Typography>
-                  </div>
-                ))}
-              </div>
-            )}
-            {/* dropdown for SubCategory */}
-            {isDropDownopen === data.id && data.name === "SubCategory" && (
-              <div className={classes.expandDiv}>
-                {data?.categories?.map((item: any) => (
-                  <div className={classes.itemDiv}>
-                    <Typography className={classes.lightColor} variant="BS">
-                      {item}
-                    </Typography>
-                  </div>
-                ))}
-              </div>
-            )}
-            {/* dropdown for availability */}
-            {isDropDownopen === data.id && data.name === "Availability" && (
-              <div className={classes.expandDiv}>
-                {data?.stock?.map((stock: any) => (
-                  <div className={classes.checkBoxDiv}>
-                    <input type="checkbox" />
-                    <Typography className={classes.lightColor} variant="BS">
-                      {stock}
-                    </Typography>
-                  </div>
-                ))}
-              </div>
-            )}
-            {/* dropdown for price */}
-            {isDropDownopen === data.id && data.name === "Price" && (
-              <div className={classes.priceDiv}>
-                <div className={classes.inputDiv}>
-                  <input
-                    className={classes.inputStyle}
-                    placeholder="₹ 0.00"
-                    type="text"
-                  />
-                  <div>-</div>
-                  <input
-                    placeholder="₹ 0.00"
-                    className={classes.inputStyle}
-                    type="text"
+        <HideComponents style={{ width: "20%" }} showOnlyOn="desktop">
+          <div className={classes.filterDiv}>
+            {productData.filteroptions.map((data: any) => (
+              <div key={data.id} className={classes.filterHead}>
+                {/* head content */}
+                <div className={classes.headContent}>
+                  <Typography variant="BM">{data.name}</Typography>
+                  <SvgAdd
+                    onClick={() => toogleSection(data.id)}
+                    cursor={"pointer"}
+                    className={classes.svgColor}
                   />
                 </div>
-                <div></div>
-                <div className={classes.priceVariation}>
-                  <Typography variant="BS">
-                    {data.price}
-                    {data.startprice}
-                    {data.endprice}
-                  </Typography>
-                </div>
-              </div>
-            )}
-            {/* dropdown for brand */}
-            {isDropDownopen === data.id && data.name === "Brand" && (
-              <div className={classes.expandDiv}>
-                {data?.brands?.map((brand: any) => (
-                  <div className={classes.checkBoxDiv}>
-                    <input type="checkbox" />
-                    <Typography className={classes.lightColor} variant="BS">
-                      {brand}
-                    </Typography>
+                {/* dropdown for category */}
+                {isDropDownopen === data.id && data.name === "Product" && (
+                  <div className={classes.expandDiv}>
+                    {data?.categories?.map((item: any) => (
+                      <div className={classes.itemDiv}>
+                        <Typography className={classes.lightColor} variant="BS">
+                          {item}
+                        </Typography>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            )}
-            {/* dropdown for color */}
-            {isDropDownopen === data.id && data.name === "Color" && (
-              <div className={classes.colorDiv}>
-                {data?.color?.map((color: any) => (
-                  <div
-                    style={{
-                      border:
-                        selectedColor === color
-                          ? `1px solid ${theme.light.neutral.onSurface.title}`
-                          : "2px solid transparent",
-                      width: "35px",
-                      height: "35px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      borderRadius: "50%",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <div
-                      className={clsx(classes.ColorStyle, {
-                        [classes.Red]: color === "#E00028",
-                        [classes.war]: color === "#B15600",
-                        [classes.green]: color === "#36A040",
-                        [classes.blue]: color === "#0072C4",
-                        [classes.purple]: color === "#9E29FE",
-                        [classes.gray]: color === "#6F6F6F",
-                      })}
-                      onClick={() => setSelectedColor(color)}
-                    />
+                )}
+                {/* dropdown for SubCategory */}
+                {isDropDownopen === data.id && data.name === "SubCategory" && (
+                  <div className={classes.expandDiv}>
+                    {data?.categories?.map((item: any) => (
+                      <div className={classes.itemDiv}>
+                        <Typography className={classes.lightColor} variant="BS">
+                          {item}
+                        </Typography>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            )}
-            {/* dropdown for size */}
-            {isDropDownopen === data.id && data.name === "Size" && (
-              <div className={classes.sizedDiv}>
-                {data?.size?.map((size: any) => (
-                  <div className={classes.sizeStyle}>
-                    <Typography variant="BM">{size}</Typography>
+                )}
+                {/* dropdown for availability */}
+                {isDropDownopen === data.id && data.name === "Availability" && (
+                  <div className={classes.expandDiv}>
+                    {data?.stock?.map((stock: any) => (
+                      <div className={classes.checkBoxDiv}>
+                        <input type="checkbox" />
+                        <Typography className={classes.lightColor} variant="BS">
+                          {stock}
+                        </Typography>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-        </HideComponents>
-
-      {/* product details */}
-      <div className={classes.productsDiv}>
-        {/* toolbar */}
-        <div className={classes.toolBar}>
-          <HideComponents showOnlyOn="desktop">
-          <div className={classes.resultsDiv}>
-            <Typography className={classes.lightColor} variant="BM">
-              There are 5 results in total
-            </Typography>
-          </div>
-          </HideComponents>
-          <HideComponents hideOn="desktop">
-            <div>
-              <Button className={classes.buttonStyle} leftIcon={<SvgAdd/>} text={"Filter"}></Button>
-            </div>
-          </HideComponents>
-          <div>
-            <SvgViewComfyAlt
-              className={clsx(classes.icon, {
-                [classes.activeIcon]: layout === "fourColumns",
-              })}
-              onClick={() => setLayout("fourColumns")}
-            />
-            <SvgList
-              className={clsx(classes.icon, {
-                [classes.activeIcon]: layout === "list",
-              })}
-              onClick={() => setLayout("list")}
-            />
-          </div>
-          <HideComponents showOnlyOn="desktop">
-          <div className={classes.shortCont}>
-            <Typography className={classes.sortColor} variant="BM">
-              Sort by:
-            </Typography>
-            <div className={classes.chevronRight}>
-              <Typography
-                onClick={() => setIsShortDownOpen(!isShortDownopen)}
-                variant="BS"
-              >
-                {shortBy}
-              </Typography>
-              <SvgChevronRight cursor={"pointer"} />
-              {/* featured short dropdown */}
-              {isShortDownopen && (
-                <div ref={shortRef} className={classes.shortDropDown}>
-                  {productData.shortdropdown.map((data: any) => (
-                    <div
-                      onClick={() => handleShortData(data.name)}
-                      className={classes.contentDiv}
-                    >
-                      <Typography
-                        className={clsx(classes.lightColor, {
-                          [classes.activeStatus]: shortBy === data.name,
-                        })}
-                        key={data.id}
-                        variant="BS"
-                      >
-                        {data.name}
+                )}
+                {/* dropdown for price */}
+                {isDropDownopen === data.id && data.name === "Price" && (
+                  <div className={classes.priceDiv}>
+                    <div className={classes.inputDiv}>
+                      <input
+                        className={classes.inputStyle}
+                        placeholder="₹ 0.00"
+                        type="text"
+                      />
+                      <div>-</div>
+                      <input
+                        placeholder="₹ 0.00"
+                        className={classes.inputStyle}
+                        type="text"
+                      />
+                    </div>
+                    <div></div>
+                    <div className={classes.priceVariation}>
+                      <Typography variant="BS">
+                        {data.price}
+                        {data.startprice}
+                        {data.endprice}
                       </Typography>
                     </div>
-                  ))}
+                  </div>
+                )}
+                {/* dropdown for brand */}
+                {isDropDownopen === data.id && data.name === "Brand" && (
+                  <div className={classes.expandDiv}>
+                    {data?.brands?.map((brand: any) => (
+                      <div className={classes.checkBoxDiv}>
+                        <input type="checkbox" />
+                        <Typography className={classes.lightColor} variant="BS">
+                          {brand}
+                        </Typography>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {/* dropdown for color */}
+                {isDropDownopen === data.id && data.name === "Color" && (
+                  <div className={classes.colorDiv}>
+                    {data?.color?.map((color: any) => (
+                      <div
+                        style={{
+                          border:
+                            selectedColor === color
+                              ? `1px solid ${theme.light.neutral.onSurface.title}`
+                              : "2px solid transparent",
+                          width: "35px",
+                          height: "35px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          borderRadius: "50%",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <div
+                          className={clsx(classes.ColorStyle, {
+                            [classes.Red]: color === "#E00028",
+                            [classes.war]: color === "#B15600",
+                            [classes.green]: color === "#36A040",
+                            [classes.blue]: color === "#0072C4",
+                            [classes.purple]: color === "#9E29FE",
+                            [classes.gray]: color === "#6F6F6F",
+                          })}
+                          onClick={() => setSelectedColor(color)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {/* dropdown for size */}
+                {isDropDownopen === data.id && data.name === "Size" && (
+                  <div className={classes.sizedDiv}>
+                    {data?.size?.map((size: any) => (
+                      <div className={classes.sizeStyle}>
+                        <Typography variant="BM">{size}</Typography>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </HideComponents>
+
+        {/* product details */}
+        <div className={classes.productsDiv}>
+          {/* toolbar */}
+          <div className={classes.toolBar}>
+            <HideComponents showOnlyOn="desktop">
+              <div className={classes.resultsDiv}>
+                <Typography className={classes.lightColor} variant="BM">
+                  There are 5 results in total
+                </Typography>
+              </div>
+            </HideComponents>
+            <HideComponents hideOn="desktop">
+              <div className={classes.filterCont}>
+                <div>
+                  <Button
+                    className={classes.buttonStyle}
+                    leftIcon={<SvgAdd />}
+                    text={"Filter"}
+                  ></Button>
                 </div>
-              )}
-            </div>
-          </div>
-          </HideComponents>
-          <HideComponents hideOn="desktop">
+
+                <div>
+                  <Button
+                    className={classes.buttonStyleDrop}
+                    text={"Short By"}
+                    rightIcon={<SvgChevronRight />}
+                  ></Button>
+                </div>
+              </div>
+            </HideComponents>
             <div>
-              <Button className={classes.buttonStyleDrop} text={"Short By"} rightIcon={<SvgChevronRight/>}>
-
-              </Button>
+              <SvgViewComfyAlt
+                className={clsx(classes.icon, {
+                  [classes.activeIcon]: layout === "fourColumns",
+                })}
+                onClick={() => setLayout("fourColumns")}
+              />
+              <SvgList
+                className={clsx(classes.icon, {
+                  [classes.activeIcon]: layout === "list",
+                })}
+                onClick={() => setLayout("list")}
+              />
             </div>
-          </HideComponents>
+            <HideComponents showOnlyOn="desktop">
+              <div className={classes.shortCont}>
+                <Typography className={classes.sortColor} variant="BM">
+                  Sort by:
+                </Typography>
+                <div className={classes.chevronRight}>
+                  <Typography
+                    onClick={() => setIsShortDownOpen(!isShortDownopen)}
+                    variant="BS"
+                  >
+                    {shortBy}
+                  </Typography>
+                  <SvgChevronRight cursor={"pointer"} />
+                  {/* featured short dropdown */}
+                  {isShortDownopen && (
+                    <div ref={shortRef} className={classes.shortDropDown}>
+                      {productData.shortdropdown.map((data: any) => (
+                        <div
+                          onClick={() => handleShortData(data.name)}
+                          className={classes.contentDiv}
+                        >
+                          <Typography
+                            className={clsx(classes.lightColor, {
+                              [classes.activeStatus]: shortBy === data.name,
+                            })}
+                            key={data.id}
+                            variant="BS"
+                          >
+                            {data.name}
+                          </Typography>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </HideComponents>
+            <HideComponents showOnlyOn="tablet">
+              <div>
+                <Button
+                  className={classes.buttonStyleDrop}
+                  text={"Short By"}
+                  rightIcon={<SvgChevronRight />}
+                ></Button>
+              </div>
+            </HideComponents>
+          </div>
+
+          {/* grid layouts */}
+          {layout === "fourColumns" && (
+            <div
+              className={clsx(classes.gridContainer, {
+                [classes.fourColumns]: layout === "fourColumns",
+              })}
+            >
+              {productData.productsdata.map((card: any) => (
+                <VerticalProductCard products={card || {}} />
+              ))}
+            </div>
+          )}
+          {layout === "list" && (
+            <div
+              className={clsx(classes.gridContainer, {
+                [classes.list]: layout === "list",
+              })}
+            >
+              {productData.products.map((card: any) => (
+                <HorizotalProductCard productsdata={card} />
+              ))}
+            </div>
+          )}
         </div>
-
-        {/* grid layouts */}
-        {layout === "fourColumns" && (
-          <div
-            className={clsx(classes.gridContainer, {
-              [classes.fourColumns]: layout === "fourColumns",
-            })}
-          >
-            {productData.productsdata.map((card: any) => (
-              <VerticalProductCard products={card || {}} />
-            ))}
-          </div>
-        )}
-        {layout === "list" && (
-          <div
-            className={clsx(classes.gridContainer, {
-              [classes.list]: layout === "list",
-            })}
-          >
-            {productData.products.map((card: any) => (
-              <HorizotalProductCard productsdata={card} />
-            ))}
-          </div>
-        )}
-      </div>
-
       </div>
     </div>
   );

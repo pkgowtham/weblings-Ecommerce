@@ -7,11 +7,20 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "100%",
     height: "fit-content",
     gap: theme.spacing.s800,
+    "@media (max-width : 768px)":{
+      display:'flex',
+      flexDirection:'column',
+      alignItems:'flex-start',
+      width:'100%'
+    }
   },
   productImageContainer: {
     width: "30%",
     cursor:'pointer',
-    position:'relative'
+    position:'relative',
+    "@media (max-width : 768px)":{
+      width:'100%',
+    }
   },
   
   contentContainer: {
@@ -20,7 +29,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     flexDirection:'column',
     alignItems:'flex-start',
     justifyContent:'center',
-    gap:theme.spacing.s500
+    gap:theme.spacing.s500,
+    "@media (max-width : 768px)":{
+      width:'100%',
+    }
   },
   imageStyle: {
     width: "100%",
@@ -96,7 +108,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems:'center',
     textAlign:'center',
     justifyContent:'center',
-    height:'80%'
+    height:'80%',
+    "@media (max-width : 1024px)":{
+      width:'100% !important',
+    }
   },
   activeImage:{
     border: `1px solid ${theme.light.neutral.border.light}`,

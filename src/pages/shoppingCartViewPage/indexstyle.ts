@@ -16,6 +16,17 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     marginTop: theme.spacing.s1200,
     gap: theme.spacing.s250,
   },
+  para: {
+    display: "flex",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+  },
+  tableHead: {
+    width: "100%",
+    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+  },
   contentOne: {
     display: "flex",
     alignItems: "center",
@@ -45,11 +56,11 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     border: `1px dashed ${theme.light.neutral.border.light}`,
     borderColor: theme.light.negative.onSurface.medium,
     "@media (max-width: 768px)": {
-      width:'100%',
+      width: "100%",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      textAlign:'center',
+      textAlign: "center",
     },
   },
   outerDiv: {
@@ -58,6 +69,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "center",
     justifyContent: "center",
     marginTop: theme.spacing.s1000,
+    padding: theme.spacing.s250,
   },
   mainProductContainer: {
     width: "100%",
@@ -66,21 +78,22 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     marginTop: theme.spacing.s600,
     padding: `${theme.spacing.s0} ${theme.spacing.s2000}`,
     "@media (max-width: 1024px)": {
-      width:'100%',
-      display:'flex',
-      flexDirection:'column'
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+      padding: `${theme.spacing.s0} ${theme.spacing.s0}`,
     },
     "@media (max-width: 768px)": {
-      width:'100%',
-      display:'flex',
-      flexDirection:'column',
-      padding: `${theme.spacing.s0} ${theme.spacing.s300}`,
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+      padding: `${theme.spacing.s0} ${theme.spacing.s0}`,
     },
   },
   leftContainer: {
     width: "60%",
     "@media (max-width: 1024px)": {
-      width:'100%',
+      width: "100%",
     },
   },
   tableContent: {
@@ -90,7 +103,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   tableContainer: {
     width: "100%",
     borderCollapse: "collapse",
-    marginBottom: theme.spacing.s1600,
+    marginBottom: theme.spacing.s250,
   },
   tableHeader: {
     display: "flex",
@@ -142,6 +155,14 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     justifyContent: "space-between",
     marginTop: theme.spacing.s1200,
     marginBottom: theme.spacing.s1200,
+    "@media (max-width : 768px)": {
+      overflow: "auto", // Ensure auto scrolling
+      overflowX: "scroll",
+      width: "100%", // Ensure full width
+      padding:`${theme.spacing.s250} ${theme.spacing.s0}`,
+      display:'flex',
+      justifyContent:'center'
+    },
   },
   cardStyle: {
     width: "fit-content",
@@ -169,8 +190,12 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     scrollbarWidth: "none" /* Firefox */,
     msOverflowStyle: "none" /* IE and Edge */,
     "@media (max-width: 1024px)": {
-      width:'100%',
-      height:'fit-content'
+      width: "100%",
+      height: "fit-content",
+    },
+    "@media (max-width: 768px)": {
+      width: "100%",
+      padding: theme.spacing.s250,
     },
   },
 
@@ -309,7 +334,6 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "flex-start",
     gap: theme.spacing.s400,
     flexDirection: "column",
-    
   },
   productCard: {
     border: `1px solid ${theme.light.neutral.border.light}`,
@@ -334,12 +358,13 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "200px",
   },
   tdone: {
-    padding: theme.spacing.s400,
+    padding: `${theme.spacing.s800} ${theme.spacing.s0}`,
     width: "500px",
   },
-  th:{
-    display:'flex',
-    justifyContent:'flex-start'
+  th: {
+    // display:'flex',
+    // justifyContent:'flex-start',
+    paddingBottom: theme.spacing.s400,
   },
   btnStyle: {
     backgroundColor: `${theme.light.neutral.surface.light} !important`,
@@ -350,13 +375,76 @@ export const useStyle = createUseStyles((theme: Theme) => ({
       fill: theme.light.neutral.onSurface.title,
     },
   },
-  sugesstionproducts:{
-    display:'flex',
-    width:'100%',
+  sugesstionproducts: {
+    display: "flex",
+    width: "100%",
     overflow: "auto",
     overflowX: "scroll",
-    scrollbarWidth:'thin  ',
-    maxHeight:'300px',
-    gap:theme.spacing.s400
-  }
+    scrollbarWidth: "thin  ",
+    maxHeight: "300px",
+    gap: theme.spacing.s400,
+  },
+  remove: {
+    color: theme.light.neutral.onSurface.dark,
+    cursor: "pointer",
+    textDecoration: "underline",
+    width: "100%",
+    marginTop: theme.spacing.s250,
+    "&:hover": {
+      color: theme.light.neutral.onSurface.title,
+    },
+  },
+  // for mobile
+  cardDetails: {
+    width: "100%",
+    display: "flex",
+    alignItems: "flex-start",
+    gap: theme.spacing.s250,
+    padding: theme.spacing.s250,
+  },
+  imgContainer: {
+    width: "20%",
+    height: "120px",
+    maxWidth: "20%",
+    minWidth: "35%",
+  },
+  imgStyle: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    borderRadius: theme.borderRadius.b250,
+  },
+  cardContents: {
+    width: "80%",
+    gap: theme.spacing.s500,
+    display: "flex",
+    flexDirection: "column",
+  },
+  deleteDiv: {
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
+    gap: theme.spacing.s250,
+    justifyContent: "space-between",
+  },
+  priceContainer: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+  },
+  textButton: {
+    width: "fit-content !important",
+    height: "30px ! important",
+    backgroundColor: `${theme.light.neutral.surface.light} !important`,
+    borderRadius: `${theme.borderRadius.b0} !important`,
+    color: `${theme.light.neutral.onSurface.title} !important`,
+    padding: `${theme.spacing.s200} !important`,
+  },
+  addColor: {
+    "& path": {
+      fill: theme.light.neutral.onSurface.title,
+    },
+  },
 }));

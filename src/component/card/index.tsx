@@ -222,7 +222,7 @@ const Card: React.FC<any> = (props): JSX.Element => {
           <SvgChevronLeft className={classes.ScroolLeftButton} />
         </div>
         <div className={classes.ScrollContainer} ref={ScroolContainerRef}>
-          {CardData?.map((card: any, index: number) => (
+          {CardData[0]?.map((card: any, index: number) => (
             <div key={index} className={classes.CardWrapper}>
               {/* <div className={classes.Card}>
                 <img src={card.logo} className={classes.CardLogo} />
