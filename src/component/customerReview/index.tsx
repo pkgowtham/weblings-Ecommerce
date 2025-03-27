@@ -11,6 +11,7 @@ import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { useStore } from "../../store";
 import { deepGet } from "../../util/util";
 import dayjs from "dayjs";
+import SvgDelete from "../../custom-icons/Delete";
 
 
 
@@ -176,6 +177,10 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
     }
   };
 
+  const handleDeleteAttachment = (indexToDelete: number) => {
+    setAttachment(prev => prev.filter((_, index) => index !== indexToDelete));
+  };
+
   const handleSubmitComment = (e: React.FormEvent) => {
     e.preventDefault();
     const formDataApi = new FormData();
@@ -290,8 +295,8 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                   className={classes.Input}
                   value={formData.title}
                   onChange={handleInputChange}
-                  error={Boolean(errors.title)}
-                  helperText={errors.title}
+                  // error={Boolean(errors.title)}
+                  // helperText={errors.title}
                 />
               </div>
               <div className={classes.ReviewContain}>
@@ -302,8 +307,8 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                   name="content"
                   value={formData.content}
                   onChange={handleInputChange}
-                  error={Boolean(errors.content)}
-                  helperText={errors.content}
+                  // error={Boolean(errors.content)}
+                  // helperText={errors.content}
                 />
               </div>
               <div className={classes.FormStyle}>
@@ -323,6 +328,14 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                 />
                 <img src={drive} className={classes.DriveImg} alt="" />
               </div>
+              {attachment.length > 0 && attachment.map((item:any, index:any)=>(
+                <div className={classes.imagesCon}>
+                  <div className={classes.imgDelete}  onClick={() => handleDeleteAttachment(index)}>
+                    <SvgDelete/>
+                  </div>
+                  <img src={URL.createObjectURL(item)} alt="" className={classes.image}/>  
+              </div>
+              ))}
               <div className={classes.FormWrapper}>
                 <label className={classes.Label}>
                   Name (displayed publicly like Anonymous )
@@ -335,8 +348,8 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                   value={formData.name}
                   name="name"
                   onChange={handleInputChange}
-                  error={Boolean(errors.name)}
-                  helperText={errors.name}
+                  // error={Boolean(errors.name)}
+                  // helperText={errors.name}
                 />
               </div>
               <div className={classes.FormWrapper}>
@@ -349,8 +362,8 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  error={Boolean(errors.email)}
-                  helperText={errors.email}
+                  // error={Boolean(errors.email)}
+                  // helperText={errors.email}
                 />
               </div>
             </div>

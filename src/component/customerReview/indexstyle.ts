@@ -336,4 +336,33 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   description:{
     color:theme.light.neutral.onSurface.dark
   },
+
+  imagesCon:{
+    width:'100%',
+    position:'relative',
+    height:'120px',
+    borderRadius:theme.borderRadius.b400,
+    borderStyle:"dashed",
+    border:`2px solid ${theme.light.neutral.border.light}`
+  },
+
+  image:{
+    width:'50%',
+    height:'100%',
+    objectFit:"cover",
+    objectPosition:"center",
+    borderTopLeftRadius:theme.borderRadius.b400,
+    borderBottomLeftRadius:theme.borderRadius.b400,
+  },
+
+  imgDelete:{
+    // width:'10px',
+    // height:'10px',
+    borderRadius:'50%',
+    position:"absolute",
+    right:10,
+    top:10,
+    cursor:'pointer'
+    // boxShadow:theme.elevation.s
+  }
 }));

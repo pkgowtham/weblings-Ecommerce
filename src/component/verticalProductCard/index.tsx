@@ -249,7 +249,7 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
                 key={index}
               />
             ))} */}
-            {RatingStar(products?.totalReviews)}
+            {RatingStar(Math.round(products?.aggregateReviewValue?.averageRating))}
           </div>
           {/* price */}
           <div className={classes.priceContainer}>
