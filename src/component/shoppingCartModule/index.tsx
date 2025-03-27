@@ -26,6 +26,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
   const [isEditModule, setIsEditModule] = useState<boolean>(false);
   const [quantity, setQuantity] = useState<any>(1);
   const hasDispatched = useRef(false);
+  const [data, setData] = useState<any>(null);
 
   //Add to cart getlist
   useEffect(() => {
@@ -43,7 +44,10 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
 
   //getlist after delete and update
   useEffect(() => {
-    if(store.productAddToCart.isSuccessUpdate || store.productAddToCart.isSuccessDestroy){
+    if (
+      store.productAddToCart.isSuccessUpdate ||
+      store.productAddToCart.isSuccessDestroy
+    ) {
       dispatch({
         type: "PRODUCT_ADD_TO_CART_GETLIST_API_REQUEST",
         payload: {
@@ -51,22 +55,55 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
           method: "GET",
         },
       });
-      setIsEditModule(false)
+      setIsEditModule(false);
       dispatch({
-        type:"PRODUCT_ADD_TO_CART_UPDATE_API_CLEAR"
-      })
+        type: "PRODUCT_ADD_TO_CART_UPDATE_API_CLEAR",
+      });
       dispatch({
-        type:"PRODUCT_ADD_TO_CART_DESTROY_API_CLEAR"
-      })
+        type: "PRODUCT_ADD_TO_CART_DESTROY_API_CLEAR",
+      });
     }
-  }, [deepGet(store,"productAddToCart.isSuccessUpdate"), deepGet(store,"productAddToCart.isSuccessDestroy")])
+  }, [
+    deepGet(store, "productAddToCart.isSuccessUpdate"),
+    deepGet(store, "productAddToCart.isSuccessDestroy"),
+  ]);
+
+  //Update Add to cart
+  useEffect(() => {
+    if(quantity && data){
+
+      const getJoinId = data?.addToCartWithDetail.find(
+        (variant: any) =>
+          variant.color?.id === data.color?.id &&
+          variant.size?.id === data.size?.id
+      );
+
+      if (quantity > 1) {
+        dispatch({
+          type: "PRODUCT_ADD_TO_CART_UPDATE_API_REQUEST",
+          payload: {
+            url: "/addToCart",
+            method: "PUT",
+            query: {
+              id: data?.id,
+            },
+            body: {
+              quantity: quantity,
+              addToCartWithDetailId: getJoinId?.id,
+            },
+          },
+        });
+      }
+    }
+  }, [quantity,data])
   
+
   //   handle quantity
-  const handleQuantityChange = (type: "increase" | "decrease") => {
-    setQuantity((prev: any) =>
-      type === "increase" ? prev + 1 : prev > 1 ? prev - 1 : prev
-    );
-  };
+  // const handleQuantityChange = (type: "increase" | "decrease") => {
+  //   setQuantity((prev: any) =>
+  //     type === "increase" ? prev + 1 : prev > 1 ? prev - 1 : prev
+  //   );
+  // };
 
   // navigate
   const handleNavigate = (type: string) => {
@@ -77,28 +114,58 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
     }
   };
 
-const handleEdit = (data:any) => {
+  const handleEdit = (data: any) => {
     dispatch({
-      type:"UPDATE_ADD_TO_CART_DATA",
-      payload:{
-        selectedProduct:data
-      }
-    })
-    setIsEditModule(!isEditModule)
-}
+      type: "UPDATE_ADD_TO_CART_DATA",
+      payload: {
+        selectedProduct: data,
+      },
+    });
+    setIsEditModule(!isEditModule);
+  };
 
-const handleDelete = (id:string) => {
-  dispatch({
-    type:"PRODUCT_ADD_TO_CART_DESTROY_API_REQUEST",
-    payload:{
-      url: "/addToCart",
-      method: "DELETE",
-      query:{
-        id:id
-      }
-    }
-  })
-}
+  const handleDelete = (id: string) => {
+    dispatch({
+      type: "PRODUCT_ADD_TO_CART_DESTROY_API_REQUEST",
+      payload: {
+        url: "/addToCart",
+        method: "DELETE",
+        query: {
+          id: id,
+        },
+      },
+    });
+  };
+
+  const handleQuantityChange = (data: any, type: "increase" | "decrease") => {
+    setQuantity((prev: any) =>
+      type === "increase" ? prev + 1 : prev > 1 ? prev - 1 : prev
+    );
+    setData(data)
+    // const getJoinId = data.addToCartWithDetail.find(
+    //   (variant: any) =>
+    //     variant.color?.id === data.color?.id &&
+    //     variant.size?.id === data.size?.id
+    // );
+    // console.log(getJoinId);
+
+    // if (quantity > 0) {
+    //   dispatch({
+    //     type: "PRODUCT_ADD_TO_CART_DESTROY_API_REQUEST",
+    //     payload: {
+    //       url: "/addToCart",
+    //       method: "POST",
+    //       query: {
+    //         id: data?.id,
+    //       },
+    //       body: {
+    //         quantity: quantity,
+    //         addToCartWithDetailId: getJoinId?.id,
+    //       },
+    //     },
+    //   });
+    // }
+  };
 
   return (
     <div className={classes.cartContainer}>
@@ -134,68 +201,89 @@ const handleDelete = (id:string) => {
         </Typography>
       </div>
       {/* cartitems details */}
-      <div style={{display:'grid', gridTemplateColumns:'1fr', width:'100%', height:'55%', overflow:'auto'}}>
-      {store.productAddToCart.dataGetList?.data?.map(
-        (item: any, idx: number) => {
-          const selectedPrice = item?.addToCartWithDetail.find(
-            (variant: any) =>
-              variant.color.id === item?.color.id &&
-              variant.size.id === item?.size?.id
-          );
-        
-          // const attachment = item.products.attachments.map((item:any)=>item.thumbnail === false)
-          return(
-          <div key={item?.id} className={classes.cartItems}>
-            <div className={classes.imageContainer}>
-              <img src={item.color?.attachments[0]?.fileUrl} alt="" className={classes.imageStyle} />
-            </div>
-            {/* contents */}
-            <div className={classes.contentsContainer}>
-              <div>
-                <Typography variant="TS">{item.products[0]?.name}</Typography>
-              </div>
-              <div>
-                <Typography variant="BS">
-                  Color: {item.color?.name} / Size: {item.size?.sizeVariant}
-                </Typography>
-              </div>
-              <div>
-                <Typography variant="BM">{selectedPrice?.price}</Typography>
-              </div>
-              <div className={classes.countContaier}>
-                <div className={classes.buttonContainer}>
-                  <Button
-                    className={classes.buttonStyle}
-                    leftIcon={
-                      <SvgAdd
-                        className={classes.addColor}
-                        onClick={() => handleQuantityChange("decrease")}
-                      />
-                    }
-                    rightIcon={
-                      <SvgAdd
-                        className={classes.addColor}
-                        onClick={() => handleQuantityChange("increase")}
-                      />
-                    }
-                    text={quantity}
-                  ></Button>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr",
+          width: "100%",
+          height: "55%",
+          overflow: "auto",
+        }}
+      >
+        {store.productAddToCart.dataGetList?.data?.map(
+          (item: any, idx: number) => {
+            const selectedPrice = item?.addToCartWithDetail.find(
+              (variant: any) =>
+                variant.color.id === item?.color.id &&
+                variant.size.id === item?.size?.id
+            );
+
+            // const attachment = item.products.attachments.map((item:any)=>item.thumbnail === false)
+            return (
+              <div key={item?.id} className={classes.cartItems}>
+                <div className={classes.imageContainer}>
+                  <img
+                    src={item.color?.attachments[0]?.fileUrl}
+                    alt=""
+                    className={classes.imageStyle}
+                  />
+                </div>
+                {/* contents */}
+                <div className={classes.contentsContainer}>
+                  <div>
+                    <Typography variant="TS">
+                      {item.products[0]?.name}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography variant="BS">
+                      Color: {item.color?.name} / Size: {item.size?.sizeVariant}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography variant="BM">{selectedPrice?.price}</Typography>
+                  </div>
+                  <div className={classes.countContaier}>
+                    <div className={classes.buttonContainer}>
+                      <Button
+                        className={classes.buttonStyle}
+                        leftIcon={
+                          <SvgAdd
+                            className={classes.addColor}
+                            onClick={() =>
+                              handleQuantityChange(item, "decrease")
+                            }
+                          />
+                        }
+                        rightIcon={
+                          <SvgAdd
+                            className={classes.addColor}
+                            onClick={() =>
+                              handleQuantityChange(item, "increase")
+                            }
+                          />
+                        }
+                        text={quantity}
+                      ></Button>
+                    </div>
+                  </div>
+                </div>
+                {/* edit delete options */}
+                <div>
+                  <SvgDelete
+                    cursor={"pointer"}
+                    onClick={() => handleDelete(item.id)}
+                  />
+                  <SvgEdit
+                    cursor={"pointer"}
+                    onClick={() => handleEdit(item)}
+                  />
                 </div>
               </div>
-            </div>
-            {/* edit delete options */}
-            <div>
-              <SvgDelete cursor={"pointer"} onClick={()=>handleDelete(item.id)}/>
-              <SvgEdit
-                cursor={"pointer"}
-                onClick={()=>handleEdit(item)}
-              />
-            </div>
-          </div>
-          )
-        }
-      )}
-     </div>
+            );
+          }
+        )}
+      </div>
       {/* cart icons */}
       <div className={classes.cartIcons}>
         <div className={classes.leftDiv}>

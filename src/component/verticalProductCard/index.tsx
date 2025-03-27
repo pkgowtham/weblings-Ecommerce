@@ -11,6 +11,8 @@ import ProductModule from "../productModule";
 import SvgEye from "../../custom-icons/Eye";
 import { deepGet } from "../../util/util";
 import SvgClose from "../../custom-icons/Close";
+import { useMiddlewareDispatch } from "../../store/apiMiddleware";
+import { useStore } from "../../store";
 
 interface VerticalProductCardProps {
   products: any;
@@ -38,6 +40,8 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
   const [price, setPrice] = useState<any>(null);
   console.log('price',price)
   const [currentImage, setCurrentImage] = useState("");
+  const dispatch = useMiddlewareDispatch();
+    const { store } = useStore();
 
   const RatingStar = (rating: any) => {
     switch (rating) {
@@ -99,18 +103,22 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
   useEffect(() => {
     if (Object.keys(products || {}).length > 0) {
       setSelectedColor(products?.colors?.[0]);
+
+      // const transformSize
+
       setSelectedSize(products?.sizes?.[0]);
     }
   }, [products]);
 
   useEffect(() => {
     if (selectedColor && selectedSize) {
+      
+      console.log('selected Size',selectedSize)
       const selectedVariant = products?.variants.find(
         (variant: any) =>
           variant.color.id === selectedColor?.id &&
           variant.size.id === selectedSize?.id
       );
-      console.log('selected variant',selectedVariant)
       if (selectedVariant) {
         setPrice(selectedVariant);
       }
@@ -140,8 +148,22 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
   };
   // navigate
   const handleNavigate = () => {
-    navigate("/mainLayout/productpage",{state:{rowDataId:products?.id}});
+    navigate("/mainLayout/productpage",{state:{rowDataId:products?.products ? products?.products[0]?.id : products?.id}});
   };
+
+  const handleWishlist = () => {
+    dispatch({
+      type:"PRODUCT_WHISHLIST_CREATE_API_REQUEST",
+      payload: {
+        url: "/wishList",
+        method: "POST",
+        body:{
+          userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
+          productId:products?.id
+        }
+      },
+    })
+  }
 
   return (
     <div className={classes.mainContainer}>
@@ -168,7 +190,7 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
                   height={15}
                 />
               </div>) :
-              (<div className={classes.favourite}>
+              (<div className={classes.favourite} onClick={handleWishlist}>
                 <SvgHeart
                   className={classes.eyeColor}
                   viewBox="0 0 40 40"

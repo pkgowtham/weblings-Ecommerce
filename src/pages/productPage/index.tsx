@@ -477,7 +477,8 @@ const handleAddToCartSubmit = () => {
         // productId:'2df8af0e-4710-4523-b285-9d97617ce6ef',
         userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
         colorId:selectedColor?.id,
-        sizeId:selectedSize?.id
+        sizeId:selectedSize?.id,
+        quantity:count
       }
     }
   })
