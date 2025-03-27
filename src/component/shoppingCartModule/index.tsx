@@ -78,7 +78,6 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
           variant.size?.id === data.size?.id
       );
 
-      if (quantity > 1) {
         dispatch({
           type: "PRODUCT_ADD_TO_CART_UPDATE_API_REQUEST",
           payload: {
@@ -93,7 +92,6 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
             },
           },
         });
-      }
     }
   }, [quantity,data])
   
@@ -121,7 +119,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
         selectedProduct: data,
       },
     });
-    setIsEditModule(!isEditModule);
+    setIsEditModule(true);
   };
 
   const handleDelete = (id: string) => {

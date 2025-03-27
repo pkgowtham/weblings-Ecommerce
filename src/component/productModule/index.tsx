@@ -11,9 +11,12 @@ import fashionblack from "../../assets/images/fashionblack.jpg";
 import fashionwhite from "../../assets/images/fashionwhite.jpg";
 import fashiongrey from "../../assets/images/fashion.jpg";
 import SvgClose from "../../custom-icons/Close";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
+import { useMiddlewareDispatch } from "../../store/apiMiddleware";
+import { useStore } from "../../store";
+import { deepGet } from "../../util/util";
 
 interface productModuleProps {
   onClose: (value: boolean) => void;
@@ -34,17 +37,144 @@ const sizes = [
 const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
   const classes = useStyle();
   const ratings = 4;
-  const [selectedSize, setSelectedSize] = useState("S");
+  // const [selectedSize, setSelectedSize] = useState("S");
   const [selectedAmount, setSelectedAmount] = useState<string>("$115.00");
   const [selectedImage, setSelectedImage] = useState<string>(
     productImages[0].image
   );
-  const [selectedColor, setSelectedColor] = useState<string>(
-    productImages[0].color
-  );
+  // const [selectedColor, setSelectedColor] = useState<string>(
+  //   productImages[0].color
+  // );
   const [count, setCount] = useState(1);
   const [isChecked, setIsChecked] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useMiddlewareDispatch();
+  const { store } = useStore();
+  const [selectedColor, setSelectedColor] = useState<any>(null);
+  const [selectedSize, setSelectedSize] = useState<any>(null);
+  const [price, setPrice] = useState<any>(null);
+  const [currentImage, setCurrentImage] = useState("");
+
+  // Filtered sizes based on selected color
+  const filteredSizes = selectedColor
+    ? store.addToCartInternal.selectedProduct?.variants
+        .filter((variant: any) => variant.color.id === selectedColor?.id)
+        .map((variant: any) => variant.size)
+    : [];
+
+
+  // Get attachments for the selected color
+  const selectedColorAttachments =
+    store.addToCartInternal.selectedProduct?.colors.find(
+      (color: any) => color.id === selectedColor?.id
+    )?.attachments || [];
+
+  useEffect(() => {
+    if (Object.keys(store.addToCartInternal.selectedProduct || {}).length > 0) {
+      setSelectedColor(store.addToCartInternal.selectedProduct?.colors[0]);
+      setSelectedSize(store.addToCartInternal.selectedProduct?.sizes[0]);
+    }
+  }, [deepGet(store, "product.dataGet")]);
+
+  useEffect(() => {
+    if (selectedColor && selectedSize) {
+      const selectedVariant = store.addToCartInternal.selectedProduct?.variants.find(
+        (variant: any) =>
+          variant.color.id === selectedColor?.id &&
+          variant.size.id === selectedSize?.id
+      );
+      if (selectedVariant) {
+        setPrice(selectedVariant);
+      }
+
+      // Set the first attachment as the current image
+      if (selectedColorAttachments.length > 0) {
+        setCurrentImage(selectedColorAttachments[0].fileUrl);
+      }
+    }
+  }, [selectedColor, selectedSize]);
+
+  // Handle color selection
+  const handleColorChange = (data: any) => {
+    const colorId = data.id;
+    setSelectedColor(data);
+
+    // Reset size to the first available size for the selected color
+    const firstSizeForColor = store.addToCartInternal.selectedProduct?.variants.find(
+      (variant: any) => variant.color.id === colorId
+    )?.size;
+    setSelectedSize(firstSizeForColor || null);
+  };
+
+  // Handle size selection
+  const handleSizeChange = (data: any) => {
+    const sizeId = data.id;
+    setSelectedSize(data);
+
+    // Find the corresponding price
+    const selectedVariant = store.addToCartInternal.selectedProduct?.variants.find(
+      (variant: any) =>
+        variant.color.id === selectedColor?.id && variant.size.id === sizeId
+    );
+
+    if (selectedVariant) {
+      setPrice(selectedVariant);
+    } else {
+      setPrice(null);
+    }
+  };
+
+  const RatingStar = (rating: any) => {
+    switch (rating) {
+      case 1:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
+      case 2:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
+      case 3:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
+      case 4:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
+      case 5:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
+      default:
+        return (
+            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              <SvgStarPurple500 className={classes.starColor} />
+            </div>
+          );
+        break;
+    }
+  };
 
   // handle size selection
   const handleSizeClick = (size: string, amount: any) => {
@@ -71,50 +201,75 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
   const handleNavigation = () => {
     navigate("/mainLayout/productpage");
   };
+
+
+  const handleAddToCartSubmit = () => {
+    dispatch({
+      type:"PRODUCT_ADD_TO_CART_CREATE_API_REQUEST",
+      payload:{
+        url: "/addToCart",
+        method: "POST",
+        body:{
+          productId:store.addToCartInternal.selectedProduct?.id,
+          // productId:'2df8af0e-4710-4523-b285-9d97617ce6ef',
+          userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
+          colorId:selectedColor?.id,
+          sizeId:selectedSize?.id,
+          quantity:count
+        }
+      }
+    })
+  }
+
   return (
     <CommonModel className={classes.productModule}>
       <div className={classes.productContainer}>
         <SvgClose
-        viewBox="0 0 30 30"
+          viewBox="0 0 30 30"
           width={30}
-          height={30}  
+          height={30}
           className={classes.svgCLose}
-          onClick={() => onClose(false)}
+          onClick={() =>{onClose(false),dispatch({
+            type: "UPDATE_ADD_TO_CART_DATA",
+            payload: {
+              selectedProduct: null,
+            },
+          });}
+          }
         />
         {/* image container */}
         <div className={classes.imageContainer}>
-          <img className={classes.imageStyles} src={selectedImage} alt="" />
+          <img className={classes.imageStyles} src={currentImage} alt="" />
         </div>
         {/* product content */}
         <div className={classes.productContentContainer}>
           <div className={classes.brandTitle}>
             <Typography variant="TS">
-              Slim Fit Basic Unpatterned T-shirt
+              {store.addToCartInternal.selectedProduct?.name}
             </Typography>
           </div>
           {/* star container */}
           <div className={classes.starContainer}>
-            <div>
+            {/* <div>
               {Array.from({ length: ratings }).map((_, index) => (
                 <SvgStarPurple500 className={classes.starColor} key={index} />
               ))}
-            </div>
+            </div> */}
+             {RatingStar(Math.round(store.addToCartInternal.selectedProduct?.aggregateReviewValue?.averageRating))}
             <div>
               <Typography className={classes.lightColor} variant="BS">
-                4 reviews
+                {store.addToCartInternal.selectedProduct?.aggregateReviewValue?.totalReviews} reviews
               </Typography>
             </div>
           </div>
           {/* price container */}
           <div className={classes.priceContainer}>
-            <Typography variant="TS">{selectedAmount}</Typography>
+            <Typography variant="TS">{price?.mrp}</Typography>
           </div>
           {/* product content */}
           <div className={classes.productContaier}>
             <Typography variant="BS" className={classes.lightColor}>
-              The cotton long-sleeved striped t-shirt features a classic crew
-              neckline, easy short sleeves, a slightly cropped length and a
-              relaxed fit for a truly timeless look.
+            {store.addToCartInternal.selectedProduct?.shortdesc}
             </Typography>
           </div>
           {/* color section */}
@@ -124,47 +279,51 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
                 Color :
               </Typography>
               <Typography className={classes.blackColor} variant="BL">
-                {selectedColor}
+              {selectedColor?.name}
               </Typography>
             </div>
             <div className={classes.productImage}>
-              {productImages.map((image) => (
-                <div
-                  onClick={() =>
-                    handleProductImageClick(image.image, image.color)
-                  }
-                  className={clsx(classes.imageDiv,{
-                    [classes.activeImages] : selectedImage === image.image
+            {store.addToCartInternal.selectedProduct?.colors?.map((dat: any, index: number) => {
+                const thumbnailAttachments = dat.attachments.filter(
+                  (attachment: any) => attachment.thumbnail === true
+                );
+                return (
+                  <div
+                  className={clsx(classes.imageDiv, {
+                    [classes.activeImages]: dat.name === selectedColor?.name,
                   })}
+                  onClick={() => handleColorChange(dat)}
+                    key={index}
                 >
                   <img
                     className={classes.itemDiv}
-                    src={image.image}
+                    src={thumbnailAttachments[0]?.fileUrl}
                     alt="Product"
                   />
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
           {/* size section */}
           <div className={classes.sizeContainer}>
             <div className={classes.sizeContent}>
               <Typography variant="BM">Size :</Typography>
-              <Typography variant="TS">{selectedSize}</Typography>
+              <Typography variant="TS">{selectedSize?.sizeVariant}</Typography>
             </div>
             <div className={classes.sizeDiv}>
-              {sizes.map((size) => (
+            {filteredSizes?.map((chart: any, idx: number) => (
                 <div
-                  onClick={() => handleSizeClick(size.size, size.amount)}
-                  key={size.size}
+                onClick={() => handleSizeChange(chart)}
+                key={idx}
                   className={classes.sizedDiv}
                 >
                   <div
                     className={clsx(classes.sizeStyle, {
-                      [classes.activeStatus]: selectedSize === size.size,
+                      [classes.activeStatus]: selectedSize?.sizeVariant === chart.sizeVariant,
                     })}
                   >
-                    <Typography variant="BM">{size.size}</Typography>
+                    <Typography variant="BM">{chart?.sizeVariant}</Typography>
                   </div>
                 </div>
               ))}

@@ -301,7 +301,7 @@ const HomePage = () => {
       <TopCollection TopData={topcollections} />
       <Card CardData={bestSelling || []} title="Best Selling" subTitle="Unmatched design—superior performance and customer satisfaction in one."/>
       <Marquee marqueeData={marqueeData} />
-      <Card CardData={topCollection} title="Trending Outfits" subTitle="Unmatched design—superior performance and customer satisfaction in one."/>
+      <Card CardData={topCollection || []} title="Trending Outfits" subTitle="Unmatched design—superior performance and customer satisfaction in one."/>
       <Review ReviewsData={reviewdata} />
       <Shop ShopData={shop} />
       <Support SupportData={support} />

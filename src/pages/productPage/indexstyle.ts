@@ -88,7 +88,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   StarDiv: {
     width: "100%",
-    maxWidth: "15px",
+    maxWidth: "60px",
     height: "15px",
     display: "flex",
   },
@@ -394,6 +394,12 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     cursor:'pointer',   
     "&:hover":{
         color:theme.light.negative.onSurface.medium
+    }
+  },
+
+  starColor:{
+    '& path':{
+        fill:theme.light.warning.onSurface.medium
     }
   },
 }));

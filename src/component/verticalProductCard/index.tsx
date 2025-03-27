@@ -142,6 +142,16 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
     setSelectedSize(firstSizeForColor || null);
   };
 
+  const handleEdit = () => {
+    dispatch({
+      type: "UPDATE_ADD_TO_CART_DATA",
+      payload: {
+        selectedProduct: products,
+      },
+    });
+    setSelectOption(true);
+  };
+
   // selected images in card
   const handleClickProductImage = (image: any) => {
     setSelectedImage(image);
@@ -217,7 +227,7 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
           {isHovered && (
             <div className={classes.buttonContainer}>
               <Button
-                onClick={() => setSelectOption(!selectOption)}
+                onClick={handleEdit}
                 className={classes.buttonStyle}
                 text={"Select Option"}
               ></Button>

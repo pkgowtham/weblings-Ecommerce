@@ -421,6 +421,58 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
     }
   };
 
+  const RatingStar = (rating: any) => {
+    switch (rating) {
+      case 1:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
+      case 2:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
+      case 3:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
+      case 4:
+        return (
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
+      case 5:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
+      default:
+        return (
+            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              <SvgStarPurple500 className={classes.starColor} />
+            </div>
+          );
+        break;
+    }
+  };
+
   // navigate
   const handleNavigate = (type: string) => {
     if (type === "product") {
@@ -545,11 +597,7 @@ const handleAddToCartSubmit = () => {
           </div>
           <div className={classes.StarContent}>
             <div className={classes.StarDiv}>
-              {ProductData?.star?.map((star: any, idx: number) => (
-                <div className={classes.StarDiv} key={idx}>
-                  <img src={star.logo} alt="" />
-                </div>
-              ))}
+            {RatingStar(Math.round(store.product.dataGet?.aggregateReviewValue?.averageRating))}
             </div>
             <div>
               <Typography variant="BS">{`${store.product.dataGet?.aggregateReviewValue?.totalReviews} Reviews`}</Typography>
@@ -642,9 +690,9 @@ const handleAddToCartSubmit = () => {
                     Size: {selectedSize?.sizeVariant}
                   </Typography>
                 </div>
-                <div>
+                {/* <div>
                   <Typography variant="BS">Size guide</Typography>
-                </div>
+                </div> */}
               </div>
               <div className={classes.SizeChart}>
                 {filteredSizes?.map((chart: any, idx: number) => (
