@@ -308,7 +308,6 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
   const navigate = useNavigate();
   const location = useLocation();
   const { rowDataId } = location?.state || {};
-  console.log('rowData',rowDataId)
   const hasDispatched = useRef(false);
   const [currentImage, setCurrentImage] = useState("");
   const [thumbnailAttachments, setThumbnailAttachments] = useState<any[]>([]);

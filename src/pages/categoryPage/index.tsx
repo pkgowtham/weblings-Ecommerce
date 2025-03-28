@@ -15,6 +15,8 @@ import fashiongrey from "../../assets/images/fashion.jpg";
 import Banner from "../../component/banner";
 import { HideComponents } from "../../component/hideComponents";
 import Button from "../../component/button";
+import { useStore } from "../../store";
+import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 
 const productData = {
   //   productcategory: "Product Category",
@@ -398,6 +400,9 @@ const CategoryPage = () => {
   const [selectedColor, setSelectedColor] = useState<string>("#E00028");
   const [shortBy, setShortBy] = useState("Featured");
   const shortRef = useRef<HTMLDivElement>(null);
+  const hasDispatched = useRef(false);
+  const { store } = useStore();
+    const dispatch = useMiddlewareDispatch();
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -420,6 +425,24 @@ const CategoryPage = () => {
   const toogleSection = (id: number) => {
     setIsDropDownOpen(isDropDownopen === id ? null : id);
   };
+
+ //product getlist
+ useEffect(() => {
+  // if (!hasDispatched.current && rowDataId) {
+  if (!hasDispatched.current) {
+    dispatch({
+      type: "PRODUCT_GETLIST_API_REQUEST",
+      payload: {
+        url: "/product",
+        method: "GET",
+      },
+    });
+    hasDispatched.current = true;
+  }
+}, []);
+
+
+
   return (
     <div className={classes.mainContainer}>
       {/* banner sections */}
@@ -663,7 +686,7 @@ const CategoryPage = () => {
                 [classes.fourColumns]: layout === "fourColumns",
               })}
             >
-              {productData.productsdata.map((card: any) => (
+              {store.product.dataGetList?.data.map((card: any) => (
                 <VerticalProductCard products={card || {}} />
               ))}
             </div>
