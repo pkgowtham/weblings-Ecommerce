@@ -615,6 +615,7 @@ const handleWishlist = () => {
           <div className={classes.LeftDivSmall}>
             {allAttachments.map((product: any, idx: number) => (
               <div
+              onMouseEnter={() => handleImageClick(product.fileUrl, product?.id)}
                 onClick={() => handleImageClick(product.fileUrl, product?.id)}
                 key={idx}
                 className={clsx(classes.ImageDiv, {
