@@ -170,6 +170,7 @@ const ShopingCartPage = () => {
                       <Typography variant="BM">$175.00</Typography>
                     </td>
                   </tr>
+                  
                 </tbody>
               </table>
               {/* price tags */}

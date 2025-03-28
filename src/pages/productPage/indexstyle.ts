@@ -93,7 +93,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     overflow: "auto",
     display: "flex",
     flexDirection: "column",
-    gap: theme.spacing.s250,
+    gap: theme.spacing.s500,
     // Custom Scrollbar Styles
     "&::-webkit-scrollbar": {
       width: "8px", // Width of the scrollbar
@@ -208,9 +208,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     gap: theme.spacing.s400,
   },
   Chart: {
-    width: "100%",
-    maxWidth: "8px",
-    height: "19px",
+    width: "fit-content",
+    // maxWidth: "8px",
+    height: "20px",
     border: `1px solid ${theme.light.neutral.border.light}`,
     padding: theme.spacing.s500,
     display: "flex",
@@ -387,7 +387,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "center",
     gap: theme.spacing.s300,
     marginTop:theme.spacing.s300,
-    flexWrap:'wrap'
+    "@media (max-width :768px)":{
+      flexWrap:'wrap'
+    }
   },
   buttonColor: {
     "& path": {

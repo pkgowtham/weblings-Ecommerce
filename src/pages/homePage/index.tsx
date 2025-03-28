@@ -143,21 +143,21 @@ const slider = {
       title: "Cotton Long-Sleeve Striped T-shirt",
       description: "$115.00",
       sliderimage:
-        "https://images.pexels.com/photos/7179506/pexels-photo-7179506.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     },
     {
       logo: fashion,
       title: "Cotton Long-Sleeve Striped T-shirt",
       description: "$115.00",
       sliderimage:
-        "https://images.pexels.com/photos/3473085/pexels-photo-3473085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/963486/pexels-photo-963486.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     },
     {
       logo: fashion,
       title: "Cotton Long-Sleeve Striped T-shirt",
       description: "$115.00",
       sliderimage:
-        "https://images.pexels.com/photos/425241/pexels-photo-425241.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        "https://images.pexels.com/photos/276583/pexels-photo-276583.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     },
   ],
 };

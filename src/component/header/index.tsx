@@ -45,6 +45,7 @@ const Header: React.FC<any> = (props): JSX.Element => {
             <SvgMenu cursor={"pointer"} onClick={() => setSideBar(!sideBar)} />
           </HideComponents>
         </div>
+        <div></div>
         {/* Main Navigation */}
         <HideComponents showOnlyOn="desktop">
           <div className={classes.NavBarMain}>

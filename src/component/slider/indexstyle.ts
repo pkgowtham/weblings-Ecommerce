@@ -53,7 +53,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     gap: "15px",
     overflowX: "auto", // Horizontal scroll
     scrollBehavior: "smooth", // Smooth scrolling effect
-    padding: "10px 0",
+    // padding: "10px 0",
     "&::-webkit-scrollbar": {
       display: "none",
     },
