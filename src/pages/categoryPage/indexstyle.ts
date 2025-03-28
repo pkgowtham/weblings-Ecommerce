@@ -185,6 +185,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     borderRadius: "50%",
     cursor: "pointer",
     display: "flex",
+    // backgroundColor:'#E00028'
   },
   Red: {
     background: theme.light.negative.onSurface.medium,
@@ -205,7 +206,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     background: theme.light.neutral.onSurface.dark,
   },
   sizeStyle: {
-    width: "45px",
+    width: "fit-content",
     height: "35px",
     border: `1px solid ${theme.light.neutral.border.light}`,
     padding: `${theme.spacing.s250} ${theme.spacing.s400}`,
@@ -219,11 +220,18 @@ export const useStyle = createUseStyles((theme: Theme) => ({
       transition: "color 0.3s",
     },
   },
+
+  sizeColor:{
+    background: theme.light.neutral.onSurface.title,
+    color: theme.light.neutral.surface.lighter,
+  },
+
   sizedDiv: {
     width: "100%",
     height: "fit-content",
     display: "flex",
     alignItems: "center",
+    flexWrap:'wrap',
     gap: theme.spacing.s200,
     padding: `${theme.spacing.s300} ${theme.spacing.s0}`,
   },

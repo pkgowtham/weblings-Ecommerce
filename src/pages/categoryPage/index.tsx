@@ -403,8 +403,16 @@ const CategoryPage = () => {
   const [shortBy, setShortBy] = useState("Featured");
   const shortRef = useRef<HTMLDivElement>(null);
   const hasDispatched = useRef(false);
+  const hasCatDispatched = useRef(false);
+  const hasSubDispatched = useRef(false);
+  const hasBrandDispatched = useRef(false);
+  const hasColorDispatched = useRef(false);
+  const hasSizeDispatched = useRef(false);
   const { store } = useStore();
-    const dispatch = useMiddlewareDispatch();
+  const dispatch = useMiddlewareDispatch();
+  const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
+  const [selectedSize, setSelectedSize] = useState<any>('');
+  console.log('size',selectedSize)
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -428,22 +436,128 @@ const CategoryPage = () => {
     setIsDropDownOpen(isDropDownopen === id ? null : id);
   };
 
- //product getlist
- useEffect(() => {
-  // if (!hasDispatched.current && rowDataId) {
-  if (!hasDispatched.current) {
+  //product getlist
+  useEffect(() => {
+    if (!hasDispatched.current) {
+      dispatch({
+        type: "PRODUCT_GETLIST_API_REQUEST",
+        payload: {
+          url: "/product",
+          method: "GET",
+        },
+      });
+      hasDispatched.current = true;
+    }
+  }, []);
+
+  //category getlist
+  useEffect(() => {
+    if (!hasCatDispatched.current) {
+      dispatch({
+        type: "PRODUCT_CATEGORY_GETLIST_API_REQUEST",
+        payload: { url: "/category", method: "GET" },
+      });
+      hasCatDispatched.current = true;
+    }
+  }, []);
+
+  //sub category getlist
+  useEffect(() => {
+    if (!hasSubDispatched.current) {
+      dispatch({
+        type: "PRODUCT_SUB_CATEGORY_GETLIST_API_REQUEST",
+        payload: { url: "/subCategory", method: "GET" },
+      });
+      hasSubDispatched.current = true;
+    }
+  }, []);
+
+  //brand getlist
+  useEffect(() => {
+    if (!hasBrandDispatched.current) {
+      dispatch({
+        type: "PRODUCT_BRAND_GETLIST_API_REQUEST",
+        payload: { url: "/brand", method: "GET" },
+      });
+      hasBrandDispatched.current = true;
+    }
+  }, []);
+
+  //color getlist
+  useEffect(() => {
+    if (!hasColorDispatched.current) {
+      dispatch({
+        type: "COLOR_GETLIST_API_REQUEST",
+        payload: { url: "/color", method: "GET" },
+      });
+      hasColorDispatched.current = true;
+    }
+  }, []);
+
+  //size getlist
+  useEffect(() => {
+    if (!hasSizeDispatched.current) {
+      dispatch({
+        type: "SIZE_GETLIST_API_REQUEST",
+        payload: { url: "/size", method: "GET" },
+      });
+      hasSizeDispatched.current = true;
+    }
+  }, []);
+
+  //brand click
+  useEffect(() => {
+    if(selectedBrand.length > 0){
+      dispatch({
+        type: "PRODUCT_GETLIST_API_REQUEST",
+        payload: { url: "/product", method: "GET", query: { brand: selectedBrand.join(',') } },
+      });
+    }
+  }, [selectedBrand])
+  
+
+  const handleSubCategoryClick = (id: string) => {
     dispatch({
       type: "PRODUCT_GETLIST_API_REQUEST",
-      payload: {
-        url: "/product",
-        method: "GET",
-      },
+      payload: { url: "/product", method: "GET", query: { subCategory: id } },
     });
-    hasDispatched.current = true;
-  }
-}, []);
+  };
 
+  const handleCategoryClick = (id: string) => {
+    dispatch({
+      type: "PRODUCT_GETLIST_API_REQUEST",
+      payload: { url: "/product", method: "GET", query: { category: id } },
+    });
+  };
 
+  const handleColorClick = (color: any) => {
+    setSelectedColor(color);
+    dispatch({
+      type: "PRODUCT_GETLIST_API_REQUEST",
+      payload: { url: "/product", method: "GET", query: { color: color?.id } },
+    });
+  };
+
+  const handleSizeClick = (size: any) => {
+    setSelectedSize(size?.sizeVariant)
+    dispatch({
+      type: "PRODUCT_GETLIST_API_REQUEST",
+      payload: { url: "/product", method: "GET", query: { size: size?.id } },
+    });
+  };
+
+  // Handle checkbox toggle
+  const handleBrandCheckboxChange = (brand: string) => {
+    setSelectedBrand((prevSelected) => {
+      if (prevSelected.includes(brand)) {
+        // Remove if already selected
+        return prevSelected.filter((item) => item !== brand);
+      } else {
+        // Add if not selected
+        return [...prevSelected, brand];
+      }
+    });
+  };
 
   return (
     <div className={classes.mainContainer}>
@@ -467,25 +581,41 @@ const CategoryPage = () => {
                 {/* dropdown for category */}
                 {isDropDownopen === data.id && data.name === "Product" && (
                   <div className={classes.expandDiv}>
-                    {data?.categories?.map((item: any) => (
-                      <div className={classes.itemDiv}>
-                        <Typography className={classes.lightColor} variant="BS">
-                          {item}
-                        </Typography>
-                      </div>
-                    ))}
+                    {store.productCategory.dataGetList?.data?.map(
+                      (item: any) => (
+                        <div
+                          className={classes.itemDiv}
+                          onClick={() => handleCategoryClick(item?.id)}
+                        >
+                          <Typography
+                            className={classes.lightColor}
+                            variant="BS"
+                          >
+                            {item?.name}
+                          </Typography>
+                        </div>
+                      )
+                    )}
                   </div>
                 )}
                 {/* dropdown for SubCategory */}
                 {isDropDownopen === data.id && data.name === "SubCategory" && (
                   <div className={classes.expandDiv}>
-                    {data?.categories?.map((item: any) => (
-                      <div className={classes.itemDiv}>
-                        <Typography className={classes.lightColor} variant="BS">
-                          {item}
-                        </Typography>
-                      </div>
-                    ))}
+                    {store.productSubCategory.dataGetList?.data?.map(
+                      (item: any) => (
+                        <div
+                          className={classes.itemDiv}
+                          onClick={() => handleSubCategoryClick(item?.id)}
+                        >
+                          <Typography
+                            className={classes.lightColor}
+                            variant="BS"
+                          >
+                            {item?.name}
+                          </Typography>
+                        </div>
+                      )
+                    )}
                   </div>
                 )}
                 {/* dropdown for availability */}
@@ -530,11 +660,15 @@ const CategoryPage = () => {
                 {/* dropdown for brand */}
                 {isDropDownopen === data.id && data.name === "Brand" && (
                   <div className={classes.expandDiv}>
-                    {data?.brands?.map((brand: any) => (
+                    {store.productBrand.dataGetList?.data?.map((brand: any) => (
                       <div className={classes.checkBoxDiv}>
-                        <input type="checkbox" />
+                        <input
+                          type="checkbox"
+                          checked={selectedBrand.includes(brand?.id)}
+                          onChange={() => handleBrandCheckboxChange(brand?.id)}
+                        />
                         <Typography className={classes.lightColor} variant="BS">
-                          {brand}
+                          {brand?.name}
                         </Typography>
                       </div>
                     ))}
@@ -543,7 +677,7 @@ const CategoryPage = () => {
                 {/* dropdown for color */}
                 {isDropDownopen === data.id && data.name === "Color" && (
                   <div className={classes.colorDiv}>
-                    {data?.color?.map((color: any) => (
+                    {store.productColor.dataGetList?.data?.map((color: any) => (
                       <div
                         style={{
                           border:
@@ -560,15 +694,10 @@ const CategoryPage = () => {
                         }}
                       >
                         <div
-                          className={clsx(classes.ColorStyle, {
-                            [classes.Red]: color === "#E00028",
-                            [classes.war]: color === "#B15600",
-                            [classes.green]: color === "#36A040",
-                            [classes.blue]: color === "#0072C4",
-                            [classes.purple]: color === "#9E29FE",
-                            [classes.gray]: color === "#6F6F6F",
-                          })}
-                          onClick={() => setSelectedColor(color)}
+                          className={clsx(classes.ColorStyle)}
+                          style={{ backgroundColor: color?.name }}
+                          // onClick={() => setSelectedColor(color)}
+                          onClick={() => handleColorClick(color)}
                         />
                       </div>
                     ))}
@@ -577,9 +706,16 @@ const CategoryPage = () => {
                 {/* dropdown for size */}
                 {isDropDownopen === data.id && data.name === "Size" && (
                   <div className={classes.sizedDiv}>
-                    {data?.size?.map((size: any) => (
-                      <div className={classes.sizeStyle}>
-                        <Typography variant="BM">{size}</Typography>
+                    {store.productSize.dataGetList?.data?.map((size: any) => (
+                      <div
+                        className={clsx(classes.sizeStyle,{
+                          [classes.sizeColor]:selectedSize === size?.sizeVariant
+                        })}
+                        onClick={() => handleSizeClick(size)}
+                      >
+                        <Typography variant="BM">
+                          {size?.sizeVariant}
+                        </Typography>
                       </div>
                     ))}
                   </div>
@@ -701,8 +837,8 @@ const CategoryPage = () => {
                 [classes.list]: layout === "list",
               })}
             >
-              {productData.products.map((card: any) => (
-                <HorizotalProductCard productsdata={card} />
+              {store.product.dataGetList?.data.map((card: any) => (
+                <HorizotalProductCard products={card} />
               ))}
             </div>
           )}
@@ -719,7 +855,7 @@ const CategoryPage = () => {
               cursor={"pointer"}
               width={30}
               height={30}
-              onClick={()=>setFilterSideBar(false)}
+              onClick={() => setFilterSideBar(false)}
             />
           </div>
           {/* filter contents */}
@@ -860,7 +996,9 @@ const CategoryPage = () => {
           </div>
           {/* buttons for apply nd clear */}
           <div className={classes.clearButtonContainer}>
-            <Typography className={classes.clearAllText} variant="TS">Clear All</Typography>
+            <Typography className={classes.clearAllText} variant="TS">
+              Clear All
+            </Typography>
             <Button text={"Apply"}></Button>
           </div>
         </div>

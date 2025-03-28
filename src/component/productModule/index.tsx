@@ -94,6 +94,21 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
     }
   }, [selectedColor, selectedSize]);
 
+  //open modal after creating the add to cart
+    useEffect(() => {
+      if(store.productAddToCart.isSuccessCreate){
+        dispatch({
+          type: "OPEN_ADD_TO_CART_MODAL",
+          payload: {
+            isAddToCart: true,
+          },
+        })
+        dispatch({
+          type:"PRODUCT_ADD_TO_CART_CREATE_API_CLEAR"
+        })
+      }
+    }, [deepGet(store,"productAddToCart.isSuccessCreate")])
+
   // Handle color selection
   const handleColorChange = (data: any) => {
     const colorId = data.id;
@@ -211,13 +226,26 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
         method: "POST",
         body:{
           productId:store.addToCartInternal.selectedProduct?.id,
-          // productId:'2df8af0e-4710-4523-b285-9d97617ce6ef',
           userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
           colorId:selectedColor?.id,
           sizeId:selectedSize?.id,
           quantity:count
         }
       }
+    })
+  }
+
+  const handleWishlist = () => {
+    dispatch({
+      type:"PRODUCT_WHISHLIST_CREATE_API_REQUEST",
+      payload: {
+        url: "/wishList",
+        method: "POST",
+        body:{
+          userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
+          productId:store.addToCartInternal.selectedProduct?.id
+        }
+      },
     })
   }
 
@@ -342,14 +370,14 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
               text={count}
               className={classes.buttonStyle}
             ></Button>
-            <Button className={classes.btnStyle} text="Add to Cart"></Button>
+            <Button className={classes.btnStyle} text="Add to Cart" onClick={handleAddToCartSubmit}></Button>
             <div className={classes.CircleContainer}>
-              <div className={classes.CircleImgDiv}>
+              <div className={classes.CircleImgDiv} onClick={handleWishlist}>
                 <SvgHeart viewBox="0 0 35 55" width={30} height={30} />
               </div>
-              <div className={classes.CircleImgDiv}>
+              {/* <div className={classes.CircleImgDiv}>
                 <SvgHeart viewBox="0 0 35 55" width={30} height={30} />
-              </div>
+              </div> */}
             </div>
           </div>
           {/* terms and conditions */}

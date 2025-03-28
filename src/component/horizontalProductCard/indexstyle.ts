@@ -118,5 +118,24 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   activeImage:{
     border: `1px solid ${theme.light.neutral.border.light}`,
     borderColor: theme.light.neutral.onSurface.title,
+  },
+
+  activeStatus: {
+    border: `1px solid ${theme.light.neutral.border.light}`,
+    borderColor: theme.light.neutral.onSurface.title,
+  },
+
+  priceContainer: {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing.s300,
+  },
+  redColor: {
+    color: theme.light.negative.surface.medium,
+  },
+
+  lineThroughGray:{
+    textDecoration: "line-through",
+    color: theme.light.neutral.onSurface.dark,
   }
 }));

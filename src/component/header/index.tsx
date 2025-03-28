@@ -120,7 +120,7 @@ const Header: React.FC<any> = (props): JSX.Element => {
                     height: "18px",
                     right: -5,
                   }}
-                  count={"0"}
+                  count={store.productWishlist.dataGetList?.data?.length || "0"}
                   className={classes.badgeStyle}
                 />
               </div>
@@ -147,7 +147,7 @@ const Header: React.FC<any> = (props): JSX.Element => {
                 height: "18px",
                 right: -5,
               }}
-              count={"0"}
+              count={store.productAddToCart.dataGetList?.data?.length || "0"}
               className={classes.badgeStyle}
             />
           </div>

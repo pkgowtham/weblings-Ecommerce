@@ -321,7 +321,7 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
 
   // Get attachments for the selected color
   const selectedColorAttachments =
-    store.product.dataGet?.colors.find(
+    store.product.dataGet?.colors?.find(
       (color: any) => color.id === selectedColor?.id
     )?.attachments || [];
 
@@ -360,9 +360,9 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
 
   useEffect(() => {
     if (Object.keys(store.product.dataGet || {}).length > 0) {
-      setSelectedColor(store.product.dataGet?.colors[0]);
-      setSelectedSize(store.product.dataGet?.sizes[0]);
-      const thumbnails = store.product.dataGet.colors.flatMap((dat: any) =>
+      setSelectedColor(store.product.dataGet?.colors?.[0]);
+      setSelectedSize(store.product.dataGet?.sizes?.[0]);
+      const thumbnails = store.product.dataGet.colors?.flatMap((dat: any) =>
         dat.attachments.filter(
           (attachment: any) => attachment.thumbnail === true
         )
@@ -532,6 +532,20 @@ const handleAddToCartSubmit = () => {
         quantity:count
       }
     }
+  })
+}
+
+const handleWishlist = () => {
+  dispatch({
+    type:"PRODUCT_WHISHLIST_CREATE_API_REQUEST",
+    payload: {
+      url: "/wishList",
+      method: "POST",
+      body:{
+        userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
+        productId:rowDataId
+      }
+    },
   })
 }
 
@@ -744,12 +758,12 @@ const handleAddToCartSubmit = () => {
                   text="Add to Cart"
                 ></Button>
                 <div className={classes.CircleContainer}>
-                  <div className={classes.CircleImgDiv}>
+                  <div className={classes.CircleImgDiv} onClick={handleWishlist}>
                     <SvgHeart viewBox="0 0 35 55" width={30} height={30} />
                   </div>
-                  <div className={classes.CircleImgDiv}>
+                  {/* <div className={classes.CircleImgDiv}>
                     <SvgHeart viewBox="0 0 35 55" width={30} height={30} />
-                  </div>
+                  </div> */}
                 </div>
               </div>
               {/* checkbox  */}
@@ -782,7 +796,7 @@ const handleAddToCartSubmit = () => {
                 <div className={classes.ImgContainer}>
                   <img
                     // src={ProductData?.sizedetails?.img}
-                    src={thumbnailAttachments[0]?.fileUrl}
+                    src={thumbnailAttachments?.[0]?.fileUrl}
                     alt=""
                     className={classes.ImgStyle}
                   />
@@ -842,7 +856,7 @@ const handleAddToCartSubmit = () => {
                     <Typography variant="BS">
                       {avai.collection}
                       {/* {avai.collections} */}
-                      {store.product.dataGet?.tags.map((item: any) => (
+                      {store.product.dataGet?.tags?.map((item: any) => (
                         <Typography variant="BS" component={"span"}>
                           {item.name},
                         </Typography>

@@ -25,7 +25,6 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
   close,
   onClose = () => {}
 }) => {
-  console.log("data", products);
   const classes = useStyle();
   const [viewModule, setViewModule] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -38,7 +37,6 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
   const [selectedColor, setSelectedColor] = useState<any>(null);
   const [selectedSize, setSelectedSize] = useState<any>(null);
   const [price, setPrice] = useState<any>(null);
-  console.log('price',price)
   const [currentImage, setCurrentImage] = useState("");
   const dispatch = useMiddlewareDispatch();
     const { store } = useStore();
@@ -113,7 +111,6 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
   useEffect(() => {
     if (selectedColor && selectedSize) {
       
-      console.log('selected Size',selectedSize)
       const selectedVariant = products?.variants.find(
         (variant: any) =>
           variant.color.id === selectedColor?.id &&
@@ -152,10 +149,6 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
     setSelectOption(true);
   };
 
-  // selected images in card
-  const handleClickProductImage = (image: any) => {
-    setSelectedImage(image);
-  };
   // navigate
   const handleNavigate = () => {
     navigate("/mainLayout/productpage",{state:{rowDataId:products?.products ? products?.products[0]?.id : products?.id}});
@@ -208,14 +201,14 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
                   height={25}
                 />
               </div>)}
-              <div className={classes.favouriteOne}>
+              {/* <div className={classes.favouriteOne}>
                 <SvgHeart
                   className={classes.eyeColor}
                   viewBox="0 0 40 40"
                   width={30}
                   height={25}
                 />
-              </div>
+              </div> */}
               <div
                 onClick={() => setViewModule(!viewModule)}
                 className={classes.favouriteTwo}
