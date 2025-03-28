@@ -8,9 +8,11 @@ import Input from "../../component/input";
 import payment from "../../assets/images/payment.jpg";
 import SvgChevronLeft from "../../custom-icons/ChevronLeft";
 import SvgAdd from "../../custom-icons/Add";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HideComponents } from "../../component/hideComponents";
 import SvgDelete from "../../custom-icons/Delete";
+import { useMiddlewareDispatch } from "../../store/apiMiddleware";
+import { useStore } from "../../store";
 
 const reviewCard = [
   {
@@ -62,13 +64,59 @@ const sugesstionproducts = [
 const ShopingCartPage = () => {
   const classes = useStyle();
   const [quantity, setQuantity] = useState<number>(1);
+  const dispatch = useMiddlewareDispatch();
+  const { store } = useStore();
+  const hasDispatched = useRef(false);
+  const [data, setData] = useState<any>(null);
+
+  //Add to cart getlist
+  useEffect(() => {
+    if (!hasDispatched.current) {
+      dispatch({
+        type: "PRODUCT_ADD_TO_CART_GETLIST_API_REQUEST",
+        payload: {
+          url: "/addToCart",
+          method: "GET",
+        },
+      });
+      hasDispatched.current = true;
+    }
+  }, []);
+
+  //Update Add to cart
+  useEffect(() => {
+    if (quantity && data) {
+      const getJoinId = data?.addToCartWithDetail.find(
+        (variant: any) =>
+          variant.color?.id === data.color?.id &&
+          variant.size?.id === data.size?.id
+      );
+
+      dispatch({
+        type: "PRODUCT_ADD_TO_CART_UPDATE_API_REQUEST",
+        payload: {
+          url: "/addToCart",
+          method: "PUT",
+          query: {
+            id: data?.id,
+          },
+          body: {
+            quantity: quantity,
+            addToCartWithDetailId: getJoinId?.id,
+          },
+        },
+      });
+    }
+  }, [quantity, data]);
 
   // handle quantity
-  const handleQuantityChange = (type: "increase" | "decrease") => {
-    setQuantity((prev) =>
+  const handleQuantityChange = (data: any, type: "increase" | "decrease") => {
+    setQuantity((prev: any) =>
       type === "increase" ? prev + 1 : prev > 1 ? prev - 1 : prev
     );
+    setData(data);
   };
+
   return (
     <div className={classes.mainContainer}>
       {/* header section */}
@@ -120,57 +168,79 @@ const ShopingCartPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className={classes.tdone}>
-                      <div className={classes.imageContentContainer}>
-                        <div className={classes.imageDiv}>
-                          <img
-                            className={classes.fashionImage}
-                            src={fashion}
-                            alt=""
-                          />
-                        </div>
-                        <div className={classes.contents}>
-                          <Typography variant="BM">
-                            LP07—Sport Earphones / Black Aluminum
-                          </Typography>
-                          <Typography
-                            className={classes.lightColor}
-                            variant="BM"
-                          >
-                            Color : Black/Size:S
-                          </Typography>
-                          <Typography className={classes.remove} variant="LS">
-                            Remove
-                          </Typography>
-                        </div>
-                      </div>
-                    </td>
-                    <td className={classes.td}>
-                      <Typography variant="BM">$175.00</Typography>
-                    </td>
-                    <td className={classes.td}>
-                      <Button
-                        className={classes.btnStyle}
-                        rightIcon={
-                          <SvgAdd
-                            onClick={() => handleQuantityChange("increase")}
-                            className={classes.svgAdd}
-                          />
-                        }
-                        leftIcon={
-                          <SvgChevronLeft
-                            onClick={() => handleQuantityChange("decrease")}
-                          />
-                        }
-                        text={quantity}
-                      ></Button>
-                    </td>
-                    <td className={classes.td}>
-                      <Typography variant="BM">$175.00</Typography>
-                    </td>
-                  </tr>
-                  
+                  {store.productAddToCart.dataGetList?.data?.map(
+                    (item: any, idx: number) => {
+                      const selectedPrice = item?.addToCartWithDetail.find(
+                        (variant: any) =>
+                          variant.color.id === item?.color.id &&
+                          variant.size.id === item?.size?.id
+                      );
+                      return (
+                        <tr>
+                          <td className={classes.tdone}>
+                            <div className={classes.imageContentContainer}>
+                              <div className={classes.imageDiv}>
+                                <img
+                                  className={classes.fashionImage}
+                                  src={item?.color?.attachments[0]?.fileUrl}
+                                  alt=""
+                                />
+                              </div>
+                              <div className={classes.contents}>
+                                <Typography variant="BM">
+                                  {item?.products[0]?.name}
+                                </Typography>
+                                <Typography
+                                  className={classes.lightColor}
+                                  variant="BM"
+                                >
+                                  Color: {item?.color?.name} / Size:{" "}
+                                  {item?.size?.sizeVariant}
+                                </Typography>
+                                <Typography
+                                  className={classes.remove}
+                                  variant="LS"
+                                >
+                                  Remove
+                                </Typography>
+                              </div>
+                            </div>
+                          </td>
+                          <td className={classes.td}>
+                            <Typography variant="BM">
+                              {selectedPrice?.price}
+                            </Typography>
+                          </td>
+                          <td className={classes.td}>
+                            <Button
+                              className={classes.btnStyle}
+                              rightIcon={
+                                <SvgAdd
+                                  onClick={() =>
+                                    handleQuantityChange(item, "increase")
+                                  }
+                                  className={classes.svgAdd}
+                                />
+                              }
+                              leftIcon={
+                                <SvgChevronLeft
+                                  onClick={() =>
+                                    handleQuantityChange(item, "decrease")
+                                  }
+                                />
+                              }
+                              text={quantity}
+                            ></Button>
+                          </td>
+                          <td className={classes.td}>
+                            <Typography variant="BM">
+                              {selectedPrice?.price}
+                            </Typography>
+                          </td>
+                        </tr>
+                      );
+                    }
+                  )}
                 </tbody>
               </table>
               {/* price tags */}
@@ -219,37 +289,60 @@ const ShopingCartPage = () => {
 
           {/* for mobile view */}
           <HideComponents showOnlyOn="mobile">
-            <div className={classes.cardDetails}>
-              <div className={classes.imgContainer}>
-                <img className={classes.imgStyle} src={fashion} alt="logo" />
-              </div>
-              <div className={classes.cardContents}>
-                <div className={classes.deleteDiv}>
-                  <div>
-                    <Typography variant="TS">
-                      Slim Fit Basic Unpatterned T-shirt
-                    </Typography>
-                    <Typography className={classes.lightColor} variant="BM">
-                      Color:Black/Size:M
-                    </Typography>
+            {store.productAddToCart.dataGetList?.data?.map(
+              (item: any, idx: number) => {
+                const selectedPrice = item?.addToCartWithDetail.find(
+                  (variant: any) =>
+                    variant.color.id === item?.color.id &&
+                    variant.size.id === item?.size?.id
+                );
+                return (
+                  <div className={classes.cardDetails}>
+                    <div className={classes.imgContainer}>
+                      <img
+                        className={classes.imgStyle}
+                        src={item?.color?.attachments[0]?.fileUrl}
+                        alt="logo"
+                      />
+                    </div>
+                    <div className={classes.cardContents}>
+                      <div className={classes.deleteDiv}>
+                        <div>
+                          <Typography variant="TS">
+                          {item?.products[0]?.name}
+                          </Typography>
+                          <Typography
+                            className={classes.lightColor}
+                            variant="BM"
+                          >
+                             Color: {item?.color?.name} / Size:{" "}
+                             {item?.size?.sizeVariant}
+                          </Typography>
+                        </div>
+                        <div>
+                          <SvgDelete />
+                        </div>
+                      </div>
+                      <div className={classes.priceContainer}>
+                        <Typography variant="TS">{selectedPrice?.price}</Typography>
+                        <div>
+                          <Button
+                            className={classes.textButton}
+                            leftIcon={<SvgAdd className={classes.addColor}  onClick={() =>
+                              handleQuantityChange(item, "decrease")
+                            }/>}
+                            rightIcon={<SvgAdd className={classes.addColor}  onClick={() =>
+                              handleQuantityChange(item, "increase")
+                            }/>}
+                            text={quantity}
+                          ></Button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <SvgDelete />
-                  </div>
-                </div>
-                <div className={classes.priceContainer}>
-                  <Typography variant="TS">€75,95</Typography>
-                  <div>
-                    <Button
-                      className={classes.textButton}
-                      leftIcon={<SvgAdd className={classes.addColor} />}
-                      rightIcon={<SvgAdd className={classes.addColor} />}
-                      text={"1"}
-                    ></Button>
-                  </div>
-                </div>
-              </div>
-            </div>
+                );
+              }
+            )}
           </HideComponents>
         </div>
 

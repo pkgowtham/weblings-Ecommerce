@@ -20,6 +20,7 @@ import { couriorReducer } from '../services/courior';
 import { productAddToCartReducer } from '../services/addToCart';
 import { productWishlistReducer } from '../services/wishlist';
 import { addToCartInternalReducer } from '../services/internals/addToCart';
+import { productRatingReducer } from '../services/rating';
 
 
 export const combineReducers = (reducers: {
@@ -52,6 +53,7 @@ export const rootReducer = combineReducers({
   productInternal:productInternalReducer,
   productAddToCart:productAddToCartReducer,
   productWishlist:productWishlistReducer,
+  productRating:productRatingReducer,
   productApiData:productApiDataInternalReducer,
   order:orderReducer,
   shipped:shippedReducer,

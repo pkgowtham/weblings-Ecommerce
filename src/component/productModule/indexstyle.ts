@@ -124,7 +124,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     padding: `${theme.spacing.s300} ${theme.spacing.s0}`,
   },
   sizeStyle: {
-    width: "45px",
+    width: "fit-content",
     height: "35px",
     border: `1px solid ${theme.light.neutral.border.light}`,
     padding: `${theme.spacing.s250} ${theme.spacing.s400}`,

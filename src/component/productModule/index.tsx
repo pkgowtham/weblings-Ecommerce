@@ -11,7 +11,7 @@ import fashionblack from "../../assets/images/fashionblack.jpg";
 import fashionwhite from "../../assets/images/fashionwhite.jpg";
 import fashiongrey from "../../assets/images/fashion.jpg";
 import SvgClose from "../../custom-icons/Close";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
@@ -54,6 +54,16 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
   const [selectedSize, setSelectedSize] = useState<any>(null);
   const [price, setPrice] = useState<any>(null);
   const [currentImage, setCurrentImage] = useState("");
+  const hasAddtoCartDispatched = useRef(false);
+
+  //checking the add to cart if exists
+  const isProductInCart = store.productAddToCart.dataGetList?.data?.some(
+    (item: any) =>
+      item.products.some(
+        (product: any) =>
+          product.id === store.addToCartInternal.selectedProduct?.id
+      )
+  );
 
   // Filtered sizes based on selected color
   const filteredSizes = selectedColor
@@ -61,7 +71,6 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
         .filter((variant: any) => variant.color.id === selectedColor?.id)
         .map((variant: any) => variant.size)
     : [];
-
 
   // Get attachments for the selected color
   const selectedColorAttachments =
@@ -78,11 +87,12 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
 
   useEffect(() => {
     if (selectedColor && selectedSize) {
-      const selectedVariant = store.addToCartInternal.selectedProduct?.variants.find(
-        (variant: any) =>
-          variant.color.id === selectedColor?.id &&
-          variant.size.id === selectedSize?.id
-      );
+      const selectedVariant =
+        store.addToCartInternal.selectedProduct?.variants.find(
+          (variant: any) =>
+            variant.color.id === selectedColor?.id &&
+            variant.size.id === selectedSize?.id
+        );
       if (selectedVariant) {
         setPrice(selectedVariant);
       }
@@ -95,19 +105,19 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
   }, [selectedColor, selectedSize]);
 
   //open modal after creating the add to cart
-    useEffect(() => {
-      if(store.productAddToCart.isSuccessCreate){
-        dispatch({
-          type: "OPEN_ADD_TO_CART_MODAL",
-          payload: {
-            isAddToCart: true,
-          },
-        })
-        dispatch({
-          type:"PRODUCT_ADD_TO_CART_CREATE_API_CLEAR"
-        })
-      }
-    }, [deepGet(store,"productAddToCart.isSuccessCreate")])
+  useEffect(() => {
+    if (store.productAddToCart.isSuccessCreate) {
+      dispatch({
+        type: "OPEN_ADD_TO_CART_MODAL",
+        payload: {
+          isAddToCart: true,
+        },
+      });
+      dispatch({
+        type: "PRODUCT_ADD_TO_CART_CREATE_API_CLEAR",
+      });
+    }
+  }, [deepGet(store, "productAddToCart.isSuccessCreate")]);
 
   // Handle color selection
   const handleColorChange = (data: any) => {
@@ -115,9 +125,10 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
     setSelectedColor(data);
 
     // Reset size to the first available size for the selected color
-    const firstSizeForColor = store.addToCartInternal.selectedProduct?.variants.find(
-      (variant: any) => variant.color.id === colorId
-    )?.size;
+    const firstSizeForColor =
+      store.addToCartInternal.selectedProduct?.variants.find(
+        (variant: any) => variant.color.id === colorId
+      )?.size;
     setSelectedSize(firstSizeForColor || null);
   };
 
@@ -127,10 +138,11 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
     setSelectedSize(data);
 
     // Find the corresponding price
-    const selectedVariant = store.addToCartInternal.selectedProduct?.variants.find(
-      (variant: any) =>
-        variant.color.id === selectedColor?.id && variant.size.id === sizeId
-    );
+    const selectedVariant =
+      store.addToCartInternal.selectedProduct?.variants.find(
+        (variant: any) =>
+          variant.color.id === selectedColor?.id && variant.size.id === sizeId
+      );
 
     if (selectedVariant) {
       setPrice(selectedVariant);
@@ -183,10 +195,10 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
         );
       default:
         return (
-            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-              <SvgStarPurple500 className={classes.starColor} />
-            </div>
-          );
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
         break;
     }
   };
@@ -217,37 +229,45 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
     navigate("/mainLayout/productpage");
   };
 
-
   const handleAddToCartSubmit = () => {
     dispatch({
-      type:"PRODUCT_ADD_TO_CART_CREATE_API_REQUEST",
-      payload:{
+      type: "PRODUCT_ADD_TO_CART_CREATE_API_REQUEST",
+      payload: {
         url: "/addToCart",
         method: "POST",
-        body:{
-          productId:store.addToCartInternal.selectedProduct?.id,
-          userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
-          colorId:selectedColor?.id,
-          sizeId:selectedSize?.id,
-          quantity:count
-        }
-      }
+        body: {
+          productId: store.addToCartInternal.selectedProduct?.id,
+          userId: "001a0ab1-14a1-4016-b2ed-2e9dfa414245",
+          colorId: selectedColor?.id,
+          sizeId: selectedSize?.id,
+          quantity: count,
+        },
+      },
+    });
+  };
+
+  const handleGoToCart = () => {
+    dispatch({
+      type: "OPEN_ADD_TO_CART_MODAL",
+      payload: {
+        isAddToCart: true,
+      },
     })
   }
 
   const handleWishlist = () => {
     dispatch({
-      type:"PRODUCT_WHISHLIST_CREATE_API_REQUEST",
+      type: "PRODUCT_WHISHLIST_CREATE_API_REQUEST",
       payload: {
         url: "/wishList",
         method: "POST",
-        body:{
-          userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
-          productId:store.addToCartInternal.selectedProduct?.id
-        }
+        body: {
+          userId: "001a0ab1-14a1-4016-b2ed-2e9dfa414245",
+          productId: store.addToCartInternal.selectedProduct?.id,
+        },
       },
-    })
-  }
+    });
+  };
 
   return (
     <CommonModel className={classes.productModule}>
@@ -257,13 +277,15 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
           width={30}
           height={30}
           className={classes.svgCLose}
-          onClick={() =>{onClose(false),dispatch({
-            type: "UPDATE_ADD_TO_CART_DATA",
-            payload: {
-              selectedProduct: null,
-            },
-          });}
-          }
+          onClick={() => {
+            onClose(false),
+              dispatch({
+                type: "UPDATE_ADD_TO_CART_DATA",
+                payload: {
+                  selectedProduct: null,
+                },
+              });
+          }}
         />
         {/* image container */}
         <div className={classes.imageContainer}>
@@ -283,10 +305,19 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
                 <SvgStarPurple500 className={classes.starColor} key={index} />
               ))}
             </div> */}
-             {RatingStar(Math.round(store.addToCartInternal.selectedProduct?.aggregateReviewValue?.averageRating))}
+            {RatingStar(
+              Math.round(
+                store.addToCartInternal.selectedProduct?.aggregateReviewValue
+                  ?.averageRating
+              )
+            )}
             <div>
               <Typography className={classes.lightColor} variant="BS">
-                {store.addToCartInternal.selectedProduct?.aggregateReviewValue?.totalReviews} reviews
+                {
+                  store.addToCartInternal.selectedProduct?.aggregateReviewValue
+                    ?.totalReviews
+                }{" "}
+                reviews
               </Typography>
             </div>
           </div>
@@ -297,7 +328,7 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
           {/* product content */}
           <div className={classes.productContaier}>
             <Typography variant="BS" className={classes.lightColor}>
-            {store.addToCartInternal.selectedProduct?.shortdesc}
+              {store.addToCartInternal.selectedProduct?.shortdesc}
             </Typography>
           </div>
           {/* color section */}
@@ -307,30 +338,33 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
                 Color :
               </Typography>
               <Typography className={classes.blackColor} variant="BL">
-              {selectedColor?.name}
+                {selectedColor?.name}
               </Typography>
             </div>
             <div className={classes.productImage}>
-            {store.addToCartInternal.selectedProduct?.colors?.map((dat: any, index: number) => {
-                const thumbnailAttachments = dat.attachments.filter(
-                  (attachment: any) => attachment.thumbnail === true
-                );
-                return (
-                  <div
-                  className={clsx(classes.imageDiv, {
-                    [classes.activeImages]: dat.name === selectedColor?.name,
-                  })}
-                  onClick={() => handleColorChange(dat)}
-                    key={index}
-                >
-                  <img
-                    className={classes.itemDiv}
-                    src={thumbnailAttachments[0]?.fileUrl}
-                    alt="Product"
-                  />
-                </div>
-                );
-              })}
+              {store.addToCartInternal.selectedProduct?.colors?.map(
+                (dat: any, index: number) => {
+                  const thumbnailAttachments = dat.attachments.filter(
+                    (attachment: any) => attachment.thumbnail === true
+                  );
+                  return (
+                    <div
+                      className={clsx(classes.imageDiv, {
+                        [classes.activeImages]:
+                          dat.name === selectedColor?.name,
+                      })}
+                      onClick={() => handleColorChange(dat)}
+                      key={index}
+                    >
+                      <img
+                        className={classes.itemDiv}
+                        src={thumbnailAttachments[0]?.fileUrl}
+                        alt="Product"
+                      />
+                    </div>
+                  );
+                }
+              )}
             </div>
           </div>
           {/* size section */}
@@ -340,15 +374,16 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
               <Typography variant="TS">{selectedSize?.sizeVariant}</Typography>
             </div>
             <div className={classes.sizeDiv}>
-            {filteredSizes?.map((chart: any, idx: number) => (
+              {filteredSizes?.map((chart: any, idx: number) => (
                 <div
-                onClick={() => handleSizeChange(chart)}
-                key={idx}
+                  onClick={() => handleSizeChange(chart)}
+                  key={idx}
                   className={classes.sizedDiv}
                 >
                   <div
                     className={clsx(classes.sizeStyle, {
-                      [classes.activeStatus]: selectedSize?.sizeVariant === chart.sizeVariant,
+                      [classes.activeStatus]:
+                        selectedSize?.sizeVariant === chart.sizeVariant,
                     })}
                   >
                     <Typography variant="BM">{chart?.sizeVariant}</Typography>
@@ -370,7 +405,11 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
               text={count}
               className={classes.buttonStyle}
             ></Button>
-            <Button className={classes.btnStyle} text="Add to Cart" onClick={handleAddToCartSubmit}></Button>
+            <Button
+              className={classes.btnStyle}
+              onClick={isProductInCart ? handleGoToCart : handleAddToCartSubmit}
+              text={isProductInCart ? "Go to Cart" : "Add to Cart"}
+            ></Button>
             <div className={classes.CircleContainer}>
               <div className={classes.CircleImgDiv} onClick={handleWishlist}>
                 <SvgHeart viewBox="0 0 35 55" width={30} height={30} />

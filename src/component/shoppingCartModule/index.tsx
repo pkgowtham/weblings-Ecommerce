@@ -140,29 +140,6 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
       type === "increase" ? prev + 1 : prev > 1 ? prev - 1 : prev
     );
     setData(data)
-    // const getJoinId = data.addToCartWithDetail.find(
-    //   (variant: any) =>
-    //     variant.color?.id === data.color?.id &&
-    //     variant.size?.id === data.size?.id
-    // );
-    // console.log(getJoinId);
-
-    // if (quantity > 0) {
-    //   dispatch({
-    //     type: "PRODUCT_ADD_TO_CART_DESTROY_API_REQUEST",
-    //     payload: {
-    //       url: "/addToCart",
-    //       method: "POST",
-    //       query: {
-    //         id: data?.id,
-    //       },
-    //       body: {
-    //         quantity: quantity,
-    //         addToCartWithDetailId: getJoinId?.id,
-    //       },
-    //     },
-    //   });
-    // }
   };
 
   return (

@@ -13,8 +13,6 @@ import { deepGet } from "../../util/util";
 import dayjs from "dayjs";
 import SvgDelete from "../../custom-icons/Delete";
 
-
-
 const Ratings: React.FC<any> = (props): JSX.Element => {
   const classes = useStyle();
   const { ReviewData, productId } = props;
@@ -24,7 +22,7 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [rating, setRating] = useState<any>(null);
   const [attachment, setAttachment] = useState<any[]>([]);
-  console.log('files',attachment)
+  const hasRatingDispatched = useRef(false);
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -44,17 +42,37 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
 
   const ratings = 4;
 
+  //Ratings getlist
+  useEffect(() => {
+    if (!hasRatingDispatched.current) {
+      dispatch({
+        type: "PRODUCT_RATING_GET_API_REQUEST",
+        payload: {
+          url: "/rating",
+          method: "GET",
+          query: {
+            productId,
+          },
+        },
+      });
+      hasRatingDispatched.current = true;
+    }
+  }, []);
+
   //comments getlist
   useEffect(() => {
     // if (!hasCommentDispatched.current && rowDataId) {
-      if (!hasCommentDispatched.current && productId) {
+    if (!hasCommentDispatched.current && productId) {
       dispatch({
         type: "PRODUCT_COMMENT_GETLIST_API_REQUEST",
-        payload: { url: "/comments", method: "GET", query: {
-          productId,
-          // id: '2df8af0e-4710-4523-b285-9d97617ce6ef',
+        payload: {
+          url: "/comments",
+          method: "GET",
+          query: {
+            productId,
+            // id: '2df8af0e-4710-4523-b285-9d97617ce6ef',
+          },
         },
-      },
       });
       hasCommentDispatched.current = true;
     }
@@ -62,13 +80,13 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
 
   //close the form after successfull comment
   useEffect(() => {
-    if(store.comment.isSuccessCreate){
-        setIsFormVisible(false)
-        dispatch({
-          type:"PRODUCT_COMMENT_CREATE_API_CLEAR"
-        })
+    if (store.comment.isSuccessCreate) {
+      setIsFormVisible(false);
+      dispatch({
+        type: "PRODUCT_COMMENT_CREATE_API_CLEAR",
+      });
     }
-  }, [deepGet(store, "comment.isSuccessCreate")])
+  }, [deepGet(store, "comment.isSuccessCreate")]);
 
   const RatingStar = (rating: any) => {
     switch (rating) {
@@ -114,14 +132,13 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
         );
       default:
         return (
-            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-              <SvgStarPurple500 className={classes.starColor} />
-            </div>
-          );
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
         break;
     }
   };
-  
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -173,12 +190,12 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
 
   const handleFileChange = (files: any) => {
     if (files) {
-      setAttachment([...attachment,...files]);
+      setAttachment([...attachment, ...files]);
     }
   };
 
   const handleDeleteAttachment = (indexToDelete: number) => {
-    setAttachment(prev => prev.filter((_, index) => index !== indexToDelete));
+    setAttachment((prev) => prev.filter((_, index) => index !== indexToDelete));
   };
 
   const handleSubmitComment = (e: React.FormEvent) => {
@@ -187,7 +204,7 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
 
     if (attachment.length) {
       attachment.forEach((file: any) => {
-        formDataApi.append('file', file);
+        formDataApi.append("file", file);
       });
     }
 
@@ -196,7 +213,6 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
     formDataApi.append("content", formData.content);
     formDataApi.append("name", formData.name);
     formDataApi.append("email", formData.email);
-    // formDataApi.append("productId", '2df8af0e-4710-4523-b285-9d97617ce6ef');
     formDataApi.append("productId", productId);
     formDataApi.append("userId", "001a0ab1-14a1-4016-b2ed-2e9dfa414245");
     dispatch({
@@ -219,7 +235,7 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
         <div className={classes.ReviewDiv}>
           <div className={classes.StarTextDiv}>
             <div className={classes.starContainer}>
-              {Array.from({ length: ratings }).map((_, index) => (
+              {/* {Array.from({ length: ratings }).map((_, index) => (
                 <SvgStarPurple500
                   viewBox="0 0 20 25"
                   width={20}
@@ -227,19 +243,32 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                   className={classes.starColor}
                   key={index}
                 />
-              ))}
+              ))} */}
+              {RatingStar(
+                Math.round(
+                  Number(store.productRating.dataGet?.data?.formattedAverage)
+                )
+              )}
             </div>
             <div>
-              <Typography variant="BS"> 5.00 out of 5</Typography>
+              <Typography variant="BS">
+                {" "}
+                {`${store.productRating.dataGet?.data?.formattedAverage}`} out
+                of 5
+              </Typography>
             </div>
           </div>
           <div>
-            <Typography variant="BS"> Based on 3 reviews</Typography>
+            <Typography variant="BS">
+              {" "}
+              Based on {`${store.productRating.dataGet?.data?.totalReviews}`}{" "}
+              reviews
+            </Typography>
           </div>
         </div>
         <div className={classes.RatingDiv}>
           <div className={classes.StarLogo}>
-            {ReviewData.star.map((log: any, idx: number) => (
+            {/* {ReviewData.star.map((log: any, idx: number) => (
               <div className={classes.starContainer}>
                 {Array.from({ length: ratings }).map((_, index) => (
                   <SvgStarPurple500
@@ -251,7 +280,54 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                   />
                 ))}
               </div>
-            ))}
+            ))} */}
+            <div className={classes.starContainer}>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "4px" }}
+              >
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+              </div>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "4px" }}
+              >
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+              </div>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "4px" }}
+              >
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+              </div>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "4px" }}
+              >
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+              </div>
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "4px" }}
+              >
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+                <SvgStarPurple500 className={classes.starColor} />
+              </div>
+            </div>
           </div>
           <div className={classes.Bar}></div>
           <div>3</div>
@@ -321,21 +397,27 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                   className={classes.Picture}
                   multiple
                   onChange={(e: any) =>
-                    handleFileChange(
-                      Array.from(e.target.files)
-                    )
+                    handleFileChange(Array.from(e.target.files))
                   }
                 />
                 <img src={drive} className={classes.DriveImg} alt="" />
               </div>
-              {attachment.length > 0 && attachment.map((item:any, index:any)=>(
-                <div className={classes.imagesCon}>
-                  <div className={classes.imgDelete}  onClick={() => handleDeleteAttachment(index)}>
-                    <SvgDelete/>
+              {attachment.length > 0 &&
+                attachment.map((item: any, index: any) => (
+                  <div className={classes.imagesCon}>
+                    <div
+                      className={classes.imgDelete}
+                      onClick={() => handleDeleteAttachment(index)}
+                    >
+                      <SvgDelete />
+                    </div>
+                    <img
+                      src={URL.createObjectURL(item)}
+                      alt=""
+                      className={classes.image}
+                    />
                   </div>
-                  <img src={URL.createObjectURL(item)} alt="" className={classes.image}/>  
-              </div>
-              ))}
+                ))}
               <div className={classes.FormWrapper}>
                 <label className={classes.Label}>
                   Name (displayed publicly like Anonymous )
@@ -381,7 +463,11 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                 onClick={handleCloseForm}
                 className={classes.BtnStyles}
               ></Button>
-              <Button text={"Submit Review"} className={classes.BtnStyle} onClick={handleSubmitComment}>
+              <Button
+                text={"Submit Review"}
+                className={classes.BtnStyle}
+                onClick={handleSubmitComment}
+              >
                 Submit Review
               </Button>
             </div>
@@ -425,54 +511,62 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
         ))}
       </div> */}
       <div className={classes.FeedBack}>
-      {store.comment.dataGetList?.data?.map((feed: any, idx: number) => (
-        <div key={idx} className={classes.FeedBackDiv}>
-          <div className={classes.Nav}>
-            {RatingStar(feed.reviewValue)}
-            <div style={{display:'flex', alignItems:'center', gap:'10px'}}>
-              <Typography variant="BS" style={{whiteSpace:'nowrap'}}>{dayjs(feed?.createdAt).format('YYYY-MM-DD')}</Typography>
+        {store.comment.dataGetList?.data?.map((feed: any, idx: number) => (
+          <div key={idx} className={classes.FeedBackDiv}>
+            <div className={classes.Nav}>
+              {RatingStar(feed.reviewValue)}
+              <div
+                style={{ display: "flex", alignItems: "center", gap: "10px" }}
+              >
+                <Typography variant="BS" style={{ whiteSpace: "nowrap" }}>
+                  {dayjs(feed?.createdAt).format("YYYY-MM-DD")}
+                </Typography>
+              </div>
             </div>
-          </div>
-          <div className={classes.ProfileDiv}>
-            <div className={classes.UserLogoDiv}>
-              <img src={feed.user.dP} className={classes.UserLogo} alt="" />
+            <div className={classes.ProfileDiv}>
+              <div className={classes.UserLogoDiv}>
+                <img src={feed.user.dP} className={classes.UserLogo} alt="" />
+              </div>
+              <div>
+                <Typography variant="TS">{feed.user.displayName}</Typography>
+              </div>
             </div>
-            <div>
-              <Typography variant="TS">{feed.user.displayName}</Typography>
-            </div>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "100%",
-              gap: "8px",
-            }}
-          >
-            <Typography variant="TS" className={classes.Title}>
-              {feed.title}
-            </Typography>
-            <Typography
-              variant="BS"
-              className={classes.description}
+            <div
               style={{
-                width: "100%", 
-                overflowWrap: "break-word", 
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+                gap: "8px",
               }}
             >
-              {feed.content}
-            </Typography>
+              <Typography variant="TS" className={classes.Title}>
+                {feed.title}
+              </Typography>
+              <Typography
+                variant="BS"
+                className={classes.description}
+                style={{
+                  width: "100%",
+                  overflowWrap: "break-word",
+                }}
+              >
+                {feed.content}
+              </Typography>
+            </div>
+            <div className={classes.ImgGalleryDiv}>
+              {feed.attachment.map((img: any, idx: number) => (
+                <div key={idx} className={classes.Img}>
+                  <img
+                    src={img.fileUrl}
+                    className={classes.ImgGallery}
+                    alt=""
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-          <div className={classes.ImgGalleryDiv}>
-            {feed.attachment.map((img: any, idx: number) => (
-              <div key={idx} className={classes.Img}>
-                <img src={img.fileUrl} className={classes.ImgGallery} alt="" />
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -643,6 +643,43 @@ export const initialState: Store = {
     errorDestroy: null,
   },
 
+  productRating: {
+    //create
+    isLoadingCreate: false,
+    isSuccessCreate: false,
+    isErrorCreate: false,
+    dataCreate: null,
+    errorCreate: null,
+
+    //get
+    isLoadingGet: false,
+    isSuccessGet: false,
+    isErrorGet: false,
+    dataGet: {},
+    errorGet: null,
+
+    //getlist
+    isLoadingGetList: false,
+    isSuccessGetList: false,
+    isErrorGetList: false,
+    dataGetList: null,
+    errorGetList: null,
+
+    //update
+    isLoadingUpdate: false,
+    isSuccessUpdate: false,
+    isErrorUpdate: false,
+    dataUpdate: null,
+    errorUpdate: null,
+
+    //destroy
+    isLoadingDestroy: false,
+    isSuccessDestroy: false,
+    isErrorDestroy: false,
+    dataDestroy: null,
+    errorDestroy: null,
+  },
+
   productAddToCart: {
     //create
     isLoadingCreate: false,

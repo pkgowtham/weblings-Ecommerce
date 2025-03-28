@@ -310,8 +310,14 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
   const location = useLocation();
   const { rowDataId } = location?.state || {};
   const hasDispatched = useRef(false);
+  const hasAddtoCartDispatched = useRef(false);
   const [currentImage, setCurrentImage] = useState("");
   const [thumbnailAttachments, setThumbnailAttachments] = useState<any[]>([]);
+
+  //checking the add to cart if exists
+  const isProductInCart = store.productAddToCart.dataGetList?.data?.some((item:any) => 
+    item.products.some((product:any) => product.id === rowDataId)
+  );
 
   // Filtered sizes based on selected color
   const filteredSizes = selectedColor
@@ -325,6 +331,10 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
     store.product.dataGet?.colors?.find(
       (color: any) => color.id === selectedColor?.id
     )?.attachments || [];
+
+    const allAttachments = store.product.dataGet?.colors
+    ?.flatMap((color: any) => color.attachments || []) 
+    || [];
 
   //product get
   useEffect(() => {
@@ -340,6 +350,20 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
         },
       });
       hasDispatched.current = true;
+    }
+  }, []);
+
+   //Add to cart getlist
+   useEffect(() => {
+    if (!hasAddtoCartDispatched.current) {
+      dispatch({
+        type: "PRODUCT_ADD_TO_CART_GETLIST_API_REQUEST",
+        payload: {
+          url: "/addToCart",
+          method: "GET",
+        },
+      });
+      hasAddtoCartDispatched.current = true;
     }
   }, []);
 
@@ -386,7 +410,7 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
       // Set the first attachment as the current image
       if (selectedColorAttachments.length > 0) {
         setCurrentImage(selectedColorAttachments[0].fileUrl);
-        setActiveIndex(0);
+        setActiveIndex(selectedColorAttachments[0]?.id);
       }
     }
   }, [selectedColor, selectedSize]);
@@ -536,6 +560,15 @@ const handleAddToCartSubmit = () => {
   })
 }
 
+const handleGoToCart = () => {
+  dispatch({
+    type: "OPEN_ADD_TO_CART_MODAL",
+    payload: {
+      isAddToCart: true,
+    },
+  })
+}
+
 const handleWishlist = () => {
   dispatch({
     type:"PRODUCT_WHISHLIST_CREATE_API_REQUEST",
@@ -580,12 +613,12 @@ const handleWishlist = () => {
         <div className={classes.LeftDiv}>
           <HideComponents showOnlyOn="desktop">
           <div className={classes.LeftDivSmall}>
-            {selectedColorAttachments.map((product: any, idx: number) => (
+            {allAttachments.map((product: any, idx: number) => (
               <div
-                onClick={() => handleImageClick(product.fileUrl, idx)}
+                onClick={() => handleImageClick(product.fileUrl, product?.id)}
                 key={idx}
                 className={clsx(classes.ImageDiv, {
-                  [classes.Boder]: activeIndex === idx,
+                  [classes.Boder]: activeIndex === product?.id,
                 })}
               >
                 <img src={product?.fileUrl} className={classes.Image} alt="" />
@@ -756,9 +789,9 @@ const handleWishlist = () => {
                   className={classes.buttonStyle}
                 ></Button>
                 <Button
-                  onClick={handleAddToCartSubmit}
+                  onClick={isProductInCart ? handleGoToCart : handleAddToCartSubmit}
                   className={classes.btnStyle}
-                  text="Add to Cart"
+                  text={isProductInCart ? 'Go to Cart' : "Add to Cart"}
                 ></Button>
                 <div className={classes.CircleContainer}>
                   <div className={classes.CircleImgDiv} onClick={handleWishlist}>

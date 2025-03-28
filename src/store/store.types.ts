@@ -641,6 +641,43 @@ export interface Store {
     errorDestroy: string | null;
   };
 
+  productRating: {
+    //create
+    isLoadingCreate: boolean;
+    isSuccessCreate: boolean;
+    isErrorCreate: boolean;
+    dataCreate: string | null;
+    errorCreate: string | null;
+
+    //get
+    isLoadingGet: boolean;
+    isSuccessGet: boolean;
+    isErrorGet: boolean;
+    dataGet: any;
+    errorGet: string | null;
+
+    //getlist
+    isLoadingGetList: boolean;
+    isSuccessGetList: boolean;
+    isErrorGetList: boolean;
+    dataGetList: any;
+    errorGetList: string | null;
+
+    //update
+    isLoadingUpdate: boolean;
+    isSuccessUpdate: boolean;
+    isErrorUpdate: boolean;
+    dataUpdate: string | null;
+    errorUpdate: string | null;
+
+    //destroy
+    isLoadingDestroy: boolean;
+    isSuccessDestroy: boolean;
+    isErrorDestroy: boolean;
+    dataDestroy: string | null;
+    errorDestroy: string | null;
+  };
+
   productAddToCart: {
     //create
     isLoadingCreate: boolean;

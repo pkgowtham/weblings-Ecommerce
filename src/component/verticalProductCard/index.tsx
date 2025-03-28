@@ -210,7 +210,7 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
                 />
               </div> */}
               <div
-                onClick={() => setViewModule(!viewModule)}
+                onClick={handleEdit}
                 className={classes.favouriteTwo}
               >
                 <SvgEye className={classes.eyeColor} />
