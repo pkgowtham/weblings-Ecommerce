@@ -204,8 +204,9 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
           display: "grid",
           gridTemplateColumns: "1fr",
           width: "100%",
-          height: "55%",
+          height: "30%",
           overflow: "auto",
+          scrollbarWidth:'thin'
         }}
       >
         {store.productAddToCart.dataGetList?.data?.map(

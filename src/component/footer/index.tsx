@@ -137,7 +137,7 @@ const Footer: React.FC<any> = (): JSX.Element => {
                     />
                   </label>
                 </div>
-                <div>
+                <div onClick={()=>localStorage.setItem('authToken','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAwMWEwYWIxLTE0YTEtNDAxNi1iMmVkLTJlOWRmYTQxNDI0NSIsImlhdCI6MTc0MjM1NzMyOSwiZXhwIjoxNzQ0OTQ5MzI5fQ.EfEEqv6jzafh3KclBTG1tiPCF3uJfxK4wGq1IzDD4Zc')}>
                   <Button text={"Sign Up"} className={classes.BtnStyle}></Button>
                 </div>
               </div>

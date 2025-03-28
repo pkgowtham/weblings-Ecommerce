@@ -244,5 +244,44 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display:'flex',
     alignItems:'center',
     gap:theme.spacing.s300
+  },
+  // filter side bar
+  FilterSideBar:{
+    width: "30%",
+    height: "100%",
+    backgroundColor: theme.light.neutral.surface.lighter,
+    boxShadow: theme.elevation.m,
+    position: "fixed",
+    top: "0%",
+    left: "0%",
+    zIndex: "1000",
+  },
+  headerContainer:{
+    width:'100%',
+    display:'flex',
+    alignItems:'center',
+    padding:`${theme.spacing.s500} ${theme.spacing.s600}`,
+    justifyContent:'space-between',
+    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+  },
+  filterMobileDiv:{
+    width: "100%",
+    padding:`${theme.spacing.s0} ${theme.spacing.s800}`,
+    overflow:'auto',
+    height:'630px',
+    scrollbarWidth:'thin'
+  },
+  clearButtonContainer:{
+    display:'flex',
+    width:'100%',
+    alignItems:'center',
+    justifyContent:'space-between',
+    borderTop: `1px solid ${theme.light.neutral.border.light}`,
+    padding:`${theme.spacing.s400} ${theme.spacing.s800}`,
+    backgroundColor: theme.light.neutral.surface.lighter,
+    boxShadow: theme.elevation.m,
+  },
+  clearAllText:{
+    textDecoration:'underline'
   }
 }));

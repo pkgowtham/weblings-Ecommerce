@@ -14,6 +14,7 @@ import SvgSearch from "../../custom-icons/Search";
 import SvgMenu from "../../custom-icons/Menu";
 import { HideComponents } from "../hideComponents";
 import SvgChevronRight from "../../custom-icons/ChevronRight";
+import SvgClose from "../../custom-icons/Close";
 
 const Header: React.FC<any> = (props): JSX.Element => {
   const classes = useStyle();
@@ -25,6 +26,7 @@ const Header: React.FC<any> = (props): JSX.Element => {
   const [shoppingCart, setShoppingCart] = useState<boolean>(false);
   const [isSignInModule, setIsSignInModule] = useState<boolean>(false);
   const dispatch = useMiddlewareDispatch();
+  const [sideBar, setSideBar] = useState<boolean>(false);
   const { store } = useStore();
 
   // navigate
@@ -40,13 +42,13 @@ const Header: React.FC<any> = (props): JSX.Element => {
             <Typography variant="TM">glozin</Typography>
           </HideComponents>
           <HideComponents hideOn="desktop">
-            <SvgMenu />
+            <SvgMenu cursor={"pointer"} onClick={() => setSideBar(!sideBar)} />
           </HideComponents>
         </div>
         {/* Main Navigation */}
-          <HideComponents  showOnlyOn="desktop">
-        <div className={classes.NavBarMain}>
-          {/* Navigation Links */}
+        <HideComponents showOnlyOn="desktop">
+          <div className={classes.NavBarMain}>
+            {/* Navigation Links */}
             {HeaderData?.links?.map((data: any, idx: number) => (
               <nav className="nav-links">
                 <ul key={idx}>
@@ -76,11 +78,11 @@ const Header: React.FC<any> = (props): JSX.Element => {
                 </ul>
               </nav>
             ))}
-        </div>
-          </HideComponents>
-          <HideComponents hideOn="desktop">
-            <Typography variant="TM">glozin</Typography>
-          </HideComponents>
+          </div>
+        </HideComponents>
+        <HideComponents hideOn="desktop">
+          <Typography variant="TM">glozin</Typography>
+        </HideComponents>
         {/* icons */}
         <div className={classes.Icons}>
           <HideComponents hideOn="mobile">
@@ -94,34 +96,34 @@ const Header: React.FC<any> = (props): JSX.Element => {
             <SvgSearch className={classes.leftIconColor} />
           </HideComponents>
           <HideComponents showOnlyOn="desktop">
-            <div style={{display:'flex', alignItems:'center',gap:"10px"}}>
-            <div>
-              <SvgUserRound
-                onClick={() => setIsSignInModule(!isSignInModule)}
-                cursor={"pointer"}
-                width={25}
-                viewBox="0 0 25 30"
-                height={20}
-              />
-            </div>
-            <div className={classes.wishList}>
-              <SvgHeart
-                onClick={handleNavigate}
-                cursor={"pointer"}
-                viewBox="0 0 40 40"
-                width={30}
-                height={25}
-              />
-              <Badge
-                style={{
-                  width: "18px",
-                  height: "18px",
-                  right: -5,
-                }}
-                count={"0"}
-                className={classes.badgeStyle}
-              />
-            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <div>
+                <SvgUserRound
+                  onClick={() => setIsSignInModule(!isSignInModule)}
+                  cursor={"pointer"}
+                  width={25}
+                  viewBox="0 0 25 30"
+                  height={20}
+                />
+              </div>
+              <div className={classes.wishList}>
+                <SvgHeart
+                  onClick={handleNavigate}
+                  cursor={"pointer"}
+                  viewBox="0 0 40 40"
+                  width={30}
+                  height={25}
+                />
+                <Badge
+                  style={{
+                    width: "18px",
+                    height: "18px",
+                    right: -5,
+                  }}
+                  count={"0"}
+                  className={classes.badgeStyle}
+                />
+              </div>
             </div>
           </HideComponents>
           <div className={classes.wishList}>
@@ -158,6 +160,35 @@ const Header: React.FC<any> = (props): JSX.Element => {
       )}
       {/* signin module */}
       {isSignInModule && <SignInModule onClose={setIsSignInModule} />}
+      {/* sidebar for mobile */}
+      {sideBar && (
+        <div className={classes.sideBarDiv}>
+          <div className={classes.headerDiv}>
+            <div className={classes.headerChild}>
+              <Typography variant="BM">Menu</Typography>
+              <Typography variant="BM">Categories</Typography>
+            </div>
+            <SvgClose
+              viewBox="0 0 30 30"
+              cursor={"pointer"}
+              width={30}
+              height={30}
+              className={classes.svgColor}
+              onClick={() => setSideBar(false)}
+            />
+          </div>
+          <div className={classes.bodyData}>
+          {HeaderData?.links?.map((data: any, idx: number) => (
+            <div className={classes.sideData}>
+              <Link to={data.path} className={classes.sideList}>
+                {data.link}
+                <SvgChevronRight />
+              </Link>
+            </div>
+          ))}
+          </div>
+        </div>
+      )}
     </header>
   );
 };

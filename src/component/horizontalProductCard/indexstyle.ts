@@ -18,6 +18,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "30%",
     cursor:'pointer',
     position:'relative',
+    height:'350px',
+    maxHeight:'350px',
     "@media (max-width : 768px)":{
       width:'100%',
     }

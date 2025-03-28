@@ -240,15 +240,6 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
           </div>
           {/* Star Rating Mapping */}
           <div className={classes.starContainer}>
-            {/* {Array.from({ length: rating }).map((_, index) => (
-              <SvgStarPurple500
-                viewBox="0 0 20 25"
-                width={20}
-                height={20}
-                className={classes.starColor}
-                key={index}
-              />
-            ))} */}
             {RatingStar(Math.round(products?.aggregateReviewValue?.averageRating))}
           </div>
           {/* price */}
@@ -270,9 +261,6 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
                 <div
                   onClick={() => handleColorChange(dat)}
                   key={index}
-                  // className={clsx(classes.ProductImgDiv, {
-                  //   [classes.ProductBoder]: dat.name === selectedColor?.name,
-                  // })}
                   className={clsx(classes.imageDiv, {
                     [classes.activeStatus]: dat.name === selectedColor?.name,
                   })}

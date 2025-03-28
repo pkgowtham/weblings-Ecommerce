@@ -266,11 +266,11 @@ const ShopingCartPage = () => {
               </div>
             ))}
           </div>
-          </HideComponents>
+        </HideComponents>
         {/* product forms section right side  */}
         <div className={classes.rightContainer}>
           {/* review cards */}
-         
+
           <div className={classes.contentsDiv}>
             {/* free shipping div */}
             <div className={classes.freeShipingDiv}>

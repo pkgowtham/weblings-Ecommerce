@@ -17,6 +17,7 @@ import { HideComponents } from "../../component/hideComponents";
 import Button from "../../component/button";
 import { useStore } from "../../store";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
+import SvgClose from "../../custom-icons/Close";
 
 const productData = {
   //   productcategory: "Product Category",
@@ -394,6 +395,7 @@ const bannerData = {
 
 const CategoryPage = () => {
   const classes = useStyle();
+  const [filterSideBar, setFilterSideBar] = useState<boolean>(false);
   const [isDropDownopen, setIsDropDownOpen] = useState<number | null>(null);
   const [isShortDownopen, setIsShortDownOpen] = useState<boolean>(false);
   const [layout, setLayout] = useState("fourColumns");
@@ -602,19 +604,21 @@ const CategoryPage = () => {
               <div className={classes.filterCont}>
                 <div>
                   <Button
+                    onClick={() => setFilterSideBar(!filterSideBar)}
                     className={classes.buttonStyle}
                     leftIcon={<SvgAdd />}
                     text={"Filter"}
                   ></Button>
                 </div>
-
-                <div>
-                  <Button
-                    className={classes.buttonStyleDrop}
-                    text={"Short By"}
-                    rightIcon={<SvgChevronRight />}
-                  ></Button>
-                </div>
+                <HideComponents hideOn="tablet">
+                  <div>
+                    <Button
+                      className={classes.buttonStyleDrop}
+                      text={"Short By"}
+                      rightIcon={<SvgChevronRight />}
+                    ></Button>
+                  </div>
+                </HideComponents>
               </div>
             </HideComponents>
             <div>
@@ -704,6 +708,163 @@ const CategoryPage = () => {
           )}
         </div>
       </div>
+      {/* filter side bar for mobile and tablet */}
+      {filterSideBar && (
+        <div className={classes.FilterSideBar}>
+          {/* header */}
+          <div className={classes.headerContainer}>
+            <Typography variant="TS">Filter</Typography>
+            <SvgClose
+              viewBox="0 0 30 30"
+              cursor={"pointer"}
+              width={30}
+              height={30}
+              onClick={()=>setFilterSideBar(false)}
+            />
+          </div>
+          {/* filter contents */}
+          <div className={classes.filterMobileDiv}>
+            {productData.filteroptions.map((data: any) => (
+              <div key={data.id} className={classes.filterHead}>
+                {/* head content */}
+                <div className={classes.headContent}>
+                  <Typography variant="BM">{data.name}</Typography>
+                  <SvgAdd
+                    onClick={() => toogleSection(data.id)}
+                    cursor={"pointer"}
+                    className={classes.svgColor}
+                  />
+                </div>
+                {/* dropdown for category */}
+                {isDropDownopen === data.id && data.name === "Product" && (
+                  <div className={classes.expandDiv}>
+                    {data?.categories?.map((item: any) => (
+                      <div className={classes.itemDiv}>
+                        <Typography className={classes.lightColor} variant="BS">
+                          {item}
+                        </Typography>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {/* dropdown for SubCategory */}
+                {isDropDownopen === data.id && data.name === "SubCategory" && (
+                  <div className={classes.expandDiv}>
+                    {data?.categories?.map((item: any) => (
+                      <div className={classes.itemDiv}>
+                        <Typography className={classes.lightColor} variant="BS">
+                          {item}
+                        </Typography>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {/* dropdown for availability */}
+                {isDropDownopen === data.id && data.name === "Availability" && (
+                  <div className={classes.expandDiv}>
+                    {data?.stock?.map((stock: any) => (
+                      <div className={classes.checkBoxDiv}>
+                        <input type="checkbox" />
+                        <Typography className={classes.lightColor} variant="BS">
+                          {stock}
+                        </Typography>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {/* dropdown for price */}
+                {isDropDownopen === data.id && data.name === "Price" && (
+                  <div className={classes.priceDiv}>
+                    <div className={classes.inputDiv}>
+                      <input
+                        className={classes.inputStyle}
+                        placeholder="₹ 0.00"
+                        type="text"
+                      />
+                      <div>-</div>
+                      <input
+                        placeholder="₹ 0.00"
+                        className={classes.inputStyle}
+                        type="text"
+                      />
+                    </div>
+                    <div></div>
+                    <div className={classes.priceVariation}>
+                      <Typography variant="BS">
+                        {data.price}
+                        {data.startprice}
+                        {data.endprice}
+                      </Typography>
+                    </div>
+                  </div>
+                )}
+                {/* dropdown for brand */}
+                {isDropDownopen === data.id && data.name === "Brand" && (
+                  <div className={classes.expandDiv}>
+                    {data?.brands?.map((brand: any) => (
+                      <div className={classes.checkBoxDiv}>
+                        <input type="checkbox" />
+                        <Typography className={classes.lightColor} variant="BS">
+                          {brand}
+                        </Typography>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {/* dropdown for color */}
+                {isDropDownopen === data.id && data.name === "Color" && (
+                  <div className={classes.colorDiv}>
+                    {data?.color?.map((color: any) => (
+                      <div
+                        style={{
+                          border:
+                            selectedColor === color
+                              ? `1px solid ${theme.light.neutral.onSurface.title}`
+                              : "2px solid transparent",
+                          width: "35px",
+                          height: "35px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          borderRadius: "50%",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <div
+                          className={clsx(classes.ColorStyle, {
+                            [classes.Red]: color === "#E00028",
+                            [classes.war]: color === "#B15600",
+                            [classes.green]: color === "#36A040",
+                            [classes.blue]: color === "#0072C4",
+                            [classes.purple]: color === "#9E29FE",
+                            [classes.gray]: color === "#6F6F6F",
+                          })}
+                          onClick={() => setSelectedColor(color)}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {/* dropdown for size */}
+                {isDropDownopen === data.id && data.name === "Size" && (
+                  <div className={classes.sizedDiv}>
+                    {data?.size?.map((size: any) => (
+                      <div className={classes.sizeStyle}>
+                        <Typography variant="BM">{size}</Typography>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          {/* buttons for apply nd clear */}
+          <div className={classes.clearButtonContainer}>
+            <Typography className={classes.clearAllText} variant="TS">Clear All</Typography>
+            <Button text={"Apply"}></Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

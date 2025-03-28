@@ -9,8 +9,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     flexDirection: "column",
   },
   productCard: {
-    height: "fit-content",
+    // height: "fit-content",
     width: "auto",
+    display:'flex',
+    flexDirection:'column',
   },
   itemStyle: {
     width: "100%",
@@ -72,8 +74,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   imageContainer: {
     position: "relative",
-    minHeight:'428px',
-    maxHeight:'430px'
+    width:'100%',
+    height:'350px',
+    maxHeight:'350px'
   },
   favourite: {
     height: "48px",
