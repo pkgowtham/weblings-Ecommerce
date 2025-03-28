@@ -395,6 +395,7 @@ const bannerData = {
 
 const CategoryPage = () => {
   const classes = useStyle();
+  const [filterDownBar, setFilterDownBar] = useState<boolean>(false);
   const [filterSideBar, setFilterSideBar] = useState<boolean>(false);
   const [isDropDownopen, setIsDropDownOpen] = useState<number | null>(null);
   const [isShortDownopen, setIsShortDownOpen] = useState<boolean>(false);
@@ -749,6 +750,7 @@ const CategoryPage = () => {
                 <HideComponents hideOn="tablet">
                   <div>
                     <Button
+                      onClick={() => setFilterDownBar(!filterDownBar)}
                       className={classes.buttonStyleDrop}
                       text={"Short By"}
                       rightIcon={<SvgChevronRight />}
@@ -809,12 +811,34 @@ const CategoryPage = () => {
               </div>
             </HideComponents>
             <HideComponents showOnlyOn="tablet">
-              <div>
+              <div className={classes.tabletShortBy}>
                 <Button
+                  onClick={() => setIsShortDownOpen(!isShortDownopen)}
                   className={classes.buttonStyleDrop}
-                  text={"Short By"}
+                  text={"Short By :"}
                   rightIcon={<SvgChevronRight />}
                 ></Button>
+                {/* featured short dropdown */}
+                {isShortDownopen && (
+                  <div ref={shortRef} className={classes.shortDropDownTablet}>
+                    {productData.shortdropdown.map((data: any) => (
+                      <div
+                        onClick={() => handleShortData(data.name)}
+                        className={classes.contentDiv}
+                      >
+                        <Typography
+                          className={clsx(classes.lightColor, {
+                            [classes.activeStatus]: shortBy === data.name,
+                          })}
+                          key={data.id}
+                          variant="BS"
+                        >
+                          {data.name}
+                        </Typography>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </HideComponents>
           </div>
@@ -1001,6 +1025,27 @@ const CategoryPage = () => {
             </Typography>
             <Button text={"Apply"}></Button>
           </div>
+        </div>
+      )}
+      {/* mobile filter */}
+      {filterDownBar && (
+        <div className={classes.downBarContainer}>
+          {productData.shortdropdown.map((data: any) => (
+            <div
+              onClick={() => handleShortData(data.name)}
+              className={classes.contentDiv}
+            >
+              <Typography
+                className={clsx(classes.lightColor, {
+                  [classes.activeStatus]: shortBy === data.name,
+                })}
+                key={data.id}
+                variant="BM"
+              >
+                {data.name}
+              </Typography>
+            </div>
+          ))}
         </div>
       )}
     </div>

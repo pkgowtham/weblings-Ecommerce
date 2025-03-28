@@ -119,7 +119,13 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     height: "100%",
     zIndex: 30,
     backgroundColor: theme.light.neutral.surface.lighter,
-    boxShadow:theme.elevation.m
+    boxShadow:theme.elevation.m,
+    "@media (max-width : 1024px)":{
+      width:'40%'
+    },
+    "@media (max-width : 768px)":{
+      width:'100%'
+    }
   },
   headerDiv: {
     width: "100%",

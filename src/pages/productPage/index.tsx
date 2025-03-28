@@ -23,6 +23,7 @@ import ProductImage from "../../component/productImage";
 import { useStore } from "../../store";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { deepGet } from "../../util/util";
+import { HideComponents } from "../../component/hideComponents";
 
 const ProductData = {
   logo: [
@@ -577,6 +578,7 @@ const handleWishlist = () => {
       </nav>
       <div className={classes.ProductContainer}>
         <div className={classes.LeftDiv}>
+          <HideComponents showOnlyOn="desktop">
           <div className={classes.LeftDivSmall}>
             {selectedColorAttachments.map((product: any, idx: number) => (
               <div
@@ -590,6 +592,7 @@ const handleWishlist = () => {
               </div>
             ))}
           </div>
+          </HideComponents>
           <div className={classes.ImgDiv}>
             <img src={currentImage} alt="" className={classes.Img} />
             {/* <ProductImage imageUrl={currentImage}/> */}
@@ -603,7 +606,7 @@ const handleWishlist = () => {
             </Typography>
           </div>
           <div>
-            <Typography variant="TS">
+            <Typography variant="TM">
               {/* Cotton Long-Sleeve Striped T-shirt */}
               {store.product.dataGet?.name}
             </Typography>
@@ -623,7 +626,7 @@ const handleWishlist = () => {
             <Typography variant="TS">{price?.mrp}</Typography>
           </div>
           <div>
-            <Typography variant="BS">
+            <Typography variant="BM">
               {/* The cotton long-sleeved striped t-shirt features a classic crew
               neckline, easy short sleeves, a slightly cropped length and a
               relaxed fit for a truly timeless look. */}
@@ -632,17 +635,17 @@ const handleWishlist = () => {
           </div>
           <div className={classes.Table}>
             <div className={classes.TableContent}>
-              <Typography variant="BS">
+              <Typography variant="BM">
                 Estimate delivery times: 3-5 days International.
               </Typography>
             </div>
             <div className={classes.TableContent}>
-              <Typography variant="BS">
+              <Typography variant="BM">
                 Use code "WELCOME15" for discount 15% on your first order.
               </Typography>
             </div>
             <div className={classes.TableContentBoder}>
-              <Typography variant="BS">
+              <Typography variant="BM">
                 Free shipping & returns: On all orders over $150.
               </Typography>
             </div>
@@ -652,14 +655,14 @@ const handleWishlist = () => {
               <img src={eye} alt="" className={classes.EyeImg} />
             </div>
             <div>
-              <Typography variant="BS">
+              <Typography variant="BM">
                 18 peoples are viewing this right now
               </Typography>
             </div>
           </div>
           <div className={classes.ColorSection}>
             <div className={classes.Gray}>
-              <Typography variant="BS">Color: {selectedColor?.name}</Typography>
+              <Typography variant="BM">Color: {selectedColor?.name}</Typography>
             </div>
             <div className={classes.Product}>
               {/* {ProductData?.productimg?.map((dat: any, index: number) => (
@@ -699,7 +702,7 @@ const handleWishlist = () => {
             <div className={classes.SizeSection}>
               <div className={classes.SizeNav}>
                 <div>
-                  <Typography variant="BS">
+                  <Typography variant="BM">
                     Size: {selectedSize?.sizeVariant}
                   </Typography>
                 </div>

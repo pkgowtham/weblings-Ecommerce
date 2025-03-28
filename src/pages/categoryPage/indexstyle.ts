@@ -263,6 +263,12 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     top: "0%",
     left: "0%",
     zIndex: "1000",
+    "@media (max-width : 1024px)":{
+      width:'40%'
+    },
+    "@media (max-width : 768px)":{
+      width:'100%'
+    }
   },
   headerContainer:{
     width:'100%',
@@ -276,8 +282,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "100%",
     padding:`${theme.spacing.s0} ${theme.spacing.s800}`,
     overflow:'auto',
-    height:'630px',
-    scrollbarWidth:'thin'
+    height:'590px',
+    scrollbarWidth:'thin',
+  
   },
   clearButtonContainer:{
     display:'flex',
@@ -291,5 +298,32 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   clearAllText:{
     textDecoration:'underline'
+  },
+  tabletShortBy:{
+    position:'relat'
+  },
+  shortDropDownTablet:{
+    width: "200px",
+    height: "fit-content",
+    backgroundColor: theme.light.neutral.surface.lighter,
+    boxShadow: theme.elevation.m,
+    position: "absolute",
+    top: "88%",
+    right: "6%",
+    borderRadius: theme.borderRadius.b200,
+    padding: theme.spacing.s500,
+    zIndex:30
+  },
+  downBarContainer:{
+    width: "100%",
+    height: "40%",
+    backgroundColor: theme.light.neutral.surface.lighter,
+    boxShadow: theme.elevation.m,
+    position: "fixed",
+    bottom:'0',
+    left:0,
+    zIndex: "1000",
+    padding:`${theme.spacing.s500} ${theme.spacing.s600}`,
+    borderRadius:theme.borderRadius.b250,
   }
 }));

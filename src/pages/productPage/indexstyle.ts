@@ -8,12 +8,13 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "center",
   },
   Nav: {
-    width: "76%",
+    width: "90%",
     height: "40px",
     padding: theme.spacing.s500,
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    flexWrap:'wrap'
   },
   navContent: {
     display: "flex",
@@ -23,18 +24,33 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   ProductContainer: {
     display: "flex",
     width: "100%",
-    maxWidth: "1170px",
+    // maxWidth: "1170px",
     height: "100%",
-    maxHeight: "700px",
+    // maxHeight: "700px",
     gap: theme.spacing.s600,
     marginTop: theme.spacing.s500,
+    margin:'0 auto',
+    justifyContent:'center',
+    "@media (max-width :1024px)":{
+      width:'100%',
+      padding:theme.spacing.s300
+    },
+    "@media (max-width :768px)":{
+      width:'100%',
+      padding:theme.spacing.s300,
+      display:'flex',
+      flexDirection:'column'
+    },
   },
   LeftDiv: {
     display: "flex",
     gap: theme.spacing.s200,
     width: "580px",
     // maxHeight:'700px',
-    // position:'sticky'
+    // position:'sticky',
+    "@media (max-width :768px)":{
+      width:'100%',
+    },
   },
   LeftDivSmall: {
     display: "flex",
@@ -59,8 +75,12 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   ImgDiv: {
     width: "100%",
-    maxWidth: "525px",
+    height:'50%',
+    // maxWidth: "525px",
     // height: "700px",
+    "@media (max-width :768px)":{
+      width:'100%',
+    },
   },
   Img: {
     width: "100%",
@@ -70,7 +90,6 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   RightDiv: {
     width: "580px",
-    // maxHeight:'700px',
     overflow: "auto",
     display: "flex",
     flexDirection: "column",
@@ -84,6 +103,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     },
     "&::-webkit-scrollbar-track": {
       display: "none",
+    },
+    "@media (max-width :768px)":{
+      width:'100%', 
+      overflow:'visible'
     },
   },
   StarDiv: {
@@ -363,7 +386,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     alignItems: "center",
     gap: theme.spacing.s300,
-    marginTop:theme.spacing.s300
+    marginTop:theme.spacing.s300,
+    flexWrap:'wrap'
   },
   buttonColor: {
     "& path": {
