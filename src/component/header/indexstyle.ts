@@ -47,11 +47,12 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "center",
     cursor: "pointer",
     textDecoration: "none",
+    position: "relative",
     color: theme.light.neutral.onSurface.medium,
-    // '&:hover': {
-    //     color: theme.light.brand.onSurface.default,
-    //     transition: "color 0.3s",
-    // }
+    "&:hover": {
+      color: theme.light.negative.onSurface.medium,
+      transition: "color 0.3s",
+    },
   },
   RightLogo: {
     height: "20px",
@@ -59,8 +60,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   Dropdown: {
     position: "absolute",
-    top: "75%",
-    left: "29%",
+    top: "95%",
+    left: "0%",
     border: `1px solid ${theme.light.neutral.border.light}`,
     padding: theme.spacing.s300,
     borderRadius: theme.borderRadius.b250,
@@ -68,17 +69,19 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     backgroundColor: theme.light.neutral.surface.lighter,
     boxShadow: theme.elevation.m,
-    zIndex: 10,
-    width: "40%",
+    zIndex: 30,
+    width: "250px",
     height: "fit-content",
   },
   datas: {
     width: "100%",
     height: "fit-content",
     padding: theme.spacing.s250,
+    textDecoration: "none",
+    color: theme.light.neutral.onSurface.title,
     "&:hover": {
       backgroundColor: theme.light.neutral.surface.light,
-      borderRadius: theme.spacing.s100,
+      borderRadius: theme.spacing.s200,
       transition: "color 0.3s",
     },
   },
@@ -117,55 +120,120 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     left: "0",
     position: "fixed",
     height: "100%",
-    zIndex: 30,
+    zIndex: 90,
     backgroundColor: theme.light.neutral.surface.lighter,
-    boxShadow:theme.elevation.m,
-    "@media (max-width : 1024px)":{
-      width:'40%'
+    boxShadow: theme.elevation.m,
+    "@media (max-width : 1024px)": {
+      width: "40%",
     },
-    "@media (max-width : 768px)":{
-      width:'100%'
-    }
+    "@media (max-width : 768px)": {
+      width: "100%",
+    },
   },
   headerDiv: {
     width: "100%",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    padding:`${theme.spacing.s500} ${theme.spacing.s600}`,
+    padding: `${theme.spacing.s500} ${theme.spacing.s600}`,
     color: theme.light.neutral.surface.light,
     backgroundColor: theme.light.negative.onSurface.medium,
   },
   headerChild: {
     display: "flex",
     alignItems: "flex-start",
-    gap:theme.spacing.s500
+    gap: theme.spacing.s500,
   },
-  svgColor:{
-    '& path' :{
-      fill:theme.light.neutral.surface.light
-    }
+  svgColor: {
+    "& path": {
+      fill: theme.light.neutral.surface.light,
+    },
   },
-  sideData:{
-    width:'100%',
-    display:'flex',
-    flexDirection:'column',
-    alignItems:'flex-start',
-    padding:theme.spacing.s600,
+  sideData: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    padding: theme.spacing.s600,
     borderBottom: `1px solid ${theme.light.neutral.border.light}`,
   },
-  sideList:{
-    display:'flex',
-    width:'100%',
-    alignItems:'center',
-    justifyContent:'space-between',
+  sideList: {
+    display: "flex",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "space-between",
     textDecoration: "none",
     color: theme.light.neutral.onSurface.title,
   },
-  bodyData:{
-    width:'100%',
+  bodyData: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    padding: `${theme.spacing.s0} ${theme.spacing.s500}`,
+  },
+  navBarCategories: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: theme.spacing.s300,
+    width: "100%",
+    gap: theme.spacing.s800,
+    // borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+  },
+  rotateIcon: {
+    transform: "rotate(90deg)",
+    transition: "transform 0.3 ease-in-out",
+  },
+  searchDiv: {},
+  SearchDropDown: {
+    width: "100%",
+    background: theme.light.neutral.surface.lighter,
+    zIndex: "100",
+    overflow: "auto",
+    height: "650px",
+    scrollbarWidth: "thin",
+    position: "absolute",
+    left: 0,
+    padding: `${theme.spacing.s1200} ${theme.spacing.s300}`,
     display:'flex',
     flexDirection:'column',
-    padding:`${theme.spacing.s0} ${theme.spacing.s500}`
+    gap:theme.spacing.s500
+  },
+  categories: {
+    width: "100%",
+    display: "flex",
+    alignItems: "flex-start",
+    gap: theme.spacing.s500,
+    // marginTop:theme.spacing.s250
+    // borderTop: `1px solid ${theme.light.neutral.border.light}`,
+  },
+  categoryStyle: {},
+  trendingStyle: {
+    padding: `${theme.spacing.s200} ${theme.spacing.s500}`,
+    height: "fit-content",
+    width: "fit-content",
+    border: `1px solid ${theme.light.neutral.border.light}`,
+    borderRadius: theme.spacing.s200,
+    cursor: "pointer",
+  },
+  gridContainer:{
+    display:'grid',
+    gridTemplateColumns:"repeat(5,1fr)",
+    gap: theme.spacing.s500,
+    width: "100%",
+    margin: "auto",
+    marginTop: theme.spacing.s800,
+    "@media (max-width: 1024px)": {
+      gridTemplateColumns: "repeat(3, 1fr)",
+    },
+    "@media (max-width: 767px)": {
+      gridTemplateColumns: "repeat(5, 1fr)",
+    },
+  },
+  header:{
+    display:'flex',
+    alignItems:'center',
+    width:'100%',
+    justifyContent:'space-between'
   }
 }));

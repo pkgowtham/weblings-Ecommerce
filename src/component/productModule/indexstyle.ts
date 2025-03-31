@@ -168,10 +168,12 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   buttonContainer: {
     width: "100%",
     display: "flex",
-    flexWrap: "wrap",
     alignItems: "center",
     gap: theme.spacing.s300,
-    // justifyContent:'space-between',
+    '@media (max-width: 1024px)':{
+      display:'flex',
+      flexWrap:'wrap'
+    }
   },
   CircleContainer: {
     display: "flex",

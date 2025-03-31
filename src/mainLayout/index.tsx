@@ -6,35 +6,135 @@ import Footer from "../component/footer";
 
 const data = {
   links: [
-    { id:1, 
+    {
+      id: 1,
       link: "Home",
-      path:"/mainLayout/home",
+      path: "/mainLayout/home",
       logo: right,
-      dropdownItems: ["Submenu 1", "Submenu 2", "Submenu 3"],
+      categories: "Home & Furniture",
+      trendings: "T-Shirts",
+      verticaldata: "",
+      dropdownItems: [
+        {
+          id: 1,
+          navigation: "/mainLayout/categorypage",
+          name: "Sofa",
+        },
+        {
+          id: 2,
+          navigation: "/mainLayout/categorypage",
+          name: "Bed",
+        },
+        {
+          id: 3,
+          navigation: "/mainLayout/categorypage",
+          name: "Mattress",
+        },
+      ],
     },
-    { id:2,
+    {
+      id: 2,
       link: "Shop",
-      path:"/mainLayout/collectionlist",
+      path: "/mainLayout/collectionlist",
       logo: right,
-      dropdownItems: ["Submenu 4", "Submenu 5", "Submenu 6"],
+      trendings: "T-Shirts",
+      verticaldata: "",
+      dropdownItems: [
+        {
+          id: 1,
+          navigation: "/mainLayout/categorypage",
+          name: "T-shirts",
+        },
+        {
+          id: 2,
+          navigation: "/mainLayout/categorypage",
+          name: "Formal-Shirts",
+        },
+        {
+          id: 3,
+          navigation: "/mainLayout/categorypage",
+          name: "Sweeters",
+        },
+      ],
+      categories: "Dress",
     },
-    { id:3,
+    {
+      id: 3,
       link: "Products",
-      path:"/mainLayout/categorypage",
+      path: "/mainLayout/categorypage",
       logo: right,
-      dropdownItems: ["Submenu 7", "Submenu 8", "Submenu 9"],
+      trendings: "T-Shirts",
+      verticaldata: "",
+      dropdownItems: [
+        {
+          id: 1,
+          navigation: "/mainLayout/categorypage",
+          name: "Mobile",
+        },
+        {
+          id: 2,
+          navigation: "/mainLayout/categorypage",
+          name: "Laptop",
+        },
+        {
+          id: 3,
+          navigation: "/mainLayout/categorypage",
+          name: "MobileAccessories",
+        },
+      ],
+      categories: "Electronics",
     },
-    { id:4,
+    {
+      id: 4,
       link: "Pages",
-      path:"/mainLayout/sucesspage",
+      path: "/mainLayout/sucesspage",
       logo: right,
-      dropdownItems: ["Submenu 10", "Submenu 11", "Submenu 12"],
+      trendings: "T-Shirts",
+      verticaldata: "",
+      dropdownItems: [
+        {
+          id: 1,
+          navigation: "/mainLayout/categorypage",
+          name: "Television",
+        },
+        {
+          id: 2,
+          navigation: "/mainLayout/categorypage",
+          name: "Washing Machines",
+        },
+        {
+          id: 3,
+          navigation: "/mainLayout/categorypage",
+          name: "Refrigatores",
+        },
+      ],
+      categories: "Tv & Appliances",
     },
-    { id:5,
+    {
+      id: 5,
       link: "Blog",
-      path:"/mainLayout/paymentfailed",
+      path: "/mainLayout/paymentfailed",
       logo: right,
-      dropdownItems: ["Submenu 10", "Submenu 11", "Submenu 12"],
+      trendings: "T-Shirts",
+      verticaldata: "",
+      dropdownItems: [
+        {
+          id: 1,
+          navigation: "/mainLayout/categorypage",
+          name: "Cricket Bat",
+        },
+        {
+          id: 2,
+          navigation: "/mainLayout/categorypage",
+          name: "Supplements",
+        },
+        {
+          id: 3,
+          navigation: "/mainLayout/categorypage",
+          name: "Books",
+        },
+      ],
+      categories: "Sports books & more",
     },
   ],
 };
@@ -45,7 +145,7 @@ const MainLayout = () => {
     <div className={classes.mainContainer}>
       <Header HeaderData={data} />
       <Outlet />
-      <Footer/>
+      <Footer />
     </div>
   );
 };

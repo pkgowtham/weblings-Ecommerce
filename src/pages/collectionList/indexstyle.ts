@@ -37,7 +37,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
       gridTemplateColumns: "repeat(3, 1fr)",
     },
     "@media (max-width: 767px)": {
-      gridTemplateColumns: "repeat(2, 1fr)",
+      gridTemplateColumns: "repeat(5, 1fr)",
     },
   },
   gridItem: {
