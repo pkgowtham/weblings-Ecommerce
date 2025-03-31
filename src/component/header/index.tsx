@@ -372,7 +372,13 @@ const Header: React.FC<any> = (props): JSX.Element => {
                 <div className={classes.SearchDropDown}>
                   <div className={classes.header}>
                     <Typography variant="TS">Trending Search</Typography>
-                    <SvgClose cursor={'pointer'} onClick={()=>setSearchDropDown(false)} viewBox="0 0 30 30" width={30} height={30} />
+                    <SvgClose
+                      cursor={"pointer"}
+                      onClick={() => setSearchDropDown(false)}
+                      viewBox="0 0 30 30"
+                      width={30}
+                      height={30}
+                    />
                   </div>
                   <div className={classes.categories}>
                     {HeaderData?.links?.map((data: any) => (
@@ -414,12 +420,12 @@ const Header: React.FC<any> = (props): JSX.Element => {
                 />
               </div>
               <div className={classes.wishList}>
-                <SvgBuy
+                <SvgHeart
                   onClick={handleNavigate}
                   cursor={"pointer"}
-                  viewBox="0 0 20 30"
-                  width={30}
-                  height={30}
+                 viewBox="0 0 45 30"
+                  width={25}
+                  height={25}
                 />
                 <Badge
                   style={{
@@ -434,11 +440,11 @@ const Header: React.FC<any> = (props): JSX.Element => {
             </div>
           </HideComponents>
           <div className={classes.wishList}>
-            <SvgHeart
-              viewBox="0 0 40 40"
-              width={30}
-              height={25}
+            <SvgBuy
               cursor={"pointer"}
+              viewBox="0 0 25 25"
+              width={25}
+              height={25}
               onClick={() =>
                 dispatch({
                   type: "OPEN_ADD_TO_CART_MODAL",
