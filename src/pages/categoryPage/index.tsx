@@ -77,12 +77,12 @@ const productData = {
     },
   ],
   shortdropdown: [
-    { id: 1, name: "Featured" },
-    { id: 2, name: "Best selling" },
+    // { id: 1, name: "Featured" },
+    // { id: 2, name: "Best selling" },
     { id: 3, name: "price,low to high" },
     { id: 4, name: "price,high to low" },
-    { id: 5, name: "Date,old to new" },
-    { id: 6, name: "Date,new to old" },
+    { id: 5, name: "date,old to new" },
+    { id: 6, name: "date,new to old" }, 
   ],
   products: [
     {
@@ -402,7 +402,7 @@ const CategoryPage = () => {
   const [isShortDownopen, setIsShortDownOpen] = useState<boolean>(false);
   const [layout, setLayout] = useState("fourColumns");
   const [selectedColor, setSelectedColor] = useState<string>("#E00028");
-  const [shortBy, setShortBy] = useState("Featured");
+  const [shortBy, setShortBy] = useState<string>("");
   const shortRef = useRef<HTMLDivElement>(null);
   const hasDispatched = useRef(false);
   const hasCatDispatched = useRef(false);
@@ -415,7 +415,6 @@ const CategoryPage = () => {
   const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
   const [selectedSize, setSelectedSize] = useState<any>("");
   const hasWishlistDispatched = useRef(false);
-  const [filteredOption, setFilteredOption] = useState<any>({})
 
   //Wishlist getlist
   useEffect(() => {
@@ -456,6 +455,9 @@ const CategoryPage = () => {
     deepGet(store, "productWishlist.isSuccessDestroy"),
   ]);
 
+
+  
+
   useEffect(() => {
     const handleClickOutside = (event: any) => {
       if (shortRef.current && !shortRef.current.contains(event.target)) {
@@ -469,9 +471,26 @@ const CategoryPage = () => {
   });
   // short data
   const handleShortData = (data: any) => {
+    console.log('data',data)
     setShortBy(data);
     setIsShortDownOpen(false);
   };
+
+  useEffect(() => {
+    if(shortBy){
+      dispatch({
+        type: "PRODUCT_GETLIST_API_REQUEST",
+        payload: {
+          url: "/product",
+          method: "GET",
+          query:{
+            sortBy:shortBy
+          }
+        },
+      });
+    }
+  }, [shortBy])
+  
 
   //
   const toogleSection = (id: number) => {
@@ -488,6 +507,7 @@ const CategoryPage = () => {
           method: "GET",
         },
       });
+      setShortBy("price,low to high")
       hasDispatched.current = true;
     }
   }, []);
@@ -555,7 +575,7 @@ const CategoryPage = () => {
         payload: {
           url: "/product",
           method: "GET",
-          query: { brand: selectedBrand.join(",") },
+          query: { brand: selectedBrand.join(","), sortBy: shortBy },
         },
       });
     }
@@ -564,14 +584,14 @@ const CategoryPage = () => {
   const handleSubCategoryClick = (id: string) => {
     dispatch({
       type: "PRODUCT_GETLIST_API_REQUEST",
-      payload: { url: "/product", method: "GET", query: { subCategory: id } },
+      payload: { url: "/product", method: "GET", query: { subCategory: id, sortBy: shortBy } },
     });
   };
 
   const handleCategoryClick = (id: string) => {
     dispatch({
       type: "PRODUCT_GETLIST_API_REQUEST",
-      payload: { url: "/product", method: "GET", query: { category: id } },
+      payload: { url: "/product", method: "GET", query: { category: id, sortBy: shortBy } },
     });
   };
 
@@ -582,7 +602,7 @@ const CategoryPage = () => {
       payload: {
         url: "/product",
         method: "GET",
-        query: { color: color?.id, sortBy: "price,high to low" },
+        query: { color: color?.id, sortBy: shortBy },
       },
     });
   };
@@ -594,7 +614,7 @@ const CategoryPage = () => {
       payload: {
         url: "/product",
         method: "GET",
-        query: { size: size?.id, sortBy: "price,high to low" },
+        query: { size: size?.id, sortBy: shortBy },
       },
     });
   };
@@ -611,6 +631,10 @@ const CategoryPage = () => {
       }
     });
   };
+
+  // const handleFiltere = () => {
+
+  // }
 
   return (
     <div className={classes.mainContainer}>
@@ -839,7 +863,7 @@ const CategoryPage = () => {
                 </Typography>
                 <div className={classes.chevronRight}>
                   <Typography
-                    onClick={() => setIsShortDownOpen(!isShortDownopen)}
+                    onClick={() => setIsShortDownOpen(true)}
                     variant="BS"
                   >
                     {shortBy}
@@ -847,10 +871,11 @@ const CategoryPage = () => {
                   <SvgChevronRight cursor={"pointer"} />
                   {/* featured short dropdown */}
                   {isShortDownopen && (
-                    <div ref={shortRef} className={classes.shortDropDown}>
+                    <div className={classes.shortDropDown}>
+                    {/* <div ref={shortRef} className={classes.shortDropDown}> */}
                       {productData.shortdropdown.map((data: any) => (
                         <div
-                          onClick={() => handleShortData(data.name)}
+                          onClick={() => {console.log('clicked'), handleShortData(data.name)}}
                           className={classes.contentDiv}
                         >
                           <Typography
@@ -869,7 +894,7 @@ const CategoryPage = () => {
                 </div>
               </div>
             </HideComponents>
-            <HideComponents showOnlyOn="tablet">
+            {/* <HideComponents showOnlyOn="tablet">
               <div className={classes.tabletShortBy}>
                 <Button
                   onClick={() => setIsShortDownOpen(!isShortDownopen)}
@@ -877,7 +902,6 @@ const CategoryPage = () => {
                   text={"Short By :"}
                   rightIcon={<SvgChevronRight />}
                 ></Button>
-                {/* featured short dropdown */}
                 {isShortDownopen && (
                   <div ref={shortRef} className={classes.shortDropDownTablet}>
                     {productData.shortdropdown.map((data: any) => (
@@ -899,7 +923,7 @@ const CategoryPage = () => {
                   </div>
                 )}
               </div>
-            </HideComponents>
+            </HideComponents> */}
           </div>
 
           {/* grid layouts */}

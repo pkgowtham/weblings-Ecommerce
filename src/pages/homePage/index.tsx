@@ -347,13 +347,12 @@ useEffect(() => {
   return (
     <div className={classes.mainContainer}>
       <Slider SliderData={slider} />
+      <TopCollection TopData={store.productCategory.dataGetList?.data || []} />
       <Card
         CardData={bestSelling || []}
         title="Best Selling"
         subTitle="Unmatched design—superior performance and customer satisfaction in one."
       />
-      <TopCollection TopData={store.productCategory.dataGetList?.data || []} />
-      <Card CardData={bestSelling || []} title="Best Selling" subTitle="Unmatched design—superior performance and customer satisfaction in one."/>
       <Marquee marqueeData={marqueeData} />
       <Card
         CardData={topCollection || []}
@@ -361,8 +360,8 @@ useEffect(() => {
         subTitle="Unmatched design—superior performance and customer satisfaction in one."
       />
       <Review ReviewsData={reviewdata} />
-      <Shop ShopData={shop} />
-      <Support SupportData={support} />
+      {/* <Shop ShopData={shop} />
+      <Support SupportData={support} /> */}
     </div>
   );
 };
