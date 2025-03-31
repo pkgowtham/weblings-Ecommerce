@@ -44,8 +44,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     height: "636px",
     width: "1600px",
     borderRadius: theme.borderRadius.b100,
-    border: `1px solid ${theme.light.brand.border.light}`,
-    backgroundColor: theme.light.brand.surface.lighter,
+    // border: `1px solid ${theme.light.brand.border.light}`,
+    // backgroundColor: theme.light.brand.surface.lighter,
     marginBottom: theme.spacing.s100,
   },
   ScrollContainer: {

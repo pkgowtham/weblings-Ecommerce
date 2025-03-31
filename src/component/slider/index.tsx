@@ -18,7 +18,7 @@ const Slider: React.FC<any> = ({SliderData}): JSX.Element => {
     const scrollContainer = ScroolContainerRef.current;
 
     if (scrollContainer) {
-      const scrollAmount = direction === "left" ? -1620 : 1620;
+      const scrollAmount = direction === "left" ? -1630 : 1630;
       scrollContainer.scrollBy({ left: scrollAmount, behavior: "smooth" });
 
       // Delay state update slightly to allow smooth scrolling to complete

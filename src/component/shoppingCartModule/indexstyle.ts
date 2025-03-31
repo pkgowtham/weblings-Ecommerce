@@ -8,9 +8,17 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     backgroundColor: theme.light.neutral.surface.lighter,
     boxShadow: theme.elevation.m,
     position: "fixed",
+    display: "flex",
+    flexDirection: "column",
     top: "0%",
     right: "0%",
     zIndex: "1000",
+    "@media (max-width : 1024px)":{
+      width:'40%'
+    },
+    "@media (max-width : 768px)":{
+      width:'100%'
+    }
   },
   cartHeader: {
     display: "flex",
@@ -170,5 +178,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
    '& path':{
     fill:theme.light.neutral.onSurface.dark
    }
+  },
+  starIconContainer:{
+    marginTop:'auto'
   }
 }));

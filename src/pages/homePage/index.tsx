@@ -11,9 +11,12 @@ import Slider from "../../component/slider";
 import { useStyle } from "./indexstyle";
 import Marquee from "../../component/marquee";
 import { useEffect, useRef, useState } from "react";
- import { useStore } from "../../store";
- import { useMiddlewareDispatch } from "../../store/apiMiddleware";
- import { deepGet } from "../../util/util";
+import { useStore } from "../../store";
+import { useMiddlewareDispatch } from "../../store/apiMiddleware";
+import { deepGet } from "../../util/util";
+import sliderOne from "../../assets/images/sliderone.jpg";
+import sliderTwo from "../../assets/images/sliderTwo.jpg";
+import sliderThree from "../../assets/images/sliderThree.jpg";
 
 const topcollections = {
   card: [
@@ -142,22 +145,19 @@ const slider = {
       logo: fashion,
       title: "Cotton Long-Sleeve Striped T-shirt",
       description: "$115.00",
-      sliderimage:
-        "https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      sliderimage: sliderOne,
     },
     {
       logo: fashion,
       title: "Cotton Long-Sleeve Striped T-shirt",
       description: "$115.00",
-      sliderimage:
-        "https://images.pexels.com/photos/963486/pexels-photo-963486.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      sliderimage: sliderTwo,
     },
     {
       logo: fashion,
       title: "Cotton Long-Sleeve Striped T-shirt",
       description: "$115.00",
-      sliderimage:
-        "https://images.pexels.com/photos/276583/pexels-photo-276583.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      sliderimage: sliderThree,
     },
   ],
 };
@@ -260,9 +260,9 @@ const HomePage = () => {
   const classes = useStyle();
   const hasDispatched = useRef(false);
   const { store } = useStore();
-    const dispatch = useMiddlewareDispatch();
-    const [bestSelling, setBestSelling] = useState<any>([]);
-    const [topCollection, setTopCollection] = useState<any>([]);
+  const dispatch = useMiddlewareDispatch();
+  const [bestSelling, setBestSelling] = useState<any>([]);
+  const [topCollection, setTopCollection] = useState<any>([]);
 
   //product getlist
   useEffect(() => {
@@ -278,30 +278,41 @@ const HomePage = () => {
     }
   }, []);
 
-//filter data for best selling
+  //filter data for best selling
   useEffect(() => {
-    if(store.product.dataGetList){
-      const bestSellingProducts = store.product.dataGetList?.data?.filter((product:any) => product.bestSelling === true);
-      setBestSelling(bestSellingProducts)
+    if (store.product.dataGetList) {
+      const bestSellingProducts = store.product.dataGetList?.data?.filter(
+        (product: any) => product.bestSelling === true
+      );
+      setBestSelling(bestSellingProducts);
     }
-  }, [deepGet(store,"product.dataGetList")])
-
+  }, [deepGet(store, "product.dataGetList")]);
 
   //filter data for Top Collection
   useEffect(() => {
-    if(store.product.dataGetList){
-      const topCollection = store.product.dataGetList?.data?.filter((product:any) => product.trendingOutfits === true);
-      setTopCollection(topCollection)
+    if (store.product.dataGetList) {
+      const topCollection = store.product.dataGetList?.data?.filter(
+        (product: any) => product.trendingOutfits === true
+      );
+      setTopCollection(topCollection);
     }
-  }, [deepGet(store,"product.dataGetList")])
+  }, [deepGet(store, "product.dataGetList")]);
 
   return (
     <div className={classes.mainContainer}>
       <Slider SliderData={slider} />
       <TopCollection TopData={topcollections} />
-      <Card CardData={bestSelling || []} title="Best Selling" subTitle="Unmatched design—superior performance and customer satisfaction in one."/>
+      <Card
+        CardData={bestSelling || []}
+        title="Best Selling"
+        subTitle="Unmatched design—superior performance and customer satisfaction in one."
+      />
       <Marquee marqueeData={marqueeData} />
-      <Card CardData={topCollection || []} title="Trending Outfits" subTitle="Unmatched design—superior performance and customer satisfaction in one."/>
+      <Card
+        CardData={topCollection || []}
+        title="Trending Outfits"
+        subTitle="Unmatched design—superior performance and customer satisfaction in one."
+      />
       <Review ReviewsData={reviewdata} />
       <Shop ShopData={shop} />
       <Support SupportData={support} />

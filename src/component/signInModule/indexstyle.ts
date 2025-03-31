@@ -5,8 +5,6 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   moduleStyle: {
     height: "fit-content",
     width: "30%",
-    top: "15%",
-    left: "35%",
     padding: theme.spacing.s800,
   },
   header: {

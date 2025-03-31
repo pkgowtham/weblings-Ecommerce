@@ -181,7 +181,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
           display: "grid",
           gridTemplateColumns: "1fr",
           width: "100%",
-          height: "30%",
+          height: "100%",
           overflow: "auto",
           scrollbarWidth:'thin'
         }}
@@ -261,6 +261,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
         )}
       </div>
       {/* cart icons */}
+      <div className={classes.starIconContainer}>
       <div className={classes.cartIcons}>
         <div className={classes.leftDiv}>
           <SvgApps />
@@ -300,6 +301,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
             text="CheckOut"
           ></Button>
         </div>
+      </div>
       </div>
       {/* cart edit module */}
       {isEditModule && <CartEditModule onClose={setIsEditModule} />}

@@ -31,9 +31,7 @@ export const useStyle = createUseStyles((theme:Theme)=>({
     },
     Model:{
         width:'1020px',
-        height:'561px',
-        left:'15%',
-        top:'8%'
+        height:'561px', 
     },
     ModelImg:{
         width:'100%',
