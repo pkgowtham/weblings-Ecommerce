@@ -97,6 +97,11 @@ export const useStyle = createUseStyles((theme: Theme) => ({
       backgroundColor: theme.light.neutral.onSurface.title,
     },
   },
+
+  favouriteActive:{
+    backgroundColor: theme.light.neutral.onSurface.title
+  },
+
   favouriteOne: {
     height: "48px",
     width: "100%",

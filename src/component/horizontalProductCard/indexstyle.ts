@@ -137,5 +137,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   lineThroughGray:{
     textDecoration: "line-through",
     color: theme.light.neutral.onSurface.dark,
-  }
+  },
+
+  favouriteActive:{
+    backgroundColor: theme.light.neutral.onSurface.title
+  },
 }));

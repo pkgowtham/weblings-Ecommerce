@@ -428,4 +428,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
         fill:theme.light.warning.onSurface.medium
     }
   },
+
+  favouriteActive:{
+    backgroundColor: theme.light.neutral.onSurface.title
+  },
 }));

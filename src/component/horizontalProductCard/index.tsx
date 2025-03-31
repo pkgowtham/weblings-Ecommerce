@@ -19,9 +19,6 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
 }) => {
   const classes = useStyle();
   const [isSelectDropDown, setisSelectDropDown] = useState<boolean>(false);
-  const [selectOption, setSelectOption] = useState<boolean>(false);
-  const [selectedImage, setSelectedImage] = useState(products);
-  const ratings = 4;
   const navigate = useNavigate();
   const sampleref = useRef<HTMLDivElement>(null);
   const [selectedColor, setSelectedColor] = useState<any>(null);
@@ -29,7 +26,7 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
   const [price, setPrice] = useState<any>(null);
   const [currentImage, setCurrentImage] = useState("");
   const dispatch = useMiddlewareDispatch();
-    const { store } = useStore();
+  const { store } = useStore();
 
   const RatingStar = (rating: any) => {
     switch (rating) {
@@ -75,13 +72,25 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
         );
       default:
         return (
-            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-              <SvgStarPurple500 className={classes.starColor} />
-            </div>
-          );
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
         break;
     }
   };
+
+  //checking the add to cart if exists
+  const isWishlist = store.productWishlist.dataGetList?.data?.some(
+    (item: any) =>
+      item.products.some(
+        (prod: any) =>
+          prod?.id ===
+          (Array.isArray(products?.products)
+            ? products?.products[0]?.id
+            : products?.id)
+      )
+  );
 
   // Get attachments for the selected color
   const selectedColorAttachments =
@@ -100,7 +109,6 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
 
   useEffect(() => {
     if (selectedColor && selectedSize) {
-      
       const selectedVariant = products?.variants.find(
         (variant: any) =>
           variant.color.id === selectedColor?.id &&
@@ -141,22 +149,47 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
 
   // navigate
   const handleNavigate = () => {
-    navigate("/mainLayout/productpage",{state:{rowDataId:products?.products ? products?.products[0]?.id : products?.id}});
+    navigate("/mainLayout/productpage", {
+      state: {
+        rowDataId: products?.products
+          ? products?.products[0]?.id
+          : products?.id,
+      },
+    });
   };
 
   const handleWishlist = () => {
-    dispatch({
-      type:"PRODUCT_WHISHLIST_CREATE_API_REQUEST",
-      payload: {
-        url: "/wishList",
-        method: "POST",
-        body:{
-          userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
-          productId:products?.products ? products?.products[0]?.id : products?.id
-        }
-      },
-    })
-  }
+    if(isWishlist){
+      const selectedWishlist =
+      store.productWishlist.dataGetList?.data?.find(
+        (product: any) => product.products[0]?.id === (Array.isArray(products?.products) 
+        ? products?.products[0]?.id 
+        : products?.id)
+      ) || {}
+      dispatch({
+        type:"PRODUCT_WHISHLIST_DESTROY_API_REQUEST",
+        payload: {
+          url: "/wishList",
+          method: "DELETE",
+          query:{
+            id:selectedWishlist?.id
+          }
+        },
+      })
+    }else{
+      dispatch({
+        type:"PRODUCT_WHISHLIST_CREATE_API_REQUEST",
+        payload: {
+          url: "/wishList",
+          method: "POST",
+          body:{
+            userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
+            productId:products?.products ? products?.products[0]?.id : products?.id
+          }
+        },
+      })
+    }
+  };
 
   return (
     <div className={classes.mainContainer}>
@@ -174,7 +207,9 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
           </div>
           {/* star ratigs maping */}
           <div>
-             {RatingStar(Math.round(products?.aggregateReviewValue?.averageRating))}
+            {RatingStar(
+              Math.round(products?.aggregateReviewValue?.averageRating)
+            )}
           </div>
         </div>
         {/* price section */}
@@ -189,28 +224,28 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
             </Typography>
           </div>
           {/* product image */}
-           <div className={classes.productImage}>
-                      {products?.colors?.map((dat: any, index: number) => {
-                        const thumbnailAttachments = dat.attachments.filter(
-                          (attachment: any) => attachment.thumbnail === true
-                        );
-                        return (
-                          <div
-                            onClick={() => handleColorChange(dat)}
-                            key={index}
-                            className={clsx(classes.imageDiv, {
-                              [classes.activeStatus]: dat.name === selectedColor?.name,
-                            })}
-                          >
-                            <img
-                              src={thumbnailAttachments[0]?.fileUrl}
-                              alt=""
-                              className={classes.itemDiv}
-                            />
-                          </div>
-                        );
-                      })}
-                    </div>
+          <div className={classes.productImage}>
+            {products?.colors?.map((dat: any, index: number) => {
+              const thumbnailAttachments = dat.attachments.filter(
+                (attachment: any) => attachment.thumbnail === true
+              );
+              return (
+                <div
+                  onClick={() => handleColorChange(dat)}
+                  key={index}
+                  className={clsx(classes.imageDiv, {
+                    [classes.activeStatus]: dat.name === selectedColor?.name,
+                  })}
+                >
+                  <img
+                    src={thumbnailAttachments[0]?.fileUrl}
+                    alt=""
+                    className={classes.itemDiv}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
         {/* content section */}
         <div>
@@ -226,8 +261,13 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
             onClick={handleEdit}
           ></Button>
           <div className={classes.CircleContainer}>
-            <div className={classes.CircleImgDiv} onClick={handleWishlist}>
-            <SvgHeart viewBox="0 0 40 40" width={30} height={25} />
+            <div
+              className={clsx(classes.CircleImgDiv, {
+                [classes.favouriteActive]: isWishlist,
+              })}
+              onClick={handleWishlist}
+            >
+              <SvgHeart viewBox="0 0 40 40" width={30} height={25} />
             </div>
             {/* <div className={classes.CircleImgDiv}>
             <SvgHeart viewBox="0 0 40 40" width={30} height={25} />

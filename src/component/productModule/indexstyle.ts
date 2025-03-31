@@ -261,4 +261,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     border: `1px solid ${theme.light.neutral.border.light}`,
     borderColor: theme.light.neutral.onSurface.title,
   },
+
+  favouriteActive:{
+    backgroundColor: theme.light.neutral.onSurface.title
+  },
 }));

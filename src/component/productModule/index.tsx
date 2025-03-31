@@ -36,15 +36,10 @@ const sizes = [
 
 const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
   const classes = useStyle();
-  const ratings = 4;
-  // const [selectedSize, setSelectedSize] = useState("S");
   const [selectedAmount, setSelectedAmount] = useState<string>("$115.00");
   const [selectedImage, setSelectedImage] = useState<string>(
     productImages[0].image
   );
-  // const [selectedColor, setSelectedColor] = useState<string>(
-  //   productImages[0].color
-  // );
   const [count, setCount] = useState(1);
   const [isChecked, setIsChecked] = useState(false);
   const navigate = useNavigate();
@@ -55,6 +50,14 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
   const [price, setPrice] = useState<any>(null);
   const [currentImage, setCurrentImage] = useState("");
   const hasAddtoCartDispatched = useRef(false);
+
+   //checking the Wishlist if exists
+   const isWishlist = store.productWishlist.dataGetList?.data?.some(
+    (item: any) =>
+      item.products.some(
+        (prod: any) => prod?.id === store.addToCartInternal.selectedProduct?.id
+      )
+  );
 
   //checking the add to cart if exists
   const isProductInCart = store.productAddToCart.dataGetList?.data?.some(
@@ -256,17 +259,34 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
   }
 
   const handleWishlist = () => {
-    dispatch({
-      type: "PRODUCT_WHISHLIST_CREATE_API_REQUEST",
-      payload: {
-        url: "/wishList",
-        method: "POST",
-        body: {
-          userId: "001a0ab1-14a1-4016-b2ed-2e9dfa414245",
-          productId: store.addToCartInternal.selectedProduct?.id,
+    if(isWishlist){
+      const selectedWishlist =
+      store.productWishlist.dataGetList?.data?.find(
+        (product: any) => product.products[0]?.id === store.addToCartInternal.selectedProduct?.id
+      ) || {}
+      dispatch({
+        type:"PRODUCT_WHISHLIST_DESTROY_API_REQUEST",
+        payload: {
+          url: "/wishList",
+          method: "DELETE",
+          query:{
+            id:selectedWishlist?.id
+          }
         },
-      },
-    });
+      })
+    }else{
+      dispatch({
+        type:"PRODUCT_WHISHLIST_CREATE_API_REQUEST",
+        payload: {
+          url: "/wishList",
+          method: "POST",
+          body:{
+            userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
+            productId:store.addToCartInternal.selectedProduct?.id
+          }
+        },
+      })
+    }
   };
 
   return (
@@ -411,7 +431,9 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
               text={isProductInCart ? "Go to Cart" : "Add to Cart"}
             ></Button>
             <div className={classes.CircleContainer}>
-              <div className={classes.CircleImgDiv} onClick={handleWishlist}>
+              <div className={clsx(classes.CircleImgDiv,{
+                [classes.favouriteActive]:isWishlist
+              })} onClick={handleWishlist}>
                 <SvgHeart viewBox="0 0 35 55" width={30} height={30} />
               </div>
               {/* <div className={classes.CircleImgDiv}>

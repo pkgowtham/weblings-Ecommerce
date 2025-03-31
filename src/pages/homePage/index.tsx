@@ -260,9 +260,55 @@ const HomePage = () => {
   const classes = useStyle();
   const hasDispatched = useRef(false);
   const { store } = useStore();
-  const dispatch = useMiddlewareDispatch();
-  const [bestSelling, setBestSelling] = useState<any>([]);
-  const [topCollection, setTopCollection] = useState<any>([]);
+    const dispatch = useMiddlewareDispatch();
+    const [bestSelling, setBestSelling] = useState<any>([]);
+    const [topCollection, setTopCollection] = useState<any>([]);
+    const hasWishlistDispatched = useRef(false);
+    const hasCategoryDispatched = useRef(false);
+
+
+    //Wishlist getlist
+useEffect(() => {
+  if (!hasWishlistDispatched.current) {
+    dispatch({
+      type: "PRODUCT_WHISHLIST_GETLIST_API_REQUEST",
+      payload: {
+        url: "/wishList",
+        method: "GET",
+      },
+    });
+    hasWishlistDispatched.current = true;
+  }
+}, []);
+
+useEffect(() => {
+  if (!hasCategoryDispatched.current) {
+    dispatch({
+      type: "PRODUCT_CATEGORY_GETLIST_API_REQUEST",
+      payload: { url: "/category", method: "GET" },
+    });
+    hasCategoryDispatched.current = true;
+  }
+}, []);
+
+//Wishlist getlist after create or delete
+useEffect(() => {
+  if(store.productWishlist.isSuccessCreate || store.productWishlist.isSuccessDestroy){
+    dispatch({
+      type: "PRODUCT_WHISHLIST_GETLIST_API_REQUEST",
+      payload: {
+        url: "/wishList",
+        method: "GET",
+      },
+    });
+    dispatch({
+      type:"PRODUCT_WHISHLIST_CREATE_API_CLEAR"
+    })
+    dispatch({
+      type:"PRODUCT_WHISHLIST_DESTROY_API_CLEAR"
+    })
+  }
+}, [deepGet(store,"productWishlist.isSuccessCreate"), deepGet(store,"productWishlist.isSuccessDestroy")])
 
   //product getlist
   useEffect(() => {
@@ -301,12 +347,13 @@ const HomePage = () => {
   return (
     <div className={classes.mainContainer}>
       <Slider SliderData={slider} />
-      <TopCollection TopData={topcollections} />
       <Card
         CardData={bestSelling || []}
         title="Best Selling"
         subTitle="Unmatched design—superior performance and customer satisfaction in one."
       />
+      <TopCollection TopData={store.productCategory.dataGetList?.data || []} />
+      <Card CardData={bestSelling || []} title="Best Selling" subTitle="Unmatched design—superior performance and customer satisfaction in one."/>
       <Marquee marqueeData={marqueeData} />
       <Card
         CardData={topCollection || []}

@@ -2,7 +2,8 @@ import React, { useRef, useState } from "react";
 import { useStyle } from "./indexstyle";
 import Typography from "../../component/typography/component";
 import { HideComponents } from "../hideComponents";
-// import collection from "../../assets/images/collection.jpg"
+import collection from "../../assets/images/collection.jpg"
+import { useNavigate } from "react-router-dom";
 
 const TopCollection: React.FC<any> = (props): JSX.Element => {
   const classes = useStyle();
@@ -10,6 +11,7 @@ const TopCollection: React.FC<any> = (props): JSX.Element => {
   const [activeIndex, setActiveIndex] = useState(0);
   const itemsPerPage = 4;
   const scrollRef = useRef<HTMLDivElement>(null);
+  const navigate =useNavigate();
 
   const totalPages = Math.ceil(TopData?.card?.length / itemsPerPage);
 
@@ -32,17 +34,17 @@ const TopCollection: React.FC<any> = (props): JSX.Element => {
       {/* without scrool for desktop */}
       <HideComponents showOnlyOn="desktop">
         <div className={classes.Wrapper}>
-          {TopData?.card?.map((data: any, idx: number) => (
-            <div key={idx} className={classes.CollectionWrapper}>
+          {TopData?.map((data: any, idx: number) => (
+            <div key={idx} className={classes.CollectionWrapper} onClick={()=>navigate('/mainLayout/categorypage',{state:{rowdataId:data?.id}})}>
               <div className={classes.CollectionDiv}>
                 <img
-                  src={data.logo}
+                  src={collection}
                   className={classes.CollectionLogo}
                   alt=""
                 />
               </div>
               <div>
-                <Typography variant="TS">{data.subtitle}</Typography>
+                <Typography variant="TS">{data.name}</Typography>
               </div>
             </div>
           ))}
@@ -53,16 +55,16 @@ const TopCollection: React.FC<any> = (props): JSX.Element => {
         <div className={classes.tabletScroolContainer}>
           <div className={classes.wraperTablet} ref={scrollRef}>
             {TopData?.card?.map((data: any, idx: number) => (
-              <div key={idx} className={classes.collectionWrapper}>
+              <div key={idx} className={classes.collectionWrapper} onClick={()=>navigate('/mainLayout/categorypage',{state:{rowdataId:data?.id}})}>
                 <div className={classes.CollectionDiv}>
                   <img
-                    src={data.logo}
+                    src={collection}
                     className={classes.CollectionLogo}
                     alt=""
                   />
                 </div>
                 <div>
-                  <Typography variant="TS">{data.subtitle}</Typography>
+                  <Typography variant="TS">{data.name}</Typography>
                 </div>
               </div>
             ))}

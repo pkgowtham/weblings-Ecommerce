@@ -1,7 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../../component/button";
 import Typography from "../../component/typography/component";
 import { useStyle } from "./indexstyle";
+import { useStore } from "../../store";
+import { useMiddlewareDispatch } from "../../store/apiMiddleware";
+import { useEffect, useRef } from "react";
 
 const listData = [
   {
@@ -69,6 +72,12 @@ const listData = [
 const CollectionList = () => {
   const classes = useStyle();
   const navigate = useNavigate();
+  const { store } = useStore();
+  const dispatch = useMiddlewareDispatch();
+  const location = useLocation();
+  const { rowDataId } = location?.state || {};
+  const hasBrandDispatched = useRef(false);
+
 
   // navigate
   const handleNavigate = (type:string) =>{
@@ -76,6 +85,19 @@ const CollectionList = () => {
       navigate("/mainLayout/categorypage")
     }
   }
+
+  //brand getlist
+  useEffect(() => {
+    if (!hasBrandDispatched.current) {
+      dispatch({
+        type: "PRODUCT_GETLIST_API_REQUEST",
+        payload: { url: "/product", method: "GET", query: { brand: rowDataId } },
+      });
+      hasBrandDispatched.current = true;
+    }
+  }, []);
+
+
   return (
     <div className={classes.mainContainer}>
       {/* header section */}
@@ -89,16 +111,16 @@ const CollectionList = () => {
       </div>
       {/* collections lists grid container */}
       <div className={classes.gridContainer}>
-        {listData.map((data: any) => (
-          <div onClick={()=>handleNavigate("filter")} className={classes.gridItem}>
+        {store.product.dataGetList?.data?.map((data: any) => (
+          <div onClick={()=>navigate("/mainLayout/productpage",{state:{rowDataId:data?.id}})} className={classes.gridItem}>
             <div className={classes.listContainer}>
-              <Button onClick={()=>handleNavigate("filter")}
+              <Button onClick={()=>navigate("/mainLayout/productpage",{state:{rowDataId:data?.id}})}
                 className={classes.btnContainer}
-                text={data.listname}
+                text={data.name}
               ></Button>
             </div>
             <div className={classes.logoContainer}>
-              <img className={classes.logoStyle} src={data.logo} alt="" />
+              <img className={classes.logoStyle} src={data?.colors[0]?.attachments[0]?.fileUrl} alt="" />
             </div>
           </div>
         ))}

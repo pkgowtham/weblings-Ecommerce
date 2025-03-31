@@ -18,6 +18,7 @@ import Button from "../../component/button";
 import { useStore } from "../../store";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import SvgClose from "../../custom-icons/Close";
+import { deepGet } from "../../util/util";
 
 const productData = {
   //   productcategory: "Product Category",
@@ -412,8 +413,48 @@ const CategoryPage = () => {
   const { store } = useStore();
   const dispatch = useMiddlewareDispatch();
   const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
-  const [selectedSize, setSelectedSize] = useState<any>('');
-  console.log('size',selectedSize)
+  const [selectedSize, setSelectedSize] = useState<any>("");
+  const hasWishlistDispatched = useRef(false);
+  const [filteredOption, setFilteredOption] = useState<any>({})
+
+  //Wishlist getlist
+  useEffect(() => {
+    if (!hasWishlistDispatched.current) {
+      dispatch({
+        type: "PRODUCT_WHISHLIST_GETLIST_API_REQUEST",
+        payload: {
+          url: "/wishList",
+          method: "GET",
+        },
+      });
+      hasWishlistDispatched.current = true;
+    }
+  }, []);
+
+  //Wishlist getlist after create or delete
+  useEffect(() => {
+    if (
+      store.productWishlist.isSuccessCreate ||
+      store.productWishlist.isSuccessDestroy
+    ) {
+      dispatch({
+        type: "PRODUCT_WHISHLIST_GETLIST_API_REQUEST",
+        payload: {
+          url: "/wishList",
+          method: "GET",
+        },
+      });
+      dispatch({
+        type: "PRODUCT_WHISHLIST_CREATE_API_CLEAR",
+      });
+      dispatch({
+        type: "PRODUCT_WHISHLIST_DESTROY_API_CLEAR",
+      });
+    }
+  }, [
+    deepGet(store, "productWishlist.isSuccessCreate"),
+    deepGet(store, "productWishlist.isSuccessDestroy"),
+  ]);
 
   useEffect(() => {
     const handleClickOutside = (event: any) => {
@@ -508,14 +549,17 @@ const CategoryPage = () => {
 
   //brand click
   useEffect(() => {
-    if(selectedBrand.length > 0){
+    if (selectedBrand.length > 0) {
       dispatch({
         type: "PRODUCT_GETLIST_API_REQUEST",
-        payload: { url: "/product", method: "GET", query: { brand: selectedBrand.join(',') } },
+        payload: {
+          url: "/product",
+          method: "GET",
+          query: { brand: selectedBrand.join(",") },
+        },
       });
     }
-  }, [selectedBrand])
-  
+  }, [selectedBrand]);
 
   const handleSubCategoryClick = (id: string) => {
     dispatch({
@@ -535,15 +579,23 @@ const CategoryPage = () => {
     setSelectedColor(color);
     dispatch({
       type: "PRODUCT_GETLIST_API_REQUEST",
-      payload: { url: "/product", method: "GET", query: { color: color?.id } },
+      payload: {
+        url: "/product",
+        method: "GET",
+        query: { color: color?.id, sortBy: "price,high to low" },
+      },
     });
   };
 
   const handleSizeClick = (size: any) => {
-    setSelectedSize(size?.sizeVariant)
+    setSelectedSize(size?.sizeVariant);
     dispatch({
       type: "PRODUCT_GETLIST_API_REQUEST",
-      payload: { url: "/product", method: "GET", query: { size: size?.id } },
+      payload: {
+        url: "/product",
+        method: "GET",
+        query: { size: size?.id, sortBy: "price,high to low" },
+      },
     });
   };
 
@@ -648,7 +700,13 @@ const CategoryPage = () => {
                         type="text"
                       />
                     </div>
-                    <div></div>
+                    <div>
+                      <Button
+                        // onClick={handlePr}
+                        className={classes.buttonStyle}
+                        text={"Filter price"}
+                      ></Button>
+                    </div>
                     <div className={classes.priceVariation}>
                       <Typography variant="BS">
                         {data.price}
@@ -709,8 +767,9 @@ const CategoryPage = () => {
                   <div className={classes.sizedDiv}>
                     {store.productSize.dataGetList?.data?.map((size: any) => (
                       <div
-                        className={clsx(classes.sizeStyle,{
-                          [classes.sizeColor]:selectedSize === size?.sizeVariant
+                        className={clsx(classes.sizeStyle, {
+                          [classes.sizeColor]:
+                            selectedSize === size?.sizeVariant,
                         })}
                         onClick={() => handleSizeClick(size)}
                       >

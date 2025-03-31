@@ -292,6 +292,8 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
   const [isAddToCart, setIsAddToCart] = useState<boolean>(false);
   const { store } = useStore();
   const dispatch = useMiddlewareDispatch();
+  const location = useLocation();
+  const { rowDataId } = location?.state || {};
   const [isChecked, setIsChecked] = useState(false);
   const [count, setCount] = useState(1);
   const [currentImageIndex, setCurrentImageIndex] = useState(
@@ -307,12 +309,19 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
   const [price, setPrice] = useState<any>(null);
   const [selectedAmount, setSelectedAmount] = useState<string>("$115.00");
   const navigate = useNavigate();
-  const location = useLocation();
-  const { rowDataId } = location?.state || {};
   const hasDispatched = useRef(false);
   const hasAddtoCartDispatched = useRef(false);
   const [currentImage, setCurrentImage] = useState("");
   const [thumbnailAttachments, setThumbnailAttachments] = useState<any[]>([]);
+  const hasWishlistDispatched = useRef(false);
+
+   //checking the Wishlist if exists
+   const isWishlist = store.productWishlist.dataGetList?.data?.some(
+    (item: any) =>
+      item.products.some(
+        (prod: any) => prod?.id === rowDataId
+      )
+  );
 
   //checking the add to cart if exists
   const isProductInCart = store.productAddToCart.dataGetList?.data?.some((item:any) => 
@@ -336,17 +345,49 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
     ?.flatMap((color: any) => color.attachments || []) 
     || [];
 
+       //Wishlist getlist
+useEffect(() => {
+  if (!hasWishlistDispatched.current) {
+    dispatch({
+      type: "PRODUCT_WHISHLIST_GETLIST_API_REQUEST",
+      payload: {
+        url: "/wishList",
+        method: "GET",
+      },
+    });
+    hasWishlistDispatched.current = true;
+  }
+}, []);
+
+//Wishlist getlist after create or delete
+useEffect(() => {
+  if(store.productWishlist.isSuccessCreate || store.productWishlist.isSuccessDestroy){
+    dispatch({
+      type: "PRODUCT_WHISHLIST_GETLIST_API_REQUEST",
+      payload: {
+        url: "/wishList",
+        method: "GET",
+      },
+    });
+    dispatch({
+      type:"PRODUCT_WHISHLIST_CREATE_API_CLEAR"
+    })
+    dispatch({
+      type:"PRODUCT_WHISHLIST_DESTROY_API_CLEAR"
+    })
+  }
+}, [deepGet(store,"productWishlist.isSuccessCreate"), deepGet(store,"productWishlist.isSuccessDestroy")])
+
+
   //product get
   useEffect(() => {
-    // if (!hasDispatched.current && rowDataId) {
-    if (!hasDispatched.current) {
+    if (!hasDispatched.current && rowDataId) {
       dispatch({
         type: "PRODUCT_GET_API_REQUEST",
         payload: {
           url: "/product",
           method: "GET",
           params: rowDataId,
-          // params: "2df8af0e-4710-4523-b285-9d97617ce6ef",
         },
       });
       hasDispatched.current = true;
@@ -570,17 +611,34 @@ const handleGoToCart = () => {
 }
 
 const handleWishlist = () => {
-  dispatch({
-    type:"PRODUCT_WHISHLIST_CREATE_API_REQUEST",
-    payload: {
-      url: "/wishList",
-      method: "POST",
-      body:{
-        userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
-        productId:rowDataId
-      }
-    },
-  })
+  if(isWishlist){
+    const selectedWishlist =
+    store.productWishlist.dataGetList?.data?.find(
+      (product: any) => product.products[0]?.id === rowDataId
+    ) || {}
+    dispatch({
+      type:"PRODUCT_WHISHLIST_DESTROY_API_REQUEST",
+      payload: {
+        url: "/wishList",
+        method: "DELETE",
+        query:{
+          id:selectedWishlist?.id
+        }
+      },
+    })
+  }else{
+    dispatch({
+      type:"PRODUCT_WHISHLIST_CREATE_API_REQUEST",
+      payload: {
+        url: "/wishList",
+        method: "POST",
+        body:{
+          userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
+          productId:rowDataId
+        }
+      },
+    })
+  }
 }
 
   return (
@@ -633,7 +691,7 @@ const handleWishlist = () => {
           </div>
         </div>
         <div className={classes.RightDiv}>
-          <div>
+          <div onClick={()=>navigate("/mainLayout/collectionlist",{state:{rowDataId:store.product.dataGet?.brand?.id}})} style={{cursor:"pointer"}}>
             <Typography variant="BS">
               {/* Adidas */}
               {store.product.dataGet?.brand?.name}
@@ -795,7 +853,9 @@ const handleWishlist = () => {
                   text={isProductInCart ? 'Go to Cart' : "Add to Cart"}
                 ></Button>
                 <div className={classes.CircleContainer}>
-                  <div className={classes.CircleImgDiv} onClick={handleWishlist}>
+                  <div className={clsx(classes.CircleImgDiv,{
+                    [classes.favouriteActive]:isWishlist
+                  })} onClick={handleWishlist}>
                     <SvgHeart viewBox="0 0 35 55" width={30} height={30} />
                   </div>
                   {/* <div className={classes.CircleImgDiv}>

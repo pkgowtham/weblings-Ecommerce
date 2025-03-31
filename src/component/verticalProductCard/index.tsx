@@ -2,14 +2,13 @@ import { useStyle } from "./indexstyle";
 import Typography from "../typography/component";
 import SvgStarPurple500 from "../../custom-icons/StarPurple500";
 import fashionwhite from "../../assets/images/fashionwhite.jpg";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
 import SvgHeart from "../../custom-icons/Heart";
 import Button from "../button";
 import ProductModule from "../productModule";
 import SvgEye from "../../custom-icons/Eye";
-import { deepGet } from "../../util/util";
 import SvgClose from "../../custom-icons/Close";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { useStore } from "../../store";
@@ -29,10 +28,6 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
   const [viewModule, setViewModule] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState(false);
   const [selectOption, setSelectOption] = useState<boolean>(false);
-  const [selectedImage, setSelectedImage] = useState(
-    products.image || fashionwhite
-  );
-  const rating = 4;
   const navigate = useNavigate();
   const [selectedColor, setSelectedColor] = useState<any>(null);
   const [selectedSize, setSelectedSize] = useState<any>(null);
@@ -92,6 +87,16 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
         break;
     }
   };
+
+  //checking the add to cart if exists
+  const isWishlist = store.productWishlist.dataGetList?.data?.some(
+    (item: any) =>
+      item.products.some(
+        (prod: any) => prod?.id === (Array.isArray(products?.products) 
+          ? products?.products[0]?.id 
+          : products?.id)
+      )
+  );
 
   // Get attachments for the selected color
   const selectedColorAttachments =
@@ -155,17 +160,36 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
   };
 
   const handleWishlist = () => {
-    dispatch({
-      type:"PRODUCT_WHISHLIST_CREATE_API_REQUEST",
-      payload: {
-        url: "/wishList",
-        method: "POST",
-        body:{
-          userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
-          productId:products?.id
-        }
-      },
-    })
+    if(isWishlist){
+      const selectedWishlist =
+      store.productWishlist.dataGetList?.data?.find(
+        (product: any) => product.products[0]?.id === (Array.isArray(products?.products) 
+        ? products?.products[0]?.id 
+        : products?.id)
+      ) || {}
+      dispatch({
+        type:"PRODUCT_WHISHLIST_DESTROY_API_REQUEST",
+        payload: {
+          url: "/wishList",
+          method: "DELETE",
+          query:{
+            id:selectedWishlist?.id
+          }
+        },
+      })
+    }else{
+      dispatch({
+        type:"PRODUCT_WHISHLIST_CREATE_API_REQUEST",
+        payload: {
+          url: "/wishList",
+          method: "POST",
+          body:{
+            userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
+            productId:products?.products ? products?.products[0]?.id : products?.id
+          }
+        },
+      })
+    }
   }
 
   return (
@@ -193,7 +217,10 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
                   height={15}
                 />
               </div>) :
-              (<div className={classes.favourite} onClick={handleWishlist}>
+              (<div className={clsx(classes.favourite,{
+                [classes.favouriteActive]:isWishlist
+              })} 
+              onClick={handleWishlist}>
                 <SvgHeart
                   className={classes.eyeColor}
                   viewBox="0 0 40 40"

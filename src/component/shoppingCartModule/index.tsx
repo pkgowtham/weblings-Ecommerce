@@ -42,6 +42,25 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
     }
   }, []);
 
+   //Add to cart getlist after create or delete
+   useEffect(() => {
+    if(store.productAddToCart.isSuccessCreate || store.productAddToCart.isSuccessDestroy){
+      dispatch({
+        type: "PRODUCT_ADD_TO_CART_GETLIST_API_REQUEST",
+        payload: {
+          url: "/addToCart",
+          method: "GET",
+        },
+      });
+      dispatch({
+        type:"PRODUCT_ADD_TO_CART_CREATE_API_CLEAR"
+      })
+      dispatch({
+        type:"PRODUCT_ADD_TO_CART_DESTROY_API_CLEAR"
+      })
+    }
+  }, [deepGet(store,"productAddToCart.isSuccessCreate"), deepGet(store,"productAddToCart.isSuccessDestroy")])
+
   //getlist after delete and update
   useEffect(() => {
     if (
@@ -239,7 +258,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
                             }
                           />
                         }
-                        text={quantity}
+                        text={selectedPrice?.quantity}
                       ></Button>
                     </div>
                   </div>
@@ -277,7 +296,16 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
       <div className={classes.buttonCartContainer}>
         <div className={classes.subTotal}>
           <Typography variant="TS">SubTotal</Typography>
-          <Typography variant="TS">$80.00</Typography>
+          <Typography variant="TS">
+          {store.productAddToCart.dataGetList?.data?.reduce((total: number, item: any) => {
+        const selectedPrice = item?.addToCartWithDetail.find(
+          (variant: any) =>
+            variant.color.id === item?.color.id &&
+            variant.size.id === item?.size?.id
+        );
+        return total + ((selectedPrice?.price || 0) * (item.quantity || 1));
+      }, 0).toFixed(2)}
+          </Typography>
         </div>
         <div className={classes.checkBox}>
           <input type="checkbox" />

@@ -13,6 +13,7 @@ import { HideComponents } from "../../component/hideComponents";
 import SvgDelete from "../../custom-icons/Delete";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { useStore } from "../../store";
+import { deepGet } from "../../util/util";
 
 const reviewCard = [
   {
@@ -83,6 +84,28 @@ const ShopingCartPage = () => {
     }
   }, []);
 
+  //Add to cart getlist after create or delete
+  useEffect(() => {
+    if(store.productAddToCart.isSuccessCreate || store.productAddToCart.isSuccessDestroy || store.productAddToCart.isSuccessUpdate){
+      dispatch({
+        type: "PRODUCT_ADD_TO_CART_GETLIST_API_REQUEST",
+        payload: {
+          url: "/addToCart",
+          method: "GET",
+        },
+      });
+      dispatch({
+        type:"PRODUCT_ADD_TO_CART_CREATE_API_CLEAR"
+      })
+      dispatch({
+        type:"PRODUCT_ADD_TO_CART_DESTROY_API_CLEAR"
+      })
+      dispatch({
+        type:"PRODUCT_ADD_TO_CART_UPDATE_API_CLEAR"
+      })
+    }
+  }, [deepGet(store,"productAddToCart.isSuccessCreate"), deepGet(store,"productAddToCart.isSuccessDestroy"), deepGet(store,"productAddToCart.isSuccessUpdate")])
+
   //Update Add to cart
   useEffect(() => {
     if (quantity && data) {
@@ -115,6 +138,19 @@ const ShopingCartPage = () => {
       type === "increase" ? prev + 1 : prev > 1 ? prev - 1 : prev
     );
     setData(data);
+  };
+
+  const handleProductRemove = (id: string) => {
+    dispatch({
+      type: "PRODUCT_ADD_TO_CART_DESTROY_API_REQUEST",
+      payload: {
+        url: "/addToCart",
+        method: "DELETE",
+        query: {
+          id: id,
+        },
+      },
+    });
   };
 
   return (
@@ -200,6 +236,7 @@ const ShopingCartPage = () => {
                                 <Typography
                                   className={classes.remove}
                                   variant="LS"
+                                  onClick={()=>handleProductRemove(item?.id)}
                                 >
                                   Remove
                                 </Typography>
@@ -208,7 +245,7 @@ const ShopingCartPage = () => {
                           </td>
                           <td className={classes.td}>
                             <Typography variant="BM">
-                              {selectedPrice?.price}
+                            {(selectedPrice?.price / selectedPrice?.quantity).toFixed(0)}
                             </Typography>
                           </td>
                           <td className={classes.td}>
@@ -229,7 +266,7 @@ const ShopingCartPage = () => {
                                   }
                                 />
                               }
-                              text={quantity}
+                              text={selectedPrice?.quantity}
                             ></Button>
                           </td>
                           <td className={classes.td}>
@@ -309,14 +346,14 @@ const ShopingCartPage = () => {
                       <div className={classes.deleteDiv}>
                         <div>
                           <Typography variant="TS">
-                          {item?.products[0]?.name}
+                            {item?.products[0]?.name}
                           </Typography>
                           <Typography
                             className={classes.lightColor}
                             variant="BM"
                           >
-                             Color: {item?.color?.name} / Size:{" "}
-                             {item?.size?.sizeVariant}
+                            Color: {item?.color?.name} / Size:{" "}
+                            {item?.size?.sizeVariant}
                           </Typography>
                         </div>
                         <div>
@@ -324,16 +361,28 @@ const ShopingCartPage = () => {
                         </div>
                       </div>
                       <div className={classes.priceContainer}>
-                        <Typography variant="TS">{selectedPrice?.price}</Typography>
+                        <Typography variant="TS">
+                          {selectedPrice?.price}
+                        </Typography>
                         <div>
                           <Button
                             className={classes.textButton}
-                            leftIcon={<SvgAdd className={classes.addColor}  onClick={() =>
-                              handleQuantityChange(item, "decrease")
-                            }/>}
-                            rightIcon={<SvgAdd className={classes.addColor}  onClick={() =>
-                              handleQuantityChange(item, "increase")
-                            }/>}
+                            leftIcon={
+                              <SvgAdd
+                                className={classes.addColor}
+                                onClick={() =>
+                                  handleQuantityChange(item, "decrease")
+                                }
+                              />
+                            }
+                            rightIcon={
+                              <SvgAdd
+                                className={classes.addColor}
+                                onClick={() =>
+                                  handleQuantityChange(item, "increase")
+                                }
+                              />
+                            }
                             text={quantity}
                           ></Button>
                         </div>
@@ -405,7 +454,21 @@ const ShopingCartPage = () => {
             <div className={classes.subTotalDiv}>
               <div className={classes.subTotal}>
                 <Typography variant="TS">Subtotal:</Typography>
-                <Typography variant="TS">$700.00 USD</Typography>
+                <Typography variant="TS">
+                  {store.productAddToCart.dataGetList?.data
+                    ?.reduce((total: number, item: any) => {
+                      const selectedPrice = item?.addToCartWithDetail.find(
+                        (variant: any) =>
+                          variant.color.id === item?.color.id &&
+                          variant.size.id === item?.size?.id
+                      );
+                      return (
+                        total +
+                        (selectedPrice?.price || 0) * (item.quantity || 1)
+                      );
+                    }, 0)
+                    .toFixed(2)}
+                </Typography>
               </div>
               <Typography variant="BS">
                 Taxes and shipping and discounts calculated at checkout
