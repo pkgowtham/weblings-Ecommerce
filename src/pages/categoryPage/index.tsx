@@ -415,6 +415,10 @@ const CategoryPage = () => {
   const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
   const [selectedSize, setSelectedSize] = useState<any>("");
   const hasWishlistDispatched = useRef(false);
+  const [price,setPrice] = useState<any>({
+    start:0,
+    end:0
+  })
 
   //Wishlist getlist
   useEffect(() => {
@@ -595,6 +599,13 @@ const CategoryPage = () => {
     });
   };
 
+  const handlePriceClick = () => {
+    dispatch({
+      type: "PRODUCT_GETLIST_API_REQUEST",
+      payload: { url: "/product", method: "GET", query: { minPrice:price.start, maxPrice:price.end, sortBy: shortBy } },
+    });
+  };
+
   const handleColorClick = (color: any) => {
     setSelectedColor(color);
     dispatch({
@@ -617,6 +628,17 @@ const CategoryPage = () => {
         query: { size: size?.id, sortBy: shortBy },
       },
     });
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    let errorMessage = "";
+
+    setPrice({
+      ...price,
+      [name]: value,
+    });
+
   };
 
   // Handle checkbox toggle
@@ -716,17 +738,23 @@ const CategoryPage = () => {
                         className={classes.inputStyle}
                         placeholder="₹ 0.00"
                         type="text"
+                        onChange={handleInputChange}
+                        name="start"
+                        value={price.start}
                       />
                       <div>-</div>
                       <input
                         placeholder="₹ 0.00"
                         className={classes.inputStyle}
                         type="text"
+                        onChange={handleInputChange}
+                        name="end"
+                        value={price.end}
                       />
                     </div>
                     <div>
                       <Button
-                        // onClick={handlePr}
+                        onClick={handlePriceClick}
                         className={classes.buttonStyle}
                         text={"Filter price"}
                       ></Button>

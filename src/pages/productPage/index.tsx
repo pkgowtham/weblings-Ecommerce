@@ -288,6 +288,29 @@ const review = {
   ],
 };
 
+function sortBySizeVariant(
+  arr?: Array<Record<string, any>>,
+  key: string = 'sizeVariant'
+): Array<Record<string, any>> {
+  if (!Array.isArray(arr)) {
+    console.warn('Expected an array, got:', arr);
+    return [];
+  }
+
+  return [...arr].sort((a, b) => {
+    const aVal = a[key];
+    const bVal = b[key];
+    const aNum = parseFloat(String(aVal));
+    const bNum = parseFloat(String(bVal));
+
+    // Numeric comparison if both are numbers
+    if (!isNaN(aNum) && !isNaN(bNum)) {
+      return aNum - bNum;
+    }
+    // Fallback to string comparison
+    return String(aVal).localeCompare(String(bVal));
+  });
+}
 const ProductPage: React.FC<any> = (): JSX.Element => {
   const classes = useStyle();
   const [isAddToCart, setIsAddToCart] = useState<boolean>(false);
@@ -333,6 +356,8 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
         .filter((variant: any) => variant.color.id === selectedColor?.id)
         .map((variant: any) => variant.size)
     : [];
+
+    const sortedSizes = sortBySizeVariant(filteredSizes);
 
   // Get attachments for the selected color
   const selectedColorAttachments =
@@ -673,26 +698,20 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
       <div className={classes.ProductContainer}>
         <div className={classes.LeftDiv}>
           <HideComponents showOnlyOn="desktop">
-            <div className={classes.LeftDivSmall}>
-              {allAttachments.map((product: any, idx: number) => (
-                <div
-                  onMouseEnter={() =>
-                    handleImageClick(product.fileUrl, product?.id)
-                  }
-                  onClick={() => handleImageClick(product.fileUrl, product?.id)}
-                  key={idx}
-                  className={clsx(classes.ImageDiv, {
-                    [classes.Boder]: activeIndex === product?.id,
-                  })}
-                >
-                  <img
-                    src={product?.fileUrl}
-                    className={classes.Image}
-                    alt=""
-                  />
-                </div>
-              ))}
-            </div>
+          <div className={classes.LeftDivSmall}>
+            {selectedColorAttachments.map((product: any, idx: number) => (
+              <div
+              onMouseEnter={() => handleImageClick(product.fileUrl, product?.id)}
+                onClick={() => handleImageClick(product.fileUrl, product?.id)}
+                key={idx}
+                className={clsx(classes.ImageDiv, {
+                  [classes.Boder]: activeIndex === product?.id,
+                })}
+              >
+                <img src={product?.fileUrl} className={classes.Image} alt="" />
+              </div>
+            ))}
+          </div>
           </HideComponents>
           <div className={classes.ImgDiv}>
             <img src={currentImage} alt="" className={classes.Img} />
@@ -823,7 +842,7 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
                 </div> */}
               </div>
               <div className={classes.SizeChart}>
-                {filteredSizes?.map((chart: any, idx: number) => (
+                {sortedSizes?.map((chart: any, idx: number) => (
                   <div
                     onClick={() => handleSizeChange(chart)}
                     key={idx}

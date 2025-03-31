@@ -198,6 +198,8 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
     setAttachment((prev) => prev.filter((_, index) => index !== indexToDelete));
   };
 
+  console.log('rating', (store.productRating.dataGet?.data?.summary?.["5"]?.count/5)*100)
+
   const handleSubmitComment = (e: React.FormEvent) => {
     e.preventDefault();
     const formDataApi = new FormData();
@@ -282,55 +284,88 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
               </div>
             ))} */}
             <div className={classes.starContainer}>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "4px" }}
-              >
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
+              <div style={{width:'320px', display:'flex',alignItems:'center', gap:'6px'}}>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "4px" }}
+                >
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                </div>
+                <div className={classes.Bar}>
+                  <div style={{width:`${(store.productRating.dataGet?.data?.summary?.["5"]?.count/store.productRating.dataGet?.data?.totalReviews)*100}%`, height:'100%', backgroundColor:"#FFB800", borderRadius:'4px'}}>
+                  </div>
+                </div>
+                <div>{store.productRating.dataGet?.data?.summary?.["5"]?.count}</div>
               </div>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "4px" }}
-              >
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
+              <div style={{width:'320px', display:'flex',alignItems:'center', gap:'6px'}}>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "4px" }}
+                >
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                </div>
+                <div className={classes.Bar}>
+                  <div style={{width:`${(store.productRating.dataGet?.data?.summary?.["4"]?.count/5)*100}%`, height:'100%', backgroundColor:"#FFB800", borderRadius:'4px'}}>
+                  </div>
+                </div>
+                <div>{store.productRating.dataGet?.data?.summary?.["4"]?.count}</div>
               </div>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "4px" }}
-              >
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
+              <div style={{width:'320px', display:'flex',alignItems:'center', gap:'6px'}}>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "4px" }}
+                >
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                </div>
+                <div className={classes.Bar}>
+                  <div style={{width:`${(store.productRating.dataGet?.data?.summary?.["3"]?.count/5)*100}%`, height:'100%', backgroundColor:"#FFB800", borderRadius:'4px'}}>
+                  </div>
+                </div>
+                <div>{store.productRating.dataGet?.data?.summary?.["3"]?.count}</div>
               </div>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "4px" }}
-              >
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
+              <div style={{width:'320px', display:'flex',alignItems:'center', gap:'6px'}}>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "4px" }}
+                >
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                </div>
+                <div className={classes.Bar}>
+                  <div style={{width:`${(store.productRating.dataGet?.data?.summary?.["2"]?.count/5)*100}%`, height:'100%', backgroundColor:"#FFB800", borderRadius:'4px'}}>
+                  </div>
+                </div>
+                <div>{store.productRating.dataGet?.data?.summary?.["2"]?.count}</div>
               </div>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "4px" }}
-              >
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
-                <SvgStarPurple500 className={classes.starColor} />
+              <div style={{width:'320px', display:'flex',alignItems:'center', gap:'6px'}}>
+                <div
+                  style={{ display: "flex", alignItems: "center", gap: "4px" }}
+                >
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                  <SvgStarPurple500 className={classes.starColor} />
+                </div>
+                <div className={classes.Bar}>
+                  <div style={{width:`${(store.productRating.dataGet?.data?.summary?.["1"]?.count/5)*100}%`, height:'100%', backgroundColor:"#FFB800", borderRadius:'4px'}}>
+                  </div>
+                </div>
+                <div>{store.productRating.dataGet?.data?.summary?.["1"]?.count}</div>
               </div>
             </div>
           </div>
-          <div className={classes.Bar}></div>
-          <div>3</div>
         </div>
         <div className={classes.CheckBoxButton}>
           <Button

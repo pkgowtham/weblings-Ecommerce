@@ -63,7 +63,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   StarLogo: {
     width: "100%",
     display: "flex",
-    maxWidth: "80px",
+    // maxWidth: "80px",
   },
   Star: {
     width: "100%",
