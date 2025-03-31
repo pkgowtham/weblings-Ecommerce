@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { useStore } from "../../store";
 import { deepGet } from "../../util/util";
+import SvgRemove from "../../custom-icons/Remove";
 
 interface productModuleProps {
   onClose: (value: boolean) => void;
@@ -415,7 +416,7 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
           {/* button section */}
           <div className={classes.buttonContainer}>
             <Button
-              leftIcon={<SvgChevronLeft onClick={decreaseCount} />}
+              leftIcon={<SvgRemove  className={classes.buttonColor} onClick={decreaseCount} />}
               rightIcon={
                 <SvgAdd
                   onClick={increaseCount}

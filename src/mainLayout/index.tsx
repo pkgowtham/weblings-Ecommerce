@@ -34,7 +34,7 @@ const data = {
     },
     {
       id: 2,
-      link: "Shop",
+      // link: "Shop",
       path: "/mainLayout/collectionlist",
       logo: right,
       trendings: "T-Shirts",
@@ -86,7 +86,7 @@ const data = {
     },
     {
       id: 4,
-      link: "Pages",
+      // link: "Pages",
       path: "/mainLayout/sucesspage",
       logo: right,
       trendings: "T-Shirts",
@@ -112,7 +112,7 @@ const data = {
     },
     {
       id: 5,
-      link: "Blog",
+      // link: "Blog",
       path: "/mainLayout/paymentfailed",
       logo: right,
       trendings: "T-Shirts",

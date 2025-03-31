@@ -14,6 +14,7 @@ import SvgDelete from "../../custom-icons/Delete";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { useStore } from "../../store";
 import { deepGet } from "../../util/util";
+import SvgRemove from "../../custom-icons/Remove";
 
 const reviewCard = [
   {
@@ -260,7 +261,7 @@ const ShopingCartPage = () => {
                                 />
                               }
                               leftIcon={
-                                <SvgChevronLeft
+                                <SvgRemove
                                   onClick={() =>
                                     handleQuantityChange(item, "decrease")
                                   }
@@ -368,7 +369,7 @@ const ShopingCartPage = () => {
                           <Button
                             className={classes.textButton}
                             leftIcon={
-                              <SvgAdd
+                              <SvgRemove
                                 className={classes.addColor}
                                 onClick={() =>
                                   handleQuantityChange(item, "decrease")

@@ -24,6 +24,7 @@ import { useStore } from "../../store";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { deepGet } from "../../util/util";
 import { HideComponents } from "../../component/hideComponents";
+import SvgRemove from "../../custom-icons/Remove";
 
 const ProductData = {
   logo: [
@@ -315,17 +316,15 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
   const [thumbnailAttachments, setThumbnailAttachments] = useState<any[]>([]);
   const hasWishlistDispatched = useRef(false);
 
-   //checking the Wishlist if exists
-   const isWishlist = store.productWishlist.dataGetList?.data?.some(
-    (item: any) =>
-      item.products.some(
-        (prod: any) => prod?.id === rowDataId
-      )
+  //checking the Wishlist if exists
+  const isWishlist = store.productWishlist.dataGetList?.data?.some(
+    (item: any) => item.products.some((prod: any) => prod?.id === rowDataId)
   );
 
   //checking the add to cart if exists
-  const isProductInCart = store.productAddToCart.dataGetList?.data?.some((item:any) => 
-    item.products.some((product:any) => product.id === rowDataId)
+  const isProductInCart = store.productAddToCart.dataGetList?.data?.some(
+    (item: any) =>
+      item.products.some((product: any) => product.id === rowDataId)
   );
 
   // Filtered sizes based on selected color
@@ -341,43 +340,49 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
       (color: any) => color.id === selectedColor?.id
     )?.attachments || [];
 
-    const allAttachments = store.product.dataGet?.colors
-    ?.flatMap((color: any) => color.attachments || []) 
-    || [];
+  const allAttachments =
+    store.product.dataGet?.colors?.flatMap(
+      (color: any) => color.attachments || []
+    ) || [];
 
-       //Wishlist getlist
-useEffect(() => {
-  if (!hasWishlistDispatched.current) {
-    dispatch({
-      type: "PRODUCT_WHISHLIST_GETLIST_API_REQUEST",
-      payload: {
-        url: "/wishList",
-        method: "GET",
-      },
-    });
-    hasWishlistDispatched.current = true;
-  }
-}, []);
+  //Wishlist getlist
+  useEffect(() => {
+    if (!hasWishlistDispatched.current) {
+      dispatch({
+        type: "PRODUCT_WHISHLIST_GETLIST_API_REQUEST",
+        payload: {
+          url: "/wishList",
+          method: "GET",
+        },
+      });
+      hasWishlistDispatched.current = true;
+    }
+  }, []);
 
-//Wishlist getlist after create or delete
-useEffect(() => {
-  if(store.productWishlist.isSuccessCreate || store.productWishlist.isSuccessDestroy){
-    dispatch({
-      type: "PRODUCT_WHISHLIST_GETLIST_API_REQUEST",
-      payload: {
-        url: "/wishList",
-        method: "GET",
-      },
-    });
-    dispatch({
-      type:"PRODUCT_WHISHLIST_CREATE_API_CLEAR"
-    })
-    dispatch({
-      type:"PRODUCT_WHISHLIST_DESTROY_API_CLEAR"
-    })
-  }
-}, [deepGet(store,"productWishlist.isSuccessCreate"), deepGet(store,"productWishlist.isSuccessDestroy")])
-
+  //Wishlist getlist after create or delete
+  useEffect(() => {
+    if (
+      store.productWishlist.isSuccessCreate ||
+      store.productWishlist.isSuccessDestroy
+    ) {
+      dispatch({
+        type: "PRODUCT_WHISHLIST_GETLIST_API_REQUEST",
+        payload: {
+          url: "/wishList",
+          method: "GET",
+        },
+      });
+      dispatch({
+        type: "PRODUCT_WHISHLIST_CREATE_API_CLEAR",
+      });
+      dispatch({
+        type: "PRODUCT_WHISHLIST_DESTROY_API_CLEAR",
+      });
+    }
+  }, [
+    deepGet(store, "productWishlist.isSuccessCreate"),
+    deepGet(store, "productWishlist.isSuccessDestroy"),
+  ]);
 
   //product get
   useEffect(() => {
@@ -394,8 +399,8 @@ useEffect(() => {
     }
   }, []);
 
-   //Add to cart getlist
-   useEffect(() => {
+  //Add to cart getlist
+  useEffect(() => {
     if (!hasAddtoCartDispatched.current) {
       dispatch({
         type: "PRODUCT_ADD_TO_CART_GETLIST_API_REQUEST",
@@ -410,19 +415,18 @@ useEffect(() => {
 
   //open modal after creating the add to cart
   useEffect(() => {
-    if(store.productAddToCart.isSuccessCreate){
+    if (store.productAddToCart.isSuccessCreate) {
       dispatch({
         type: "OPEN_ADD_TO_CART_MODAL",
         payload: {
           isAddToCart: true,
         },
-      })
+      });
       dispatch({
-        type:"PRODUCT_ADD_TO_CART_CREATE_API_CLEAR"
-      })
+        type: "PRODUCT_ADD_TO_CART_CREATE_API_CLEAR",
+      });
     }
-  }, [deepGet(store,"productAddToCart.isSuccessCreate")])
-  
+  }, [deepGet(store, "productAddToCart.isSuccessCreate")]);
 
   useEffect(() => {
     if (Object.keys(store.product.dataGet || {}).length > 0) {
@@ -530,10 +534,10 @@ useEffect(() => {
         );
       default:
         return (
-            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-              <SvgStarPurple500 className={classes.starColor} />
-            </div>
-          );
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+          </div>
+        );
         break;
     }
   };
@@ -582,64 +586,63 @@ useEffect(() => {
     setIsChecked(e.target.checked);
   };
 
-
-const handleAddToCartSubmit = () => {
-  dispatch({
-    type:"PRODUCT_ADD_TO_CART_CREATE_API_REQUEST",
-    payload:{
-      url: "/addToCart",
-      method: "POST",
-      body:{
-        productId:rowDataId,
-        // productId:'2df8af0e-4710-4523-b285-9d97617ce6ef',
-        userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
-        colorId:selectedColor?.id,
-        sizeId:selectedSize?.id,
-        quantity:count
-      }
-    }
-  })
-}
-
-const handleGoToCart = () => {
-  dispatch({
-    type: "OPEN_ADD_TO_CART_MODAL",
-    payload: {
-      isAddToCart: true,
-    },
-  })
-}
-
-const handleWishlist = () => {
-  if(isWishlist){
-    const selectedWishlist =
-    store.productWishlist.dataGetList?.data?.find(
-      (product: any) => product.products[0]?.id === rowDataId
-    ) || {}
+  const handleAddToCartSubmit = () => {
     dispatch({
-      type:"PRODUCT_WHISHLIST_DESTROY_API_REQUEST",
+      type: "PRODUCT_ADD_TO_CART_CREATE_API_REQUEST",
       payload: {
-        url: "/wishList",
-        method: "DELETE",
-        query:{
-          id:selectedWishlist?.id
-        }
-      },
-    })
-  }else{
-    dispatch({
-      type:"PRODUCT_WHISHLIST_CREATE_API_REQUEST",
-      payload: {
-        url: "/wishList",
+        url: "/addToCart",
         method: "POST",
-        body:{
-          userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
-          productId:rowDataId
-        }
+        body: {
+          productId: rowDataId,
+          // productId:'2df8af0e-4710-4523-b285-9d97617ce6ef',
+          userId: "001a0ab1-14a1-4016-b2ed-2e9dfa414245",
+          colorId: selectedColor?.id,
+          sizeId: selectedSize?.id,
+          quantity: count,
+        },
       },
-    })
-  }
-}
+    });
+  };
+
+  const handleGoToCart = () => {
+    dispatch({
+      type: "OPEN_ADD_TO_CART_MODAL",
+      payload: {
+        isAddToCart: true,
+      },
+    });
+  };
+
+  const handleWishlist = () => {
+    if (isWishlist) {
+      const selectedWishlist =
+        store.productWishlist.dataGetList?.data?.find(
+          (product: any) => product.products[0]?.id === rowDataId
+        ) || {};
+      dispatch({
+        type: "PRODUCT_WHISHLIST_DESTROY_API_REQUEST",
+        payload: {
+          url: "/wishList",
+          method: "DELETE",
+          query: {
+            id: selectedWishlist?.id,
+          },
+        },
+      });
+    } else {
+      dispatch({
+        type: "PRODUCT_WHISHLIST_CREATE_API_REQUEST",
+        payload: {
+          url: "/wishList",
+          method: "POST",
+          body: {
+            userId: "001a0ab1-14a1-4016-b2ed-2e9dfa414245",
+            productId: rowDataId,
+          },
+        },
+      });
+    }
+  };
 
   return (
     <div className={classes.MainContainer}>
@@ -670,20 +673,26 @@ const handleWishlist = () => {
       <div className={classes.ProductContainer}>
         <div className={classes.LeftDiv}>
           <HideComponents showOnlyOn="desktop">
-          <div className={classes.LeftDivSmall}>
-            {allAttachments.map((product: any, idx: number) => (
-              <div
-              onMouseEnter={() => handleImageClick(product.fileUrl, product?.id)}
-                onClick={() => handleImageClick(product.fileUrl, product?.id)}
-                key={idx}
-                className={clsx(classes.ImageDiv, {
-                  [classes.Boder]: activeIndex === product?.id,
-                })}
-              >
-                <img src={product?.fileUrl} className={classes.Image} alt="" />
-              </div>
-            ))}
-          </div>
+            <div className={classes.LeftDivSmall}>
+              {allAttachments.map((product: any, idx: number) => (
+                <div
+                  onMouseEnter={() =>
+                    handleImageClick(product.fileUrl, product?.id)
+                  }
+                  onClick={() => handleImageClick(product.fileUrl, product?.id)}
+                  key={idx}
+                  className={clsx(classes.ImageDiv, {
+                    [classes.Boder]: activeIndex === product?.id,
+                  })}
+                >
+                  <img
+                    src={product?.fileUrl}
+                    className={classes.Image}
+                    alt=""
+                  />
+                </div>
+              ))}
+            </div>
           </HideComponents>
           <div className={classes.ImgDiv}>
             <img src={currentImage} alt="" className={classes.Img} />
@@ -691,7 +700,14 @@ const handleWishlist = () => {
           </div>
         </div>
         <div className={classes.RightDiv}>
-          <div onClick={()=>navigate("/mainLayout/collectionlist",{state:{rowDataId:store.product.dataGet?.brand?.id}})} style={{cursor:"pointer"}}>
+          <div
+            onClick={() =>
+              navigate("/mainLayout/collectionlist", {
+                state: { rowDataId: store.product.dataGet?.brand?.id },
+              })
+            }
+            style={{ cursor: "pointer" }}
+          >
             <Typography variant="BS">
               {/* Adidas */}
               {store.product.dataGet?.brand?.name}
@@ -705,7 +721,11 @@ const handleWishlist = () => {
           </div>
           <div className={classes.StarContent}>
             <div className={classes.StarDiv}>
-            {RatingStar(Math.round(store.product.dataGet?.aggregateReviewValue?.averageRating))}
+              {RatingStar(
+                Math.round(
+                  store.product.dataGet?.aggregateReviewValue?.averageRating
+                )
+              )}
             </div>
             <div>
               <Typography variant="BS">{`${store.product.dataGet?.aggregateReviewValue?.totalReviews} Reviews`}</Typography>
@@ -837,7 +857,12 @@ const handleWishlist = () => {
               {/* button section */}
               <div className={classes.buttonContainer}>
                 <Button
-                  leftIcon={<SvgChevronLeft onClick={decreaseCount} />}
+                  leftIcon={
+                    <SvgRemove
+                      className={classes.buttonColor}
+                      onClick={decreaseCount}
+                    />
+                  }
                   rightIcon={
                     <SvgAdd
                       onClick={increaseCount}
@@ -848,14 +873,19 @@ const handleWishlist = () => {
                   className={classes.buttonStyle}
                 ></Button>
                 <Button
-                  onClick={isProductInCart ? handleGoToCart : handleAddToCartSubmit}
+                  onClick={
+                    isProductInCart ? handleGoToCart : handleAddToCartSubmit
+                  }
                   className={classes.btnStyle}
-                  text={isProductInCart ? 'Go to Cart' : "Add to Cart"}
+                  text={isProductInCart ? "Go to Cart" : "Add to Cart"}
                 ></Button>
                 <div className={classes.CircleContainer}>
-                  <div className={clsx(classes.CircleImgDiv,{
-                    [classes.favouriteActive]:isWishlist
-                  })} onClick={handleWishlist}>
+                  <div
+                    className={clsx(classes.CircleImgDiv, {
+                      [classes.favouriteActive]: isWishlist,
+                    })}
+                    onClick={handleWishlist}
+                  >
                     <SvgHeart viewBox="0 0 35 55" width={30} height={30} />
                   </div>
                   {/* <div className={classes.CircleImgDiv}>

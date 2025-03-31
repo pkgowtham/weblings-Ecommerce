@@ -20,6 +20,7 @@ import fashionblack from "../../assets/images/fashionblack.jpg";
 import fashionwhite from "../../assets/images/fashionwhite.jpg";
 import fashiongrey from "../../assets/images/fashion.jpg";
 import { deepGet } from "../../util/util";
+import SvgBuy from "../../custom-icons/Buy";
 
 const productData = {
   //   productcategory: "Product Category",
@@ -413,12 +414,12 @@ const Header: React.FC<any> = (props): JSX.Element => {
                 />
               </div>
               <div className={classes.wishList}>
-                <SvgHeart
+                <SvgBuy
                   onClick={handleNavigate}
                   cursor={"pointer"}
-                  viewBox="0 0 40 40"
+                  viewBox="0 0 20 30"
                   width={30}
-                  height={25}
+                  height={30}
                 />
                 <Badge
                   style={{

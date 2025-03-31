@@ -158,7 +158,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     marginTop: theme.spacing.s500,
   },
   fourColumns: {
-    gridTemplateColumns: "repeat(4, 1fr)",
+    gridTemplateColumns: "repeat(3, 1fr)",
     "@media (max-width: 1024px)": {
       gridTemplateColumns: "repeat(2, 1fr)",
     },

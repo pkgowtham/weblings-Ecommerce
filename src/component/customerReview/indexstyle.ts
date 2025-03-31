@@ -186,6 +186,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     padding: `${theme.spacing.s0} ${theme.spacing.s400}`,
     display: "flex",
     flexDirection: "column",
+    marginTop:theme.spacing.s1600
   },
   RateText: {
     width: "100%",

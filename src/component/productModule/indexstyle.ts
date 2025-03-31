@@ -54,7 +54,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   imageStyles: {
     width: "100%",
     height: "100%",
-    objectFit: "cover",
+    objectFit: "fill",
   },
   lightColor: {
     color: theme.light.neutral.onSurface.dark,

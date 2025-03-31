@@ -160,7 +160,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
       overflowX: "scroll",
       width: "100%", // Ensure full width
       padding:`${theme.spacing.s250} ${theme.spacing.s0}`,
-      display:'flex',
+      display:'none',
       justifyContent:'center'
     },
   },

@@ -5,8 +5,6 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   cartContainer: {
     height: "fit-content",
     width: "50%",
-    top: "20%",
-    left: "25%",
   },
   header: {
     width: "100%",
@@ -21,6 +19,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     padding: theme.spacing.s800,
     display: "flex",
     gap: theme.spacing.s500,
+    "@media (max-width : 1024px)":{
+      display:'flex',
+      flexDirection:'column'
+    }
   },
   productDiv: {
     width: "60%",
@@ -28,11 +30,19 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     gap: theme.spacing.s300,
     paddingRight: theme.spacing.s200,
     borderRight: `1px solid ${theme.light.neutral.border.light}`,
+    "@media (max-width : 1024px)":{
+      width:'100%',
+      borderRight: `none`,
+    }
   },
   colorSection: {
     width: "40%",
     display: "flex",
     flexDirection: "column",
+    "@media (max-width : 1024px)":{
+      width:'100%',
+      borderRight: `none`,
+    }
   },
   imageContainer: {
     width: "30%",
@@ -112,7 +122,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     padding: `${theme.spacing.s300} ${theme.spacing.s0}`,
   },
   sizeStyle: {
-    width: "45px",
+    width: "fit-content",
     height: "35px",
     border: `1px solid ${theme.light.neutral.border.light}`,
     padding: `${theme.spacing.s250} ${theme.spacing.s400}`,

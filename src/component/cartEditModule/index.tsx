@@ -11,6 +11,7 @@ import clsx from "clsx";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { useStore } from "../../store";
 import { deepGet } from "../../util/util";
+import SvgRemove from "../../custom-icons/Remove";
 
 interface CartEditModuleProps {
   onClose: any;
@@ -215,7 +216,7 @@ const handleSubmit = () => {
               <Button
                 className={classes.buttonStyle}
                 leftIcon={
-                  <SvgAdd
+                  <SvgRemove
                     className={classes.addColor}
                     onClick={() => handleQuantityChange("decrease")}
                   />

@@ -13,6 +13,7 @@ import CartEditModule from "../cartEditModule";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { useStore } from "../../store";
 import { deepGet } from "../../util/util";
+import SvgRemove from "../../custom-icons/Remove";
 
 interface ShoppingCartProps {
   onClose: (value: boolean) => void;
@@ -243,7 +244,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
                       <Button
                         className={classes.buttonStyle}
                         leftIcon={
-                          <SvgAdd
+                          <SvgRemove
                             className={classes.addColor}
                             onClick={() =>
                               handleQuantityChange(item, "decrease")
