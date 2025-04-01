@@ -365,5 +365,11 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     top:10,
     cursor:'pointer'
     // boxShadow:theme.elevation.s
+  },
+
+  newStarColor:{
+    '& path':{
+      fill:theme.light.warning.onSurface.medium
   }
+  },
 }));

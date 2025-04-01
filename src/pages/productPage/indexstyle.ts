@@ -90,7 +90,6 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   RightDiv: {
     width: "580px",
-    overflow: "auto",
     display: "flex",
     flexDirection: "column",
     gap: theme.spacing.s500,
@@ -427,6 +426,12 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     '& path':{
         fill:theme.light.warning.onSurface.medium
     }
+  },
+
+  newStarColor:{
+    '& path':{
+      fill:theme.light.warning.onSurface.medium
+  }
   },
 
   favouriteActive:{

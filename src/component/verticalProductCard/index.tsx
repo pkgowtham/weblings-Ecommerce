@@ -12,6 +12,8 @@ import SvgEye from "../../custom-icons/Eye";
 import SvgClose from "../../custom-icons/Close";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { useStore } from "../../store";
+import SvgEmptyStar from "../../custom-icons/EmptyStar";
+import SvgStarHalf from "../../custom-icons/StarHalf";
 
 interface VerticalProductCardProps {
   products: any;
@@ -36,57 +38,120 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
   const dispatch = useMiddlewareDispatch();
     const { store } = useStore();
 
-  const RatingStar = (rating: any) => {
-    switch (rating) {
-      case 1:
-        return (
-          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-            <SvgStarPurple500 className={classes.starColor} />
-          </div>
-        );
-      case 2:
-        return (
-          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-            <SvgStarPurple500 className={classes.starColor} />
-            <SvgStarPurple500 className={classes.starColor} />
-          </div>
-        );
-      case 3:
-        return (
-          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-            <SvgStarPurple500 className={classes.starColor} />
-            <SvgStarPurple500 className={classes.starColor} />
-            <SvgStarPurple500 className={classes.starColor} />
-          </div>
-        );
-      case 4:
-        return (
-          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-            <SvgStarPurple500 className={classes.starColor} />
-            <SvgStarPurple500 className={classes.starColor} />
-            <SvgStarPurple500 className={classes.starColor} />
-            <SvgStarPurple500 className={classes.starColor} />
-          </div>
-        );
-      case 5:
-        return (
-          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-            <SvgStarPurple500 className={classes.starColor} />
-            <SvgStarPurple500 className={classes.starColor} />
-            <SvgStarPurple500 className={classes.starColor} />
-            <SvgStarPurple500 className={classes.starColor} />
-            <SvgStarPurple500 className={classes.starColor} />
-          </div>
-        );
-      default:
-        return (
+    const RatingStar = (rating: number) => {
+  
+      switch (true) {
+        // Handle cases like 1.1 to 1.9
+        case rating >= 1.1 && rating <= 1.9:
+          return (
             <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgStarHalf className={classes.starColor} />
+              <SvgEmptyStar className={classes.newStarColor}/>
+              <SvgEmptyStar className={classes.newStarColor}/>
+              <SvgEmptyStar className={classes.newStarColor}/>
+            </div>
+          );
+    
+        // Handle cases like 2.1 to 2.9
+        case rating >= 2.1 && rating <= 2.9:
+          return (
+            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgStarPurple500 className={classes.starColor} />
+               <SvgStarHalf className={classes.starColor} />
+              <SvgEmptyStar className={classes.newStarColor}/>
+              <SvgEmptyStar className={classes.newStarColor}/>
+            </div>
+          );
+    
+        // Handle cases like 3.1 to 3.9
+        case rating >= 3.1 && rating <= 3.9:
+          return (
+            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgStarPurple500 className={classes.starColor} />
+               <SvgStarHalf className={classes.starColor} />
+              <SvgEmptyStar className={classes.newStarColor}/>
+            </div>
+          );
+    
+        // Handle cases like 4.1 to 4.9
+        case rating >= 4.1 && rating <= 4.9:
+          return (
+            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgStarPurple500 className={classes.starColor} />
+               <SvgStarHalf className={classes.starColor} />
+            </div>
+          );
+    
+        // Default cases (whole numbers)
+        case rating === 1:
+          return (
+            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgEmptyStar className={classes.newStarColor}/>
+              <SvgEmptyStar className={classes.newStarColor}/>
+              <SvgEmptyStar className={classes.newStarColor}/>
+              <SvgEmptyStar className={classes.newStarColor}/>
+            </div>
+          );
+        case rating === 2:
+          return (
+            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgEmptyStar className={classes.newStarColor}/>
+              <SvgEmptyStar className={classes.newStarColor}/>
+              <SvgEmptyStar className={classes.newStarColor}/>
+            </div>
+          );
+        case rating === 3:
+          return (
+            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgEmptyStar className={classes.newStarColor}/>
+              <SvgEmptyStar className={classes.newStarColor}/>
+            </div>
+          );
+        case rating === 4:
+          return (
+            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgEmptyStar className={classes.newStarColor}/>
+            </div>
+          );
+        case rating === 5:
+          return (
+            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgStarPurple500 className={classes.starColor} />
               <SvgStarPurple500 className={classes.starColor} />
             </div>
           );
-        break;
-    }
-  };
+        default:
+          return (
+            <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+              <SvgStarPurple500 className={classes.starColor} />
+              <SvgEmptyStar className={classes.newStarColor}/>
+              <SvgEmptyStar className={classes.newStarColor}/>
+              <SvgEmptyStar className={classes.newStarColor}/>
+              <SvgEmptyStar className={classes.newStarColor}/>
+            </div>
+          );
+      }
+    };
 
   //checking the add to cart if exists
   const isWishlist = store.productWishlist.dataGetList?.data?.some(

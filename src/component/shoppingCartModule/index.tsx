@@ -166,7 +166,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
     <div className={classes.cartContainer}>
       {/* header */}
       <div className={classes.cartHeader}>
-        <Typography variant="TS">Shopping Cart ({`${store.productAddToCart.dataGetList?.data?.length}`})</Typography>
+        <Typography variant="TS">Shopping Cart ({`${store.productAddToCart.dataGetList?.data?.length}` || 0})</Typography>
         <SvgClose
           viewBox="0 0 30 30"
           cursor={"pointer"}

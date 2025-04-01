@@ -142,4 +142,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   favouriteActive:{
     backgroundColor: theme.light.neutral.onSurface.title
   },
+
+  newStarColor:{
+    '& path':{
+      fill:theme.light.warning.onSurface.medium
+  }
+  },
 }));

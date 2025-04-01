@@ -189,4 +189,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     borderRadius: "50%",
   },
 
+  newStarColor:{
+    '& path':{
+      fill:theme.light.warning.onSurface.medium
+  }
+  },
+
 }));

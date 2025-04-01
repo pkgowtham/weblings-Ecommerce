@@ -25,6 +25,8 @@ import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { deepGet } from "../../util/util";
 import { HideComponents } from "../../component/hideComponents";
 import SvgRemove from "../../custom-icons/Remove";
+import SvgEmptyStar from "../../custom-icons/EmptyStar";
+import SvgStarHalf from "../../custom-icons/StarHalf";
 
 const ProductData = {
   logo: [
@@ -515,39 +517,99 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
     }
   };
 
-  const RatingStar = (rating: any) => {
-    switch (rating) {
-      case 1:
+  const RatingStar = (rating: number) => {
+  
+    switch (true) {
+      // Handle cases like 1.1 to 1.9
+      case rating >= 1.1 && rating <= 1.9:
         return (
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarHalf className={classes.starColor} />
+            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor}/>
           </div>
         );
-      case 2:
+  
+      // Handle cases like 2.1 to 2.9
+      case rating >= 2.1 && rating <= 2.9:
         return (
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
+             <SvgStarHalf className={classes.starColor} />
+            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor}/>
           </div>
         );
-      case 3:
+  
+      // Handle cases like 3.1 to 3.9
+      case rating >= 3.1 && rating <= 3.9:
         return (
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
+             <SvgStarHalf className={classes.starColor} />
+            <SvgEmptyStar className={classes.newStarColor}/>
           </div>
         );
-      case 4:
+  
+      // Handle cases like 4.1 to 4.9
+      case rating >= 4.1 && rating <= 4.9:
         return (
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
+             <SvgStarHalf className={classes.starColor} />
           </div>
         );
-      case 5:
+  
+      // Default cases (whole numbers)
+      case rating === 1:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor}/>
+          </div>
+        );
+      case rating === 2:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor}/>
+          </div>
+        );
+      case rating === 3:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor}/>
+          </div>
+        );
+      case rating === 4:
+        return (
+          <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgStarPurple500 className={classes.starColor} />
+            <SvgEmptyStar className={classes.newStarColor}/>
+          </div>
+        );
+      case rating === 5:
         return (
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
@@ -561,9 +623,12 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
         return (
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
+            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor}/>
           </div>
         );
-        break;
     }
   };
 
@@ -740,11 +805,7 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
           </div>
           <div className={classes.StarContent}>
             <div className={classes.StarDiv}>
-              {RatingStar(
-                Math.round(
-                  store.product.dataGet?.aggregateReviewValue?.averageRating
-                )
-              )}
+            {RatingStar(store.product.dataGet?.aggregateReviewValue?.averageRating)}
             </div>
             <div>
               <Typography variant="BS">{`${store.product.dataGet?.aggregateReviewValue?.totalReviews} Reviews`}</Typography>
