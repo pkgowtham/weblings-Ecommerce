@@ -50,7 +50,7 @@ const productData = {
     {
       id: 3,
       name: "Availability",
-      stock: ["In Stock(5)", "Out of Stock"],
+      stock: ["inStock", "outOfStock"],
     },
     {
       id: 4,
@@ -82,7 +82,7 @@ const productData = {
     { id: 3, name: "price,low to high" },
     { id: 4, name: "price,high to low" },
     { id: 5, name: "date,old to new" },
-    { id: 6, name: "date,new to old" }, 
+    { id: 6, name: "date,new to old" },
   ],
   products: [
     {
@@ -413,12 +413,13 @@ const CategoryPage = () => {
   const { store } = useStore();
   const dispatch = useMiddlewareDispatch();
   const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
+  const [selectedStock, setSelectedStock] = useState<string[]>([]);
   const [selectedSize, setSelectedSize] = useState<any>("");
   const hasWishlistDispatched = useRef(false);
-  const [price,setPrice] = useState<any>({
-    start:0,
-    end:0
-  })
+  const [price, setPrice] = useState<any>({
+    start: 0,
+    end: 0,
+  });
 
   //Wishlist getlist
   useEffect(() => {
@@ -459,9 +460,6 @@ const CategoryPage = () => {
     deepGet(store, "productWishlist.isSuccessDestroy"),
   ]);
 
-
-  
-
   useEffect(() => {
     const handleClickOutside = (event: any) => {
       if (shortRef.current && !shortRef.current.contains(event.target)) {
@@ -475,26 +473,25 @@ const CategoryPage = () => {
   });
   // short data
   const handleShortData = (data: any) => {
-    console.log('data',data)
+    console.log("data", data);
     setShortBy(data);
     setIsShortDownOpen(false);
   };
 
   useEffect(() => {
-    if(shortBy){
+    if (shortBy) {
       dispatch({
         type: "PRODUCT_GETLIST_API_REQUEST",
         payload: {
           url: "/product",
           method: "GET",
-          query:{
-            sortBy:shortBy
-          }
+          query: {
+            sortBy: shortBy,
+          },
         },
       });
     }
-  }, [shortBy])
-  
+  }, [shortBy]);
 
   //
   const toogleSection = (id: number) => {
@@ -511,7 +508,7 @@ const CategoryPage = () => {
           method: "GET",
         },
       });
-      setShortBy("price,low to high")
+      setShortBy("price,low to high");
       hasDispatched.current = true;
     }
   }, []);
@@ -585,24 +582,50 @@ const CategoryPage = () => {
     }
   }, [selectedBrand]);
 
+   //Stock click
+   useEffect(() => {
+    if (selectedStock.length > 0) {
+      dispatch({
+        type: "PRODUCT_GETLIST_API_REQUEST",
+        payload: {
+          url: "/product",
+          method: "GET",
+          query: { availability: selectedStock.join(","), sortBy: shortBy },
+        },
+      });
+    }
+  }, [selectedStock]);
+
   const handleSubCategoryClick = (id: string) => {
     dispatch({
       type: "PRODUCT_GETLIST_API_REQUEST",
-      payload: { url: "/product", method: "GET", query: { subCategory: id, sortBy: shortBy } },
+      payload: {
+        url: "/product",
+        method: "GET",
+        query: { subCategory: id, sortBy: shortBy },
+      },
     });
   };
 
   const handleCategoryClick = (id: string) => {
     dispatch({
       type: "PRODUCT_GETLIST_API_REQUEST",
-      payload: { url: "/product", method: "GET", query: { category: id, sortBy: shortBy } },
+      payload: {
+        url: "/product",
+        method: "GET",
+        query: { category: id, sortBy: shortBy },
+      },
     });
   };
 
   const handlePriceClick = () => {
     dispatch({
       type: "PRODUCT_GETLIST_API_REQUEST",
-      payload: { url: "/product", method: "GET", query: { minPrice:price.start, maxPrice:price.end, sortBy: shortBy } },
+      payload: {
+        url: "/product",
+        method: "GET",
+        query: { minPrice: price.start, maxPrice: price.end, sortBy: shortBy },
+      },
     });
   };
 
@@ -638,7 +661,6 @@ const CategoryPage = () => {
       ...price,
       [name]: value,
     });
-
   };
 
   // Handle checkbox toggle
@@ -654,9 +676,18 @@ const CategoryPage = () => {
     });
   };
 
-  // const handleFiltere = () => {
-
-  // }
+   // Handle checkbox toggle
+   const handleStockCheckboxChange = (stock: string) => {
+    setSelectedStock((prevSelected) => {
+      if (prevSelected.includes(stock)) {
+        // Remove if already selected
+        return prevSelected.filter((item) => item !== stock);
+      } else {
+        // Add if not selected
+        return [...prevSelected, stock];
+      }
+    });
+  };
 
   return (
     <div className={classes.mainContainer}>
@@ -722,7 +753,11 @@ const CategoryPage = () => {
                   <div className={classes.expandDiv}>
                     {data?.stock?.map((stock: any) => (
                       <div className={classes.checkBoxDiv}>
-                        <input type="checkbox" />
+                        <input
+                          type="checkbox"
+                          checked={selectedStock.includes(stock)}
+                          onChange={() => handleStockCheckboxChange(stock)}
+                        />
                         <Typography className={classes.lightColor} variant="BS">
                           {stock}
                         </Typography>
@@ -900,10 +935,12 @@ const CategoryPage = () => {
                   {/* featured short dropdown */}
                   {isShortDownopen && (
                     <div className={classes.shortDropDown}>
-                    {/* <div ref={shortRef} className={classes.shortDropDown}> */}
+                      {/* <div ref={shortRef} className={classes.shortDropDown}> */}
                       {productData.shortdropdown.map((data: any) => (
                         <div
-                          onClick={() => {console.log('clicked'), handleShortData(data.name)}}
+                          onClick={() => {
+                            console.log("clicked"), handleShortData(data.name);
+                          }}
                           className={classes.contentDiv}
                         >
                           <Typography

@@ -487,6 +487,17 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
     }
   }, [selectedColor, selectedSize]);
 
+  //payment nav after buy now success
+  useEffect(() => {
+    if(store.order.isSuccessCreate){
+      navigate("/mainLayout/paymentpage")  
+      dispatch({
+          type:"ORDER_CREATE_API_CLEAR"
+        })
+    }
+  }, [store.order.isSuccessCreate])
+  
+
   // Handle color selection
   const handleColorChange = (data: any) => {
     const colorId = data.id;
@@ -642,22 +653,6 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
       navigate("/mainlayout/home");
     }
   };
-  // Handle size selection
-  const handleSizeClick = (size: string, amount: string) => {
-    setSelectedSize(size);
-    setSelectedAmount(amount);
-  };
-
-  // Handle product image click
-  const handleProductImageClick = (
-    sizeimage: string,
-    color: string,
-    index: number
-  ) => {
-    setCurrentImageIndex(sizeimage);
-    setActiveProductIndex(index);
-    setSelectedColor(color);
-  };
   // Handle thumbnail click
   const handleImageClick = (image: string, index: number) => {
     setCurrentImage(image);
@@ -734,6 +729,21 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
     }
   };
 
+  const handleBuy = () => {
+    dispatch({
+      type: "ORDER_CREATE_API_REQUEST",
+      payload: {
+        url: "/order",
+        method: "POST",
+        body:{
+          buyNow:true,
+          userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
+          productList:[rowDataId]
+        }
+      },
+    });
+  }
+
   return (
     <div className={classes.MainContainer}>
       <nav className={classes.Nav}>
@@ -747,7 +757,6 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
           </Typography>
           <div className={classes.dotStyle}></div>
           <Typography variant="BM">
-            {/* Cotton Long-Sleeve Striped T-shirt */}
             {store.product.dataGet?.name}
           </Typography>
         </div>
@@ -793,13 +802,11 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
             style={{ cursor: "pointer" }}
           >
             <Typography variant="BS">
-              {/* Adidas */}
               {store.product.dataGet?.brand?.name}
             </Typography>
           </div>
           <div>
             <Typography variant="TM">
-              {/* Cotton Long-Sleeve Striped T-shirt */}
               {store.product.dataGet?.name}
             </Typography>
           </div>
@@ -819,9 +826,6 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
           </div>
           <div>
             <Typography variant="BM">
-              {/* The cotton long-sleeved striped t-shirt features a classic crew
-              neckline, easy short sleeves, a slightly cropped length and a
-              relaxed fit for a truly timeless look. */}
               {store.product.dataGet?.shortdesc}
             </Typography>
           </div>
@@ -857,19 +861,6 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
               <Typography variant="BM">Color: {selectedColor?.name}</Typography>
             </div>
             <div className={classes.Product}>
-              {/* {ProductData?.productimg?.map((dat: any, index: number) => (
-                <div
-                  onClick={() =>
-                    handleProductImageClick(dat.black, dat.color, index)
-                  }
-                  key={index}
-                  className={clsx(classes.ProductImgDiv, {
-                    [classes.ProductBoder]: activeProductIndex === index,
-                  })}
-                >
-                  <img src={dat.black} alt="" className={classes.ProductImg} />
-                </div>
-              ))} */}
               {store.product.dataGet?.colors?.map((dat: any, index: number) => {
                 const thumbnailAttachments = dat.attachments.filter(
                   (attachment: any) => attachment.thumbnail === true
@@ -990,7 +981,8 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
                 </div>
                 <div className={classes.CheckBoxButton}>
                   <Button
-                    onClick={() => handleNavigate("payment")}
+                    // onClick={() => handleNavigate("payment")}
+                    onClick={handleBuy}
                     disabled={!isChecked}
                     text={" Buy it now"}
                     className={clsx(classes.ButtonStyle, {
