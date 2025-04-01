@@ -10,6 +10,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     marginTop: theme.spacing.s800,
     justifyContent: "center",
     alignItems: "center",
+    "@media (max-width: 1024px)": {
+      width: "100%",
+      padding:theme.spacing.s250
+    },
   },
   TextDiv: {
     display: "flex",
@@ -18,12 +22,17 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   ReviewDiv: {
     width: "100%",
     maxWidth: "362px",
-    height: "100px",
+    height: "auto",
     display: "flex",
     flexDirection: "column",
     gap: theme.spacing.s400,
     borderRight: `1px solid ${theme.light.neutral.border.light}`,
     padding: theme.spacing.s500,
+    "@media (max-width: 1024px)": {
+      width: "100%",
+      borderRight: "none",
+      gap:theme.spacing.s250
+    },
   },
   StarImg: {
     width: "100%",
@@ -39,6 +48,24 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     gap: theme.spacing.s2000,
     alignItems: "center",
+    "@media (max-width: 1024px)": {
+      width: "100%",
+      borderRight: "none",
+      gap:theme.spacing.s250,
+      display:'flex',
+      // flexDirection:'column',
+      alignItems:'center',
+      justifyContent:'center'
+    },
+  },
+  basedREview:{
+    width:'100%',
+    "@media (max-width: 1024px)": {
+      width: "100%",
+      display:'flex',
+      alignItems:'center',
+      justifyContent:'center'
+    },
   },
   RatingDiv: {
     width: "100%",
@@ -49,6 +76,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     gap: theme.spacing.s500,
     borderRight: `1px solid ${theme.light.neutral.border.light}`,
     padding: theme.spacing.s500,
+    "@media (max-width: 1024px)": {
+      width: "100%",
+      borderRight: "none",
+    },
   },
   ImgDiv: {
     display: "flex",
@@ -96,8 +127,18 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   ReviewWrapper: {
     display: "flex",
     width: "100%",
-    maxWidth: "1170px",
+    // maxWidth: "1170px",
+    justifyContent: "center",
+    margin: `${theme.spacing.s0} auto`,
     marginTop: theme.spacing.s500,
+    "@media (max-width: 1024px)": {
+      display: "flex",
+      flexDirection: "column",
+      width: "100%",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: theme.spacing.s250,
+    },
   },
   FeedBackDiv: {
     display: "flex",
@@ -111,7 +152,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     borderBottom: `1px solid ${theme.light.neutral.border.light}`,
   },
   FeedBack: {
-    width:'100%',
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     gap: theme.spacing.s500,
@@ -186,7 +227,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     padding: `${theme.spacing.s0} ${theme.spacing.s400}`,
     display: "flex",
     flexDirection: "column",
-    marginTop:theme.spacing.s1600
+    marginTop: theme.spacing.s1600,
   },
   RateText: {
     width: "100%",
@@ -334,42 +375,63 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     },
   },
 
-  description:{
-    color:theme.light.neutral.onSurface.dark
+  description: {
+    color: theme.light.neutral.onSurface.dark,
   },
 
-  imagesCon:{
-    width:'100%',
-    position:'relative',
-    height:'120px',
-    borderRadius:theme.borderRadius.b400,
-    borderStyle:"dashed",
-    border:`2px solid ${theme.light.neutral.border.light}`
+  imagesCon: {
+    width: "100%",
+    position: "relative",
+    height: "120px",
+    borderRadius: theme.borderRadius.b400,
+    borderStyle: "dashed",
+    border: `2px solid ${theme.light.neutral.border.light}`,
   },
 
-  image:{
-    width:'50%',
-    height:'100%',
-    objectFit:"cover",
-    objectPosition:"center",
-    borderTopLeftRadius:theme.borderRadius.b400,
-    borderBottomLeftRadius:theme.borderRadius.b400,
+  image: {
+    width: "50%",
+    height: "100%",
+    objectFit: "cover",
+    objectPosition: "center",
+    borderTopLeftRadius: theme.borderRadius.b400,
+    borderBottomLeftRadius: theme.borderRadius.b400,
   },
 
-  imgDelete:{
+  imgDelete: {
     // width:'10px',
     // height:'10px',
-    borderRadius:'50%',
-    position:"absolute",
-    right:10,
-    top:10,
-    cursor:'pointer'
+    borderRadius: "50%",
+    position: "absolute",
+    right: 10,
+    top: 10,
+    cursor: "pointer",
     // boxShadow:theme.elevation.s
   },
 
   newStarColor:{
     '& path':{
       fill:theme.light.warning.onSurface.medium
-  }
+    },
+
   },
+
+  starCont:{
+    width:'100%',
+    display:'grid',
+    gridTemplateColumns:"1fr 2fr 1fr",
+    // display:'flex',
+    alignItems:'center',
+    gap:theme.spacing.s200,
+    // "@media(max-width: 600px)":{
+    //   width:'100%',
+    //   display:'flex',
+    //   alignItems:'center',
+    //   justifyContent:'center'
+    // }
+  },
+  starContent:{
+    display:'flex',
+    alignItems:'center',
+    gap:theme.spacing.s150
+  }
 }));

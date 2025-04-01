@@ -344,7 +344,7 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
               </Typography>
             </div>
           </div>
-          <div>
+          <div className={classes.basedREview}>
             <Typography variant="BS">
               {" "}
               Based on {`${store.productRating.dataGet?.data?.totalReviews}`}{" "}
@@ -355,16 +355,9 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
         <div className={classes.RatingDiv}>
           <div className={classes.StarLogo}>
             <div className={classes.starContainer}>
-              <div
-                style={{
-                  width: "320px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                }}
-              >
+              <div className={classes.starCont}>
                 <div
-                  style={{ display: "flex", alignItems: "center", gap: "4px" }}
+                  className={classes.starContent}
                 >
                   <SvgStarPurple500 className={classes.starColor} />
                   <SvgStarPurple500 className={classes.starColor} />
@@ -391,16 +384,8 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                   {store.productRating.dataGet?.data?.summary?.["5"]?.count}
                 </div>
               </div>
-              <div
-                style={{
-                  width: "320px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                }}
-              >
-                <div
-                  style={{ display: "flex", alignItems: "center", gap: "4px" }}
+              <div className={classes.starCont} >
+                <div className={classes.starContent}
                 >
                   <SvgStarPurple500 className={classes.starColor} />
                   <SvgStarPurple500 className={classes.starColor} />
@@ -427,16 +412,8 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                   {store.productRating.dataGet?.data?.summary?.["4"]?.count}
                 </div>
               </div>
-              <div
-                style={{
-                  width: "320px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                }}
-              >
-                <div
-                  style={{ display: "flex", alignItems: "center", gap: "4px" }}
+              <div className={classes.starCont}>
+                <div className={classes.starContent}
                 >
                   <SvgStarPurple500 className={classes.starColor} />
                   <SvgStarPurple500 className={classes.starColor} />
@@ -463,16 +440,9 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                   {store.productRating.dataGet?.data?.summary?.["3"]?.count}
                 </div>
               </div>
-              <div
-                style={{
-                  width: "320px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                }}
-              >
+              <div className={classes.starCont}>
                 <div
-                  style={{ display: "flex", alignItems: "center", gap: "4px" }}
+                  className={classes.starContent}
                 >
                   <SvgStarPurple500 className={classes.starColor} />
                   <SvgStarPurple500 className={classes.starColor} />
@@ -499,16 +469,9 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                   {store.productRating.dataGet?.data?.summary?.["2"]?.count}
                 </div>
               </div>
-              <div
-                style={{
-                  width: "320px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                }}
-              >
+              <div className={classes.starCont}>
                 <div
-                  style={{ display: "flex", alignItems: "center", gap: "4px" }}
+                  className={classes.starContent}
                 >
                   <SvgStarPurple500 className={classes.starColor} />
                   <SvgEmptyStar className={classes.newStarColor} />

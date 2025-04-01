@@ -4,9 +4,6 @@ import Typography from "../../../src/component/typography/component";
 import SvgChevronRight from "../../custom-icons/ChevronRight";
 import SvgChevronLeft from "../../custom-icons/ChevronLeft";
 import VerticalProductCard from "../verticalProductCard";
-import fashionwhite from "../../assets/images/fashionwhite.jpg";
-import fashionblack from "../../assets/images/fashionblack.jpg";
-import fashiongrey from "../../assets/images/fashion.jpg";
 
 // const products = [
 //   {
@@ -185,18 +182,20 @@ const Card: React.FC<any> = (props): JSX.Element => {
   // Attach scroll event listener
   useEffect(() => {
     const scrollContainer = ScroolContainerRef.current;
-
+  
     if (scrollContainer) {
+      // Check scroll position immediately
+      checkScrollPosition();
       scrollContainer.addEventListener("scroll", checkScrollPosition);
-      checkScrollPosition(); // Initial check on component mount
     }
-
+  
     return () => {
       if (scrollContainer) {
         scrollContainer.removeEventListener("scroll", checkScrollPosition);
       }
     };
-  }, []);
+  }, [CardData]); // Add dependency to ensure it updates when new data loads
+  
 
   return (
     <div className={classes.MainContainer}
