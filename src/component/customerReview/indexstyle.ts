@@ -12,7 +12,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "center",
     "@media (max-width: 1024px)": {
       width: "100%",
-      padding:theme.spacing.s250
+      padding: theme.spacing.s250,
     },
   },
   TextDiv: {
@@ -31,7 +31,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     "@media (max-width: 1024px)": {
       width: "100%",
       borderRight: "none",
-      gap:theme.spacing.s250
+      gap: theme.spacing.s250,
     },
   },
   StarImg: {
@@ -51,20 +51,20 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     "@media (max-width: 1024px)": {
       width: "100%",
       borderRight: "none",
-      gap:theme.spacing.s250,
-      display:'flex',
+      gap: theme.spacing.s250,
+      display: "flex",
       // flexDirection:'column',
-      alignItems:'center',
-      justifyContent:'center'
+      alignItems: "center",
+      justifyContent: "center",
     },
   },
-  basedREview:{
-    width:'100%',
+  basedREview: {
+    width: "100%",
     "@media (max-width: 1024px)": {
       width: "100%",
-      display:'flex',
-      alignItems:'center',
-      justifyContent:'center'
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
     },
   },
   RatingDiv: {
@@ -123,6 +123,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     border: `1px solid ${theme.light.neutral.onSurface.title}`,
     color: theme.light.neutral.onSurface.title,
     cursor: "pointer",
+    "@media (max-width : 400px)":{
+      width:'100% !important'
+     }
   },
   ReviewWrapper: {
     display: "flex",
@@ -146,7 +149,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "center",
     width: "100%",
     maxWidth: "1170px",
-    height: "336px",
+    height: "auto",
     padding: `${theme.spacing.s0} ${theme.spacing.s0}`,
     marginTop: theme.spacing.s500,
     borderBottom: `1px solid ${theme.light.neutral.border.light}`,
@@ -190,10 +193,11 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   ImgGalleryDiv: {
     width: "100%",
-    height: "94px",
+    height: "100%",
     marginTop: theme.spacing.s400,
     display: "flex",
     gap: theme.spacing.s250,
+    paddingBottom:theme.spacing.s250
   },
   ImgGallery: {
     width: "100%",
@@ -309,7 +313,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   TextContent: {
     width: "100%",
-    height: "63px",
+    height: "fit-content",
     marginTop: theme.spacing.s400,
     textAlign: "center",
   },
@@ -320,6 +324,11 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "center",
     gap: theme.spacing.s500,
     justifyContent: "center",
+    "@media (max-width : 400px)":{
+      display:'flex',
+      flexDirection:'column',
+      width:'100%'
+    }
   },
   BtnStyle: {
     width: "100%",
@@ -408,20 +417,19 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     // boxShadow:theme.elevation.s
   },
 
-  newStarColor:{
-    '& path':{
-      fill:theme.light.warning.onSurface.medium
+  newStarColor: {
+    "& path": {
+      fill: theme.light.warning.onSurface.medium,
     },
-
   },
 
-  starCont:{
-    width:'100%',
-    display:'grid',
-    gridTemplateColumns:"1fr 2fr 1fr",
+  starCont: {
+    width: "100%",
+    display: "grid",
+    gridTemplateColumns: "1fr 2fr 1fr",
     // display:'flex',
-    alignItems:'center',
-    gap:theme.spacing.s200,
+    alignItems: "center",
+    gap: theme.spacing.s200,
     // "@media(max-width: 600px)":{
     //   width:'100%',
     //   display:'flex',
@@ -429,9 +437,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     //   justifyContent:'center'
     // }
   },
-  starContent:{
-    display:'flex',
-    alignItems:'center',
-    gap:theme.spacing.s150
-  }
+  starContent: {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing.s150,
+  },
 }));

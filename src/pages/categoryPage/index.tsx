@@ -1176,26 +1176,38 @@ const CategoryPage = () => {
         </div>
       )}
       {/* mobile filter */}
-      {filterDownBar && (
-        <div className={classes.downBarContainer}>
-          {productData.shortdropdown.map((data: any) => (
-            <div
-              onClick={() => handleShortData(data.name)}
-              className={classes.contentDiv}
-            >
-              <Typography
-                className={clsx(classes.lightColor, {
-                  [classes.activeStatus]: shortBy === data.name,
-                })}
-                key={data.id}
-                variant="BM"
+      <HideComponents showOnlyOn="mobile">
+        {filterDownBar && (
+          <div className={classes.mobileFilterContainer}>
+            <div className={classes.closeDiv}>
+              <div
+                onClick={() => setFilterDownBar(!filterDownBar)}
+                className={classes.filterCloseDiv}
               >
-                {data.name}
-              </Typography>
+                <SvgClose cursor={"pointer"} className={classes.filterClose} />
+              </div>
             </div>
-          ))}
-        </div>
-      )}
+            <div className={classes.downBarContainer}>
+              {productData.shortdropdown.map((data: any) => (
+                <div
+                  onClick={() => handleShortData(data.name)}
+                  className={classes.contentDiv}
+                >
+                  <Typography
+                    className={clsx(classes.lightColor, {
+                      [classes.activeStatus]: shortBy === data.name,
+                    })}
+                    key={data.id}
+                    variant="BM"
+                  >
+                    {data.name}
+                  </Typography>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </HideComponents>
     </div>
   );
 };

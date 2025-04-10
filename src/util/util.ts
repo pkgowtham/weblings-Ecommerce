@@ -1,5 +1,6 @@
 // import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 // import { theme } from "../theme/oceanBlueLight";
 
 export const formatTimestamp = (timestamp: string) => {
@@ -191,3 +192,14 @@ export  const useOutsideClick = (ref:any, callback:any) => {
     }, [ref, callback]);
   };
   
+  export function useScrollToTop() {
+    const location = useLocation();
+    
+    useEffect(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [location.pathname]);
+  }
+
+
+
+  // font change code-------------- "fontFamily": "Open sans",

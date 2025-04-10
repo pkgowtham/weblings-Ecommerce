@@ -22,11 +22,12 @@ import ShoppingCart from "../../component/shoppingCartModule";
 import ProductImage from "../../component/productImage";
 import { useStore } from "../../store";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
-import { deepGet } from "../../util/util";
+import { deepGet, useScrollToTop } from "../../util/util";
 import { HideComponents } from "../../component/hideComponents";
 import SvgRemove from "../../custom-icons/Remove";
 import SvgEmptyStar from "../../custom-icons/EmptyStar";
 import SvgStarHalf from "../../custom-icons/StarHalf";
+import Marquee from "../../component/marquee";
 
 const ProductData = {
   logo: [
@@ -290,6 +291,13 @@ const review = {
   ],
 };
 
+const marqueeData = [
+  { id: 1, name: "Exclusive Seasonal Picks", logo: fashion },
+  { id: 2, name: "Exclusive Seasonal Picks", logo: fashion },
+  { id: 3, name: "Exclusive Seasonal Picks", logo: fashion },
+  { id: 4, name: "Exclusive Seasonal Picks", logo: fashion },
+];
+
 function sortBySizeVariant(
   arr?: Array<Record<string, any>>,
   key: string = 'sizeVariant'
@@ -340,6 +348,8 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
   const [currentImage, setCurrentImage] = useState("");
   const [thumbnailAttachments, setThumbnailAttachments] = useState<any[]>([]);
   const hasWishlistDispatched = useRef(false);
+
+  // useScrollToTop()
 
   //checking the Wishlist if exists
   const isWishlist = store.productWishlist.dataGetList?.data?.some(
@@ -815,10 +825,10 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
             {RatingStar(store.product.dataGet?.aggregateReviewValue?.averageRating)}
             </div>
             <div>
-              <Typography variant="BS">{`${store.product.dataGet?.aggregateReviewValue?.totalReviews} Reviews`}</Typography>
+              <Typography variant="BM">{`${store.product.dataGet?.aggregateReviewValue?.totalReviews} Reviews`}</Typography>
             </div>
             <div>
-              <Typography variant="BS">17 sold in last 18 hours</Typography>
+              <Typography className={classes.redColor} variant="BL">17 sold in last 18 hours</Typography>
             </div>
           </div>
           <div>
@@ -858,7 +868,7 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
           </div>
           <div className={classes.ColorSection}>
             <div className={classes.Gray}>
-              <Typography variant="BM">Color: {selectedColor?.name}</Typography>
+              <Typography className={classes.lightColors} variant="BL">Color: <Typography variant="BM" className={classes.blackCOlor}>{selectedColor?.name}</Typography></Typography>
             </div>
             <div className={classes.Product}>
               {store.product.dataGet?.colors?.map((dat: any, index: number) => {
@@ -885,8 +895,8 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
             <div className={classes.SizeSection}>
               <div className={classes.SizeNav}>
                 <div>
-                  <Typography variant="BM">
-                    Size: {selectedSize?.sizeVariant}
+                  <Typography className={classes.lightColors} variant="BL">
+                    Size: <Typography variant="BM" className={classes.blackCOlor}>{selectedSize?.sizeVariant}</Typography>
                   </Typography>
                 </div>
                 {/* <div>
@@ -923,6 +933,7 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
                   <Typography variant="BS">
                     Hurry up! Only 1 item(s) items left in stock
                   </Typography>
+                  <div className={classes.bar}></div>
                 </div>
               </div>
               {/* button section */}
@@ -1076,6 +1087,8 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
           </div>
         </div>
       </div>
+      {/* marquee */}
+      <Marquee marqueeData={marqueeData} />
       {/* reviev section */}
       <Ratings ReviewData={review} productId={rowDataId} />
       {/* add to cart */}

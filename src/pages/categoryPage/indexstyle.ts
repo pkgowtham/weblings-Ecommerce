@@ -9,14 +9,14 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     justifyContent: "center",
     padding: theme.spacing.s400,
     margin: `${theme.spacing.s0} ${theme.spacing.s1000}`,
-    flexDirection:'column',
-    '@media (max-width : 768px)':{
-      margin:theme.spacing.s0
-    }
+    flexDirection: "column",
+    "@media (max-width : 768px)": {
+      margin: theme.spacing.s0,
+    },
   },
-  filterContents:{
-    display:'flex',
-    gap:theme.spacing.s1000
+  filterContents: {
+    display: "flex",
+    gap: theme.spacing.s1000,
   },
   filterDiv: {
     width: "100%",
@@ -24,7 +24,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   productsDiv: {
     width: "80%",
     "@media (max-width: 1024px)": {
-      width:'100%'
+      width: "100%",
     },
   },
   blackColor: {
@@ -109,7 +109,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   sortColor: {
     display: "flex",
     alignItems: "center",
-    cursor:'pointer'
+    cursor: "pointer",
   },
   shortDropDown: {
     width: "200px",
@@ -121,7 +121,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     right: "8%",
     borderRadius: theme.borderRadius.b200,
     padding: theme.spacing.s500,
-    zIndex:30
+    zIndex: 30,
   },
   contentDiv: {
     width: "100%",
@@ -135,23 +135,31 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     color: theme.light.neutral.onSurface.dark,
     cursor: "pointer",
   },
-  activeStatus:{
+  activeStatus: {
     color: theme.light.neutral.onSurface.title,
     cursor: "pointer",
   },
-  icon: {},
-  shortCont:{
-    display:'flex',
-    alignItems:'center',
-    gap:theme.spacing.s300,
+  icon: {
+    '& path':{
+      fill:theme.light.neutral.surface.medium
+    }
   },
-  chevronRight:{
-    display:'flex',
-    alignItems:'center',
-    position:'relative',
-    cursor:'pointer'
+  shortCont: {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing.s300,
   },
-  activeIcon: {},
+  chevronRight: {
+    display: "flex",
+    alignItems: "center",
+    position: "relative",
+    cursor: "pointer",
+  },
+  activeIcon: {
+    '& path':{
+      fill:theme.light.neutral.onSurface.title
+    }
+  },
   gridContainer: {
     display: "grid",
     gap: theme.spacing.s500,
@@ -169,9 +177,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   twoColumns: {
     gridTemplateColumns: "repeat(2, 1fr)",
   },
-  list:{
-
-  },
+  list: {},
   itemDiv: {
     width: "100%",
     display: "flex",
@@ -213,7 +219,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    cursor:'pointer',
+    cursor: "pointer",
     "&:hover": {
       background: theme.light.neutral.onSurface.title,
       color: theme.light.neutral.surface.lighter,
@@ -221,7 +227,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     },
   },
 
-  sizeColor:{
+  sizeColor: {
     background: theme.light.neutral.onSurface.title,
     color: theme.light.neutral.surface.lighter,
   },
@@ -231,30 +237,30 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     height: "fit-content",
     display: "flex",
     alignItems: "center",
-    flexWrap:'wrap',
+    flexWrap: "wrap",
     gap: theme.spacing.s200,
     padding: `${theme.spacing.s300} ${theme.spacing.s0}`,
   },
-  buttonStyle:{
-    height:'33px !important',
-    padding:`${theme.spacing.s250}  !important`,
-    borderRadius:`${theme.borderRadius.b0} !important`
+  buttonStyle: {
+    height: "33px !important",
+    padding: `${theme.spacing.s250}  !important`,
+    borderRadius: `${theme.borderRadius.b0} !important`,
   },
-  buttonStyleDrop:{
-    height:'33px !important',
-    padding:`${theme.spacing.s250}  !important`,
-    borderRadius:`${theme.borderRadius.b0} !important`,
-    backgroundColor:`${theme.light.neutral.surface.lighter} !important`,
-    color:`${theme.light.neutral.onSurface.title} !important`,
+  buttonStyleDrop: {
+    height: "33px !important",
+    padding: `${theme.spacing.s250}  !important`,
+    borderRadius: `${theme.borderRadius.b0} !important`,
+    backgroundColor: `${theme.light.neutral.surface.lighter} !important`,
+    color: `${theme.light.neutral.onSurface.title} !important`,
     border: `1px solid ${theme.light.neutral.border.light}`,
   },
-  filterCont:{
-    display:'flex',
-    alignItems:'center',
-    gap:theme.spacing.s300
+  filterCont: {
+    display: "flex",
+    alignItems: "center",
+    gap: theme.spacing.s300,
   },
   // filter side bar
-  FilterSideBar:{
+  FilterSideBar: {
     width: "30%",
     height: "100%",
     backgroundColor: theme.light.neutral.surface.lighter,
@@ -263,46 +269,45 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     top: "0%",
     left: "0%",
     zIndex: "1000",
-    "@media (max-width : 1024px)":{
-      width:'40%'
+    "@media (max-width : 1024px)": {
+      width: "40%",
     },
-    "@media (max-width : 768px)":{
-      width:'100%'
-    }
+    "@media (max-width : 768px)": {
+      width: "100%",
+    },
   },
-  headerContainer:{
-    width:'100%',
-    display:'flex',
-    alignItems:'center',
-    padding:`${theme.spacing.s500} ${theme.spacing.s600}`,
-    justifyContent:'space-between',
+  headerContainer: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    padding: `${theme.spacing.s500} ${theme.spacing.s600}`,
+    justifyContent: "space-between",
     borderBottom: `1px solid ${theme.light.neutral.border.light}`,
   },
-  filterMobileDiv:{
+  filterMobileDiv: {
     width: "100%",
-    padding:`${theme.spacing.s0} ${theme.spacing.s800}`,
-    overflow:'auto',
-    height:'590px',
-    scrollbarWidth:'thin',
-  
+    padding: `${theme.spacing.s0} ${theme.spacing.s800}`,
+    overflow: "auto",
+    height: "590px",
+    scrollbarWidth: "thin",
   },
-  clearButtonContainer:{
-    display:'flex',
-    width:'100%',
-    alignItems:'center',
-    justifyContent:'space-between',
+  clearButtonContainer: {
+    display: "flex",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "space-between",
     borderTop: `1px solid ${theme.light.neutral.border.light}`,
-    padding:`${theme.spacing.s400} ${theme.spacing.s800}`,
+    padding: `${theme.spacing.s400} ${theme.spacing.s800}`,
     backgroundColor: theme.light.neutral.surface.lighter,
     boxShadow: theme.elevation.m,
   },
-  clearAllText:{
-    textDecoration:'underline'
+  clearAllText: {
+    textDecoration: "underline",
   },
-  tabletShortBy:{
-    position:'relat'
+  tabletShortBy: {
+    position: "relat",
   },
-  shortDropDownTablet:{
+  shortDropDownTablet: {
     width: "200px",
     height: "fit-content",
     backgroundColor: theme.light.neutral.surface.lighter,
@@ -312,18 +317,58 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     right: "6%",
     borderRadius: theme.borderRadius.b200,
     padding: theme.spacing.s500,
-    zIndex:30
+    zIndex: 30,
   },
-  downBarContainer:{
+  downBarContainer: {
     width: "100%",
-    height: "40%",
+    height: "100%",
     backgroundColor: theme.light.neutral.surface.lighter,
     boxShadow: theme.elevation.m,
+    // position: "fixed",
+    // bottom: "0",
+    // left: 0,
+    // zIndex: "1000",
+    padding: `${theme.spacing.s500} ${theme.spacing.s600}`,
+    // borderRadius: theme.borderRadius.b250,
+  },
+  mobileFilterContainer: {
+    width: "100%",
+    height: "40%",
+    // backgroundColor: theme.light.neutral.surface.lighter,
+    // boxShadow: theme.elevation.m,
     position: "fixed",
-    bottom:'0',
-    left:0,
+    bottom: "0",
+    left: 0,
     zIndex: "1000",
-    padding:`${theme.spacing.s500} ${theme.spacing.s600}`,
-    borderRadius:theme.borderRadius.b250,
+    // padding: `${theme.spacing.s500} ${theme.spacing.s600}`,
+    // borderRadius: theme.borderRadius.b250,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  filterClose: {
+    "& path": {
+      fill: theme.light.neutral.onSurface.title,
+    },
+  },
+  filterCloseDiv: {
+    width: "40px",
+    height: "40px",
+    borderRadius: "50%",
+    border: `1px ${theme.light.neutral.border.dark}`,
+    display: "flex",
+    alignItems: "center",
+    boxShadow:theme.elevation.m,
+    backgroundColor: theme.light.neutral.surface.lighter,
+    justifyContent:'center'
+    // position:'absolute',
+    // top: 0,
+  },
+  closeDiv:{
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding:theme.spacing.s300,
   }
 }));

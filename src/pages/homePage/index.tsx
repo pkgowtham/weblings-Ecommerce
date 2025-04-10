@@ -17,6 +17,8 @@ import { deepGet } from "../../util/util";
 import sliderOne from "../../assets/images/sliderone.jpg";
 import sliderTwo from "../../assets/images/sliderTwo.jpg";
 import sliderThree from "../../assets/images/sliderThree.jpg";
+import ImageSlider from "../../component/imageslider";
+import { ImageSlide, ImageSliderProps } from "../../component/imageslider/sliderType";
 
 const topcollections = {
   card: [
@@ -145,19 +147,19 @@ const slider = {
       logo: fashion,
       title: "Cotton Long-Sleeve Striped T-shirt",
       description: "$115.00",
-      sliderimage: sliderOne,
+      sliderimage: "https://glozin-demo.myshopify.com/cdn/shop/files/fs1_s1.jpg?v=1717149215&width=1920",
     },
     {
       logo: fashion,
       title: "Cotton Long-Sleeve Striped T-shirt",
       description: "$115.00",
-      sliderimage: sliderTwo,
+      sliderimage:"https://glozin-demo.myshopify.com/cdn/shop/files/fs1_s2.jpg?v=1717149215&width=1920",
     },
     {
       logo: fashion,
       title: "Cotton Long-Sleeve Striped T-shirt",
       description: "$115.00",
-      sliderimage: sliderThree,
+      sliderimage:"https://glozin-demo.myshopify.com/cdn/shop/files/fs1_s3.jpg?v=1717149215&width=1920",
     },
   ],
 };
@@ -255,6 +257,20 @@ const trendingData = {
     },
   ],
 };
+const sliderImages: ImageSlide[] = [
+  {
+    src: "https://glozin-demo.myshopify.com/cdn/shop/files/fs1_s1.jpg?v=1717149215&width=1920",
+    alt: "Beautiful landscape",
+  },
+  {
+    src: "https://glozin-demo.myshopify.com/cdn/shop/files/fs1_s2.jpg?v=1717149215&width=1920",
+    alt: "City skyline",
+  },
+  {
+    src: "https://glozin-demo.myshopify.com/cdn/shop/files/fs1_s3.jpg?v=1717149215&width=1920",
+    alt: "City skyline",
+  },
+];
 
 const HomePage = () => {
   const classes = useStyle();
@@ -346,7 +362,8 @@ useEffect(() => {
 
   return (
     <div className={classes.mainContainer}>
-      <Slider SliderData={slider} />
+      {/* <Slider SliderData={slider} /> */}
+      <ImageSlider images={sliderImages} autoPlay={false} interval={5000} />
       <TopCollection TopData={store.productCategory.dataGetList?.data || []} />
       <Card
         CardData={bestSelling || []}

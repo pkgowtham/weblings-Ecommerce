@@ -9,12 +9,16 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   Nav: {
     width: "90%",
-    height: "40px",
+    height: "fit-content",
     padding: theme.spacing.s500,
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    flexWrap:'wrap'
+    flexWrap:'wrap',
+    "@media (max-width:768px)":{
+      width:'100%',
+      height: "fit-content",
+    }
   },
   navContent: {
     display: "flex",
@@ -109,8 +113,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     },
   },
   StarDiv: {
-    width: "100%",
-    maxWidth: "60px",
+    // width: "100%",
+    // maxWidth: "60px",
     height: "15px",
     display: "flex",
   },
@@ -121,13 +125,22 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   StarContent: {
     display: "flex",
-    gap: theme.spacing.s2000,
+    gap: theme.spacing.s400,
     alignItems: "center",
+    "@media (max-width :768px)":{
+      width:'100%', 
+      display: "flex",
+      gap: theme.spacing.s400,
+      flexWrap:'wrap'
+    },
+  },
+  redColor:{
+    color:theme.light.negative.onSurface.medium
   },
   Table: {
     width: "100%",
     maxWidth: "513px",
-    height: "139px",
+    height: "fit-content",
     border: `1px solid ${theme.light.neutral.border.light}`,
     borderRadius: theme.borderRadius.b150,
     padding: theme.spacing.s250,
@@ -135,14 +148,14 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   TableContent: {
     width: "100%",
     borderBottom: `1px solid ${theme.light.neutral.border.light}`,
-    height: "25px",
+    height: "fit-content",
     padding: theme.spacing.s500,
     display: "flex",
     alignItems: "center",
   },
   TableContentBoder: {
     width: "100%",
-    height: "25px",
+    height: "fit-content",
     padding: theme.spacing.s500,
     display: "flex",
     alignItems: "center",
@@ -193,6 +206,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   Gray: {
     marginBottom: theme.spacing.s400,
+    display:'flex'
   },
   SizeSection: {},
   SizeNav: {
@@ -205,6 +219,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     alignItems: "center",
     gap: theme.spacing.s400,
+    "@media (max-width: 640px)":{
+      display:'flex',
+      flexWrap:'wrap'
+    }
   },
   Chart: {
     width: "fit-content",
@@ -240,6 +258,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   HurryUp: {},
   HurryText: {
     marginTop: theme.spacing.s300,
+    display:'flex',
+    flexDirection:'column',
+    width:'100%',
+    gap:theme.spacing.s300
   },
   Buttons: {
     marginTop: theme.spacing.s400,
@@ -292,7 +314,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     border: `1px solid ${theme.light.neutral.border.light}`,
     padding: theme.spacing.s300,
     cursor: "pointer",
-    display:'flex'
+    display:'flex',
   },
   CircleImg: {
     height: "100%",
@@ -385,7 +407,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     alignItems: "center",
     gap: theme.spacing.s300,
-    marginTop:theme.spacing.s300,
+    marginTop:theme.spacing.s500,
     "@media (max-width :768px)":{
       flexWrap:'wrap'
     }
@@ -401,12 +423,18 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     color: `${theme.light.neutral.onSurface.dark} !important`,
     display: "flex",
     justifyContent: "center",
+    "@media (max-width :768px)":{
+      width:"100% !important"
+    }
   },
   btnStyle: {
     width: "60% !important",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    "@media (max-width :768px)":{
+      width:"100% !important"
+    }
   },
   dotStyle: {
     width: "3px",
@@ -437,4 +465,20 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   favouriteActive:{
     backgroundColor: theme.light.neutral.onSurface.title
   },
+  lightColors:{
+    color: theme.light.neutral.onSurface.dark,
+    display:'flex',
+    alignItems:'center',
+    gap:theme.spacing.s150,
+    width:'100%'
+  },
+  blackCOlor:{
+    color:theme.light.neutral.onSurface.title
+  },
+  bar:{
+    width:"100%",
+    height:'6px',
+    borderRadius:theme.spacing.s200,
+    backgroundColor:theme.light.negative.onSurface.medium
+  }
 }));

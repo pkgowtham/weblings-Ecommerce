@@ -3,6 +3,8 @@ import Header from "../component/header";
 import { useStyle } from "./indexstyle";
 import right from "../assets/icons/chevron_right.svg";
 import Footer from "../component/footer";
+import MobileNavigationBar from "../component/mobileNavigationBar";
+import { HideComponents } from "../component/hideComponents";
 
 const data = {
   links: [
@@ -34,7 +36,7 @@ const data = {
     },
     {
       id: 2,
-      // link: "Shop",
+      link: "Shop",
       path: "/mainLayout/collectionlist",
       logo: right,
       trendings: "T-Shirts",
@@ -86,7 +88,7 @@ const data = {
     },
     {
       id: 4,
-      // link: "Pages",
+      link: "Pages",
       path: "/mainLayout/sucesspage",
       logo: right,
       trendings: "T-Shirts",
@@ -112,7 +114,7 @@ const data = {
     },
     {
       id: 5,
-      // link: "Blog",
+      link: "Blog",
       path: "/mainLayout/paymentfailed",
       logo: right,
       trendings: "T-Shirts",
@@ -146,6 +148,9 @@ const MainLayout = () => {
       <Header HeaderData={data} />
       <Outlet />
       <Footer />
+      <HideComponents showOnlyOn="mobile">
+      <MobileNavigationBar nagigationData={data}/>
+      </HideComponents>
     </div>
   );
 };

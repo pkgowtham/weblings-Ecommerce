@@ -116,7 +116,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "100%",
   },
   sizedDiv: {
-    width: "100%",
+    // width: "100%",
     height: "fit-content",
     display: "flex",
     alignItems: "center",
@@ -143,6 +143,13 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "flex-start",
     width: "fit-content",
     gap: theme.spacing.s300,
+    "@media (max-width: 768px)":{
+      display: "flex",
+      alignItems: "flex-start",
+      width: "fit-content",
+      gap: theme.spacing.s300,
+      flexWrap:'wrap'
+    }
   },
   buttonStyle: {
     width: "40% !important",

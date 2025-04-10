@@ -14,6 +14,7 @@ import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { useStore } from "../../store";
 import SvgEmptyStar from "../../custom-icons/EmptyStar";
 import SvgStarHalf from "../../custom-icons/StarHalf";
+import ToolTip from "../toolTip";
 
 interface VerticalProductCardProps {
   products: any;
@@ -343,6 +344,7 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
                 (attachment: any) => attachment.thumbnail === true
               );
               return (
+                <ToolTip content={dat.name} position="top">
                 <div
                   onClick={() => handleColorChange(dat)}
                   key={index}
@@ -356,6 +358,7 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
                     className={classes.itemDiv}
                   />
                 </div>
+                </ToolTip>
               );
             })}
           </div>

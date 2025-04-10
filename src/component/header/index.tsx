@@ -147,7 +147,7 @@ const Header: React.FC<any> = (props): JSX.Element => {
                 <SvgHeart
                   onClick={handleNavigate}
                   cursor={"pointer"}
-                 viewBox="0 0 45 30"
+                  viewBox="0 0 45 30"
                   width={25}
                   height={25}
                 />
@@ -201,7 +201,7 @@ const Header: React.FC<any> = (props): JSX.Element => {
               key={idx}
             >
               <Link to={data.path} className={classes.List}>
-                {data.categories}
+                <Typography variant="BS"> {data.categories}</Typography>
                 <SvgChevronRight className={classes.rotateIcon} />
               </Link>
 
