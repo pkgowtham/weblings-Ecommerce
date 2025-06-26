@@ -1,5 +1,5 @@
 import { createUseStyles } from "react-jss";
-import { Theme } from "../../../theme/themeType";
+import { Theme } from "../../theme/themeType";
 
 export const useStyle = createUseStyles((theme: Theme) => ({
   mainContainer: {
@@ -65,12 +65,12 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   btnContainer: {
     width: "fit-content !important",
-    backgroundColor: `${theme.light.neutral.surface.lighter} !important`,
-    color: `${theme.light.neutral.onSurface.title} !important`,
+    backgroundColor: `${theme.color.neutral.surface.lighter} !important`,
+    color: `${theme.color.neutral.onSurface.light} !important`,
     height: "45px !important",
     "&:hover": {
-      backgroundColor: `${theme.light.neutral.onSurface.title} !important`,
-      color: `${theme.light.neutral.surface.light} !important`,
+      backgroundColor: `${theme.color.neutral.onSurface.light} !important`,
+      color: `${theme.color.neutral.surface.light} !important`,
     },
   },
 }));

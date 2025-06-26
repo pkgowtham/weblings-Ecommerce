@@ -24,33 +24,33 @@ export const useStyle = createUseStyles((theme:Theme)=>({
         alignItems: 'center',
         zIndex: 4,
         '&.active': {
-          backgroundColor: theme.light.brand.surface.lighter,
-          color: theme.light.brand.surface.medium,
+          backgroundColor: theme.color.brand.surface.lighter,
+          color: theme.color.brand.surface.medium,
         },
         '&.complete': {
-          backgroundColor: theme.light.positive.surface.lighter,
-          color: theme.light.positive.onSurface.medium,
+          backgroundColor: theme.color.positive.surface.lighter,
+          color: theme.color.positive.onSurface.medium,
         },
       },
 
       complete:{
-        backgroundColor: theme.light.positive.surface.lighter,
-          color: theme.light.positive.onSurface.medium,
+        backgroundColor: theme.color.positive.surface.lighter,
+          color: theme.color.positive.onSurface.medium,
       },
 
       active:{
-        backgroundColor: theme.light.brand.surface.lighter,
-          color: theme.light.brand.surface.medium,
+        backgroundColor: theme.color.brand.surface.lighter,
+          color: theme.color.brand.surface.medium,
       },
 
       failed:{
-        backgroundColor:theme.light.negative.surface.medium,
-        color: theme.light.neutral.onSurface.inverse,
+        backgroundColor:theme.color.negative.surface.medium,
+        color: theme.color.neutral.onSurface.inverse,
       },
 
       disabled:{
-        backgroundColor: theme.light.neutral.surface.light,
-        color: theme.light.neutral.onSurface.dark,
+        backgroundColor: theme.color.neutral.surface.light,
+        color: theme.color.neutral.onSurface.dark,
       },
       
       progressBar: {
@@ -58,25 +58,25 @@ export const useStyle = createUseStyles((theme:Theme)=>({
         top: '25%',
         left: 0,
         height: 4,
-        backgroundColor: theme.light.neutral.border.light,
+        backgroundColor: theme.color.neutral.border.light,
         width: '100%',
       },
 
       progress: {
         height: '100%',
-        backgroundColor: theme.light.positive.border.light,
+        backgroundColor: theme.color.positive.border.light,
         transition: '0.2s ease',
       },
 
       failedIcon:{
         '& path':{
-          fill:theme.light.neutral.onSurface.inverse
+          fill:theme.color.neutral.onSurface.inverse
         }
       },
 
       successIcon:{
         '& path':{
-          fill:theme.light.positive.onSurface.medium
+          fill:theme.color.positive.onSurface.medium
         }
       }
 }))

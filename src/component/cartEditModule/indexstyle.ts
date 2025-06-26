@@ -12,7 +12,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
   },
   modelBox: {
     width: "100%",
@@ -29,7 +29,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     gap: theme.spacing.s300,
     paddingRight: theme.spacing.s200,
-    borderRight: `1px solid ${theme.light.neutral.border.light}`,
+    borderRight: `1px solid ${theme.color.neutral.border.light}`,
     "@media (max-width : 1024px)":{
       width:'100%',
       borderRight: `none`,
@@ -55,8 +55,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   buttonStyle: {
     height: "30px !important",
-    backgroundColor: `${theme.light.neutral.surface.light} !important`,
-    color: `${theme.light.neutral.onSurface.title} !important`,
+    backgroundColor: `${theme.color.neutral.surface.light} !important`,
+    color: `${theme.color.neutral.onSurface.light} !important`,
     borderRadius: `${theme.borderRadius.b0} !important`,
   },
   contentsDiv: {
@@ -72,10 +72,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     flexDirection: "column",
   },
   lightColor: {
-    color: theme.light.neutral.onSurface.dark,
+    color: theme.color.neutral.onSurface.dark,
   },
   blackColor: {
-    color: theme.light.neutral.onSurface.title,
+    color: theme.color.neutral.onSurface.light,
   },
   colorcont: {
     display: "flex",
@@ -96,22 +96,22 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
   },
   Red: {
-    background: theme.light.negative.onSurface.medium,
+    background: theme.color.negative.onSurface.medium,
   },
   war: {
-    background: theme.light.warning.onSurface.medium,
+    background: theme.color.warning.onSurface.medium,
   },
   green: {
-    background: theme.light.positive.surface.medium,
+    background: theme.color.positive.surface.medium,
   },
   purple: {
-    background: theme.light.info.onSurface.medium,
+    background: theme.color.info.onSurface.medium,
   },
   blue: {
-    background: theme.light.brand.onSurface.default,
+    background: theme.color.brand.onSurface.default,
   },
   gray: {
-    background: theme.light.neutral.onSurface.dark,
+    background: theme.color.neutral.onSurface.dark,
   },
   sizedDiv: {
     width: "100%",
@@ -124,15 +124,15 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   sizeStyle: {
     width: "fit-content",
     height: "35px",
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     padding: `${theme.spacing.s250} ${theme.spacing.s400}`,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     cursor: "pointer",
     "&:hover": {
-      background: theme.light.neutral.onSurface.title,
-      color: theme.light.neutral.surface.lighter,
+      background: theme.color.neutral.onSurface.light,
+      color: theme.color.neutral.surface.lighter,
       transition: "color 0.3s",
     },
   },
@@ -144,13 +144,13 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "100% !important",
   },
   activeStatus: {
-    background: theme.light.neutral.onSurface.title,
-    color: theme.light.neutral.surface.lighter,
+    background: theme.color.neutral.onSurface.light,
+    color: theme.color.neutral.surface.lighter,
     transition: "color 0.3s",
   },
   addColor:{
     '& path':{
-        fill:theme.light.neutral.onSurface.dark
+        fill:theme.color.neutral.onSurface.dark
     }
   },
 
@@ -158,20 +158,20 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "100%",
     maxWidth: "40px",
     height: "40px",
-    border: `1px solid ${theme.light.neutral.border.light}`,
-    borderColor: theme.light.neutral.border.light,
+    border: `1px solid ${theme.color.neutral.border.light}`,
+    borderColor: theme.color.neutral.border.light,
     borderRadius: "50%",
     padding: theme.spacing.s100,
     cursor: "pointer",
     "&:hover": {
-      borderColor: theme.light.neutral.onSurface.title,
+      borderColor: theme.color.neutral.onSurface.light,
       transition: "color 0.3s",
     },
   },
 
   ProductBoder: {
-    border: `1px solid ${theme.light.neutral.border.light}`,
-    borderColor: theme.light.neutral.onSurface.title,
+    border: `1px solid ${theme.color.neutral.border.light}`,
+    borderColor: theme.color.neutral.onSurface.light,
   },
   ProductImg: {
     width: "100%",

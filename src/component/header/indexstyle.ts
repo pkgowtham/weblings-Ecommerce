@@ -1,5 +1,6 @@
 import { createUseStyles } from "react-jss";
-import { Theme } from "../../../theme/themeType";
+import { Theme } from "../../theme/themeType";
+
 
 export const useStyle = createUseStyles((theme: Theme) => ({
   NavBar: {
@@ -8,14 +9,14 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     top: 0,
     left: 0,
     zIndex: 30,
-    backgroundColor: theme.light.neutral.surface.lighter,
+    backgroundColor: theme.color.neutral.surface.lighter,
   },
   NavTop: {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: theme.spacing.s300,
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    padding: `${theme.spacing.s300} ${theme.spacing.s800}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
   },
   ContactInfo: {
     display: "flex",
@@ -48,9 +49,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     cursor: "pointer",
     textDecoration: "none",
     position: "relative",
-    color: theme.light.neutral.onSurface.medium,
+    color: theme.color.neutral.onSurface.medium,
     "&:hover": {
-      color: theme.light.negative.onSurface.medium,
+      color: theme.color.negative.onSurface.light,
       transition: "color 0.3s",
     },
   },
@@ -62,12 +63,12 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     position: "absolute",
     top: "95%",
     left: "0%",
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     padding: theme.spacing.s300,
     borderRadius: theme.borderRadius.b250,
     flexDirection: "column",
     display: "flex",
-    backgroundColor: theme.light.neutral.surface.lighter,
+    backgroundColor: theme.color.neutral.surface.lighter,
     boxShadow: theme.elevation.m,
     zIndex: 30,
     width: "250px",
@@ -78,9 +79,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     height: "fit-content",
     padding: theme.spacing.s250,
     textDecoration: "none",
-    color: theme.light.neutral.onSurface.title,
+    color: theme.color.neutral.onSurface.light,
     "&:hover": {
-      backgroundColor: theme.light.neutral.surface.light,
+      backgroundColor: theme.color.neutral.surface.light,
       borderRadius: theme.spacing.s200,
       transition: "color 0.3s",
     },
@@ -90,7 +91,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     cursor: "pointer",
     textDecoration: "none",
     listStyle: "none",
-    color: theme.light.neutral.onSurface.title,
+    color: theme.color.neutral.onSurface.light,
   },
   wishList: {
     position: "relative",
@@ -98,7 +99,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   badgeStyle: {},
   leftIconColor: {
     "& path": {
-      fill: theme.light.neutral.onSurface.dark,
+      fill: theme.color.neutral.onSurface.dark,
     },
   },
   iconDiv: {
@@ -121,7 +122,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     position: "fixed",
     height: "100%",
     zIndex: 90,
-    backgroundColor: theme.light.neutral.surface.lighter,
+    backgroundColor: theme.color.neutral.surface.lighter,
     boxShadow: theme.elevation.m,
     "@media (max-width : 1024px)": {
       width: "40%",
@@ -136,8 +137,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
     padding: `${theme.spacing.s500} ${theme.spacing.s600}`,
-    color: theme.light.neutral.surface.light,
-    backgroundColor: theme.light.negative.onSurface.medium,
+    color: theme.color.neutral.surface.light,
+    backgroundColor: theme.color.negative.onSurface.medium,
   },
   headerChild: {
     display: "flex",
@@ -146,7 +147,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   svgColor: {
     "& path": {
-      fill: theme.light.neutral.surface.light,
+      fill: theme.color.neutral.surface.light,
     },
   },
   sideData: {
@@ -155,7 +156,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     flexDirection: "column",
     alignItems: "flex-start",
     padding: theme.spacing.s600,
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
   },
   sideList: {
     display: "flex",
@@ -163,7 +164,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
     textDecoration: "none",
-    color: theme.light.neutral.onSurface.title,
+    color: theme.color.neutral.onSurface.light,
   },
   bodyData: {
     width: "100%",
@@ -178,7 +179,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     padding: theme.spacing.s300,
     width: "100%",
     gap: theme.spacing.s800,
-    // borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    // borderBottom: `1px solid ${theme.color.neutral.border.light}`,
   },
   rotateIcon: {
     transform: "rotate(90deg)",
@@ -187,7 +188,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   searchDiv: {},
   SearchDropDown: {
     width: "100%",
-    background: theme.light.neutral.surface.lighter,
+    background: theme.color.neutral.surface.lighter,
     zIndex: "100",
     overflow: "auto",
     height: "650px",
@@ -205,14 +206,14 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "flex-start",
     gap: theme.spacing.s500,
     // marginTop:theme.spacing.s250
-    // borderTop: `1px solid ${theme.light.neutral.border.light}`,
+    // borderTop: `1px solid ${theme.color.neutral.border.light}`,
   },
   categoryStyle: {},
   trendingStyle: {
     padding: `${theme.spacing.s200} ${theme.spacing.s500}`,
     height: "fit-content",
     width: "fit-content",
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     borderRadius: theme.spacing.s200,
     cursor: "pointer",
   },
@@ -235,5 +236,23 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems:'center',
     width:'100%',
     justifyContent:'space-between'
+  },
+  cursor:{
+    cursor: "pointer",
+  },
+  moreDropdown:{
+     position: "absolute",
+    top: "95%",
+    left: "0%",
+    border: `1px solid ${theme.color.neutral.border.light}`,
+    padding: theme.spacing.s300,
+    borderRadius: theme.borderRadius.b250,
+    flexDirection: "column",
+    display: "flex",
+    backgroundColor: theme.color.neutral.surface.lighter,
+    boxShadow: theme.elevation.m,
+    zIndex: 30,
+    width: "250px",
+    height: "400px",
   }
 }));

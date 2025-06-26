@@ -1,7 +1,6 @@
 import SvgClose from "../../custom-icons/Close";
 import Typography from "../typography/component";
 import { useStyle } from "./indexstyle";
-import fashion from "../../assets/images/fashionwhite.jpg";
 import Button from "../button";
 import SvgAdd from "../../custom-icons/Add";
 import SvgEdit from "../../custom-icons/Edit";
@@ -259,8 +258,8 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
                             }
                           />
                         }
-                        text={selectedPrice?.quantity}
-                      ></Button>
+                        type={selectedPrice?.quantity}
+                      >{selectedPrice?.quantity}</Button>
                     </div>
                   </div>
                 </div>
@@ -322,13 +321,13 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
           <Button
             onClick={() => handleNavigate("viewcart")}
             className={classes.cartStyle}
-            text="View Cart"
-          ></Button>
+            type="button"
+          >View Cart</Button>
           <Button
             onClick={() => handleNavigate("checkout")}
             className={classes.viewStyle}
-            text="CheckOut"
-          ></Button>
+            type="button"
+          >Check Out</Button>
         </div>
       </div>
       </div>

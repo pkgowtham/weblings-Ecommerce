@@ -1,5 +1,6 @@
 import { createUseStyles } from "react-jss";
-import { Theme } from "../../../theme/themeType";
+import { Theme } from "../../theme/themeType";
+
 
 export const useStyle = createUseStyles((theme:Theme)=>({
     loginMainContainer:{
@@ -70,7 +71,7 @@ export const useStyle = createUseStyles((theme:Theme)=>({
         width:'100%',
         fontSize:'clamp(1.25rem, 2vw + 1rem, 1.875rem);',
         fontWeight:600,
-        color:theme.light.neutral.onSurface.title,
+        color:theme.color.neutral.onSurface.light,
         display:'flex',
         flexDirection:'column',
         alignItems:'flex-start',
@@ -113,18 +114,18 @@ export const useStyle = createUseStyles((theme:Theme)=>({
     loginInputFieldPara:{
         fontSize:'clamp(0.875rem, 1vw + 0.75rem, 1rem)',
         fontWeight:400,
-        color:theme.light.neutral.onSurface.dark
+        color:theme.color.neutral.onSurface.dark
     },
 
     loginInputFieldLink:{
         fontSize:'clamp(0.875rem, 1vw + 0.75rem, 1rem)',
         fontWeight:400,
-        color:theme.light.brand.onSurface.default
+        color:theme.color.brand.onSurface.light
     },
 
     customIcon:{
         '& path': {
-      fill: theme.light.neutral.onSurface.medium
+      fill: theme.color.neutral.onSurface.medium
     },
     }
 }))

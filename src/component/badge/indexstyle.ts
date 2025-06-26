@@ -1,12 +1,12 @@
 import { createUseStyles } from "react-jss";
-import { Theme } from "../../../theme/themeType";
+import { Theme } from "../../theme/themeType";
 
 export const useStyle = createUseStyles((theme:Theme)=>({
     badgeContainer:{
         width:'18px',
         height:'18px',
         borderRadius:'50%',
-        backgroundColor:theme.light.negative.onSurface.medium,
+        backgroundColor:theme.color.negative.surface.medium,
         position:'absolute',
         top:0,
         right:0,
@@ -16,6 +16,6 @@ export const useStyle = createUseStyles((theme:Theme)=>({
         justifyContent:'center  '
     },
     whiteColor:{
-        color:theme.light.neutral.surface.light
+        color:theme.color.neutral.surface.light
     }
 }))

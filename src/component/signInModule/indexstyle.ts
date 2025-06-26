@@ -1,10 +1,10 @@
 import { createUseStyles } from "react-jss";
-import { Theme } from "../../../theme/themeType";
+import { Theme } from "../../theme/themeType";
 
 export const useStyle = createUseStyles((theme: Theme) => ({
   moduleStyle: {
     height: "fit-content",
-    width: "30%",
+    width: "40%",
     padding: theme.spacing.s800,
   },
   header: {
@@ -18,26 +18,45 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   svgCLose: {
     right: "-5%",
-    top: "-30%",
+    top: "-40%",
     position: "absolute",
+    cursor: "pointer",
+  },
+  svgBack: {
+    left: "-4%",
+    top: "-40%",
+    position: "absolute",
+    cursor: "pointer",
+  },
+  svgCLoseForgot: {
+    right: "-3%",
+    top: "-20%",
+    position: "absolute",
+    cursor: "pointer",
+  },
+  svgBackForgot: {
+    left: "-3%",
+    top: "-20%",
+    position: "absolute",
+    cursor: "pointer",
   },
   lightColor: {
-    color: theme.light.neutral.onSurface.dark,
+    color: theme.color.neutral.onSurface.dark,
   },
   inputFeilds: {
     display: "flex",
     flexDirection: "column",
     width: "100%",
-    gap: theme.spacing.s250,
+    gap: theme.spacing.s500,
     marginTop: theme.spacing.s300,
   },
-  inputFeildsPassword:{
+  inputFeildsPassword: {
     display: "flex",
     flexDirection: "column",
     width: "100%",
     gap: theme.spacing.s250,
     marginTop: theme.spacing.s300,
-    marginBottom:theme.spacing.s400
+    marginBottom: theme.spacing.s400,
   },
   forgotPassword: {
     display: "flex",
@@ -58,20 +77,34 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   accountButton: {
     width: "100% !important",
-    backgroundColor: `${theme.light.neutral.surface.lighter} !important`,
-    border: `1px solid ${theme.light.neutral.border.light} !important`,
-    borderColor: `${theme.light.neutral.onSurface.title} !important`,
-    color: `${theme.light.neutral.onSurface.title} !important`,
+    backgroundColor: `${theme.color.neutral.surface.lighter} !important`,
+    border: `1px solid ${theme.color.neutral.border.light} !important`,
+    borderColor: `${theme.color.neutral.onSurface.light} !important`,
+    color: `${theme.color.neutral.onSurface.light} !important`,
     "&:hover": {
-      backgroundColor: `${theme.light.neutral.onSurface.title} !important`,
-      color: `${theme.light.neutral.surface.lighter} !important`,
+      backgroundColor: `${theme.color.neutral.onSurface.light} !important`,
+      color: `${theme.color.neutral.surface.lighter} !important`,
     },
   },
-  contents:{
-    display:'flex',
-    width:'100%',
-    marginTop:theme.spacing.s500,
-    marginBottom:theme.spacing.s500,
-
-  }
+  contents: {
+    display: "flex",
+    width: "100%",
+    marginTop: theme.spacing.s500,
+    marginBottom: theme.spacing.s500,
+  },
+  signInContainer: {
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.spacing.s800,
+  },
+  forgotPasswordContainer: {
+    display: "flex",
+    flexDirection: "column",
+    gap: theme.spacing.s1600,
+  },
+  forgotText: {
+    cursor: "pointer",
+    paddingLeft: theme.spacing.s200,
+    textDecoration: "underline",
+  },
 }));

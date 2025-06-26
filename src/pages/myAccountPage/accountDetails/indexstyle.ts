@@ -1,5 +1,5 @@
 import { createUseStyles } from "react-jss";
-import { Theme } from "../../../../theme/themeType";
+import { Theme } from "../../../theme/themeType";
 
 export const useStyle = createUseStyles((theme: Theme) => ({
   mainContainer: {
@@ -22,7 +22,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   accountDetails: {
     width: "100%",
     height: "fit-content",
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     borderRadius: theme.borderRadius.b200,
     display:'flex',
     // padding:theme.spacing.s800,
@@ -38,7 +38,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width:'100%',
   },
   lightColor:{
-    color:theme.light.neutral.onSurface.dark
+    color:theme.color.neutral.onSurface.dark
   },
   buttonDiv:{
     marginTop:theme.spacing.s400
@@ -49,10 +49,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   emptyOrder:{
     width:'100%',
     borderRadius:theme.spacing.s200,
-    backgroundColor:theme.light.positive.surface.light,
+    backgroundColor:theme.color.positive.surface.light,
     padding:`${theme.spacing.s400} ${theme.spacing.s600}`,
   },
   greenColor:{
-    color:theme.light.positive.surface.dark
+    color:theme.color.positive.surface.dark
   }
 }));

@@ -2,7 +2,6 @@ import { useStyle } from "./indexstyle";
 import CommonModel from "../commonModal";
 import Typography from "../typography/component";
 import SvgStarPurple500 from "../../custom-icons/StarPurple500";
-import SvgChevronLeft from "../../custom-icons/ChevronLeft";
 import SvgAdd from "../../custom-icons/Add";
 import Button from "../button";
 import SvgHeart from "../../custom-icons/Heart";
@@ -344,7 +343,7 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
           </div>
           {/* price container */}
           <div className={classes.priceContainer}>
-            <Typography variant="TS">{price?.mrp}</Typography>
+            <Typography variant="TS">$ {price?.mrp}</Typography>
           </div>
           {/* product content */}
           <div className={classes.productContaier}>
@@ -423,24 +422,25 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
                   className={classes.buttonColor}
                 />
               }
-              text={count}
-              className={classes.buttonStyle}
-            ></Button>
+              size="lg"
+              type="button"
+            >{count}</Button>
             <Button
               className={classes.btnStyle}
               onClick={isProductInCart ? handleGoToCart : handleAddToCartSubmit}
-              text={isProductInCart ? "Go to Cart" : "Add to Cart"}
-            ></Button>
-            <div className={classes.CircleContainer}>
-              <div className={clsx(classes.CircleImgDiv,{
-                [classes.favouriteActive]:isWishlist
-              })} onClick={handleWishlist}>
-                <SvgHeart viewBox="0 0 35 55" width={30} height={30} />
-              </div>
-              {/* <div className={classes.CircleImgDiv}>
-                <SvgHeart viewBox="0 0 35 55" width={30} height={30} />
-              </div> */}
+              type="button"
+              size='lg'
+            >{isProductInCart ? "Go to Cart" : "Add to Cart"}</Button>
+             <div className={classes.CircleContainer}>
+            <div
+              className={clsx(classes.CircleImgDiv, {
+                [classes.favouriteActive]: isWishlist,
+              })}
+              onClick={handleWishlist}
+            >
+              <SvgHeart viewBox="0 0 40 40" width={30} height={25} />
             </div>
+          </div>
           </div>
           {/* terms and conditions */}
           <div className={classes.checkBoxContainer}>
@@ -469,9 +469,10 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
               className={clsx(classes.buynowButtonStyle, {
                 [classes.checkedStatus]: isChecked,
               })}
-              text="Buy it now"
+              type="button"
+              size="lg"
               disabled={!isChecked}
-            ></Button>
+            >Buy it now</Button>
           </div>
           {/* view full details */}
           <div className={classes.viewButton}>

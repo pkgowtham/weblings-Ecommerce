@@ -21,7 +21,7 @@ export const createFetchInstance = (baseURL: string) => {
     const fullUrl = baseURL + url +  paramsString + queryString;
 
     
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("authtoken");
 
     
     const headers: HeadersInit = {

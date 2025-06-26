@@ -2,11 +2,9 @@ import SvgClose from "../../custom-icons/Close";
 import CommonModel from "../commonModal";
 import Typography from "../typography/component";
 import { useStyle } from "./indexstyle";
-import fashion from "../../assets/images/fashion.jpg";
 import Button from "../button";
 import SvgAdd from "../../custom-icons/Add";
 import { useEffect, useState } from "react";
-import { theme } from "../../../theme/theme";
 import clsx from "clsx";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { useStore } from "../../store";
@@ -18,20 +16,8 @@ interface CartEditModuleProps {
   data?: any;
 }
 
-const colorcode = [
-  {
-    id: 1,
-    name: "Color",
-    color: ["#E00028", "#B15600"],
-  },
-  {
-    id: 2,
-    name: "Size",
-    size: ["S", "M", "L"],
-  },
-];
 
-const CartEditModule: React.FC<CartEditModuleProps> = ({ onClose, data }) => {
+const CartEditModule: React.FC<CartEditModuleProps> = ({ onClose }) => {
   const classes = useStyle();
   const [quantity, setQuantity] = useState<any>(1);
   const dispatch = useMiddlewareDispatch();
@@ -227,8 +213,8 @@ const handleSubmit = () => {
                     onClick={() => handleQuantityChange("increase")}
                   />
                 }
-                text={quantity}
-              ></Button>
+                type="button"
+              >{quantity}</Button>
             </div>
           </div>
         </div>
@@ -298,7 +284,7 @@ const handleSubmit = () => {
       </div>
       {/* add to cart button */}
       <div className={classes.btnCont}>
-        <Button className={classes.btnStyle} onClick={handleSubmit} text={"Add to Cart"}></Button>
+        <Button className={classes.btnStyle} onClick={handleSubmit} type="button">Add to Cart</Button>
       </div>
     </CommonModel>
   );

@@ -1,8 +1,7 @@
 import { useStyle } from "./indexstyle";
 import Typography from "../typography/component";
 import SvgStarPurple500 from "../../custom-icons/StarPurple500";
-import fashionwhite from "../../assets/images/fashionwhite.jpg";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
 import SvgHeart from "../../custom-icons/Heart";
@@ -294,14 +293,6 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
                   height={25}
                 />
               </div>)}
-              {/* <div className={classes.favouriteOne}>
-                <SvgHeart
-                  className={classes.eyeColor}
-                  viewBox="0 0 40 40"
-                  width={30}
-                  height={25}
-                />
-              </div> */}
               <div
                 onClick={handleEdit}
                 className={classes.favouriteTwo}
@@ -313,10 +304,11 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
           {isHovered && (
             <div className={classes.buttonContainer}>
               <Button
+              size="lg"
                 onClick={handleEdit}
                 className={classes.buttonStyle}
-                text={"Select Option"}
-              ></Button>
+                type="button"
+              >Select Option</Button>
             </div>
           )}
         </div>

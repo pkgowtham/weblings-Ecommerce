@@ -1,6 +1,5 @@
 import { createUseStyles } from "react-jss";
-import { theme } from "../../../theme/theme";
-import { Theme } from "../../../theme/themeType";
+import { Theme } from "../../theme/themeType";
 
 export const useStyle = createUseStyles((theme: Theme) => ({
   MainContainer: {
@@ -46,7 +45,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "100%",
     height: "28px",
     alignItems: "center",
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
   },
   OrederText:{
     marginBottom:theme.spacing.s300
@@ -55,7 +54,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     justifyContent: "space-between",
     padding: `${theme.spacing.s600} ${theme.spacing.s0}`,
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
   },
   LogoContainer: {
     display: "flex",
@@ -79,7 +78,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   AmountContainer: {},
   ContentContainer: {
     marginTop: theme.spacing.s600,
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
     paddingBottom: theme.spacing.s500,
   },
   Content: {
@@ -88,7 +87,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   Delivery:{
     padding:`${theme.spacing.s600} ${theme.spacing.s0}`,
-    borderBottom:`1px solid ${theme.light.neutral.border.light}`
+    borderBottom:`1px solid ${theme.color.neutral.border.light}`
   },
   DeliveryDiv:{
     display:'flex',
@@ -106,7 +105,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   Payment:{
      padding:`${theme.spacing.s600} ${theme.spacing.s0}`,
-    borderBottom:`1px solid ${theme.light.neutral.border.light}`
+    borderBottom:`1px solid ${theme.color.neutral.border.light}`
   },
   PaymentDiv:{
     display:'flex',

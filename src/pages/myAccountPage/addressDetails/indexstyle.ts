@@ -17,7 +17,7 @@ export const useStyle = createUseStyles((theme:Theme)=>({
         display:'flex',
         flexDirection:'column',
         gap:theme.spacing.s400,
-        backgroundColor:theme.light.neutral.surface.light,
+        backgroundColor:theme.color.neutral.surface.light,
         padding:theme.spacing.s800,
         marginTop:theme.spacing.s800
     },
@@ -40,12 +40,12 @@ export const useStyle = createUseStyles((theme:Theme)=>({
     defaultAddress:{
         width:'100%',
         display:'flex',
-        border: `1px solid ${theme.light.neutral.border.light}`,
+        border: `1px solid ${theme.color.neutral.border.light}`,
         flexDirection:'column'
     },
     headerCont:{
         width:'100%',
-        backgroundColor:theme.light.neutral.surface.light,
+        backgroundColor:theme.color.neutral.surface.light,
         padding:`${theme.spacing.s400} ${theme.spacing.s800}`
     },
     addressInfo:{
@@ -60,7 +60,7 @@ export const useStyle = createUseStyles((theme:Theme)=>({
         marginBottom:theme.spacing.s500
     },
     textColor:{
-        color:theme.light.neutral.onSurface.title,
+        color:theme.color.neutral.onSurface.light,
         padding:theme.spacing.s200
     },
     btnCont:{
@@ -74,6 +74,6 @@ export const useStyle = createUseStyles((theme:Theme)=>({
         padding: `${theme.spacing.s400} ${theme.spacing.s1200} !important`,
     },
     errorMsg:{
-        color:theme.light.negative.onSurface.medium
+        color:theme.color.negative.onSurface.medium
     }
 }))

@@ -1,5 +1,5 @@
 import { createUseStyles } from "react-jss";
-import { Theme } from "../../../theme/themeType";
+import { Theme } from "../../theme/themeType";
 
 export const useStyle = createUseStyles((theme: Theme) => ({
   mainContainer: {
@@ -25,7 +25,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   tableHead: {
     width: "100%",
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
   },
   contentOne: {
     display: "flex",
@@ -33,16 +33,16 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     gap: theme.spacing.s200,
   },
   lightColor: {
-    color: theme.light.neutral.onSurface.dark,
+    color: theme.color.neutral.onSurface.dark,
     cursor: "pointer",
     "&:hover": {
-      color: theme.light.negative.onSurface.medium,
+      color: theme.color.negative.onSurface.light,
     },
   },
   dotStyle: {
     width: "3px",
     height: "3px",
-    backgroundColor: theme.light.neutral.onSurface.dark,
+    backgroundColor: theme.color.neutral.onSurface.dark,
     borderRadius: "50%",
   },
   offerDiv: {
@@ -51,10 +51,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "center",
     justifyContent: "center",
     padding: theme.spacing.s400,
-    backgroundColor: theme.light.negative.surface.lighter,
+    backgroundColor: theme.color.negative.surface.lighter,
     borderRadius: theme.spacing.s600,
-    border: `1px dashed ${theme.light.neutral.border.light}`,
-    borderColor: theme.light.negative.onSurface.medium,
+    border: `1px dashed ${theme.color.neutral.border.light}`,
+    borderColor: theme.color.negative.onSurface.light,
     "@media (max-width: 768px)": {
       width: "100%",
       display: "flex",
@@ -110,7 +110,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "100%",
     alignItems: "flex-start",
     padding: theme.spacing.s300,
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
   },
   tableBody: {
     width: "100%",
@@ -142,8 +142,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "100%",
     display: "flex",
     padding: `${theme.spacing.s800} ${theme.spacing.s0}`,
-    borderTop: `1px solid ${theme.light.neutral.border.light}`,
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderTop: `1px solid ${theme.color.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
     alignItems: "center",
     gap: theme.spacing.s250,
   },
@@ -166,7 +166,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   cardStyle: {
     width: "fit-content",
-    backgroundColor: theme.light.neutral.surface.light,
+    backgroundColor: theme.color.neutral.surface.light,
     height: "fit-content",
     padding: theme.spacing.s800,
     display: "flex",
@@ -209,13 +209,13 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     flexDirection: "column",
     gap: theme.spacing.s500,
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
   },
   greenDivider: {
     width: "100%",
     height: "6px",
     borderRadius: theme.borderRadius.b150,
-    backgroundColor: theme.light.positive.surface.medium,
+    backgroundColor: theme.color.positive.surface.medium,
   },
   textContents: {
     width: "100%",
@@ -227,7 +227,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     gap: theme.spacing.s150,
     flexDirection: "column",
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
     paddingBottom: theme.spacing.s800,
   },
   formContainer: {
@@ -256,8 +256,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     gap: theme.spacing.s400,
     paddingTop: theme.spacing.s500,
     paddingBottom: theme.spacing.s500,
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
-    borderTop: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
+    // borderTop: `1px solid ${theme.color.neutral.border.light}`,
     marginTop: theme.spacing.s600,
   },
   subTotal: {
@@ -267,7 +267,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     justifyContent: "space-between",
   },
   blackColor: {
-    color: theme.light.neutral.onSurface.title,
+    color: theme.color.neutral.onSurface.light,
   },
   termsAndConditionsDiv: {
     width: "100%",
@@ -289,7 +289,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   deliveryInformations: {
     width: "100%",
     height: "30px",
-    backgroundColor: theme.light.neutral.surface.light,
+    backgroundColor: theme.color.neutral.surface.light,
     padding: theme.spacing.s800,
     display: "flex",
     flexDirection: "column",
@@ -298,7 +298,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   contentsDiv: {
     width: "100%",
-    backgroundColor: theme.light.neutral.surface.light,
+    backgroundColor: theme.color.neutral.surface.light,
     padding: theme.spacing.s800,
     display: "flex",
     flexDirection: "column",
@@ -307,7 +307,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   informationsDiv: {
     width: "100%",
-    backgroundColor: theme.light.neutral.surface.light,
+    backgroundColor: theme.color.neutral.surface.light,
     padding: theme.spacing.s800,
     display: "flex",
     flexDirection: "column",
@@ -336,7 +336,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     flexDirection: "column",
   },
   productCard: {
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     width: "fit-content",
     padding: theme.spacing.s400,
     display: "flex",
@@ -367,12 +367,12 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     paddingBottom: theme.spacing.s400,
   },
   btnStyle: {
-    backgroundColor: `${theme.light.neutral.surface.light} !important`,
-    color: `${theme.light.neutral.onSurface.title} !important`,
+    backgroundColor: `${theme.color.neutral.surface.light} !important`,
+    color: `${theme.color.neutral.onSurface.light} !important`,
   },
   svgAdd: {
     "& path": {
-      fill: theme.light.neutral.onSurface.title,
+      fill: theme.color.neutral.onSurface.light,
     },
   },
   sugesstionproducts: {
@@ -385,13 +385,13 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     gap: theme.spacing.s400,
   },
   remove: {
-    color: theme.light.neutral.onSurface.dark,
+    color: theme.color.neutral.onSurface.dark,
     cursor: "pointer",
     textDecoration: "underline",
     width: "100%",
     marginTop: theme.spacing.s250,
     "&:hover": {
-      color: theme.light.neutral.onSurface.title,
+      color: theme.color.neutral.onSurface.light,
     },
   },
   // for mobile
@@ -437,14 +437,14 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   textButton: {
     width: "fit-content !important",
     height: "30px ! important",
-    backgroundColor: `${theme.light.neutral.surface.light} !important`,
+    backgroundColor: `${theme.color.neutral.surface.light} !important`,
     borderRadius: `${theme.borderRadius.b0} !important`,
-    color: `${theme.light.neutral.onSurface.title} !important`,
+    color: `${theme.color.neutral.onSurface.light} !important`,
     padding: `${theme.spacing.s200} !important`,
   },
   addColor: {
     "& path": {
-      fill: theme.light.neutral.onSurface.title,
+      fill: theme.color.neutral.onSurface.light,
     },
   },
 }));

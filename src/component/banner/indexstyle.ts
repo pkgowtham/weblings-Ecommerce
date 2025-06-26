@@ -8,7 +8,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     padding:`${theme.spacing.s0} ${theme.spacing.s800}` ,
   },
   Title: {
-    color: theme.light.brand.onSurface.default,
+    color: theme.color.brand.onSurface.default,
     width: "100%",
     maxWidth: "705px",
     marginBottom: theme.spacing.s150,
@@ -44,8 +44,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     height: "636px",
     width: "1421px",
     borderRadius: theme.borderRadius.b100,
-    border: `1px solid ${theme.light.brand.border.light}`,
-    backgroundColor: theme.light.brand.surface.lighter,
+    border: `1px solid ${theme.color.brand.border.light}`,
+    backgroundColor: theme.color.brand.surface.lighter,
     marginBottom: theme.spacing.s100,
   },
   ScrollContainer: {
@@ -76,7 +76,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
    
   },
   // Right:{
-  //   border:`1px solid ${theme.light.neutral.border.light}`,
+  //   border:`1px solid ${theme.color.neutral.border.light}`,
   //   color:'black'
   // }
   rightArrow:{
@@ -90,8 +90,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display:'flex',
     alignItems:'center',
     justifyContent:'center',
-    border: `1px solid ${theme.light.neutral.border.light}`,
-    backgroundColor:theme.light.neutral.surface.light
+    border: `1px solid ${theme.color.neutral.border.light}`,
+    backgroundColor:theme.color.neutral.surface.light
   },
   leftArrow:{
     width:'48px',
@@ -100,12 +100,12 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display:'flex',
     alignItems:'center',
     justifyContent:'center',
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     cursor: "pointer",
     position: "absolute",
     top: 210,
     left: 50,
     zIndex:30,
-    backgroundColor:theme.light.neutral.surface.light
+    backgroundColor:theme.color.neutral.surface.light
   }
 }));

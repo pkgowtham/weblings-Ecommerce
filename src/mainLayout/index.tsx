@@ -138,6 +138,32 @@ const data = {
       ],
       categories: "Sports books & more",
     },
+     {
+      id: 6,
+      link: "Blog",
+      path: "/mainLayout/paymentfailed",
+      logo: right,
+      trendings: "T-Shirts",
+      verticaldata: "",
+      dropdownItems: [
+        {
+          id: 1,
+          navigation: "/mainLayout/categorypage",
+          name: "Cricket Bat",
+        },
+        {
+          id: 2,
+          navigation: "/mainLayout/categorypage",
+          name: "Supplements",
+        },
+        {
+          id: 3,
+          navigation: "/mainLayout/categorypage",
+          name: "Books",
+        },
+      ],
+      categories: "More Categories",
+    },
   ],
 };
 

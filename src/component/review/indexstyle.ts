@@ -11,7 +11,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     marginBottom: theme.spacing.s2000,
   },
   Title: {
-    color: theme.light.neutral.onSurface.title,
+    color: theme.color.neutral.onSurface.light,
     width: "100%",
     marginBottom: theme.spacing.s150,
     display:'flex',
@@ -42,7 +42,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     // flexDirection: "column",
     width: "49%",
     height: "313px",
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     borderRadius: theme.borderRadius.b200,
   },
   CardContent: {
@@ -66,8 +66,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     height: "313px",
     width: "60%",
     borderRadius: theme.borderRadius.b100,
-    // border: `1px solid ${theme.light.brand.border.light}`,
-    backgroundColor: theme.light.brand.surface.lighter,
+    // border: `1px solid ${theme.color.brand.border.light}`,
+    backgroundColor: theme.color.brand.surface.lighter,
     marginBottom: theme.spacing.s100,
   },
   ScrollContainer: {
@@ -109,7 +109,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     alignItems: "center",
     gap: theme.spacing.s500,
-    borderTop: `1px solid ${theme.light.neutral.border.light}`,
+    borderTop: `1px solid ${theme.color.neutral.border.light}`,
     paddingTop:theme.spacing.s500
   },
   CardDiv: {
@@ -128,11 +128,11 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor:theme.light.neutral.surface.lighter,
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    backgroundColor:theme.color.neutral.surface.lighter,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     '&:hover':{
-      color:theme.light.neutral.surface.light,
-      backgroundColor:theme.light.neutral.onSurface.title
+      color:theme.color.neutral.surface.light,
+      backgroundColor:theme.color.neutral.onSurface.light
     }
   },
   leftArrow: {
@@ -142,21 +142,21 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    border: `1px solid ${theme.light.neutral.border.light}`,
-    backgroundColor:theme.light.neutral.surface.lighter,
+    border: `1px solid ${theme.color.neutral.border.light}`,
+    backgroundColor:theme.color.neutral.surface.lighter,
     cursor: "pointer",
     position: "absolute",
     top: 135,
     left: 0,
     zIndex: 30,
     '&:hover':{
-      color:theme.light.neutral.surface.light,
-      backgroundColor:theme.light.neutral.onSurface.title
+      color:theme.color.neutral.surface.light,
+      backgroundColor:theme.color.neutral.onSurface.light
     }
   },
   starColor:{
     '& path':{
-      fill:theme.light.warning.onSurface.medium
+      fill:theme.color.warning.onSurface.medium
     }
   }
 }));

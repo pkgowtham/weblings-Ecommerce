@@ -5,7 +5,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   cartContainer: {
     width: "30%",
     height: "100%",
-    backgroundColor: theme.light.neutral.surface.lighter,
+    backgroundColor: theme.color.neutral.surface.lighter,
     boxShadow: theme.elevation.m,
     position: "fixed",
     display: "flex",
@@ -26,7 +26,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
     padding: `${theme.spacing.s400} ${theme.spacing.s800}`,
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
   },
   shippingDiv: {
     display: "flex",
@@ -34,7 +34,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "center",
     gap:theme.spacing.s200,
     width: "100%",
-    backgroundColor: theme.light.neutral.surface.light,
+    backgroundColor: theme.color.neutral.surface.light,
     padding: `${theme.spacing.s800} ${theme.spacing.s600} ${theme.spacing.s400} ${theme.spacing.s600}`,
   },
   timeDiv: {
@@ -70,9 +70,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   buttonStyle: {
     width: "fit-content !important",
     height: "30px ! important",
-    backgroundColor: `${theme.light.neutral.surface.light} !important`,
+    backgroundColor: `${theme.color.neutral.surface.light} !important`,
     borderRadius: `${theme.borderRadius.b0} !important`,
-    color: `${theme.light.neutral.onSurface.title} !important`,
+    color: `${theme.color.neutral.onSurface.light} !important`,
     padding: `${theme.spacing.s200} !important`,
   },
   buttonContainer: {
@@ -87,7 +87,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   blackColor: {
     "& path": {
-      fill: theme.light.neutral.onSurface.title,
+      fill: theme.color.neutral.onSurface.light,
     },
   },
   contentsContainer: {
@@ -102,12 +102,12 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    borderTop: `1px solid ${theme.light.neutral.border.light}`,
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderTop: `1px solid ${theme.color.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
   },
   centerDiv: {
-    borderLeft: `1px solid ${theme.light.neutral.border.light}`,
-    borderRight: `1px solid ${theme.light.neutral.border.light}`,
+    borderLeft: `1px solid ${theme.color.neutral.border.light}`,
+    borderRight: `1px solid ${theme.color.neutral.border.light}`,
     padding: `${theme.spacing.s0} ${theme.spacing.s600}`,
     height: "50px",
     display: "flex",
@@ -133,7 +133,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     padding: `${theme.spacing.s800} ${theme.spacing.s800} ${theme.spacing.s800} ${theme.spacing.s800}`,
     display:'flex',
     flexDirection:'column',
-    backgroundColor:theme.light.neutral.surface.light
+    backgroundColor:theme.color.neutral.surface.light
   },
   subTotal:{
     width:'100%',
@@ -142,7 +142,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     justifyContent:'space-between'
   },
   lightCOlor:{
-    color: theme.light.neutral.onSurface.dark,
+    color: theme.color.neutral.onSurface.dark,
   },
   checkBox:{
     width:'100%',
@@ -160,10 +160,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   cartStyle:{
     width: "100% !important",
-    backgroundColor: `${theme.light.neutral.surface.lighter} !important`,
-    border: `1px solid ${theme.light.neutral.border.light} !important`,
-    borderColor:`${theme.light.neutral.onSurface.title} !important`,
-    color:`${theme.light.neutral.onSurface.title} !important`
+    backgroundColor: `${theme.color.neutral.surface.lighter} !important`,
+    border: `1px solid ${theme.color.neutral.border.light} !important`,
+    borderColor:`${theme.color.neutral.onSurface.light} !important`,
+    color:`${theme.color.neutral.onSurface.light} !important`
   },
   viewStyle:{
     width: "100% !important",
@@ -172,11 +172,11 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width:'100%',
     height:'6px',
     borderRadius:theme.spacing.s150,
-    backgroundColor:theme.light.negative.onSurface.medium
+    backgroundColor:theme.color.negative.onSurface.medium
   },
   addColor:{
    '& path':{
-    fill:theme.light.neutral.onSurface.dark
+    fill:theme.color.neutral.onSurface.dark
    }
   },
   starIconContainer:{

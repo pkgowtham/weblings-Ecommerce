@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useStyle } from "./loginStyle";
-import login from '../../assets/images/login.svg';
+import login from "../../assets/images/login.svg";
 import SvgEye from "../../custom-icons/Eye";
 import SvgLogo from "../../custom-icons/Logo";
 import { useNavigate } from "react-router-dom";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
-import InputField from "../../components/input/main";
-import Input from "../../components/input/input";
-import Button from "../../components/button/button";
 import { useStore } from "../../store";
 import { deepGet } from "../../util/util";
+import InputField from "../../component/input/input";
+import Button from "../../component/button";
 
 const Login = () => {
   const classes = useStyle();
   const navigate = useNavigate();
   const { store } = useStore();
   const dispatch = useMiddlewareDispatch();
-  const [formData, setFormData] = useState<{ email: string; password: string }>({
-    email: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState<{ email: string; password: string }>(
+    {
+      email: "",
+      password: "",
+    }
+  );
 
   const [errors, setErrors] = useState<{ email: string; password: string }>({
     email: "",
@@ -27,7 +28,8 @@ const Login = () => {
   });
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&])[A-Za-z\d!@#$%^&]{8,}$/;
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&])[A-Za-z\d!@#$%^&]{8,}$/;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -61,32 +63,27 @@ const Login = () => {
 
   const isFormValid = () => {
     return (
-    //   formData.email &&
-    //   formData.password &&
-      !errors.email &&
-      !errors.password
+      //   formData.email &&
+      //   formData.password &&
+      !errors.email && !errors.password
     );
   };
 
   useEffect(() => {
-    if(store.adminLogin.isSuccessCreate){
-      navigate("/layout/dashboard")
-      localStorage.setItem(
-        "authToken",
-        store.adminLogin.dataCreate?.token
-      )
+    if (store.adminLogin.isSuccessCreate) {
+      navigate("/layout/dashboard");
+      localStorage.setItem("authtoken", store.adminLogin.dataCreate?.token);
       // dispatch({
       //   type:"USER_ADMIN_CREATE_API_CLEAR"
       // })
     }
-  }, [deepGet(store,"adminLogin.isSuccessCreate")])
-  
+  }, [deepGet(store, "adminLogin.isSuccessCreate")]);
 
   const handleLogin = () => {
     dispatch({
       type: "LOGIN_API_SUCCESS",
       payload: {
-        authToken:
+        authtoken:
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAwMWEwYWIxLTE0YTEtNDAxNi1iMmVkLTJlOWRmYTQxNDI0NSIsImlhdCI6MTc0MTk0NDQ5MiwiZXhwIjoxNzQ0NTM2NDkyfQ.vJVESJVx1hSJZavuQfohBrNB7ygbg3pQOgjwGAFg-rw",
         message: "",
         meta: "",
@@ -96,9 +93,9 @@ const Login = () => {
           org: {
             id: "981f70a8-a270-42a8-b82d-f905986b6480",
             name: "Weblings",
-            employee:{
-              id:"00fddecf-56ca-4840-b85d-b95b26564f8a",
-              email:"Praveen.g25032003@example.com",
+            employee: {
+              id: "00fddecf-56ca-4840-b85d-b95b26564f8a",
+              email: "Praveen.g25032003@example.com",
             },
             buId: {
               id: "d3a5684e-9a70-4faf-83f8-7d5fa63c80ea",
@@ -114,7 +111,7 @@ const Login = () => {
             },
           },
           permission: {
-            moduleId:"03cb4701-6d6a-43bb-b775-f09854584504",
+            moduleId: "03cb4701-6d6a-43bb-b775-f09854584504",
             role: {
               id: "",
               name: "",
@@ -135,43 +132,42 @@ const Login = () => {
       },
     });
     localStorage.setItem(
-      "authToken",
+      "authtoken",
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAwMWEwYWIxLTE0YTEtNDAxNi1iMmVkLTJlOWRmYTQxNDI0NSIsImlhdCI6MTc0MTk0NDQ5MiwiZXhwIjoxNzQ0NTM2NDkyfQ.vJVESJVx1hSJZavuQfohBrNB7ygbg3pQOgjwGAFg-rw"
     );
 
-    navigate("/layout/dashboard")
-  }
+    navigate("/layout/dashboard");
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-  
-      let newErrors = { ...errors };
-  
-      // if (!formData.name) newErrors.name = "Shift Name is required";
-      // if (!formData.customCode)
-      //   newErrors.customCode = "Shift Code is required is required";
-      // setErrors(newErrors);
-  
-      const noErrors = Object.values(newErrors).every((err) => err === "");
-  
-      // if (noErrors) {
-       
-       
-      // } else {
-      //   console.log("Errors in form:", newErrors);
-      // }
-      dispatch({
-        type: "USER_ADMIN_CREATE_API_REQUEST",
-        payload: {
-          url: "/userAdmin/login",
-          method: "POST",
-          body: {
-            email: formData.email,
-            password: formData.password,
-          },
+    e.preventDefault();
+
+    let newErrors = { ...errors };
+
+    // if (!formData.name) newErrors.name = "Shift Name is required";
+    // if (!formData.customCode)
+    //   newErrors.customCode = "Shift Code is required is required";
+    // setErrors(newErrors);
+
+    const noErrors = Object.values(newErrors).every((err) => err === "");
+
+    // if (noErrors) {
+
+    // } else {
+    //   console.log("Errors in form:", newErrors);
+    // }
+    dispatch({
+      type: "USER_ADMIN_CREATE_API_REQUEST",
+      payload: {
+        url: "/userAdmin/login",
+        method: "POST",
+        body: {
+          email: formData.email,
+          password: formData.password,
         },
-      });
-    };
+      },
+    });
+  };
 
   return (
     <div className={classes.loginMainContainer}>
@@ -191,38 +187,36 @@ const Login = () => {
             <h4>Log In To Your Account</h4>
           </div>
           <div className={classes.loginInputField}>
-            <InputField>
-              <Input
-                label="Email Address"
-                placeholder="Email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                error={Boolean(errors.email)}
-                helperText={errors.email}
-              />
-            </InputField>
+            <InputField
+              label="Email Address"
+              placeholder="Email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              error={Boolean(errors.email)}
+              helperText={errors.email}
+            />
+
             <div className={classes.loginInputFieldForget}>
-              <InputField>
-                <Input
-                  label="Password"
-                  placeholder="Password"
-                  rightIcon={<SvgEye className={classes.customIcon} />}
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  error={Boolean(errors.password)}
-                  helperText={errors.password}
-                />
-              </InputField>
+              <InputField
+                label="Password"
+                placeholder="Password"
+                rightIcon={<SvgEye className={classes.customIcon} />}
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                error={Boolean(errors.password)}
+                helperText={errors.password}
+              />
+
               <a className={classes.loginInputFieldLink} href="">
                 Forget Password?
               </a>
             </div>
             <div className={classes.loginInputFieldButton}>
               <Button
-                element="button"
-                brand
+                type="button"
+                variant="primary"
                 className={classes.loginButton}
                 onClick={handleSubmit}
                 disabled={Boolean(!isFormValid())}
@@ -230,7 +224,7 @@ const Login = () => {
                 Log In
               </Button>
               <p className={classes.loginInputFieldPara}>or continue with</p>
-              <Button element="button" primary>
+              <Button type="button" variant="primary">
                 Google
               </Button>
             </div>

@@ -1,12 +1,10 @@
 import Typography from "../../component/typography/component";
 import { useStyle } from "./indexstyle";
-import fashion from "../../assets/images/fashion.jpg";
 import Button from "../../component/button";
 import SvgVerified from "../../custom-icons/Verified";
 import TextArea from "../../component/textArea/textArea";
-import Input from "../../component/input";
+import Input from "../../component/input/input";
 import payment from "../../assets/images/payment.jpg";
-import SvgChevronLeft from "../../custom-icons/ChevronLeft";
 import SvgAdd from "../../custom-icons/Add";
 import { useEffect, useRef, useState } from "react";
 import { HideComponents } from "../../component/hideComponents";
@@ -15,6 +13,7 @@ import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { useStore } from "../../store";
 import { deepGet } from "../../util/util";
 import SvgRemove from "../../custom-icons/Remove";
+import Table from "../../component/table";
 
 const reviewCard = [
   {
@@ -70,6 +69,7 @@ const ShopingCartPage = () => {
   const { store } = useStore();
   const hasDispatched = useRef(false);
   const [data, setData] = useState<any>(null);
+  const [isChecked, setIsChecked] = useState(false);
 
   //Add to cart getlist
   useEffect(() => {
@@ -87,7 +87,11 @@ const ShopingCartPage = () => {
 
   //Add to cart getlist after create or delete
   useEffect(() => {
-    if(store.productAddToCart.isSuccessCreate || store.productAddToCart.isSuccessDestroy || store.productAddToCart.isSuccessUpdate){
+    if (
+      store.productAddToCart.isSuccessCreate ||
+      store.productAddToCart.isSuccessDestroy ||
+      store.productAddToCart.isSuccessUpdate
+    ) {
       dispatch({
         type: "PRODUCT_ADD_TO_CART_GETLIST_API_REQUEST",
         payload: {
@@ -96,16 +100,20 @@ const ShopingCartPage = () => {
         },
       });
       dispatch({
-        type:"PRODUCT_ADD_TO_CART_CREATE_API_CLEAR"
-      })
+        type: "PRODUCT_ADD_TO_CART_CREATE_API_CLEAR",
+      });
       dispatch({
-        type:"PRODUCT_ADD_TO_CART_DESTROY_API_CLEAR"
-      })
+        type: "PRODUCT_ADD_TO_CART_DESTROY_API_CLEAR",
+      });
       dispatch({
-        type:"PRODUCT_ADD_TO_CART_UPDATE_API_CLEAR"
-      })
+        type: "PRODUCT_ADD_TO_CART_UPDATE_API_CLEAR",
+      });
     }
-  }, [deepGet(store,"productAddToCart.isSuccessCreate"), deepGet(store,"productAddToCart.isSuccessDestroy"), deepGet(store,"productAddToCart.isSuccessUpdate")])
+  }, [
+    deepGet(store, "productAddToCart.isSuccessCreate"),
+    deepGet(store, "productAddToCart.isSuccessDestroy"),
+    deepGet(store, "productAddToCart.isSuccessUpdate"),
+  ]);
 
   //Update Add to cart
   useEffect(() => {
@@ -186,101 +194,7 @@ const ShopingCartPage = () => {
           <HideComponents hideOn="mobile">
             <div className={classes.tableContent}>
               {/* table */}
-              <table className={classes.tableContainer}>
-                {/* table header contents */}
-                <thead className={classes.tableHead}>
-                  <tr>
-                    <th className={classes.th}>
-                      <Typography variant="BM">Product</Typography>
-                    </th>
-                    <th className={classes.th}>
-                      <Typography variant="BM">Price</Typography>
-                    </th>
-                    <th className={classes.th}>
-                      <Typography variant="BM">Quantity</Typography>
-                    </th>
-                    <th className={classes.th}>
-                      <Typography variant="BM">Total</Typography>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {store.productAddToCart.dataGetList?.data?.map(
-                    (item: any, idx: number) => {
-                      const selectedPrice = item?.addToCartWithDetail.find(
-                        (variant: any) =>
-                          variant.color.id === item?.color.id &&
-                          variant.size.id === item?.size?.id
-                      );
-                      return (
-                        <tr>
-                          <td className={classes.tdone}>
-                            <div className={classes.imageContentContainer}>
-                              <div className={classes.imageDiv}>
-                                <img
-                                  className={classes.fashionImage}
-                                  src={item?.color?.attachments[0]?.fileUrl}
-                                  alt=""
-                                />
-                              </div>
-                              <div className={classes.contents}>
-                                <Typography variant="BM">
-                                  {item?.products[0]?.name}
-                                </Typography>
-                                <Typography
-                                  className={classes.lightColor}
-                                  variant="BM"
-                                >
-                                  Color: {item?.color?.name} / Size:{" "}
-                                  {item?.size?.sizeVariant}
-                                </Typography>
-                                <Typography
-                                  className={classes.remove}
-                                  variant="LS"
-                                  onClick={()=>handleProductRemove(item?.id)}
-                                >
-                                  Remove
-                                </Typography>
-                              </div>
-                            </div>
-                          </td>
-                          <td className={classes.td}>
-                            <Typography variant="BM">
-                            {(selectedPrice?.price / selectedPrice?.quantity).toFixed(0)}
-                            </Typography>
-                          </td>
-                          <td className={classes.td}>
-                            <Button
-                              className={classes.btnStyle}
-                              rightIcon={
-                                <SvgAdd
-                                  onClick={() =>
-                                    handleQuantityChange(item, "increase")
-                                  }
-                                  className={classes.svgAdd}
-                                />
-                              }
-                              leftIcon={
-                                <SvgRemove
-                                  onClick={() =>
-                                    handleQuantityChange(item, "decrease")
-                                  }
-                                />
-                              }
-                              text={selectedPrice?.quantity}
-                            ></Button>
-                          </td>
-                          <td className={classes.td}>
-                            <Typography variant="BM">
-                              {selectedPrice?.price}
-                            </Typography>
-                          </td>
-                        </tr>
-                      );
-                    }
-                  )}
-                </tbody>
-              </table>
+              <Table />
               {/* price tags */}
               <div className={classes.priceTags}>
                 <input type="checkbox" />
@@ -303,25 +217,6 @@ const ShopingCartPage = () => {
                   </div>
                 ))}
               </div>
-              {/* poduct suggestion */}
-              {/* <div className={classes.suggestionProduct}>
-              <div>
-              <Typography variant="TS">You may also like...</Typography>
-              </div>
-              <div className={classes.sugesstionproducts}>
-              {sugesstionproducts.map((data:any)=>(
-                <div className={classes.productCard}>
-                  <div className={classes.fashionImageDiv}>
-                    <img className={classes.fashionIme} src={fashion} alt=""/>
-                  </div>
-                  <div>
-                    <Typography variant="BM">{data.title}</Typography>
-                    <Typography variant="BM">{data.pricetag}</Typography>
-                  </div>
-                </div>
-              ))}
-              </div>
-            </div> */}
             </div>
           </HideComponents>
 
@@ -329,7 +224,7 @@ const ShopingCartPage = () => {
           <HideComponents showOnlyOn="mobile">
             {store.productAddToCart.dataGetList?.data?.map(
               (item: any, idx: number) => {
-                const selectedPrice = item?.addToCartWithDetail.find(
+                const selectedPrice = item?.addToCartWithDetail?.find(
                   (variant: any) =>
                     variant.color.id === item?.color.id &&
                     variant.size.id === item?.size?.id
@@ -384,8 +279,10 @@ const ShopingCartPage = () => {
                                 }
                               />
                             }
-                            text={quantity}
-                          ></Button>
+                            type="button"
+                          >
+                            {quantity}
+                          </Button>
                         </div>
                       </div>
                     </div>
@@ -431,7 +328,7 @@ const ShopingCartPage = () => {
               <TextArea placeholder="Add order note" />
             </div>
             {/* forms */}
-            <div className={classes.formContainer}>
+            {/* <div className={classes.formContainer}>
               <div className={classes.inputFeilds}>
                 <Typography variant="BM">Country/region</Typography>
                 <Input type="text" placeholder="" />
@@ -447,14 +344,14 @@ const ShopingCartPage = () => {
               <div className={classes.buttonContainer}>
                 <Button
                   className={classes.buttonStyle}
-                  text={"Estimate Shipping"}
-                ></Button>
+                  type="button"
+                >Estimate Shipping</Button>
               </div>
-            </div>
+            </div> */}
             {/* subTotal */}
             <div className={classes.subTotalDiv}>
               <div className={classes.subTotal}>
-                <Typography variant="TS">Subtotal:</Typography>
+                <Typography variant="TS">Subtotal: $</Typography>
                 <Typography variant="TS">
                   {store.productAddToCart.dataGetList?.data
                     ?.reduce((total: number, item: any) => {
@@ -478,20 +375,18 @@ const ShopingCartPage = () => {
             {/* terms and conditions */}
             <div className={classes.termsAndConditionsDiv}>
               <div className={classes.checkBoxContainer}>
-                <input type="checkbox" />
+                <input type="checkbox" checked={isChecked} onChange={(e)=>setIsChecked(e.target.checked)} />
                 <Typography className={classes.lightColor} variant="BS">
                   I agree with
                 </Typography>
                 <Typography className={classes.blackColor} variant="BS">
-                  {" "}
                   Terms & Conditions
                 </Typography>
               </div>
               <div className={classes.checkoutContainer}>
-                <Button
-                  className={classes.buttonStyle}
-                  text={"CheckOut"}
-                ></Button>
+                <Button disabled={!isChecked} size="lg" className={classes.buttonStyle} type="button">
+                  Check out
+                </Button>
               </div>
             </div>
           </div>

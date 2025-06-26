@@ -377,8 +377,8 @@ useEffect(() => {
         subTitle="Unmatched design—superior performance and customer satisfaction in one."
       />
       <Review ReviewsData={reviewdata} />
-      {/* <Shop ShopData={shop} />
-      <Support SupportData={support} /> */}
+      <Shop ShopData={shop} />
+      <Support SupportData={support} />
     </div>
   );
 };

@@ -24,7 +24,7 @@ const Review: React.FC<any> = (props): JSX.Element => {
   const { store } = useStore();
   const dispatch = useMiddlewareDispatch();
   const [comment, setComment] = useState<any>([]);
-  console.log('comment',comment)
+  console.log("comment", comment);
 
   // Function to handle scrolling
   const handlescrool = (direction: "left" | "right") => {
@@ -68,7 +68,6 @@ const Review: React.FC<any> = (props): JSX.Element => {
   }, []);
 
   const RatingStar = (rating: number) => {
-  
     switch (true) {
       // Handle cases like 1.1 to 1.9
       case rating >= 1.1 && rating <= 1.9:
@@ -76,24 +75,24 @@ const Review: React.FC<any> = (props): JSX.Element => {
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarHalf className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
-  
+
       // Handle cases like 2.1 to 2.9
       case rating >= 2.1 && rating <= 2.9:
         return (
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-             <SvgStarHalf className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgStarHalf className={classes.starColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
-  
+
       // Handle cases like 3.1 to 3.9
       case rating >= 3.1 && rating <= 3.9:
         return (
@@ -101,11 +100,11 @@ const Review: React.FC<any> = (props): JSX.Element => {
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-             <SvgStarHalf className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgStarHalf className={classes.starColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
-  
+
       // Handle cases like 4.1 to 4.9
       case rating >= 4.1 && rating <= 4.9:
         return (
@@ -114,19 +113,19 @@ const Review: React.FC<any> = (props): JSX.Element => {
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-             <SvgStarHalf className={classes.starColor} />
+            <SvgStarHalf className={classes.starColor} />
           </div>
         );
-  
+
       // Default cases (whole numbers)
       case rating === 1:
         return (
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
       case rating === 2:
@@ -134,9 +133,9 @@ const Review: React.FC<any> = (props): JSX.Element => {
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
       case rating === 3:
@@ -145,8 +144,8 @@ const Review: React.FC<any> = (props): JSX.Element => {
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
       case rating === 4:
@@ -156,7 +155,7 @@ const Review: React.FC<any> = (props): JSX.Element => {
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
       case rating === 5:
@@ -173,10 +172,10 @@ const Review: React.FC<any> = (props): JSX.Element => {
         return (
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
     }
@@ -230,33 +229,44 @@ const Review: React.FC<any> = (props): JSX.Element => {
           <SvgChevronLeft className={classes.ScroolLeftButton} />
         </div>
         <div className={classes.ScrollContainer} ref={ScroolContainerRef}>
-          {comment.length > 0 && comment?.map((card: any, index: number) => (
-            <div key={index} className={classes.CardWrapper}>
-              <div className={classes.Card}>
-                <img src={card?.products?.[0]?.attachments[0]?.fileUrl || ""} className={classes.CardLogo} />
-              </div>
-              <div className={classes.CardContent}>
-                <div className={classes.CardDiv}>
-                  <div>
-                    {RatingStar(card?.reviewValue || 1)}
-                  </div>
-                  <Typography variant="TS" className={classes.CardTitle}>
-                    {card?.title || ''}
-                  </Typography>
-                  <Typography variant="BM">{card?.content || ""}</Typography>
+          {comment.length &&
+            comment?.map((card: any, index: number) => (
+             card?.products?.length && 
+               <div key={index} className={classes.CardWrapper}>
+                <div className={classes.Card}>
+                  <img
+                    src={card?.products[0]?.attachments[0]?.fileUrl || ""}
+                    className={classes.CardLogo}
+                  />
                 </div>
-                <div className={classes.SubDiv}>
-                  <div className={classes.SubImgDiv}>
-                    <img src={card?.products[0]?.attachments[1]?.fileUrl || ''} alt="" className={classes.SubImg} />
+                <div className={classes.CardContent}>
+                  <div className={classes.CardDiv}>
+                    <div>{RatingStar(card?.reviewValue || 1)}</div>
+                    <Typography variant="TS" className={classes.CardTitle}>
+                      {card?.title || ""}
+                    </Typography>
+                    <Typography variant="BM">{card?.content || ""}</Typography>
                   </div>
-                  <div>
-                    <Typography variant="BS">{card.products?.[0]?.name || ""}</Typography>
-                    <Typography variant="TS">{card.variants?.[0]?.sellingPrice || ""}</Typography>
+                  <div className={classes.SubDiv}>
+                    <div className={classes.SubImgDiv}>
+                      <img
+                        src={card?.products[0]?.attachments[1]?.fileUrl || ""}
+                        alt=""
+                        className={classes.SubImg}
+                      />
+                    </div>
+                    <div>
+                      <Typography variant="BS">
+                        {card.products?.[0]?.name || ""}
+                      </Typography>
+                      <Typography variant="TS">
+                        {card.variants?.[0]?.sellingPrice || ""}
+                      </Typography>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
         <div
           style={{

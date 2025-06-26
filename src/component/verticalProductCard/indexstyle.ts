@@ -1,5 +1,5 @@
 import { createUseStyles } from "react-jss";
-import { Theme } from "../../../theme/themeType";
+import { Theme } from "../../theme/themeType";
 
 export const useStyle = createUseStyles((theme: Theme) => ({
   mainContainer: {
@@ -13,6 +13,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "auto",
     display:'flex',
     flexDirection:'column',
+    gap: theme.spacing.s500,
   },
   itemStyle: {
     width: "100%",
@@ -31,17 +32,17 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   imageDiv: {
     width: "40px",
     height: "40px",
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     borderRadius: "50%",
     padding: theme.spacing.s100,
     cursor: "pointer",
     "&:hover": {
-      borderColor: theme.light.neutral.onSurface.title,
+      borderColor: theme.color.neutral.onSurface.light,
     },
   },
   activeStatus: {
-    border: `1px solid ${theme.light.neutral.border.light}`,
-    borderColor: theme.light.neutral.onSurface.title,
+    border: `1px solid ${theme.color.neutral.border.light}`,
+    borderColor: theme.color.neutral.onSurface.light,
   },
   itemDiv: {
     width: "100%",
@@ -57,7 +58,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   starColor: {
     "& path": {
-      fill: theme.light.warning.onSurface.medium,
+      fill: theme.color.warning.onSurface.light,
     },
   },
   priceContainer: {
@@ -66,10 +67,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     gap: theme.spacing.s300,
   },
   redColor: {
-    color: theme.light.negative.surface.medium,
+    color: theme.color.negative.surface.medium,
   },
   lightColor: {
-    color: theme.light.neutral.onSurface.dark,
+    color: theme.color.neutral.onSurface.dark,
     textDecoration: "line-through",
   },
   imageContainer: {
@@ -83,23 +84,23 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "100%",
     maxWidth: "48px",
     borderRadius: "50%",
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     padding: theme.spacing.s300,
     cursor: "pointer",
     position: "absolute",
-    backgroundColor: theme.light.neutral.surface.lighter,
+    backgroundColor: theme.color.neutral.surface.lighter,
     top: "5%",
     right: "5%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     "&:hover": {
-      backgroundColor: theme.light.neutral.onSurface.title,
+      backgroundColor: theme.color.neutral.onSurface.light,
     },
   },
 
   favouriteActive:{
-    backgroundColor: theme.light.neutral.onSurface.title
+    backgroundColor: theme.color.neutral.onSurface.light
   },
 
   favouriteOne: {
@@ -107,18 +108,18 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "100%",
     maxWidth: "48px",
     borderRadius: "50%",
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     padding: theme.spacing.s300,
     cursor: "pointer",
     position: "absolute",
-    backgroundColor: theme.light.neutral.surface.lighter,
+    backgroundColor: theme.color.neutral.surface.lighter,
     top: "18%",
     right: "5%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     "&:hover": {
-      backgroundColor: theme.light.neutral.onSurface.title,
+      backgroundColor: theme.color.neutral.onSurface.light,
     },
   },
   favouriteTwo: {
@@ -126,18 +127,18 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "100%",
     maxWidth: "48px",
     borderRadius: "50%",
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     padding: theme.spacing.s300,
     cursor: "pointer",
     position: "absolute",
-    backgroundColor: theme.light.neutral.surface.lighter,
+    backgroundColor: theme.color.neutral.surface.lighter,
     top: "31%",
     right: "5%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     "&:hover": {
-      backgroundColor: theme.light.neutral.onSurface.title,
+      backgroundColor: theme.color.neutral.onSurface.light,
     },
   },
   buttonContainer: {
@@ -148,19 +149,19 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   buttonStyle: {
     width: "80% !important",
-    backgroundColor: `${theme.light.neutral.surface.lighter} !important`,
-    color: `${theme.light.neutral.onSurface.title} !important`,
+    backgroundColor: `${theme.color.neutral.surface.lighter} !important`,
+    color: `${theme.color.neutral.onSurface.light} !important`,
     position: "absolute",
     top: "80%",
     height: "45px !important",
     "&:hover": {
-      backgroundColor: `${theme.light.neutral.onSurface.title} !important`,
-      color: `${theme.light.neutral.surface.light} !important`,
+      backgroundColor: `${theme.color.neutral.onSurface.light} !important`,
+      color: `${theme.color.neutral.surface.light} !important`,
     },
   },
   eyeColor: {
     "& path": {
-      fill: theme.light.neutral.onSurface.dark,
+      fill: theme.color.neutral.onSurface.dark,
     },
   },
 
@@ -168,19 +169,19 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "100%",
     maxWidth: "40px",
     height: "40px",
-    border: `1px solid ${theme.light.neutral.border.light}`,
-    borderColor: theme.light.neutral.border.light,
+    border: `1px solid ${theme.color.neutral.border.light}`,
+    borderColor: theme.color.neutral.border.light,
     borderRadius: "50%",
     padding: theme.spacing.s100,
     cursor: "pointer",
     "&:hover": {
-      borderColor: theme.light.neutral.onSurface.title,
+      borderColor: theme.color.neutral.onSurface.light,
       transition: "color 0.3s",
     },
   },
   ProductBoder: {
-    border: `1px solid ${theme.light.neutral.border.light}`,
-    borderColor: theme.light.neutral.onSurface.title,
+    border: `1px solid ${theme.color.neutral.border.light}`,
+    borderColor: theme.color.neutral.onSurface.light,
   },
   ProductImg: {
     width: "100%",
@@ -191,7 +192,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
 
   newStarColor:{
     '& path':{
-      fill:theme.light.warning.onSurface.medium
+      fill:theme.color.warning.onSurface.light
   }
   },
 

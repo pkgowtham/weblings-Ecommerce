@@ -116,8 +116,8 @@ const CollectionList = () => {
             <div className={classes.listContainer}>
               <Button onClick={()=>navigate("/mainLayout/productpage",{state:{rowDataId:data?.id}})}
                 className={classes.btnContainer}
-                text={data.name}
-              ></Button>
+                type="button"
+              >{data.name}</Button>
             </div>
             <div className={classes.logoContainer}>
               <img className={classes.logoStyle} src={data?.colors[0]?.attachments[0]?.fileUrl} alt="" />

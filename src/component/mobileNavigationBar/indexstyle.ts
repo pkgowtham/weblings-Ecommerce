@@ -6,7 +6,7 @@ export const useStyle = createUseStyles((theme:Theme)=>({
         display:'flex',
         width:'100%',
         alignItems:'center',
-        backgroundColor:theme.light.neutral.surface.lighter,
+        backgroundColor:theme.color.neutral.surface.lighter,
         padding:theme.spacing.s300,
         justifyContent:'space-between',
         boxShadow:theme.elevation.m,

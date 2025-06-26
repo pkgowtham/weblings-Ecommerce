@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "../../../component/button";
 import Typography from "../../../component/typography/component";
 import { useStyle } from "./indexstyle";
-import Input from "../../../component/input";
+import InputField from "../../../component/input/input";
 
 const AddressDetails = () => {
   const classes = useStyle();
@@ -129,15 +129,15 @@ const AddressDetails = () => {
         <Button
           className={classes.btnStyle}
           onClick={() => setIsFormSection(!isFormSection)}
-          text={"Add a new address"}
-        ></Button>
+          type="button"
+        >Add a new address</Button>
       </div>
       {/* formsection */}
       {isFormSection && (
         <div className={classes.formContainer}>
           <div className={classes.inputDiv}>
             <Typography variant="BM">First name</Typography>
-            <Input
+            <InputField
               value={formData.firstname}
               name="firstname"
               onChange={handleErrorMessage}
@@ -152,7 +152,7 @@ const AddressDetails = () => {
           </div>
           <div className={classes.inputDiv}>
             <Typography variant="BM">Last name</Typography>
-            <Input
+            <InputField
               value={formData.lastname}
               name="lastname"
               onChange={handleErrorMessage}
@@ -167,7 +167,7 @@ const AddressDetails = () => {
           </div>
           <div className={classes.inputDiv}>
             <Typography variant="BM">Company</Typography>
-            <Input
+            <InputField
               value={formData.company}
               name="company"
               onChange={handleErrorMessage}
@@ -182,7 +182,7 @@ const AddressDetails = () => {
           </div>
           <div className={classes.inputDiv}>
             <Typography variant="BM">Address 1</Typography>
-            <Input
+            <InputField
               value={formData.address1}
               name="address1"
               onChange={handleErrorMessage}
@@ -197,7 +197,7 @@ const AddressDetails = () => {
           </div>
           <div className={classes.inputDiv}>
             <Typography variant="BM">Address 2</Typography>
-            <Input
+            <InputField
               value={formData.address2}
               name="address2"
               onChange={handleErrorMessage}
@@ -212,7 +212,7 @@ const AddressDetails = () => {
           </div>
           <div className={classes.inputDiv}>
             <Typography variant="BM">City</Typography>
-            <Input
+            <InputField
               value={formData.city}
               name="city"
               onChange={handleErrorMessage}
@@ -227,7 +227,7 @@ const AddressDetails = () => {
           </div>
           <div className={classes.inputDiv}>
             <Typography variant="BM">Phone</Typography>
-            <Input
+            <InputField
               value={formData.phone}
               name="phone"
               onChange={handleErrorMessage}
@@ -242,7 +242,7 @@ const AddressDetails = () => {
           </div>
           <div className={classes.inputDiv}>
             <Typography variant="BM">Country/region</Typography>
-            <Input
+            <InputField
               name="country"
               type="text"
               placeholder="enter a country"
@@ -257,7 +257,7 @@ const AddressDetails = () => {
           </div>
           <div className={classes.inputDiv}>
             <Typography variant="BM">Postal/ZIP code</Typography>
-            <Input
+            <InputField
               value={formData.postalcode}
               name="postalcode"
               onChange={handleErrorMessage}
@@ -280,13 +280,13 @@ const AddressDetails = () => {
             <Button
               className={classes.btnStyle}
               onClick={handleSubmit}
-              text={isEditing ? "Update Address" : "Add a new address"}
-            ></Button>
+              type="button"
+            >{isEditing ? "Update Address" : "Add a new address"}</Button>
             <Button
               className={classes.btnStyle}
               onClick={() => setIsFormSection(false)}
-              text={"Cancel"}
-            ></Button>
+              type="button"
+            >Cancel</Button>
           </div>
         </div>
       )}
@@ -335,13 +335,13 @@ const AddressDetails = () => {
               <Button
                 onClick={() => handleEdit(index)}
                 className={classes.btnStyle}
-                text={"Edit"}
-              ></Button>
+                type="button"
+              >Edit</Button>
               <Button
                 onClick={() => handleDelete(index)}
                 className={classes.btnStyle}
-                text={"Delete"}
-              ></Button>
+                type="button"
+              >Delete</Button>
             </div>
           </div>
         </div>

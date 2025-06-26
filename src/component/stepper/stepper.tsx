@@ -97,12 +97,12 @@ const CheckoutStepper: React.FC<CheckoutStepperProps> = ({ data = [] }) => {
             style={{
               color:
                 getStepState(index) === "complete"
-                  ? theme.light.neutral.onSurface.medium
+                  ? theme.color.neutral.onSurface.medium
                   : getStepState(index) === "failed"
-                  ? theme.light.negative.surface.medium
+                  ? theme.color.negative.surface.medium
                   : getStepState(index) === "active"
-                  ? theme.light.brand.onSurface.default
-                  : theme.light.neutral.onSurface.dark,
+                  ? theme.color.brand.onSurface.default
+                  : theme.color.neutral.onSurface.dark,
             }}
           >
             {step.label}

@@ -26,7 +26,7 @@ export const useStyle = createUseStyles((theme:Theme)=>({
         flexDirection:'column',
         // padding:`${theme.spacing.s200} ${theme.spacing.s400} ${theme.spacing.s400} ${theme.spacing.s400}`,
         borderRadius:theme.borderRadius.b200,
-        backgroundColor:theme.light.neutral.surface.lighter,
+        backgroundColor:theme.color.neutral.surface.lighter,
         // overflow:'auto'
      },
 }))

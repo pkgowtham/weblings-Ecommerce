@@ -19,15 +19,15 @@ import Button from "../../component/button";
 import SvgAdd from "../../custom-icons/Add";
 import SvgHeart from "../../custom-icons/Heart";
 import ShoppingCart from "../../component/shoppingCartModule";
-import ProductImage from "../../component/productImage";
 import { useStore } from "../../store";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
-import { deepGet, useScrollToTop } from "../../util/util";
+import { deepGet } from "../../util/util";
 import { HideComponents } from "../../component/hideComponents";
 import SvgRemove from "../../custom-icons/Remove";
 import SvgEmptyStar from "../../custom-icons/EmptyStar";
 import SvgStarHalf from "../../custom-icons/StarHalf";
 import Marquee from "../../component/marquee";
+import Accordian from "../../component/accordian";
 
 const ProductData = {
   logo: [
@@ -300,10 +300,10 @@ const marqueeData = [
 
 function sortBySizeVariant(
   arr?: Array<Record<string, any>>,
-  key: string = 'sizeVariant'
+  key: string = "sizeVariant"
 ): Array<Record<string, any>> {
   if (!Array.isArray(arr)) {
-    console.warn('Expected an array, got:', arr);
+    console.warn("Expected an array, got:", arr);
     return [];
   }
 
@@ -369,7 +369,7 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
         .map((variant: any) => variant.size)
     : [];
 
-    const sortedSizes = sortBySizeVariant(filteredSizes);
+  const sortedSizes = sortBySizeVariant(filteredSizes);
 
   // Get attachments for the selected color
   const selectedColorAttachments =
@@ -499,14 +499,13 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
 
   //payment nav after buy now success
   useEffect(() => {
-    if(store.order.isSuccessCreate){
-      navigate("/mainLayout/paymentpage")  
+    if (store.order.isSuccessCreate) {
+      navigate("/mainLayout/paymentpage");
       dispatch({
-          type:"ORDER_CREATE_API_CLEAR"
-        })
+        type: "ORDER_CREATE_API_CLEAR",
+      });
     }
-  }, [store.order.isSuccessCreate])
-  
+  }, [store.order.isSuccessCreate]);
 
   // Handle color selection
   const handleColorChange = (data: any) => {
@@ -539,7 +538,6 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
   };
 
   const RatingStar = (rating: number) => {
-  
     switch (true) {
       // Handle cases like 1.1 to 1.9
       case rating >= 1.1 && rating <= 1.9:
@@ -547,24 +545,24 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarHalf className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
-  
+
       // Handle cases like 2.1 to 2.9
       case rating >= 2.1 && rating <= 2.9:
         return (
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-             <SvgStarHalf className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgStarHalf className={classes.starColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
-  
+
       // Handle cases like 3.1 to 3.9
       case rating >= 3.1 && rating <= 3.9:
         return (
@@ -572,11 +570,11 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-             <SvgStarHalf className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgStarHalf className={classes.starColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
-  
+
       // Handle cases like 4.1 to 4.9
       case rating >= 4.1 && rating <= 4.9:
         return (
@@ -585,19 +583,19 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-             <SvgStarHalf className={classes.starColor} />
+            <SvgStarHalf className={classes.starColor} />
           </div>
         );
-  
+
       // Default cases (whole numbers)
       case rating === 1:
         return (
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
       case rating === 2:
@@ -605,9 +603,9 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
       case rating === 3:
@@ -616,8 +614,8 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
       case rating === 4:
@@ -627,7 +625,7 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
       case rating === 5:
@@ -644,10 +642,10 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
         return (
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
     }
@@ -745,14 +743,14 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
       payload: {
         url: "/order",
         method: "POST",
-        body:{
-          buyNow:true,
-          userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
-          productList:[rowDataId]
-        }
+        body: {
+          buyNow: true,
+          userId: "001a0ab1-14a1-4016-b2ed-2e9dfa414245",
+          productList: [rowDataId],
+        },
       },
     });
-  }
+  };
 
   return (
     <div className={classes.MainContainer}>
@@ -766,9 +764,7 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
             Home
           </Typography>
           <div className={classes.dotStyle}></div>
-          <Typography variant="BM">
-            {store.product.dataGet?.name}
-          </Typography>
+          <Typography variant="BM">{store.product.dataGet?.name}</Typography>
         </div>
         <div>
           <SvgChevronLeft />
@@ -782,20 +778,26 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
       <div className={classes.ProductContainer}>
         <div className={classes.LeftDiv}>
           <HideComponents showOnlyOn="desktop">
-          <div className={classes.LeftDivSmall}>
-            {selectedColorAttachments.map((product: any, idx: number) => (
-              <div
-              onMouseEnter={() => handleImageClick(product.fileUrl, product?.id)}
-                onClick={() => handleImageClick(product.fileUrl, product?.id)}
-                key={idx}
-                className={clsx(classes.ImageDiv, {
-                  [classes.Boder]: activeIndex === product?.id,
-                })}
-              >
-                <img src={product?.fileUrl} className={classes.Image} alt="" />
-              </div>
-            ))}
-          </div>
+            <div className={classes.LeftDivSmall}>
+              {selectedColorAttachments.map((product: any, idx: number) => (
+                <div
+                  onMouseEnter={() =>
+                    handleImageClick(product.fileUrl, product?.id)
+                  }
+                  onClick={() => handleImageClick(product.fileUrl, product?.id)}
+                  key={idx}
+                  className={clsx(classes.ImageDiv, {
+                    [classes.Boder]: activeIndex === product?.id,
+                  })}
+                >
+                  <img
+                    src={product?.fileUrl}
+                    className={classes.Image}
+                    alt=""
+                  />
+                </div>
+              ))}
+            </div>
           </HideComponents>
           <div className={classes.ImgDiv}>
             <img src={currentImage} alt="" className={classes.Img} />
@@ -803,6 +805,8 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
           </div>
         </div>
         <div className={classes.RightDiv}>
+          {/* brand namd & reviews */}
+          <div className={classes.brandName}>
           <div
             onClick={() =>
               navigate("/mainLayout/collectionlist", {
@@ -816,23 +820,28 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
             </Typography>
           </div>
           <div>
-            <Typography variant="TM">
-              {store.product.dataGet?.name}
-            </Typography>
+            <Typography variant="TM">{store.product.dataGet?.name}</Typography>
           </div>
           <div className={classes.StarContent}>
             <div className={classes.StarDiv}>
-            {RatingStar(store.product.dataGet?.aggregateReviewValue?.averageRating)}
+              {RatingStar(
+                store.product.dataGet?.aggregateReviewValue?.averageRating
+              )}
             </div>
             <div>
               <Typography variant="BM">{`${store.product.dataGet?.aggregateReviewValue?.totalReviews} Reviews`}</Typography>
             </div>
-            <div>
-              <Typography className={classes.redColor} variant="BL">17 sold in last 18 hours</Typography>
-            </div>
+            {/* <div>
+              <Typography className={classes.redColor} variant="BL">
+                17 sold in last 18 hours
+              </Typography>
+            </div> */}
           </div>
+
+          </div>
+
           <div>
-            <Typography variant="TS">{price?.mrp}</Typography>
+            <Typography variant="TM">$ {price?.mrp}</Typography>
           </div>
           <div>
             <Typography variant="BM">
@@ -856,7 +865,7 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
               </Typography>
             </div>
           </div>
-          <div className={classes.EyeContainer}>
+          {/* <div className={classes.EyeContainer}>
             <div className={classes.EyeDiv}>
               <img src={eye} alt="" className={classes.EyeImg} />
             </div>
@@ -865,10 +874,15 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
                 18 peoples are viewing this right now
               </Typography>
             </div>
-          </div>
+          </div> */}
           <div className={classes.ColorSection}>
             <div className={classes.Gray}>
-              <Typography className={classes.lightColors} variant="BL">Color: <Typography variant="BM" className={classes.blackCOlor}>{selectedColor?.name}</Typography></Typography>
+              <Typography className={classes.lightColors} variant="BL">
+                Color:{" "}
+                <Typography variant="BM" className={classes.blackCOlor}>
+                  {selectedColor?.name}
+                </Typography>
+              </Typography>
             </div>
             <div className={classes.Product}>
               {store.product.dataGet?.colors?.map((dat: any, index: number) => {
@@ -896,12 +910,13 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
               <div className={classes.SizeNav}>
                 <div>
                   <Typography className={classes.lightColors} variant="BL">
-                    Size: <Typography variant="BM" className={classes.blackCOlor}>{selectedSize?.sizeVariant}</Typography>
+                    Size:{" "}
+                    <Typography variant="BM" className={classes.blackCOlor}>
+                      {selectedSize?.sizeVariant}
+                    </Typography>
                   </Typography>
                 </div>
-                {/* <div>
-                  <Typography variant="BS">Size guide</Typography>
-                </div> */}
+        
               </div>
               <div className={classes.SizeChart}>
                 {sortedSizes?.map((chart: any, idx: number) => (
@@ -917,7 +932,7 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
                   </div>
                 ))}
               </div>
-              <div className={classes.Compare}>
+              {/* <div className={classes.Compare}>
                 <div className={classes.Color}>
                   <Typography variant="BS">Compare Color</Typography>
                 </div>
@@ -927,7 +942,7 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
                 <div className={classes.Color}>
                   <Typography variant="BS">Share</Typography>
                 </div>
-              </div>
+              </div> */}
               <div className={classes.HurryUp}>
                 <div className={classes.HurryText}>
                   <Typography variant="BS">
@@ -939,6 +954,8 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
               {/* button section */}
               <div className={classes.buttonContainer}>
                 <Button
+                  type="button"
+                  size="lg"
                   leftIcon={
                     <SvgRemove
                       className={classes.buttonColor}
@@ -951,16 +968,20 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
                       className={classes.buttonColor}
                     />
                   }
-                  text={count}
                   className={classes.buttonStyle}
-                ></Button>
+                >
+                  {count}
+                </Button>
                 <Button
+                size="lg"
                   onClick={
                     isProductInCart ? handleGoToCart : handleAddToCartSubmit
                   }
                   className={classes.btnStyle}
-                  text={isProductInCart ? "Go to Cart" : "Add to Cart"}
-                ></Button>
+                  type="button"
+                >
+                  {isProductInCart ? "Go to Cart" : "Add to Cart"}
+                </Button>
                 <div className={classes.CircleContainer}>
                   <div
                     className={clsx(classes.CircleImgDiv, {
@@ -995,11 +1016,14 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
                     // onClick={() => handleNavigate("payment")}
                     onClick={handleBuy}
                     disabled={!isChecked}
-                    text={" Buy it now"}
+                    size="lg"
+                    type="button"
                     className={clsx(classes.ButtonStyle, {
                       [classes.checked]: isChecked,
                     })}
-                  ></Button>
+                  >
+                    Buy it now
+                  </Button>
                 </div>
               </div>
               <div className={classes.Sizes}>
@@ -1085,6 +1109,8 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
               </div>
             </div>
           </div>
+          {/* accordian */}
+          <Accordian/>
         </div>
       </div>
       {/* marquee */}

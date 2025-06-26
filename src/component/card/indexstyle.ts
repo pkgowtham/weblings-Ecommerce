@@ -9,7 +9,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     padding:`${theme.spacing.s0} ${theme.spacing.s800}` , 
   },
   Title: {
-    color:theme.light.neutral.onSurface.title,
+    color:theme.color.neutral.onSurface.light,
     width: "100%",
     display:'flex',
     justifyContent:'center',
@@ -61,7 +61,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     height: "382px",
     width: "286px",
     borderRadius:theme.borderRadius.b500,
-    backgroundColor: theme.light.brand.surface.lighter,
+    backgroundColor: theme.color.brand.surface.lighter,
     marginBottom: theme.spacing.s100,
     
   },
@@ -101,8 +101,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display:'flex',
     alignItems:'center',
     justifyContent:'center',
-    border: `1px solid ${theme.light.neutral.border.light}`,
-    backgroundColor:theme.light.neutral.surface.light,
+    border: `1px solid ${theme.color.neutral.border.light}`,
+    backgroundColor:theme.color.neutral.surface.light,
     cursor: "pointer",
     position: "absolute",
     top: 190,
@@ -120,7 +120,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display:'flex',
     alignItems:'center',
     justifyContent:'center',
-    border: `1px solid ${theme.light.neutral.border.light}`,
-    backgroundColor:theme.light.neutral.surface.light
+    border: `1px solid ${theme.color.neutral.border.light}`,
+    backgroundColor:theme.color.neutral.surface.light
   }
 }));

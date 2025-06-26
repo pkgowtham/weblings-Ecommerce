@@ -3,8 +3,6 @@ import { useStyle } from "./indexstyle";
 import Typography from "../typography/component";
 import drive from "../../assets/icons/drive_file_move_rtl.svg";
 import SvgStarPurple500 from "../../custom-icons/StarPurple500";
-import SvgUserRound from "../../custom-icons/UserRound";
-import Input from "../input";
 import TextArea from "../textArea/textArea";
 import Button from "../button";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
@@ -14,6 +12,7 @@ import dayjs from "dayjs";
 import SvgDelete from "../../custom-icons/Delete";
 import SvgEmptyStar from "../../custom-icons/EmptyStar";
 import SvgStarHalf from "../../custom-icons/StarHalf";
+import InputField from "../input/input";
 
 const Ratings: React.FC<any> = (props): JSX.Element => {
   const classes = useStyle();
@@ -505,8 +504,8 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
           <Button
             onClick={isFormVisible ? handleCloseForm : handleOpenForm}
             className={classes.ButtonStyle}
-            text={isFormVisible ? "Cancel Review" : "Write a Review"}
-          ></Button>
+            type="button"
+          >{isFormVisible ? "Cancel Review" : "Write a Review"}</Button>
         </div>
       </div>
       {isFormVisible && (
@@ -539,11 +538,10 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
             <div className={classes.FormDiv}>
               <div className={classes.FormWrapper}>
                 <label className={classes.Label}>Review Title</label>
-                <Input
+                <InputField
                   type="text"
                   name="title"
-                  placeholder="Give your review a title"
-                  className={classes.Input}
+                  placeholder="Give your review a title"  
                   value={formData.title}
                   onChange={handleInputChange}
                   // error={Boolean(errors.title)}
@@ -597,11 +595,10 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                 <label className={classes.Label}>
                   Name (displayed publicly like Anonymous )
                 </label>
-                <Input
+                <InputField
                   type="text"
                   id="name"
                   placeholder="Enter your name (public)"
-                  className={classes.Input}
                   value={formData.name}
                   name="name"
                   onChange={handleInputChange}
@@ -611,11 +608,10 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
               </div>
               <div className={classes.FormWrapper}>
                 <label className={classes.Label}>Email</label>
-                <Input
+                <InputField
                   type="text"
                   id="email"
                   placeholder="Enter your email (private)"
-                  className={classes.Input}
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
@@ -634,12 +630,12 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
             </div>
             <div className={classes.BtnDiv}>
               <Button
-                text={"Cancel Review"}
+                type="button"
                 onClick={handleCloseForm}
                 className={classes.BtnStyles}
-              ></Button>
+              >Cancel Review</Button>
               <Button
-                text={"Submit Review"}
+                type="submit"
                 className={classes.BtnStyle}
                 onClick={handleSubmitComment}
               >

@@ -5,11 +5,10 @@ import youtube from "../../assets/icons/youtube.svg";
 import facebook from "../../assets/icons/facebook.svg";
 import insta from "../../assets/icons/insta.svg";
 import Typography from "../../component/typography/component";
-import right from "../../assets/icons/chevron_right.svg";
 import { HideComponents } from "../hideComponents";
 import SvgAdd from "../../custom-icons/Add";
 import Button from "../button";
-import Input from "../input";
+import Input from "../input/input";
 import SvgChevronRight from "../../custom-icons/ChevronRight";
 
 const footer = {
@@ -137,8 +136,8 @@ const Footer: React.FC<any> = (): JSX.Element => {
                     />
                   </label>
                 </div>
-                <div onClick={()=>localStorage.setItem('authToken','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjAwMWEwYWIxLTE0YTEtNDAxNi1iMmVkLTJlOWRmYTQxNDI0NSIsImlhdCI6MTc0MjM1NzMyOSwiZXhwIjoxNzQ0OTQ5MzI5fQ.EfEEqv6jzafh3KclBTG1tiPCF3uJfxK4wGq1IzDD4Zc')}>
-                  <Button text={"Sign Up"} className={classes.BtnStyle}></Button>
+                <div onClick={()=>localStorage.setItem('authtoken','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYjZiZDM1LTM4NjAtNDBjYS1hNzU1LWI5YmNlMjhiZDZiNCIsImlhdCI6MTc1MDc2NjEyNywiZXhwIjoxNzUzMzU4MTI3fQ.zDvfcRBp7wvhqD8-b9RoArt_mxM4AHzbQwr2UYSLHNI')}>
+                  <Button type="button" className={classes.BtnStyle}>Sign Up</Button>
                 </div>
               </div>
             </div>
@@ -192,8 +191,9 @@ const Footer: React.FC<any> = (): JSX.Element => {
                           <Input type="text" placeholder="enter a email" />
                           <Button
                             className={classes.btnStyle}
-                            text={"Sign Up"}
-                          ></Button>
+                            type="button"
+                            variant="primary"
+                          >Sign Up</Button>
                         </div>
                       </div>
                     )}

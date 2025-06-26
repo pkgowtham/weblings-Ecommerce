@@ -1,12 +1,11 @@
 import { createUseStyles } from "react-jss";
-import { theme } from "../../../theme/theme";
-import { Theme } from "../../../theme/themeType";
+import { Theme } from "../../theme/themeType";
 
 export const useStyle = createUseStyles((theme: Theme) => ({
   PaymentContainer: {
     display: "flex",
     flexDirection: "column",
-    background: theme.light.neutral.surface.light,
+    background: theme.color.neutral.surface.light,
     width: "100%",
     padding: theme.spacing.s800,
     gap: theme.spacing.s600,
@@ -26,9 +25,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "start",
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     borderRadius: theme.borderRadius.b300,
-    background: theme.light.neutral.surface.lighter,
+    background: theme.color.neutral.surface.lighter,
   },
   Nav: {
     display: "flex",
@@ -67,14 +66,14 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "100%",
     height: "28px",
     alignItems: "center",
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
   },
   ProductContainer: {},
   ProductDiv: {
     display: "flex",
     justifyContent: "space-between",
     padding: `${theme.spacing.s600} ${theme.spacing.s0}`,
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
   },
   LogoContainer: {
     display: "flex",
@@ -126,15 +125,15 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   BtnStyle: {
     width: "100%",
     height: "48px",
-    background: theme.light.neutral.surface.light,
+    background: theme.color.neutral.surface.light,
     borderRadius: theme.borderRadius.b700,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     padding: theme.spacing.s400,
-    border: `1px solid ${theme.light.neutral.border.light}`,
-    backgroundColor: theme.light.neutral.onSurface.title,
-    color: theme.light.neutral.surface.light,
+    border: `1px solid ${theme.color.neutral.border.light}`,
+    backgroundColor: theme.color.neutral.onSurface.light,
+    color: theme.color.neutral.surface.light,
     cursor: "pointer",
   },
   OrderContainer: {
@@ -146,9 +145,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "start",
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     borderRadius: theme.borderRadius.b300,
-    background: theme.light.neutral.surface.lighter,
+    background: theme.color.neutral.surface.lighter,
   },
   OrderDiv: {},
   LogoWrapper: {
@@ -159,7 +158,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     justifyContent: "space-between",
     padding: `${theme.spacing.s600} ${theme.spacing.s0}`,
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
   },
   OrderImgDiv: {
     width: "100%",
@@ -191,9 +190,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "start",
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     borderRadius: theme.borderRadius.b300,
-    background: theme.light.neutral.surface.lighter,
+    background: theme.color.neutral.surface.lighter,
   },
   NameDiv: {
     display: "flex",
@@ -209,7 +208,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   Label: {},
   Input: {
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     width: "100%",
     maxWidth: "311px",
     borderRadius: theme.borderRadius.b200,
@@ -234,19 +233,19 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   ButtonStyle: {
     width: "100%",
     height: "48px",
-    background: theme.light.neutral.surface.light,
+    background: theme.color.neutral.surface.light,
     borderRadius: theme.borderRadius.b700,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     padding: theme.spacing.s400,
-    border: `1px solid ${theme.light.neutral.border.light}`,
-    backgroundColor: theme.light.neutral.onSurface.dark,
-    color: theme.light.neutral.surface.light,
+    border: `1px solid ${theme.color.neutral.border.light}`,
+    backgroundColor: theme.color.neutral.onSurface.dark,
+    color: theme.color.neutral.surface.light,
     cursor: "pointer",
   },
   checked: {
-    background: theme.light.neutral.onSurface.title,
+    background: theme.color.neutral.onSurface.light,
   },
   PayContainer:{
     width: "100%",
@@ -257,14 +256,14 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "start",
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     borderRadius: theme.borderRadius.b300,
-    background: theme.light.neutral.surface.lighter,
+    background: theme.color.neutral.surface.lighter,
   },
   RazorContainer:{
     width:'100%',
     height:'72px',
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     borderRadius: theme.borderRadius.b300,
     padding: `${theme.spacing.s200} ${theme.spacing.s300} ${theme.spacing.s200} ${theme.spacing.s300}`,
     cursor:'pointer',
@@ -275,7 +274,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   CashContainer:{
     width:'100%',
     height:'72px',
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     borderRadius: theme.borderRadius.b300,
     padding: `${theme.spacing.s200} ${theme.spacing.s300} ${theme.spacing.s200} ${theme.spacing.s300}`,
     cursor:'pointer',
@@ -291,10 +290,10 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     justifyContent: "center",
     alignItems: "center",
     padding: theme.spacing.s400,
-    border: `1px solid ${theme.light.neutral.border.light}`,
-    color: theme.light.neutral.surface.light,
+    border: `1px solid ${theme.color.neutral.border.light}`,
+    color: theme.color.neutral.surface.light,
     cursor: "pointer",
-    background: theme.light.neutral.onSurface.title,
+    background: theme.color.neutral.onSurface.light,
   },
   PaymentLabel:{
     display:'flex',

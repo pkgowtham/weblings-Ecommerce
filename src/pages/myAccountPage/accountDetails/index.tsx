@@ -36,8 +36,8 @@ const AccountDetails = () => {
         <div className={classes.buttonDiv}>
           <Button
             className={classes.buttonStyle}
-            text={"View addresses(1)"}
-          ></Button>
+            type="button"
+          >View addresses(1)</Button>
         </div>
       </div>
       {/* orderhistory */}

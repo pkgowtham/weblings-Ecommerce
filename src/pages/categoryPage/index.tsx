@@ -8,7 +8,6 @@ import VerticalProductCard from "../../component/verticalProductCard";
 import clsx from "clsx";
 import HorizotalProductCard from "../../component/horizontalProductCard";
 import SvgViewComfyAlt from "../../custom-icons/ViewComfyAlt";
-import { theme } from "../../../theme/theme";
 import fashionblack from "../../assets/images/fashionblack.jpg";
 import fashionwhite from "../../assets/images/fashionwhite.jpg";
 import fashiongrey from "../../assets/images/fashion.jpg";
@@ -19,13 +18,14 @@ import { useStore } from "../../store";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import SvgClose from "../../custom-icons/Close";
 import { deepGet } from "../../util/util";
+import InputField from "../../component/input/input";
 
 const productData = {
   //   productcategory: "Product Category",
   filteroptions: [
     {
       id: 1,
-      name: "Product",
+      name: "Category",
       categories: [
         "Sweaters",
         "T-Shirts",
@@ -582,8 +582,8 @@ const CategoryPage = () => {
     }
   }, [selectedBrand]);
 
-   //Stock click
-   useEffect(() => {
+  //Stock click
+  useEffect(() => {
     if (selectedStock.length > 0) {
       dispatch({
         type: "PRODUCT_GETLIST_API_REQUEST",
@@ -676,8 +676,8 @@ const CategoryPage = () => {
     });
   };
 
-   // Handle checkbox toggle
-   const handleStockCheckboxChange = (stock: string) => {
+  // Handle checkbox toggle
+  const handleStockCheckboxChange = (stock: string) => {
     setSelectedStock((prevSelected) => {
       if (prevSelected.includes(stock)) {
         // Remove if already selected
@@ -709,7 +709,7 @@ const CategoryPage = () => {
                   />
                 </div>
                 {/* dropdown for category */}
-                {isDropDownopen === data.id && data.name === "Product" && (
+                {isDropDownopen === data.id && data.name === "Category" && (
                   <div className={classes.expandDiv}>
                     {store.productCategory.dataGetList?.data?.map(
                       (item: any) => (
@@ -769,8 +769,8 @@ const CategoryPage = () => {
                 {isDropDownopen === data.id && data.name === "Price" && (
                   <div className={classes.priceDiv}>
                     <div className={classes.inputDiv}>
-                      <input
-                        className={classes.inputStyle}
+                      <InputField
+                        // className={classes.inputStyle}
                         placeholder="₹ 0.00"
                         type="text"
                         onChange={handleInputChange}
@@ -778,9 +778,9 @@ const CategoryPage = () => {
                         value={price.start}
                       />
                       <div>-</div>
-                      <input
+                      <InputField
                         placeholder="₹ 0.00"
-                        className={classes.inputStyle}
+                        // className={classes.inputStyle}
                         type="text"
                         onChange={handleInputChange}
                         name="end"
@@ -790,9 +790,9 @@ const CategoryPage = () => {
                     <div>
                       <Button
                         onClick={handlePriceClick}
-                        className={classes.buttonStyle}
-                        text={"Filter price"}
-                      ></Button>
+                        // className={classes.buttonStyle}
+                        type="button"
+                      >Filter price</Button>
                     </div>
                     <div className={classes.priceVariation}>
                       <Typography variant="BS">
@@ -828,7 +828,7 @@ const CategoryPage = () => {
                         style={{
                           border:
                             selectedColor === color
-                              ? `1px solid ${theme.light.neutral.onSurface.title}`
+                              ? `1px solid ${theme.color.neutral.onSurface.light}`
                               : "2px solid transparent",
                           width: "35px",
                           height: "35px",
@@ -887,20 +887,22 @@ const CategoryPage = () => {
               <div className={classes.filterCont}>
                 <div>
                   <Button
+                    type="button"
                     onClick={() => setFilterSideBar(!filterSideBar)}
                     className={classes.buttonStyle}
                     leftIcon={<SvgAdd />}
-                    text={"Filter"}
-                  ></Button>
+                  >
+                    Filter
+                  </Button>
                 </div>
                 <HideComponents hideOn="tablet">
                   <div>
                     <Button
                       onClick={() => setFilterDownBar(!filterDownBar)}
                       className={classes.buttonStyleDrop}
-                      text={"Short By"}
+                      type="button"
                       rightIcon={<SvgChevronRight />}
-                    ></Button>
+                    >Short By</Button>
                   </div>
                 </HideComponents>
               </div>
@@ -1123,11 +1125,11 @@ const CategoryPage = () => {
                 {isDropDownopen === data.id && data.name === "Color" && (
                   <div className={classes.colorDiv}>
                     {data?.color?.map((color: any) => (
-                      <div
+                      <div className={classes.dropdownStyle}
                         style={{
                           border:
                             selectedColor === color
-                              ? `1px solid ${theme.light.neutral.onSurface.title}`
+                              ? `1px solid ${theme.color.neutral.onSurface.light}`
                               : "2px solid transparent",
                           width: "35px",
                           height: "35px",
@@ -1171,7 +1173,7 @@ const CategoryPage = () => {
             <Typography className={classes.clearAllText} variant="TS">
               Clear All
             </Typography>
-            <Button text={"Apply"}></Button>
+            <Button type="button">Apply</Button>
           </div>
         </div>
       )}

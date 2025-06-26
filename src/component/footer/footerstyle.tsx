@@ -1,11 +1,11 @@
 import { createUseStyles } from "react-jss";
-import { Theme } from "../../../theme/themeType";
+import { Theme } from "../../theme/themeType";
 
 export const usestyles = createUseStyles((theme: Theme) => ({
   Footer: {
     display: "flex",
     flexDirection: "column",
-    borderTop: `1px solid ${theme.light.neutral.border.light}`,
+    borderTop: `1px solid ${theme.color.neutral.border.light}`,
     alignItems: "center",
     width: "100%",
     height: "400px",
@@ -18,7 +18,7 @@ export const usestyles = createUseStyles((theme: Theme) => ({
     maxWidth: "90%",
     padding:theme.spacing.s800,
     flexWrap: "wrap",
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
     "@media (max-width: 1024px)": {
       gap: theme.spacing.s500,
       padding:`${theme.spacing.s800} ${theme.spacing.s0}`
@@ -46,7 +46,7 @@ export const usestyles = createUseStyles((theme: Theme) => ({
     height: "55px",
   },
   Title: {
-    color: theme.light.neutral.onSurface.title,
+    color: theme.color.neutral.onSurface.light,
   },
   Para: {
     // marginBottom:'100px'
@@ -96,7 +96,7 @@ export const usestyles = createUseStyles((theme: Theme) => ({
     listStyle: "none",
   },
   SectionTitleColor: {
-    // color:theme.light.neutral.onSurface.medium
+    // color:theme.color.neutral.onSurface.medium
   },
   Label: {
     display: "flex",
@@ -110,8 +110,8 @@ export const usestyles = createUseStyles((theme: Theme) => ({
     alignItems: "flex-start",
     padding: `${theme.spacing.s250} ${theme.spacing.s500}`,
     borderRadius: theme.borderRadius.b500,
-    border: `1px solid ${theme.light.neutral.border.light}`,
-    background: theme.light.neutral.surface.lighter,
+    border: `1px solid ${theme.color.neutral.border.light}`,
+    background: theme.color.neutral.surface.lighter,
     cursor: "pointer",
   },
   ButtonDiv: {
@@ -128,15 +128,15 @@ export const usestyles = createUseStyles((theme: Theme) => ({
     alignItems: "center",
     borderRadius: theme.borderRadius.b400,
     border: "none",
-    background: theme.light.neutral.onSurface.title,
-    color: theme.light.neutral.surface.lighter,
+    background: theme.color.neutral.onSurface.light,
+    color: theme.color.neutral.surface.lighter,
     justifyContent: "center",
     cursor: "pointer",
   },
   FooterLogo: {
-    borderColor: theme.light.neutral.onSurface.title,
+    borderColor: theme.color.neutral.onSurface.light,
     borderRadius: "50%",
-    border: `1px solid ${theme.light.neutral.onSurface.title}`,
+    border: `1px solid ${theme.color.neutral.onSurface.light}`,
     display: "flex",
     alignItems: "center",
     padding: theme.spacing.s200,
@@ -174,7 +174,7 @@ export const usestyles = createUseStyles((theme: Theme) => ({
   },
   svgColor: {
     "& path": {
-      fill: theme.light.neutral.onSurface.title,
+      fill: theme.color.neutral.onSurface.light,
     },
   },
   filterHead: {
@@ -184,7 +184,7 @@ export const usestyles = createUseStyles((theme: Theme) => ({
     justifyContent: "space-between",
     height: "fit-content",
     padding: `${theme.spacing.s500} ${theme.spacing.s0}`,
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
     flexDirection: "column",
   },
   accordDiv:{

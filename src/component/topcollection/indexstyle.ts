@@ -11,7 +11,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   Title: {
     display: "flex",
     marginBottom: theme.spacing.s300,
-    color: theme.light.neutral.onSurface.title,
+    color: theme.color.neutral.onSurface.light,
     textAlign:'center'
   },
   Wrapper: {
@@ -80,12 +80,12 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     height: "8px",
     width: "8px",
     margin:theme.spacing.s100,
-    backgroundColor:theme.light.neutral.onSurface.dark,
+    backgroundColor:theme.color.neutral.onSurface.dark,
     borderRadius: "50%",
     display: "inline-block",
     cursor: "pointer",
   },
   ActiveDot: {
-    backgroundColor:theme.light.neutral.onSurface.title,
+    backgroundColor:theme.color.neutral.onSurface.light,
   },
 }));

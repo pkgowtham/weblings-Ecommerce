@@ -26,7 +26,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     flexDirection: "column",
     gap: theme.spacing.s400,
-    borderRight: `1px solid ${theme.light.neutral.border.light}`,
+    borderRight: `1px solid ${theme.color.neutral.border.light}`,
     padding: theme.spacing.s500,
     "@media (max-width: 1024px)": {
       width: "100%",
@@ -74,7 +74,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     alignItems: "center",
     gap: theme.spacing.s500,
-    borderRight: `1px solid ${theme.light.neutral.border.light}`,
+    borderRight: `1px solid ${theme.color.neutral.border.light}`,
     padding: theme.spacing.s500,
     "@media (max-width: 1024px)": {
       width: "100%",
@@ -88,7 +88,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "100%",
     maxWidth: "200px",
     height: "6px",
-    background: theme.light.neutral.surface.light,
+    background: theme.color.neutral.surface.light,
     borderRadius: theme.borderRadius.b100,
   },
   StarLogo: {
@@ -114,14 +114,14 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "100%",
     maxWidth: "250px",
     height: "48px",
-    background: theme.light.neutral.surface.lighter,
+    background: theme.color.neutral.surface.lighter,
     borderRadius: theme.borderRadius.b700,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     padding: theme.spacing.s400,
-    border: `1px solid ${theme.light.neutral.onSurface.title}`,
-    color: theme.light.neutral.onSurface.title,
+    border: `1px solid ${theme.color.neutral.onSurface.light}`,
+    color: theme.color.neutral.onSurface.light,
     cursor: "pointer",
     "@media (max-width : 400px)":{
       width:'100% !important'
@@ -152,7 +152,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     height: "auto",
     padding: `${theme.spacing.s0} ${theme.spacing.s0}`,
     marginTop: theme.spacing.s500,
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
   },
   FeedBack: {
     width: "100%",
@@ -181,7 +181,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     maxWidth: "50px",
     height: "50px",
     borderRadius: "50%",
-    background: theme.light.neutral.surface.light,
+    background: theme.color.neutral.surface.light,
     padding: theme.spacing.s250,
   },
   UserLogo: {
@@ -249,7 +249,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   Input: {
     width: "100%",
     height: "48px",
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     padding: `${theme.spacing.s250} ${theme.spacing.s500}`,
     borderRadius: theme.borderRadius.b600,
     cursor: "pointer",
@@ -262,7 +262,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     display: "flex",
     flexDirection: "column",
     position: "relative",
-    border: `2px dashed ${theme.light.neutral.border.light}`,
+    border: `2px dashed ${theme.color.neutral.border.light}`,
     borderRadius: theme.borderRadius.b600,
     width: "100%",
     height: "120px",
@@ -275,7 +275,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   ReviewInput: {
     width: "100%",
     height: "120px",
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     padding: `${theme.spacing.s250} ${theme.spacing.s500}`,
     borderRadius: theme.borderRadius.b600,
     cursor: "pointer",
@@ -283,7 +283,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   Review: {
     width: "100%",
     height: "120px",
-    border: `1px solid ${theme.light.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     padding: `${theme.spacing.s250} ${theme.spacing.s500}`,
     borderRadius: theme.borderRadius.b600,
     cursor: "pointer",
@@ -334,29 +334,29 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "100%",
     maxWidth: "200px",
     height: "48px",
-    background: theme.light.neutral.surface.light,
+    background: theme.color.neutral.surface.light,
     borderRadius: theme.borderRadius.b700,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     padding: theme.spacing.s400,
-    border: `1px solid ${theme.light.neutral.border.light}`,
-    backgroundColor: theme.light.neutral.onSurface.title,
-    color: theme.light.neutral.surface.light,
+    border: `1px solid ${theme.color.neutral.border.light}`,
+    backgroundColor: theme.color.neutral.onSurface.light,
+    color: theme.color.neutral.surface.light,
     cursor: "pointer",
   },
   BtnStyles: {
     width: "100%",
     maxWidth: "200px",
     height: "48px",
-    background: theme.light.neutral.surface.lighter,
+    background: theme.color.neutral.surface.lighter,
     borderRadius: theme.borderRadius.b700,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     padding: theme.spacing.s400,
-    border: `1px solid ${theme.light.neutral.onSurface.title}`,
-    color: theme.light.neutral.onSurface.title,
+    border: `1px solid ${theme.color.neutral.onSurface.light}`,
+    color: theme.color.neutral.onSurface.light,
     cursor: "pointer",
   },
   ImgContainer: {
@@ -380,12 +380,12 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   starContainer: {},
   starColor: {
     "& path": {
-      fill: theme.light.warning.onSurface.medium,
+      fill: theme.color.warning.onSurface.medium,
     },
   },
 
   description: {
-    color: theme.light.neutral.onSurface.dark,
+    color: theme.color.neutral.onSurface.dark,
   },
 
   imagesCon: {
@@ -394,7 +394,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     height: "120px",
     borderRadius: theme.borderRadius.b400,
     borderStyle: "dashed",
-    border: `2px solid ${theme.light.neutral.border.light}`,
+    border: `2px solid ${theme.color.neutral.border.light}`,
   },
 
   image: {
@@ -419,7 +419,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
 
   newStarColor: {
     "& path": {
-      fill: theme.light.warning.onSurface.medium,
+      fill: theme.color.warning.onSurface.medium,
     },
   },
 

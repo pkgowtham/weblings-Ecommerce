@@ -1,5 +1,5 @@
 import { createUseStyles } from "react-jss";
-import { Theme } from "../../../theme/themeType";
+import { Theme } from "../../theme/themeType";
 
 export const useStyle = createUseStyles((theme: Theme) => ({
   mainContainer: {
@@ -19,14 +19,14 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   dotStyle: {
     width: "3px",
     height: "3px",
-    backgroundColor: theme.light.neutral.onSurface.dark,
+    backgroundColor: theme.color.neutral.onSurface.dark,
     borderRadius: "50%",
   },
   lightColor: {
-    color: theme.light.neutral.onSurface.dark,
+    color: theme.color.neutral.onSurface.dark,
     cursor:'pointer',   
     "&:hover":{
-        color:theme.light.negative.onSurface.medium
+        color:theme.color.negative.onSurface.medium
     }
   },
   contentOne: {
@@ -41,7 +41,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "center",
     gap: theme.spacing.s600,
     justifyContent: "center",
-    borderBottom: `1px solid ${theme.light.neutral.border.light}`,
+    borderBottom: `1px solid ${theme.color.neutral.border.light}`,
     gridTemplateColumns: "repeat(4, 1fr)",
     gridTemplateRows: "repeat(3, auto)",
     "@media (max-width: 1024px)": {

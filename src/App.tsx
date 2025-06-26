@@ -1,6 +1,7 @@
 import "./App";
+import Pagination from "./component/pagination";
+import Table from "./component/table";
 // import right from "../../my-app/src/assets/icons/chevron_right.svg";
-import { useStyle } from "./App";
 // import collection from "../src/assets/images/collection.jpg";
 // import fashion from "../src/assets/images/fashion.jpg";
 // import circle from "../src/assets/icons/circle-x.svg";
@@ -562,9 +563,8 @@ import Navigations from "./routes";
 // }
 
 const App: React.FC = (): JSX.Element => {
-  const classes = useStyle();
   return (
-    <div className={classes.MainContainer}>
+    <>
       <Navigations/>
       {/* <Header HeaderData={data} /> */}
       {/* <Sucess SucessData={sucess}/> */}
@@ -578,7 +578,10 @@ const App: React.FC = (): JSX.Element => {
       <Support SupportData ={support}/>
       <Footer /> */}
       {/* <Review ReviewsData ={reviewdata}/>  */}
-    </div>
+      {/* <Pagination currentPage={1} totalPages={10} onPageChange={function (page: number): void {
+        throw new Error("Function not implemented.");
+      } }/> */}
+    </>
   );
 };
 

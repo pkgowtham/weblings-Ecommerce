@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useStyle } from "./indexstyle";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Typography from "../typography/component";
 import SvgUserRound from "../../custom-icons/UserRound";
 import SvgHeart from "../../custom-icons/Heart";
@@ -9,19 +9,15 @@ import SignInModule from "../signInModule";
 import Badge from "../badge";
 import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import { useStore } from "../../store";
-import Input from "../input";
+import Input from "../input/input";
 import SvgSearch from "../../custom-icons/Search";
 import SvgMenu from "../../custom-icons/Menu";
 import { HideComponents } from "../hideComponents";
 import SvgChevronRight from "../../custom-icons/ChevronRight";
 import SvgClose from "../../custom-icons/Close";
 import VerticalProductCard from "../verticalProductCard";
-import fashionblack from "../../assets/images/fashionblack.jpg";
-import fashionwhite from "../../assets/images/fashionwhite.jpg";
-import fashiongrey from "../../assets/images/fashion.jpg";
 import { deepGet } from "../../util/util";
 import SvgBuy from "../../custom-icons/Buy";
-
 
 const Header: React.FC<any> = (props): JSX.Element => {
   const classes = useStyle();
@@ -39,8 +35,12 @@ const Header: React.FC<any> = (props): JSX.Element => {
   const { store } = useStore();
 
   // navigate
-  const handleNavigate = () => {
-    navigate("/mainlayout/wishlistpage");
+  const handleNavigate = (target: any) => {
+    if (target === "wishlist") {
+      navigate("/mainlayout/wishlistpage");
+    } else if (target === "home") {
+      navigate("/mainLayout/home");
+    }
   };
 
   //filter data for best selling
@@ -58,7 +58,13 @@ const Header: React.FC<any> = (props): JSX.Element => {
       <div className={classes.NavTop}>
         <div className={classes.ContactInfo}>
           <HideComponents showOnlyOn="desktop">
-            <Typography variant="TM">glozin</Typography>
+            <Typography
+              variant="TM"
+              onClick={() => handleNavigate("home")}
+              className={classes.cursor}
+            >
+              glozin
+            </Typography>
           </HideComponents>
           <HideComponents hideOn="desktop">
             <SvgMenu cursor={"pointer"} onClick={() => setSideBar(!sideBar)} />
@@ -145,7 +151,7 @@ const Header: React.FC<any> = (props): JSX.Element => {
               </div>
               <div className={classes.wishList}>
                 <SvgHeart
-                  onClick={handleNavigate}
+                  onClick={() => handleNavigate("wishlist")}
                   cursor={"pointer"}
                   viewBox="0 0 45 30"
                   width={25}
@@ -193,30 +199,67 @@ const Header: React.FC<any> = (props): JSX.Element => {
       {/* navbar categories */}
       <HideComponents showOnlyOn="desktop">
         <div className={classes.navBarCategories}>
-          {HeaderData?.links?.map((data: any, idx: number) => (
-            <div
-              onMouseEnter={() => setHoveredIndex(idx)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              className={classes.List}
-              key={idx}
-            >
-              <Link to={data.path} className={classes.List}>
-                <Typography variant="BS"> {data.categories}</Typography>
-                <SvgChevronRight className={classes.rotateIcon} />
-              </Link>
+          <div className={classes.navBarCategories}>
+            {HeaderData?.links?.slice(0, 5).map((data: any, idx: number) => (
+              <div
+                onMouseEnter={() => setHoveredIndex(idx)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                className={classes.List}
+                key={idx}
+              >
+                <Link to={data.path} className={classes.List}>
+                  <Typography variant="BS"> {data.categories}</Typography>
+                  <SvgChevronRight className={classes.rotateIcon} />
+                </Link>
 
-              {/* dropdown */}
-              {hoveredIndex === idx && (
-                <div className={classes.Dropdown}>
-                  {data.dropdownItems?.map((item: any) => (
-                    <Link to={item.navigation} className={classes.datas}>
-                      <Typography variant="BS">{item.name}</Typography>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+                {/* Dropdown */}
+                {hoveredIndex === idx && (
+                  <div className={classes.Dropdown}>
+                    {data.dropdownItems?.map((item: any, subIdx: number) => (
+                      <Link
+                        key={subIdx}
+                        to={item.navigation}
+                        className={classes.datas}
+                      >
+                        <Typography variant="BS">{item.name}</Typography>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {/* More Option Logic */}
+            {HeaderData?.links?.length > 5 && (
+              <div
+                onMouseEnter={() => setHoveredIndex(999)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                className={classes.List}
+              >
+                <Typography variant="BS">More</Typography>
+                <SvgChevronRight className={classes.rotateIcon} />
+
+                {/* Dropdown for more */}
+                {hoveredIndex === 999 && (
+                  <div className={classes.moreDropdown}>
+                    {HeaderData?.links
+                      .slice(5)
+                      .map((moreData: any, moreIdx: number) => (
+                        <Link
+                          key={moreIdx}
+                          to={moreData.path}
+                          className={classes.datas}
+                        >
+                          <Typography variant="BS">
+                            {moreData.categories}
+                          </Typography>
+                        </Link>
+                      ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </HideComponents>
 

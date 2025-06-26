@@ -32,7 +32,6 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
   const { store } = useStore();
 
   const RatingStar = (rating: number) => {
-  
     switch (true) {
       // Handle cases like 1.1 to 1.9
       case rating >= 1.1 && rating <= 1.9:
@@ -40,24 +39,24 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarHalf className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
-  
+
       // Handle cases like 2.1 to 2.9
       case rating >= 2.1 && rating <= 2.9:
         return (
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-             <SvgStarHalf className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgStarHalf className={classes.starColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
-  
+
       // Handle cases like 3.1 to 3.9
       case rating >= 3.1 && rating <= 3.9:
         return (
@@ -65,11 +64,11 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-             <SvgStarHalf className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgStarHalf className={classes.starColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
-  
+
       // Handle cases like 4.1 to 4.9
       case rating >= 4.1 && rating <= 4.9:
         return (
@@ -78,19 +77,19 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-             <SvgStarHalf className={classes.starColor} />
+            <SvgStarHalf className={classes.starColor} />
           </div>
         );
-  
+
       // Default cases (whole numbers)
       case rating === 1:
         return (
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
       case rating === 2:
@@ -98,9 +97,9 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
       case rating === 3:
@@ -109,8 +108,8 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
       case rating === 4:
@@ -120,7 +119,7 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
             <SvgStarPurple500 className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
       case rating === 5:
@@ -137,15 +136,15 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
         return (
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <SvgStarPurple500 className={classes.starColor} />
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
-            <SvgEmptyStar className={classes.newStarColor}/>
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
+            <SvgEmptyStar className={classes.newStarColor} />
           </div>
         );
     }
   };
- 
+
   const isWishlist = store.productWishlist.dataGetList?.data?.some(
     (item: any) =>
       item.products.some(
@@ -224,35 +223,39 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
   };
 
   const handleWishlist = () => {
-    if(isWishlist){
+    if (isWishlist) {
       const selectedWishlist =
-      store.productWishlist.dataGetList?.data?.find(
-        (product: any) => product.products[0]?.id === (Array.isArray(products?.products) 
-        ? products?.products[0]?.id 
-        : products?.id)
-      ) || {}
+        store.productWishlist.dataGetList?.data?.find(
+          (product: any) =>
+            product.products[0]?.id ===
+            (Array.isArray(products?.products)
+              ? products?.products[0]?.id
+              : products?.id)
+        ) || {};
       dispatch({
-        type:"PRODUCT_WHISHLIST_DESTROY_API_REQUEST",
+        type: "PRODUCT_WHISHLIST_DESTROY_API_REQUEST",
         payload: {
           url: "/wishList",
           method: "DELETE",
-          query:{
-            id:selectedWishlist?.id
-          }
+          query: {
+            id: selectedWishlist?.id,
+          },
         },
-      })
-    }else{
+      });
+    } else {
       dispatch({
-        type:"PRODUCT_WHISHLIST_CREATE_API_REQUEST",
+        type: "PRODUCT_WHISHLIST_CREATE_API_REQUEST",
         payload: {
           url: "/wishList",
           method: "POST",
-          body:{
-            userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
-            productId:products?.products ? products?.products[0]?.id : products?.id
-          }
+          body: {
+            userId: "001a0ab1-14a1-4016-b2ed-2e9dfa414245",
+            productId: products?.products
+              ? products?.products[0]?.id
+              : products?.id,
+          },
         },
-      })
+      });
     }
   };
 
@@ -297,19 +300,19 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
               );
               return (
                 <ToolTip content={dat.name} position="top">
-                <div
-                  onClick={() => handleColorChange(dat)}
-                  key={index}
-                  className={clsx(classes.imageDiv, {
-                    [classes.activeStatus]: dat.name === selectedColor?.name,
-                  })}
-                >
-                  <img
-                    src={thumbnailAttachments[0]?.fileUrl}
-                    alt=""
-                    className={classes.itemDiv}
-                  />
-                </div>
+                  <div
+                    onClick={() => handleColorChange(dat)}
+                    key={index}
+                    className={clsx(classes.imageDiv, {
+                      [classes.activeStatus]: dat.name === selectedColor?.name,
+                    })}
+                  >
+                    <img
+                      src={thumbnailAttachments[0]?.fileUrl}
+                      alt=""
+                      className={classes.itemDiv}
+                    />
+                  </div>
                 </ToolTip>
               );
             })}
@@ -324,10 +327,14 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
         {/* button sections */}
         <div className={classes.buttonContainer}>
           <Button
+            variant="primary"
+            size="lg"
             className={classes.buttonStyle}
-            text={" Select Options"}
+            type="button"
             onClick={handleEdit}
-          ></Button>
+          >
+            Select Options
+          </Button>
           <div className={classes.CircleContainer}>
             <div
               className={clsx(classes.CircleImgDiv, {
@@ -337,9 +344,6 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
             >
               <SvgHeart viewBox="0 0 40 40" width={30} height={25} />
             </div>
-            {/* <div className={classes.CircleImgDiv}>
-            <SvgHeart viewBox="0 0 40 40" width={30} height={25} />
-            </div> */}
           </div>
         </div>
         {/* module for selected product */}
@@ -350,17 +354,3 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
 };
 
 export default HorizotalProductCard;
-{
-  /* {imageRefs.current[index] && (
-              <ToolTip
-                parentRef={{ current: imageRefs.current[index] }} // Ensure ref is not undefined
-                offsetTop={40}
-                positionType="top"
-                mouseEnterDelay={300}
-                onMouseEnter={() => console.log("Tooltip shown")}
-                onMouseLeave={() => console.log("Tooltip hidden")}
-              >
-                {image.color}
-              </ToolTip>
-            )} */
-}
