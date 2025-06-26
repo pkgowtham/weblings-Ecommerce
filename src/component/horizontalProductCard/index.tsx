@@ -341,7 +341,7 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
                 [classes.favouriteActive]: isWishlist,
               })}
               onClick={handleWishlist}
-            >
+            > 
               <SvgHeart viewBox="0 0 40 40" width={30} height={25} />
             </div>
           </div>
