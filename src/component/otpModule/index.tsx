@@ -7,8 +7,6 @@ import InputField from "../input/input";
 import Button from "../button";
 import CommonModel from "../commonModal";
 
-
-
 interface OtpScreenProps {
   setType: (type: string) => void;
 }
@@ -84,8 +82,8 @@ const OtpScreen = ({ setType }: OtpScreenProps) => {
             variant="primary"
             size="md"
             onClick={() => {
-              setNewPassword(!newPassword)
-              setType("passwordcreation")
+              setNewPassword(!newPassword);
+              setType("passwordcreation");
             }}
           >
             Verify OTP

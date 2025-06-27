@@ -2,6 +2,7 @@ import "./App";
 import ChangePasswordModule from "./component/changePasswordModule";
 import Pagination from "./component/pagination";
 import Table from "./component/table";
+import TestimonialCarousel from "./component/Testimonial";
 // import right from "../../my-app/src/assets/icons/chevron_right.svg";
 // import collection from "../src/assets/images/collection.jpg";
 // import fashion from "../src/assets/images/fashion.jpg";
@@ -583,6 +584,7 @@ const App: React.FC = (): JSX.Element => {
         throw new Error("Function not implemented.");
       } }/> */}
       {/* <ChangePasswordModule/> */}
+      {/* <TestimonialCarousel/> */}
     </>
   );
 };

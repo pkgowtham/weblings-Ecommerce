@@ -4,10 +4,13 @@ import CommonModel from "../commonModal";
 import Typography from "../typography/component";
 import InputField from "../input/input";
 import SvgEye from "../../custom-icons/Eye";
+import SvgEyeClose from "../../custom-icons/EyeClose";
 import Button from "../button";
+import Snackbar from "../snackbar";
 
 const ChangePasswordModule = () => {
   const classes = useStyle();
+  const [showSnackbar, setShowSnackbar] = useState(false);
   const [formData, setFormData] = useState({
     newpassword: "",
     confirmpassword: "",
@@ -23,8 +26,17 @@ const ChangePasswordModule = () => {
     number: false,
     specialChar: false,
   });
+  const [showPassword, setShowPassword] = useState({
+    newpassword: false,
+    confirmpassword: false,
+  });
+  const [touched, setTouched] = useState({
+    newpassword: false,
+    confirmpassword: false,
+  });
 
-  const checkPasswordRequirements = (password: any) => {
+  // Check password requirements
+  const checkPasswordRequirements = (password: string) => {
     setPasswordRequirements({
       length: password.length >= 8,
       uppercase: /[A-Z]/.test(password),
@@ -44,49 +56,71 @@ const ChangePasswordModule = () => {
     if (name === "newpassword") {
       checkPasswordRequirements(value);
     }
-
-    // Clear error when user types
-    if (errors[name as keyof typeof errors]) {
-      setErrors({
-        ...errors,
-        [name]: "",
-      });
-    }
   };
 
-  const validateForm = () => {
-    let valid = true;
-    const newErrors = { ...errors };
-
-    // Validate new password
-    if (!formData.newpassword) {
-      newErrors.newpassword = "Password is required";
-      valid = false;
-    } else if (!Object.values(passwordRequirements).every((req) => req)) {
-      newErrors.newpassword = "Password does not meet all requirements";
-      valid = false;
-    }
-
-    // Validate password confirmation
-    if (!formData.confirmpassword) {
-      newErrors.confirmpassword = "Please confirm your password";
-      valid = false;
-    } else if (formData.newpassword !== formData.confirmpassword) {
-      newErrors.confirmpassword = "Passwords do not match";
-      valid = false;
-    }
-
-    setErrors(newErrors);
-    return valid;
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name } = e.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+    validateField(name, formData[name as keyof typeof formData]);
   };
 
-  const handleSubmit = (e: any) => {
+  const togglePasswordVisibility = (
+    field: "newpassword" | "confirmpassword"
+  ) => {
+    setShowPassword((prev) => ({
+      ...prev,
+      [field]: !prev[field],
+    }));
+  };
+
+  const validateField = (name: string, value: string) => {
+    let errorMsg = "";
+
+    if (!value.trim()) {
+      errorMsg = "This field is required";
+    } else {
+      if (name === "newpassword") {
+        if (!Object.values(passwordRequirements).every((req) => req)) {
+          errorMsg = "Password does not meet all requirements";
+        }
+      } else if (name === "confirmpassword") {
+        if (value !== formData.newpassword) {
+          errorMsg = "Passwords do not match";
+        }
+      }
+    }
+
+    setErrors((prev) => ({ ...prev, [name]: errorMsg }));
+  };
+
+  // Check if form is valid
+  const isFormValid = () => {
+    const allRequirementsMet = Object.values(passwordRequirements).every(
+      (req) => req
+    );
+    const passwordsMatch = formData.newpassword === formData.confirmpassword;
+    const allFieldsFilled = formData.newpassword && formData.confirmpassword;
+
+    return allRequirementsMet && passwordsMatch && allFieldsFilled;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateForm()) {
+    // Mark all fields as touched on submit
+    setTouched({
+      newpassword: true,
+      confirmpassword: true,
+    });
+
+    if (isFormValid()) {
       // Form is valid, proceed with password change
-      console.log("Form is valid, changing password:", formData);
+      console.log("Password changed successfully:", formData);
       // Add your password change logic here
     }
+  };
+
+  const handleSnackbarClose = () => {
+    setShowSnackbar(false);
   };
 
   return (
@@ -95,27 +129,37 @@ const ChangePasswordModule = () => {
         <div className={classes.header}>
           <Typography variant="TS">Change Password</Typography>
         </div>
-        {/* input fields */}
+
         <form onSubmit={handleSubmit} className={classes.inputContainer}>
+          {/* New Password Field */}
           <InputField
             label="New Password"
             placeholder="Enter your new password"
             name="newpassword"
-            type="password"
+            type={showPassword.newpassword ? "text" : "password"}
             value={formData.newpassword}
             onChange={handleChange}
-            error={!!errors.newpassword}
-            helperText={errors.newpassword}
-            rightIcon={<SvgEye />}
+            onBlur={handleBlur}
+            error={!!(touched.newpassword && errors.newpassword)}
+            helperText={touched.newpassword ? errors.newpassword : ""}
+            rightIcon={
+              showPassword.newpassword ? (
+                <SvgEye
+                  onClick={() => togglePasswordVisibility("newpassword")}
+                />
+              ) : (
+                <SvgEyeClose
+                  onClick={() => togglePasswordVisibility("newpassword")}
+                />
+              )
+            }
           />
 
-          {/* Password requirements checklist */}
-          <div className={classes.requirementsContainer}>
-            <Typography variant="body2" color="error">
-              {errors.newpassword && "Password does not meet all requirements"}
-            </Typography>
-            <div className={classes.requirementsList}>
-              <div className={classes.requirementItem}>
+          {/* Password Requirements Checklist - Always visible */}
+          <div>
+            <Typography variant="BM">Password must contain:</Typography>
+            <div>
+              <div>
                 <span
                   style={{
                     color: passwordRequirements.length ? "green" : "inherit",
@@ -125,7 +169,7 @@ const ChangePasswordModule = () => {
                   characters
                 </span>
               </div>
-              <div className={classes.requirementItem}>
+              <div>
                 <span
                   style={{
                     color: passwordRequirements.uppercase ? "green" : "inherit",
@@ -135,7 +179,7 @@ const ChangePasswordModule = () => {
                   uppercase letter
                 </span>
               </div>
-              <div className={classes.requirementItem}>
+              <div>
                 <span
                   style={{
                     color: passwordRequirements.lowercase ? "green" : "inherit",
@@ -145,7 +189,7 @@ const ChangePasswordModule = () => {
                   lowercase letter
                 </span>
               </div>
-              <div className={classes.requirementItem}>
+              <div>
                 <span
                   style={{
                     color: passwordRequirements.number ? "green" : "inherit",
@@ -154,7 +198,7 @@ const ChangePasswordModule = () => {
                   {passwordRequirements.number ? "✓" : "•"} At least one number
                 </span>
               </div>
-              <div className={classes.requirementItem}>
+              <div>
                 <span
                   style={{
                     color: passwordRequirements.specialChar
@@ -169,23 +213,51 @@ const ChangePasswordModule = () => {
             </div>
           </div>
 
+          {/* Confirm Password Field */}
           <InputField
             label="Confirm Password"
             placeholder="Confirm your new password"
             name="confirmpassword"
-            type="password"
+            type={showPassword.confirmpassword ? "text" : "password"}
             value={formData.confirmpassword}
             onChange={handleChange}
-            error={!!errors.confirmpassword}
-            rightIcon={<SvgEye />}
+            onBlur={handleBlur}
+            error={!!(touched.confirmpassword && errors.confirmpassword)}
+            helperText={touched.confirmpassword ? errors.confirmpassword : ""}
+            rightIcon={
+              showPassword.confirmpassword ? (
+                <SvgEye
+                  onClick={() => togglePasswordVisibility("confirmpassword")}
+                />
+              ) : (
+                <SvgEyeClose
+                  onClick={() => togglePasswordVisibility("confirmpassword")}
+                />
+              )
+            }
           />
+
+          {/* Submit Button */}
           <div className={classes.btnContainer}>
-            <Button variant="primary" size="lg" type="submit">
+            <Button
+              variant="primary"
+              size="lg"
+              type="submit"
+              disabled={!isFormValid()}
+              fullWidth
+              onClick={()=> setShowSnackbar(true)}
+            >
               Change Password
             </Button>
           </div>
         </form>
       </div>
+      {showSnackbar && (
+        <Snackbar
+          message="Password changed successfully!"
+          onClose={handleSnackbarClose}
+        />
+      )}
     </CommonModel>
   );
 };

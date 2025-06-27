@@ -19,6 +19,7 @@ import sliderTwo from "../../assets/images/sliderTwo.jpg";
 import sliderThree from "../../assets/images/sliderThree.jpg";
 import ImageSlider from "../../component/imageslider";
 import { ImageSlide, ImageSliderProps } from "../../component/imageslider/sliderType";
+import TestimonialCarousel from "../../component/Testimonial";
 
 const topcollections = {
   card: [
@@ -377,6 +378,7 @@ useEffect(() => {
         subTitle="Unmatched design—superior performance and customer satisfaction in one."
       />
       <Review ReviewsData={reviewdata} />
+      <TestimonialCarousel/>
       <Shop ShopData={shop} />
       <Support SupportData={support} />
     </div>
