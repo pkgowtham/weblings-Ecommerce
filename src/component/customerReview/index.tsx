@@ -13,6 +13,7 @@ import SvgDelete from "../../custom-icons/Delete";
 import SvgEmptyStar from "../../custom-icons/EmptyStar";
 import SvgStarHalf from "../../custom-icons/StarHalf";
 import InputField from "../input/input";
+import { themeLight } from "../../theme/oceanBlueLight";
 
 const Ratings: React.FC<any> = (props): JSX.Element => {
   const classes = useStyle();
@@ -374,7 +375,7 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                         100
                       }%`,
                       height: "100%",
-                      backgroundColor: "#FFB800",
+                        backgroundColor: themeLight.color.warning.onSurface.light,
                       borderRadius: "4px",
                     }}
                   ></div>
@@ -402,7 +403,7 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                         100
                       }%`,
                       height: "100%",
-                      backgroundColor: "#FFB800",
+                        backgroundColor: themeLight.color.warning.onSurface.light,
                       borderRadius: "4px",
                     }}
                   ></div>
@@ -430,7 +431,7 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                         100
                       }%`,
                       height: "100%",
-                      backgroundColor: "#FFB800",
+                        backgroundColor: themeLight.color.warning.onSurface.light,
                       borderRadius: "4px",
                     }}
                   ></div>
@@ -459,7 +460,7 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                         100
                       }%`,
                       height: "100%",
-                      backgroundColor: "#FFB800",
+                        backgroundColor: themeLight.color.warning.onSurface.light,
                       borderRadius: "4px",
                     }}
                   ></div>
@@ -488,7 +489,7 @@ const Ratings: React.FC<any> = (props): JSX.Element => {
                         100
                       }%`,
                       height: "100%",
-                      backgroundColor: "#FFB800",
+                      backgroundColor: themeLight.color.warning.onSurface.light,
                       borderRadius: "4px",
                     }}
                   ></div>

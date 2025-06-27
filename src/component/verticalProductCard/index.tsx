@@ -277,9 +277,9 @@ const VerticalProductCard: React.FC<VerticalProductCardProps> = ({
                 <div className={classes.favourite} onClick={()=>onClose(products?.id)}>
                 <SvgClose
                   className={classes.eyeColor}
-                  viewBox="0 0 20 20"
-                  width={15}
-                  height={15}
+                  // viewBox="0 0 20 20"
+                  width={20}
+                  height={20}
                 />
               </div>) :
               (<div className={clsx(classes.favourite,{

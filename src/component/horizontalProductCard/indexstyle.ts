@@ -7,34 +7,34 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "100%",
     height: "fit-content",
     gap: theme.spacing.s800,
-    "@media (max-width : 768px)":{
-      display:'flex',
-      flexDirection:'column',
-      alignItems:'flex-start',
-      width:'100%'
-    }
+    "@media (max-width : 768px)": {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+      width: "100%",
+    },
   },
   productImageContainer: {
     width: "30%",
-    cursor:'pointer',
-    position:'relative',
-    height:'350px',
-    maxHeight:'350px',
-    "@media (max-width : 768px)":{
-      width:'100%',
-    }
+    cursor: "pointer",
+    position: "relative",
+    height: "350px",
+    maxHeight: "350px",
+    "@media (max-width : 768px)": {
+      width: "100%",
+    },
   },
-  
+
   contentContainer: {
     width: "70%",
-    display:'flex',
-    flexDirection:'column',
-    alignItems:'flex-start',
-    justifyContent:'center',
-    gap:theme.spacing.s500,
-    "@media (max-width : 768px)":{
-      width:'100%',
-    }
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    gap: theme.spacing.s500,
+    "@media (max-width : 768px)": {
+      width: "100%",
+    },
   },
   imageStyle: {
     width: "100%",
@@ -82,40 +82,40 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     border: `1px solid ${theme.color.neutral.border.light}`,
     padding: theme.spacing.s300,
     cursor: "pointer",
-    display:'flex',
-    justifyContent:'center'
+    display: "flex",
+    justifyContent: "center",
   },
-  buttonContainer:{
-    display:'flex',
-    alignItems:'center',
-    width:'100%',
-    textAlign:'center',
-    gap:theme.spacing.s300
+  buttonContainer: {
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
+    textAlign: "center",
+    gap: theme.spacing.s300,
   },
-  priceDiv:{
-    display:'flex',
-    flexDirection:'column',
-    alignItems:'flex-start',
-    width:'100%',
-    gap:theme.spacing.s100
+  priceDiv: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    width: "100%",
+    gap: theme.spacing.s100,
   },
-  starColor:{
-    '& path':{
+  starColor: {
+    "& path": {
       fill: theme.color.warning.onSurface.light,
-    }
+    },
   },
-  buttonStyle:{
-    minWidth:'35%',
-    display:'flex',
-    alignItems:'center',
-    textAlign:'center',
-    justifyContent:'center',
-    height:'80%',
-    "@media (max-width : 1024px)":{
-      width:'100% !important',
-    }
+  buttonStyle: {
+    minWidth: "35%",
+    display: "flex",
+    alignItems: "center",
+    textAlign: "center",
+    justifyContent: "center",
+    height: "80%",
+    "@media (max-width : 1024px)": {
+      width: "100% !important",
+    },
   },
-  activeImage:{
+  activeImage: {
     border: `1px solid ${theme.color.neutral.border.light}`,
     borderColor: theme.color.neutral.onSurface.light,
   },
@@ -134,18 +134,21 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     color: theme.color.negative.surface.medium,
   },
 
-  lineThroughGray:{
+  lineThroughGray: {
     textDecoration: "line-through",
     color: theme.color.neutral.onSurface.dark,
   },
 
-  favouriteActive:{
-    backgroundColor: theme.color.neutral.onSurface.light
+  favouriteActive: {
+    backgroundColor: theme.color.neutral.onSurface.light,
+    "& path": {
+      fill: theme.color.neutral.surface.lighter,
+    },
   },
 
-  newStarColor:{
-    '& path':{
-      fill:theme.color.warning.onSurface.medium
-  }
+  newStarColor: {
+    "& path": {
+      fill: theme.color.warning.onSurface.medium,
+    },
   },
 }));

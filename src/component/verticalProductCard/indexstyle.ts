@@ -11,8 +11,8 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   productCard: {
     // height: "fit-content",
     width: "auto",
-    display:'flex',
-    flexDirection:'column',
+    display: "flex",
+    flexDirection: "column",
     gap: theme.spacing.s500,
   },
   itemStyle: {
@@ -75,9 +75,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   },
   imageContainer: {
     position: "relative",
-    width:'100%',
-    height:'350px',
-    maxHeight:'350px'
+    width: "100%",
+    height: "350px",
+    maxHeight: "350px",
   },
   favourite: {
     height: "48px",
@@ -99,8 +99,11 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     },
   },
 
-  favouriteActive:{
-    backgroundColor: theme.color.neutral.onSurface.light
+  favouriteActive: {
+    backgroundColor: theme.color.neutral.onSurface.light,
+    "& path": {
+      fill: `${theme.color.neutral.surface.lighter} !important`,
+    },
   },
 
   favouriteOne: {
@@ -132,7 +135,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     cursor: "pointer",
     position: "absolute",
     backgroundColor: theme.color.neutral.surface.lighter,
-    top: "31%",
+    top: "22%",
     right: "5%",
     display: "flex",
     alignItems: "center",
@@ -190,10 +193,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     borderRadius: "50%",
   },
 
-  newStarColor:{
-    '& path':{
-      fill:theme.color.warning.onSurface.light
-  }
+  newStarColor: {
+    "& path": {
+      fill: theme.color.warning.onSurface.light,
+    },
   },
-
 }));

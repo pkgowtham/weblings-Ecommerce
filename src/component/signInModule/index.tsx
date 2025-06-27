@@ -10,6 +10,8 @@ import SvgEye from "../../custom-icons/Eye";
 import OtpScreen from "../otpModule";
 import SvgChevronLeft from "../../custom-icons/ChevronLeft";
 import SvgEyeClose from "../../custom-icons/EyeClose";
+import SvgShieldCheck from "../../custom-icons/ShieldCheck";
+import ChangePasswordModule from "../changePassword";
 
 interface SignInModuleProps {
   onClose: (value: boolean) => void;
@@ -114,7 +116,6 @@ const SignInModule: React.FC<SignInModuleProps> = ({ onClose }) => {
 
   const validateForm = () => {
     let isValid = true;
-    const newErrors = { ...error };
     const newTouched = { ...touched };
 
     Object.keys(formData).forEach((key) => {
@@ -131,6 +132,7 @@ const SignInModule: React.FC<SignInModuleProps> = ({ onClose }) => {
     if (validateForm()) {
       navigate("/mainlayout/myaccountpage");
     }
+    onClose(false);
   };
 
   const handleSignInSubmit = () => {
@@ -143,6 +145,7 @@ const SignInModule: React.FC<SignInModuleProps> = ({ onClose }) => {
         password: !formData.password ? "Password is required" : "",
       });
     }
+    onClose(false);
   };
 
   return (
@@ -393,7 +396,9 @@ const SignInModule: React.FC<SignInModuleProps> = ({ onClose }) => {
               size="lg"
               className={classes.loginButton}
               type="button"
-              onClick={() => setOtpModule(!otpModule)}
+              onClick={() => {
+                setType('otpscreen');
+              }}
               disabled={!formData.email || !!error.email}
             >
               Reset Password
@@ -409,7 +414,10 @@ const SignInModule: React.FC<SignInModuleProps> = ({ onClose }) => {
           </div>
         </div>
       )}
-      {otpModule && <OtpScreen />}
+      {/* OTP screen */}
+      {type === "otpscreen" && <OtpScreen setType={setType}/>}
+      {/* pasword creation screen */}
+      {type === "passwordcreation" && <ChangePasswordModule/>}
     </CommonModel>
   );
 };

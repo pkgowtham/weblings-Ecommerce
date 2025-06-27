@@ -19,6 +19,7 @@ import { useMiddlewareDispatch } from "../../store/apiMiddleware";
 import SvgClose from "../../custom-icons/Close";
 import { deepGet } from "../../util/util";
 import InputField from "../../component/input/input";
+import Pagination from "../../component/pagination";
 
 const productData = {
   //   productcategory: "Product Category",
@@ -1018,6 +1019,8 @@ const CategoryPage = () => {
           )}
         </div>
       </div>
+      {/* pagination */}
+      <Pagination onPageChange={() => {}} currentPage={1} totalPages={8} />
       {/* filter side bar for mobile and tablet */}
       {filterSideBar && (
         <div className={classes.FilterSideBar}>

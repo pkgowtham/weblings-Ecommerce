@@ -1,4 +1,5 @@
 import "./App";
+import ChangePasswordModule from "./component/changePasswordModule";
 import Pagination from "./component/pagination";
 import Table from "./component/table";
 // import right from "../../my-app/src/assets/icons/chevron_right.svg";
@@ -581,6 +582,7 @@ const App: React.FC = (): JSX.Element => {
       {/* <Pagination currentPage={1} totalPages={10} onPageChange={function (page: number): void {
         throw new Error("Function not implemented.");
       } }/> */}
+      {/* <ChangePasswordModule/> */}
     </>
   );
 };

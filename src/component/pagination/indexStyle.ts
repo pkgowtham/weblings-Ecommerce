@@ -20,22 +20,22 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     width: "40px",
     height: "40px",
     borderRadius: "50%",
-    border:`1px solid ${theme.color.neutral.border.light}`,
+    border: `1px solid ${theme.color.neutral.border.light}`,
     color: theme.color.neutral.onSurface.dark,
     textDecoration: "none",
     cursor: "pointer",
     transition: "all 0.3s ease",
     "&:hover": {
-      backgroundColor:theme.color.neutral.surface.light,
+      backgroundColor: theme.color.neutral.surface.light,
     },
   },
   activePage: {
-    backgroundColor: "#007bff",
-    borderColor: "#007bff",
-    color: "#fff",
+    backgroundColor: theme.color.neutral.surface.inverse,
+    borderColor: `1px solid ${theme.color.neutral.border.light}`,
+    color: theme.color.neutral.onSurface.inverse,
     "&:hover": {
-      backgroundColor: "#0069d9",
-      borderColor: "#0062cc",
+      backgroundColor: theme.color.neutral.onSurface.disabled,
+      borderColor: theme.color.neutral.onSurface.disabled,
     },
   },
   disabledPage: {
@@ -51,6 +51,6 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "center",
     width: "36px",
     height: "36px",
-    color: "#333",
+    color: theme.color.neutral.onSurface.light,
   },
 }));

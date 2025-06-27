@@ -7,11 +7,18 @@ import InputField from "../input/input";
 import Button from "../button";
 import CommonModel from "../commonModal";
 
-const OtpScreen = () => {
+
+
+interface OtpScreenProps {
+  setType: (type: string) => void;
+}
+
+const OtpScreen = ({ setType }: OtpScreenProps) => {
   const classes = usestyles();
   const [otp, setOtp] = useState<string[]>(Array((length = 6)).fill(""));
   const inputs = useRef<Array<HTMLInputElement | null>>([]);
   const navigate = useNavigate();
+  const [newPassword, setNewPassword] = useState<boolean>(false);
 
   const handleComplete = (otp: any) => {
     console.log("Complete OTP:", otp);
@@ -76,13 +83,16 @@ const OtpScreen = () => {
           <Button
             variant="primary"
             size="md"
-            onClick={() => navigate("/email")}
+            onClick={() => {
+              setNewPassword(!newPassword)
+              setType("passwordcreation")
+            }}
           >
             Verify OTP
           </Button>
           <div style={{ margin: "8px" }}>
             <Typography variant="LS" component={"span"}>
-              Didn't get it?{" "}
+              Didn't get it?
             </Typography>
             <Typography
               variant="LS"

@@ -51,8 +51,8 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
   const [currentImage, setCurrentImage] = useState("");
   const hasAddtoCartDispatched = useRef(false);
 
-   //checking the Wishlist if exists
-   const isWishlist = store.productWishlist.dataGetList?.data?.some(
+  //checking the Wishlist if exists
+  const isWishlist = store.productWishlist.dataGetList?.data?.some(
     (item: any) =>
       item.products.some(
         (prod: any) => prod?.id === store.addToCartInternal.selectedProduct?.id
@@ -202,7 +202,6 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
             <SvgStarPurple500 className={classes.starColor} />
           </div>
         );
-        break;
     }
   };
 
@@ -228,8 +227,14 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
     setIsChecked(e.target.checked);
   };
   // navigate
-  const handleNavigation = () => {
-    navigate("/mainLayout/productpage");
+  const handleNavigation = (type: string) => {
+    if (type === "productpage") {
+      navigate("/mainLayout/productpage");
+    } else if (type === "buynow") {
+      navigate("/mainlayout/paymentpage");
+    }  else if (type === "gotocart") {
+      navigate("/mainlayout/shopingcartviewpage");
+    }
   };
 
   const handleAddToCartSubmit = () => {
@@ -247,6 +252,8 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
         },
       },
     });
+    onClose(false);
+    
   };
 
   const handleGoToCart = () => {
@@ -255,37 +262,40 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
       payload: {
         isAddToCart: true,
       },
-    })
-  }
+    });
+    handleNavigation("gotocart")
+  };
 
   const handleWishlist = () => {
-    if(isWishlist){
+    if (isWishlist) {
       const selectedWishlist =
-      store.productWishlist.dataGetList?.data?.find(
-        (product: any) => product.products[0]?.id === store.addToCartInternal.selectedProduct?.id
-      ) || {}
+        store.productWishlist.dataGetList?.data?.find(
+          (product: any) =>
+            product.products[0]?.id ===
+            store.addToCartInternal.selectedProduct?.id
+        ) || {};
       dispatch({
-        type:"PRODUCT_WHISHLIST_DESTROY_API_REQUEST",
+        type: "PRODUCT_WHISHLIST_DESTROY_API_REQUEST",
         payload: {
           url: "/wishList",
           method: "DELETE",
-          query:{
-            id:selectedWishlist?.id
-          }
+          query: {
+            id: selectedWishlist?.id,
+          },
         },
-      })
-    }else{
+      });
+    } else {
       dispatch({
-        type:"PRODUCT_WHISHLIST_CREATE_API_REQUEST",
+        type: "PRODUCT_WHISHLIST_CREATE_API_REQUEST",
         payload: {
           url: "/wishList",
           method: "POST",
-          body:{
-            userId:"001a0ab1-14a1-4016-b2ed-2e9dfa414245",
-            productId:store.addToCartInternal.selectedProduct?.id
-          }
+          body: {
+            userId: "001a0ab1-14a1-4016-b2ed-2e9dfa414245",
+            productId: store.addToCartInternal.selectedProduct?.id,
+          },
         },
-      })
+      });
     }
   };
 
@@ -415,7 +425,12 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
           {/* button section */}
           <div className={classes.buttonContainer}>
             <Button
-              leftIcon={<SvgRemove  className={classes.buttonColor} onClick={decreaseCount} />}
+              leftIcon={
+                <SvgRemove
+                  className={classes.buttonColor}
+                  onClick={decreaseCount}
+                />
+              }
               rightIcon={
                 <SvgAdd
                   onClick={increaseCount}
@@ -424,23 +439,27 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
               }
               size="lg"
               type="button"
-            >{count}</Button>
+            >
+              {count}
+            </Button>
             <Button
               className={classes.btnStyle}
               onClick={isProductInCart ? handleGoToCart : handleAddToCartSubmit}
               type="button"
-              size='lg'
-            >{isProductInCart ? "Go to Cart" : "Add to Cart"}</Button>
-             <div className={classes.CircleContainer}>
-            <div
-              className={clsx(classes.CircleImgDiv, {
-                [classes.favouriteActive]: isWishlist,
-              })}
-              onClick={handleWishlist}
+              size="lg"
             >
-              <SvgHeart viewBox="0 0 40 40" width={30} height={25} />
+              {isProductInCart ? "Go to Cart" : "Add to Cart"}
+            </Button>
+            <div className={classes.CircleContainer}>
+              <div
+                className={clsx(classes.CircleImgDiv, {
+                  [classes.favouriteActive]: isWishlist,
+                })}
+                onClick={handleWishlist}
+              >
+                <SvgHeart viewBox="0 0 40 40" width={30} height={25} />
+              </div>
             </div>
-          </div>
           </div>
           {/* terms and conditions */}
           <div className={classes.checkBoxContainer}>
@@ -470,9 +489,12 @@ const ProductModule: React.FC<productModuleProps> = ({ onClose }) => {
                 [classes.checkedStatus]: isChecked,
               })}
               type="button"
+              onClick={() => handleNavigation("buynow")}
               size="lg"
               disabled={!isChecked}
-            >Buy it now</Button>
+            >
+              Buy it now
+            </Button>
           </div>
           {/* view full details */}
           <div className={classes.viewButton}>

@@ -27,6 +27,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
   const [quantity, setQuantity] = useState<any>(1);
   const hasDispatched = useRef(false);
   const [data, setData] = useState<any>(null);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
 
   //Add to cart getlist
   useEffect(() => {
@@ -42,9 +43,12 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
     }
   }, []);
 
-   //Add to cart getlist after create or delete
-   useEffect(() => {
-    if(store.productAddToCart.isSuccessCreate || store.productAddToCart.isSuccessDestroy){
+  //Add to cart getlist after create or delete
+  useEffect(() => {
+    if (
+      store.productAddToCart.isSuccessCreate ||
+      store.productAddToCart.isSuccessDestroy
+    ) {
       dispatch({
         type: "PRODUCT_ADD_TO_CART_GETLIST_API_REQUEST",
         payload: {
@@ -53,13 +57,16 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
         },
       });
       dispatch({
-        type:"PRODUCT_ADD_TO_CART_CREATE_API_CLEAR"
-      })
+        type: "PRODUCT_ADD_TO_CART_CREATE_API_CLEAR",
+      });
       dispatch({
-        type:"PRODUCT_ADD_TO_CART_DESTROY_API_CLEAR"
-      })
+        type: "PRODUCT_ADD_TO_CART_DESTROY_API_CLEAR",
+      });
     }
-  }, [deepGet(store,"productAddToCart.isSuccessCreate"), deepGet(store,"productAddToCart.isSuccessDestroy")])
+  }, [
+    deepGet(store, "productAddToCart.isSuccessCreate"),
+    deepGet(store, "productAddToCart.isSuccessDestroy"),
+  ]);
 
   //getlist after delete and update
   useEffect(() => {
@@ -89,31 +96,29 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
 
   //Update Add to cart
   useEffect(() => {
-    if(quantity && data){
-
+    if (quantity && data) {
       const getJoinId = data?.addToCartWithDetail.find(
         (variant: any) =>
           variant.color?.id === data.color?.id &&
           variant.size?.id === data.size?.id
       );
 
-        dispatch({
-          type: "PRODUCT_ADD_TO_CART_UPDATE_API_REQUEST",
-          payload: {
-            url: "/addToCart",
-            method: "PUT",
-            query: {
-              id: data?.id,
-            },
-            body: {
-              quantity: quantity,
-              addToCartWithDetailId: getJoinId?.id,
-            },
+      dispatch({
+        type: "PRODUCT_ADD_TO_CART_UPDATE_API_REQUEST",
+        payload: {
+          url: "/addToCart",
+          method: "PUT",
+          query: {
+            id: data?.id,
           },
-        });
+          body: {
+            quantity: quantity,
+            addToCartWithDetailId: getJoinId?.id,
+          },
+        },
+      });
     }
-  }, [quantity,data])
-  
+  }, [quantity, data]);
 
   //   handle quantity
   // const handleQuantityChange = (type: "increase" | "decrease") => {
@@ -129,6 +134,12 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
     } else if (type === "checkout") {
       navigate("/mainlayout/paymentpage");
     }
+    dispatch({
+      type: "OPEN_ADD_TO_CART_MODAL",
+      payload: {
+        isAddToCart: false,
+      },
+    });
   };
 
   const handleEdit = (data: any) => {
@@ -158,14 +169,17 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
     setQuantity((prev: any) =>
       type === "increase" ? prev + 1 : prev > 1 ? prev - 1 : prev
     );
-    setData(data)
+    setData(data);
   };
 
   return (
     <div className={classes.cartContainer}>
       {/* header */}
       <div className={classes.cartHeader}>
-        <Typography variant="TS">Shopping Cart ({`${store.productAddToCart.dataGetList?.data?.length}` || 0})</Typography>
+        <Typography variant="TS">
+          Shopping Cart (
+          {`${store.productAddToCart.dataGetList?.data?.length}` || 0})
+        </Typography>
         <SvgClose
           viewBox="0 0 30 30"
           cursor={"pointer"}
@@ -202,7 +216,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
           width: "100%",
           height: "100%",
           overflow: "auto",
-          scrollbarWidth:'thin'
+          scrollbarWidth: "thin",
         }}
       >
         {store.productAddToCart.dataGetList?.data?.map(
@@ -259,7 +273,9 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
                           />
                         }
                         type={selectedPrice?.quantity}
-                      >{selectedPrice?.quantity}</Button>
+                      >
+                        {selectedPrice?.quantity}
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -281,55 +297,70 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({ onClose }) => {
       </div>
       {/* cart icons */}
       <div className={classes.starIconContainer}>
-      <div className={classes.cartIcons}>
-        <div className={classes.leftDiv}>
-          <SvgApps />
+        <div className={classes.cartIcons}>
+          <div className={classes.leftDiv}>
+            <SvgApps />
+          </div>
+          <div className={classes.centerDiv}>
+            <SvgApps />
+          </div>
+          <div className={classes.rightDiv}>
+            <SvgApps />
+          </div>
         </div>
-        <div className={classes.centerDiv}>
-          <SvgApps />
+        {/* button cart */}
+        <div className={classes.buttonCartContainer}>
+          <div className={classes.subTotal}>
+            <Typography variant="TS">SubTotal</Typography>
+            <Typography variant="TS">
+              {store.productAddToCart.dataGetList?.data
+                ?.reduce((total: number, item: any) => {
+                  const selectedPrice = item?.addToCartWithDetail.find(
+                    (variant: any) =>
+                      variant.color.id === item?.color.id &&
+                      variant.size.id === item?.size?.id
+                  );
+                  return (
+                    total + (selectedPrice?.price || 0) * (item.quantity || 1)
+                  );
+                }, 0)
+                .toFixed(2)}
+            </Typography>
+          </div>
+          <div className={classes.checkBox}>
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={(e) => setIsChecked(e.target.checked)}
+            />
+            <Typography className={classes.lightCOlor} variant="BS">
+              I agree with
+            </Typography>
+            <Typography className={classes.blackColor} variant="BM">
+              {" "}
+              Terms & Conditions
+            </Typography>
+          </div>
+          <div className={classes.btnDiv}>
+            <Button
+              size="lg"
+              onClick={() => handleNavigate("viewcart")}
+              className={classes.cartStyle}
+              type="button"
+            >
+              View Cart
+            </Button>
+            <Button
+              disabled={!isChecked}
+              size="lg"
+              onClick={() => handleNavigate("checkout")}
+              className={classes.viewStyle}
+              type="button"
+            >
+              Check Out
+            </Button>
+          </div>
         </div>
-        <div className={classes.rightDiv}>
-          <SvgApps />
-        </div>
-      </div>
-      {/* button cart */}
-      <div className={classes.buttonCartContainer}>
-        <div className={classes.subTotal}>
-          <Typography variant="TS">SubTotal</Typography>
-          <Typography variant="TS">
-          {store.productAddToCart.dataGetList?.data?.reduce((total: number, item: any) => {
-        const selectedPrice = item?.addToCartWithDetail.find(
-          (variant: any) =>
-            variant.color.id === item?.color.id &&
-            variant.size.id === item?.size?.id
-        );
-        return total + ((selectedPrice?.price || 0) * (item.quantity || 1));
-      }, 0).toFixed(2)}
-          </Typography>
-        </div>
-        <div className={classes.checkBox}>
-          <input type="checkbox" />
-          <Typography className={classes.lightCOlor} variant="BS">
-            I agree with
-          </Typography>
-          <Typography className={classes.blackColor} variant="BM">
-            {" "}
-            Terms & Conditions
-          </Typography>
-        </div>
-        <div className={classes.btnDiv}>
-          <Button
-            onClick={() => handleNavigate("viewcart")}
-            className={classes.cartStyle}
-            type="button"
-          >View Cart</Button>
-          <Button
-            onClick={() => handleNavigate("checkout")}
-            className={classes.viewStyle}
-            type="button"
-          >Check Out</Button>
-        </div>
-      </div>
       </div>
       {/* cart edit module */}
       {isEditModule && <CartEditModule onClose={setIsEditModule} />}

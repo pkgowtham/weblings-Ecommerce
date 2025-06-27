@@ -807,37 +807,38 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
         <div className={classes.RightDiv}>
           {/* brand namd & reviews */}
           <div className={classes.brandName}>
-          <div
-            onClick={() =>
-              navigate("/mainLayout/collectionlist", {
-                state: { rowDataId: store.product.dataGet?.brand?.id },
-              })
-            }
-            style={{ cursor: "pointer" }}
-          >
-            <Typography variant="BS">
-              {store.product.dataGet?.brand?.name}
-            </Typography>
-          </div>
-          <div>
-            <Typography variant="TM">{store.product.dataGet?.name}</Typography>
-          </div>
-          <div className={classes.StarContent}>
-            <div className={classes.StarDiv}>
-              {RatingStar(
-                store.product.dataGet?.aggregateReviewValue?.averageRating
-              )}
+            <div
+              onClick={() =>
+                navigate("/mainLayout/collectionlist", {
+                  state: { rowDataId: store.product.dataGet?.brand?.id },
+                })
+              }
+              style={{ cursor: "pointer" }}
+            >
+              <Typography variant="BS">
+                {store.product.dataGet?.brand?.name}
+              </Typography>
             </div>
             <div>
-              <Typography variant="BM">{`${store.product.dataGet?.aggregateReviewValue?.totalReviews} Reviews`}</Typography>
+              <Typography variant="TM">
+                {store.product.dataGet?.name}
+              </Typography>
             </div>
-            {/* <div>
+            <div className={classes.StarContent}>
+              <div className={classes.StarDiv}>
+                {RatingStar(
+                  store.product.dataGet?.aggregateReviewValue?.averageRating
+                )}
+              </div>
+              <div>
+                <Typography variant="BM">{`${store.product.dataGet?.aggregateReviewValue?.totalReviews} Reviews`}</Typography>
+              </div>
+              {/* <div>
               <Typography className={classes.redColor} variant="BL">
                 17 sold in last 18 hours
               </Typography>
             </div> */}
-          </div>
-
+            </div>
           </div>
 
           <div>
@@ -916,7 +917,6 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
                     </Typography>
                   </Typography>
                 </div>
-        
               </div>
               <div className={classes.SizeChart}>
                 {sortedSizes?.map((chart: any, idx: number) => (
@@ -973,7 +973,7 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
                   {count}
                 </Button>
                 <Button
-                size="lg"
+                  size="lg"
                   onClick={
                     isProductInCart ? handleGoToCart : handleAddToCartSubmit
                   }
@@ -989,11 +989,8 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
                     })}
                     onClick={handleWishlist}
                   >
-                    <SvgHeart viewBox="0 0 35 55" width={30} height={30} />
+                    <SvgHeart viewBox="0 0 40 40" width={30} height={25} />
                   </div>
-                  {/* <div className={classes.CircleImgDiv}>
-                    <SvgHeart viewBox="0 0 35 55" width={30} height={30} />
-                  </div> */}
                 </div>
               </div>
               {/* checkbox  */}
@@ -1110,7 +1107,7 @@ const ProductPage: React.FC<any> = (): JSX.Element => {
             </div>
           </div>
           {/* accordian */}
-          <Accordian/>
+          <Accordian />
         </div>
       </div>
       {/* marquee */}

@@ -329,7 +329,7 @@ const HorizotalProductCard: React.FC<HorizotalProductCardProps> = ({
           <Button
             variant="primary"
             size="lg"
-            className={classes.buttonStyle}
+            // className={classes.buttonStyle}
             type="button"
             onClick={handleEdit}
           >

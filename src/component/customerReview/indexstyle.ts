@@ -1,6 +1,5 @@
 import { createUseStyles } from "react-jss";
-import { theme } from "../../../theme/theme";
-import { Theme } from "../../../theme/themeType";
+import { Theme } from "../../theme/themeType";
 
 export const useStyle = createUseStyles((theme: Theme) => ({
   ReviewContainer: {
@@ -123,9 +122,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     border: `1px solid ${theme.color.neutral.onSurface.light}`,
     color: theme.color.neutral.onSurface.light,
     cursor: "pointer",
-    "@media (max-width : 400px)":{
-      width:'100% !important'
-     }
+    "@media (max-width : 400px)": {
+      width: "100% !important",
+    },
   },
   ReviewWrapper: {
     display: "flex",
@@ -197,7 +196,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     marginTop: theme.spacing.s400,
     display: "flex",
     gap: theme.spacing.s250,
-    paddingBottom:theme.spacing.s250
+    paddingBottom: theme.spacing.s250,
   },
   ImgGallery: {
     width: "100%",
@@ -251,7 +250,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     height: "48px",
     border: `1px solid ${theme.color.neutral.border.light}`,
     padding: `${theme.spacing.s250} ${theme.spacing.s500}`,
-    borderRadius: theme.borderRadius.b600,
+    borderRadius: theme.borderRadius.b700,
     cursor: "pointer",
   },
   FormWrapper: {
@@ -263,7 +262,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     flexDirection: "column",
     position: "relative",
     border: `2px dashed ${theme.color.neutral.border.light}`,
-    borderRadius: theme.borderRadius.b600,
+    borderRadius: theme.borderRadius.b700,
     width: "100%",
     height: "120px",
     marginTop: theme.spacing.s500,
@@ -277,7 +276,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     height: "120px",
     border: `1px solid ${theme.color.neutral.border.light}`,
     padding: `${theme.spacing.s250} ${theme.spacing.s500}`,
-    borderRadius: theme.borderRadius.b600,
+    borderRadius: theme.borderRadius.b700,
     cursor: "pointer",
   },
   Review: {
@@ -285,7 +284,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     height: "120px",
     border: `1px solid ${theme.color.neutral.border.light}`,
     padding: `${theme.spacing.s250} ${theme.spacing.s500}`,
-    borderRadius: theme.borderRadius.b600,
+    borderRadius: theme.borderRadius.b700,
     cursor: "pointer",
   },
   Picture: {
@@ -324,11 +323,11 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     alignItems: "center",
     gap: theme.spacing.s500,
     justifyContent: "center",
-    "@media (max-width : 400px)":{
-      display:'flex',
-      flexDirection:'column',
-      width:'100%'
-    }
+    "@media (max-width : 400px)": {
+      display: "flex",
+      flexDirection: "column",
+      width: "100%",
+    },
   },
   BtnStyle: {
     width: "100%",
@@ -380,7 +379,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   starContainer: {},
   starColor: {
     "& path": {
-      fill: theme.color.warning.onSurface.medium,
+      fill: theme.color.warning.onSurface.light,
     },
   },
 

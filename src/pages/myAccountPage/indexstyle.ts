@@ -26,7 +26,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
     color: theme.color.neutral.onSurface.dark,
     cursor: "pointer",
     "&:hover": {
-      color: theme.color.negative.onSurface.medium,
+      color: theme.color.negative.onSurface.light,
     },
   },
   dotStyle: {
@@ -63,7 +63,7 @@ export const useStyle = createUseStyles((theme: Theme) => ({
   textColor: {
     color: theme.color.neutral.onSurface.light,
     "&:hover": {
-      color: theme.color.negative.onSurface.medium,
+      color: theme.color.negative.onSurface.light,
     },
   },
   contents: {

@@ -467,6 +467,9 @@ export const useStyle = createUseStyles((theme: Theme) => ({
 
   favouriteActive: {
     backgroundColor: theme.color.neutral.onSurface.light,
+    "& path": {
+      fill: theme.color.neutral.surface.lighter,
+    },
   },
   lightColors: {
     color: theme.color.neutral.onSurface.dark,
